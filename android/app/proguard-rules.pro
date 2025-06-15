@@ -1,0 +1,4 @@
+-keep class org.tensorflow.** { *; } 
+-dontwarn org.tensorflow.lite.gpu.GpuDelegateFactory$Options 
+-dontwarn com.google.auto.value.**
+-keep class com.google.auto.value.** { *; } 

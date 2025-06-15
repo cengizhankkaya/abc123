@@ -1,0 +1,8 @@
+android {
+    namespace "com.tflite_flutter_helper_plus"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdkVersion 21
+    }
+} 
