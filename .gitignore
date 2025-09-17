@@ -98,4 +98,13 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 # Obfuscation related
-app.*.map.json 
+app.*.map.json
+
+# Large media files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.webm 
