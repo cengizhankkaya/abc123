@@ -26,8 +26,6 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -45,5 +43,13 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Kamera kullanımı için izin gerekli.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Mikrofon kullanımı için izin gerekli.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Galeriye erişim için izin gerekli.</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Dosya erişimi için izin gerekli.</string>
 </dict>
 </plist>

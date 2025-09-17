@@ -47,8 +47,9 @@ class ResponsiveSize {
 
   // İkon boyutları
   double get largeIconSize => height * 0.045 * scaleFactor;
-  double get mediumIconSize => height * 0.03 * scaleFactor;
+  double get mediumIconSize => height * 0.025 * scaleFactor;
   double get smallIconSize => height * 0.025 * scaleFactor;
+  double get tinyIconSize => height * 0.06 * scaleFactor;
 
   // Kalem kalınlıkları
   double get thinStrokeWidth => 15.0 * scaleFactor;

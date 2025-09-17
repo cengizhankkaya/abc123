@@ -1,12 +1,13 @@
 // import 'package:abcproject/presentation/screens/draw_screen.dart.dart';
-import 'package:abc123/presentation/providers/language_provider.dart';
-import 'package:abc123/presentation/providers/letter_drawing_provider.dart';
-import 'package:abc123/presentation/screens/homescreen/home_screen.dart';
+import 'package:abc123/features/home/presentation/screens/home_screen.dart';
+import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
+import 'package:abc123/shared/counter_provider.dart';
+import 'package:abc123/shared/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // SystemChrome için eklendi
 import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'presentation/providers/counter_provider.dart';
+import 'core/utils/screen_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // WidgetsFlutterBinding'i başlat
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return MaterialApp(
       title: 'Rakam Tanıma Uygulaması',
       debugShowCheckedModeBanner: false,

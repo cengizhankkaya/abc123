@@ -20,13 +20,13 @@ class ScreenUtil {
 
     // Ekran büyüklüğüne göre sınıflandırma
     isLargeScreen = screenWidth > 1200;
-    isMediumScreen = screenWidth > 800 && screenWidth <= 1200;
-    isSmallScreen = screenWidth <= 800;
+    isMediumScreen = screenWidth > 700 && screenWidth <= 1200;
+    isSmallScreen = screenWidth <= 700;
 
     // Varsayılan boyut hesaplama (responsive tasarım için)
     defaultSize = orientation == Orientation.landscape
-        ? screenHeight * 0.024
-        : screenWidth * 0.024;
+        ? screenHeight * 0.022
+        : screenWidth * 0.022;
   }
 
   // Yükseklik için ölçeklendirme (ekran yüksekliğine göre)
