@@ -1,6 +1,7 @@
 // import 'package:abcproject/presentation/screens/draw_screen.dart.dart';
 import 'package:abc123/features/home/presentation/screens/home_screen.dart';
 import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
+import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/shared/counter_provider.dart';
 import 'package:abc123/shared/language_provider.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +31,35 @@ void main() async {
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Arka plana geçildiğinde arka plan müziğini durdur
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      AudioService().stopBackground();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

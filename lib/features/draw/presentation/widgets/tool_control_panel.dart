@@ -66,8 +66,11 @@ class ToolControlPanel extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Başlık ve Geri Butonu - Sol tarafta
-            Row(
-              children: [
+            Flexible(
+              flex: 3,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
                 GestureDetector(
                   onTap: () => Navigator.of(context).maybePop(),
                   child: Icon(
@@ -84,13 +87,22 @@ class ToolControlPanel extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: responsive.headerFontSize,
                     )),
-              ],
+                ],
+              ),
             ),
             //Ortada deneme reklamı kutusu
-            AdmobBannerWidget(),
+            Expanded(
+              flex: 2,
+              child: Center(child: AdmobBannerWidget()),
+            ),
             // Kalem Rengi - Sağ tarafta
-            Row(
-              children: [
+            Flexible(
+              flex: 5,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
                 Text(
                   texts['penColor'] as String,
                   style: TextStyle(
@@ -132,7 +144,9 @@ class ToolControlPanel extends StatelessWidget {
                     inactiveColor: AppColors.surfaceColor.withOpacity(0.3),
                   ),
                 ),
-              ],
+                  ],
+                ),
+              ),
             ),
           ],
         ),

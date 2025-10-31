@@ -13,7 +13,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.cengizhan.abc123"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -27,7 +27,7 @@ android {
 
     defaultConfig {
         applicationId "com.cengizhan.abc123"
-        minSdkVersion 23
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -48,6 +48,11 @@ android {
         }
     }
 
+    // NDK strip adımını geçici olarak devre dışı bırak (bundleRelease hatasını aşmak için)
+    packagingOptions {
+        doNotStrip '**/*.so'
+    }
+
     aaptOptions {
         noCompress 'tflite'
         noCompress 'lite'
@@ -59,7 +64,4 @@ flutter {
 }
 
 dependencies {
-    implementation 'org.tensorflow:tensorflow-lite:2.5.0'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.3.0'
-    
 }

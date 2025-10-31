@@ -3,7 +3,24 @@ import 'package:audioplayers/audioplayers.dart';
 class AudioService {
   static final AudioService _instance = AudioService._internal();
   factory AudioService() => _instance;
-  AudioService._internal();
+  AudioService._internal() {
+    // Android/iOS ses bağlamını ayarla (audioplayers ^7.x uyumlu)
+    final context = AudioContext(
+      android: AudioContextAndroid(
+        isSpeakerphoneOn: false,
+        stayAwake: false,
+        contentType: AndroidContentType.music,
+        usageType: AndroidUsageType.media,
+        audioFocus: AndroidAudioFocus.gain,
+      ),
+      iOS: AudioContextIOS(
+        category: AVAudioSessionCategory.playback,
+        options: {AVAudioSessionOptions.duckOthers},
+      ),
+    );
+    _bgPlayer.setAudioContext(context);
+    _effectPlayer.setAudioContext(context);
+  }
 
   final AudioPlayer _bgPlayer = AudioPlayer();
   final AudioPlayer _effectPlayer = AudioPlayer();
