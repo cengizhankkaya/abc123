@@ -1,6 +1,6 @@
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ImageManager {
@@ -109,7 +109,7 @@ class ImageManager {
       await rootBundle.load(path);
       return true;
     } catch (e) {
-      print('Görsel bulunamadı: $path');
+      debugPrint('Görsel bulunamadı: $path');
       return false;
     }
   }

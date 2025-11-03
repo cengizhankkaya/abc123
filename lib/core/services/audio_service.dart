@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 
 class AudioService {
   static final AudioService _instance = AudioService._internal();
@@ -32,9 +33,9 @@ class AudioService {
           .setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.stop);
       await _bgPlayer.setVolume(1.0);
       await _bgPlayer.play(AssetSource(assetPath));
-      print('Arka plan müziği başlatıldı: $assetPath');
+      debugPrint('Arka plan müziği başlatıldı: $assetPath');
     } catch (e) {
-      print('Arka plan müziği başlatılamadı: $e');
+      debugPrint('Arka plan müziği başlatılamadı: $e');
     }
   }
 

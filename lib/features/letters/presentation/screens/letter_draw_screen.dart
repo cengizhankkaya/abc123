@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
 
 import 'package:abc123/core/constants/app_colors.dart';
 import 'package:abc123/core/constants/audio.dart';
@@ -120,7 +121,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
         ),
       );
     } catch (e) {
-      print('Sonuç ekranı açılamadı: $e');
+      debugPrint('Sonuç ekranı açılamadı: $e');
       data.onContinue();
     }
   }

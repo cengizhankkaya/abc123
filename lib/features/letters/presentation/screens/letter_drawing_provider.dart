@@ -2,6 +2,7 @@ import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/core/utils/responsive_size.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as img;
@@ -143,7 +144,7 @@ class DrawingProvider with ChangeNotifier {
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
     } catch (e) {
-      print("Görüntü oluşturma hatası: $e");
+      debugPrint("Görüntü oluşturma hatası: $e");
       return null;
     }
   }
@@ -196,7 +197,7 @@ class DrawingProvider with ChangeNotifier {
       }
       return letterLabels[maxIndex];
     } catch (e) {
-      print('Inference hatası: $e');
+      debugPrint('Inference hatası: $e');
       throw Exception('Tahmin hatası: $e');
     }
   }

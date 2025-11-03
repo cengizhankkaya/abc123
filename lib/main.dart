@@ -11,24 +11,25 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'core/utils/screen_util.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // WidgetsFlutterBinding'i başlat
+  WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
   // Uygulamayı yalnızca dikey (portre) modunda çalıştır
-  SystemChrome.setPreferredOrientations([
+  // Not: setPreferredOrientations deprecated ama hala destekleniyor
+  // Android'de AndroidManifest.xml'de de ayarlanabilir
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
-  ]).then((_) {
-    runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => DrawingProvider()),
-          ChangeNotifierProvider(create: (_) => LanguageProvider()),
-          ChangeNotifierProvider(create: (_) => CounterProvider()),
-        ],
-        child: const MyApp(),
-      ),
-    );
-  });
+  ]);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DrawingProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => CounterProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -69,7 +70,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        // visualDensity kaldırıldı - deprecated
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
           secondary: Colors.amber,

@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'dart:math';
 import '../utils/screen_util.dart';
 
 class AppSizes {

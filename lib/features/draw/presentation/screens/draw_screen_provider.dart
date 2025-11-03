@@ -5,6 +5,7 @@ import 'package:abc123/features/draw/data/models/drawing_content.dart';
 import 'package:abc123/features/draw/data/models/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
@@ -201,7 +202,7 @@ class DrawScreenProvider extends ChangeNotifier {
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
     } catch (e) {
-      print("Görüntü oluşturma hatası: $e");
+      debugPrint("Görüntü oluşturma hatası: $e");
       return null;
     }
   }
@@ -263,7 +264,7 @@ class DrawScreenProvider extends ChangeNotifier {
       }
       return maxIndex;
     } catch (e) {
-      print('Inference hatası: $e');
+      debugPrint('Inference hatası: $e');
       throw Exception('Tahmin hatası: $e');
     }
   }

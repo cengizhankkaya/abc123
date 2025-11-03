@@ -14,15 +14,17 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.cengizhan.abc123"
     compileSdk = 36
-    ndkVersion = flutter.ndkVersion
+    // NDK versiyonunu sabitle - strip hatasını önlemek için
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        // Java 11 kullanılıyor - modern Android için önerilen
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = '11'
     }
 
     defaultConfig {
@@ -31,6 +33,10 @@ android {
         targetSdkVersion 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        
+        // 16 KB sayfa boyutu desteği için NDK ayarları
+        // NDK r27+ (Flutter'ın kendi NDK'sı) 16 KB sayfa boyutunu destekler
+        // Flutter otomatik olarak uyumlu NDK sürümünü kullanır
     }
 
     signingConfigs {
@@ -45,15 +51,43 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            // Native kütüphanelerden debug sembollerini kaldırma işlemini tamamen devre dışı bırak
+            // Bazı native kütüphaneler (özellikle TensorFlow Lite) strip edilemez
+            // Bu ayar 16 KB sayfa boyutu desteği için de önemli
+            ndk {
+                debugSymbolLevel 'NONE'
+            }
+            // Strip işlemini tamamen devre dışı bırak
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
         }
     }
 
-    // NDK strip adımını geçici olarak devre dışı bırak (bundleRelease hatasını aşmak için)
-    packagingOptions {
-        doNotStrip '**/*.so'
+    // 16 KB sayfa boyutu desteği için packaging ayarları
+    // Modern packaging API (Android Gradle Plugin 8.x)
+    // 16 KB sayfa boyutu desteği için useLegacyPackaging = false kullanılmalı
+    packaging {
+        jniLibs {
+            // Modern packaging kullan (16 KB sayfa boyutu desteği için gerekli)
+            // useLegacyPackaging = false, native kütüphanelerin 16 KB sayfa boyutu
+            // ile uyumlu olmasını sağlar ve Android 15+ cihazlarda sorunsuz çalışır
+            useLegacyPackaging = false
+            // Tüm native kütüphaneleri strip etme - AGP 8.x için kritik
+            // Bu, strip hatasını önler ve TensorFlow Lite gibi kütüphaneler için gerekli
+            // AGP 8.x için doNotStrip syntax'ı
+            keepDebugSymbols += ['**/*.so']
+            // Tüm .so dosyalarını strip etmeme - AGP 8.x alternatif syntax
+            doNotStrip += ['**/*.so']
+        }
+        resources {
+            // TensorFlow Lite modellerini sıkıştırma
+            excludes += ['**/*.tflite', '**/*.lite']
+        }
     }
 
-    aaptOptions {
+    // Android resources için sıkıştırma ayarları
+    androidResources {
         noCompress 'tflite'
         noCompress 'lite'
     }
@@ -64,4 +98,30 @@ flutter {
 }
 
 dependencies {
+    // Android 15 edge-to-edge desteği için en son sürümler
+    implementation 'androidx.core:core-ktx:1.15.0'
+    // enableEdgeToEdge() için gerekli - Android 15 uyumluluğu için güncellenmiş
+    implementation 'androidx.activity:activity-ktx:1.9.3'
+}
+
+// Native kütüphanelerden debug sembollerini kaldırma işlemini atla
+// Bu, TensorFlow Lite gibi bazı native kütüphanelerin strip edilememesi sorununu çözer
+// 16 KB sayfa boyutu desteği için de önemli
+afterEvaluate {
+    tasks.matching { task ->
+        task.name.contains("Strip") || 
+        task.name.contains("strip") ||
+        task.name.contains("stripDebugSymbols")
+    }.all { task ->
+        task.enabled = false
+        task.doLast {}
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("Strip") || 
+        task.name.contains("strip") ||
+        task.name.contains("stripDebugSymbols")) {
+        task.enabled = false
+    }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobBannerWidget extends StatefulWidget {
@@ -21,7 +22,7 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
       listener: BannerAdListener(
         onAdLoaded: (_) => setState(() {}),
         onAdFailedToLoad: (ad, error) {
-          print(
+          debugPrint(
               'Reklam yüklenemedi! Hata kodu: [38;5;9m${error.code}[0m, mesaj: ${error.message}');
           ad.dispose();
         },
