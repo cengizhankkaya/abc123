@@ -1,7 +1,6 @@
 plugins {
     id "com.android.application"
     id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id "dev.flutter.flutter-gradle-plugin"
 }
 
@@ -67,30 +66,26 @@ android {
     // 16 KB sayfa boyutu desteği için packaging ayarları
     // Modern packaging API (Android Gradle Plugin 8.x)
     // 16 KB sayfa boyutu desteği için useLegacyPackaging = false kullanılmalı
-    packaging {
-        jniLibs {
-            // Modern packaging kullan (16 KB sayfa boyutu desteği için gerekli)
-            // useLegacyPackaging = false, native kütüphanelerin 16 KB sayfa boyutu
-            // ile uyumlu olmasını sağlar ve Android 15+ cihazlarda sorunsuz çalışır
-            useLegacyPackaging = false
-            // Tüm native kütüphaneleri strip etme - AGP 8.x için kritik
-            // Bu, strip hatasını önler ve TensorFlow Lite gibi kütüphaneler için gerekli
-            // AGP 8.x için doNotStrip syntax'ı
-            keepDebugSymbols += ['**/*.so']
-            // Tüm .so dosyalarını strip etmeme - AGP 8.x alternatif syntax
-            doNotStrip += ['**/*.so']
-        }
-        resources {
-            // TensorFlow Lite modellerini sıkıştırma
-            excludes += ['**/*.tflite', '**/*.lite']
-        }
-    }
-
-    // Android resources için sıkıştırma ayarları
-    androidResources {
-        noCompress 'tflite'
-        noCompress 'lite'
-    }
+    // Flutter motoru ve diğer native kütüphanelerin APK'ya eklenmesini engelleme
+    // riskine karşı, varsayılan Flutter packaging ayarlarına geri dön.
+    // İleride spesifik gereksinimler için tekrar etkinleştirilecekse
+    // eşzamanlı olarak libflutter.so varlığı doğrulanmalı.
+    //
+    // packaging {
+    //     jniLibs {
+    //         useLegacyPackaging = false
+    //         keepDebugSymbols += ['**/*.so']
+    //         doNotStrip += ['**/*.so']
+    //     }
+    //     resources {
+    //         excludes += ['**/*.tflite', '**/*.lite']
+    //     }
+    // }
+    //
+    // androidResources {
+    //     noCompress 'tflite'
+    //     noCompress 'lite'
+    // }
 }
 
 flutter {
@@ -104,24 +99,23 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.9.3'
 }
 
-// Native kütüphanelerden debug sembollerini kaldırma işlemini atla
-// Bu, TensorFlow Lite gibi bazı native kütüphanelerin strip edilememesi sorununu çözer
-// 16 KB sayfa boyutu desteği için de önemli
-afterEvaluate {
-    tasks.matching { task ->
-        task.name.contains("Strip") || 
-        task.name.contains("strip") ||
-        task.name.contains("stripDebugSymbols")
-    }.all { task ->
-        task.enabled = false
-        task.doLast {}
-    }
-}
-
-tasks.whenTaskAdded { task ->
-    if (task.name.contains("Strip") || 
-        task.name.contains("strip") ||
-        task.name.contains("stripDebugSymbols")) {
-        task.enabled = false
-    }
-}
+// afterEvaluate ve benzeri bloklar Flutter plugin'in libflutter.so'yu kopyalamasını
+// durdurabiliyor; bu yüzden şimdilik varsayılan davranışa dönülüyor.
+// afterEvaluate {
+//     tasks.matching { task ->
+//         task.name.contains("Strip") || 
+//         task.name.contains("strip") ||
+//         task.name.contains("stripDebugSymbols")
+//     }.all { task ->
+//         task.enabled = false
+//         task.doLast {}
+//     }
+// }
+//
+// tasks.whenTaskAdded { task ->
+//     if (task.name.contains("Strip") || 
+//         task.name.contains("strip") ||
+//         task.name.contains("stripDebugSymbols")) {
+//         task.enabled = false
+//     }
+// }

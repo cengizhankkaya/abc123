@@ -8,20 +8,13 @@ import io.flutter.embedding.android.FlutterActivity
 class MainActivity: FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        // FlutterActivity için edge-to-edge yapılandırması
-        // Not: FlutterActivity, ComponentActivity extend etmediği için
-        // enableEdgeToEdge() yerine manuel olarak yapılandırıyoruz
+
         window?.let { window ->
-            // Edge-to-edge desteği için sistem pencerelerinin içeriğe uyumunu ayarla
+            // İçeriğin sistem çubuklarının altına uzanabilmesi için fit davranışını kapat
             WindowCompat.setDecorFitsSystemWindows(window, false)
-            
-            // Android 15'te deprecated API'ler yerine WindowInsetsController kullan
-            // Bu, eski setStatusBarColor/setNavigationBarColor çağrılarını önler
-            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-            windowInsetsController?.apply {
-                // Sistem çubuklarının görünümünü ayarla
-                // (setStatusBarColor yerine bu kullanılmalı)
+
+            // Sistem çubuklarının ikon renklerini WindowInsetsController üzerinden ayarla
+            WindowInsetsControllerCompat(window, window.decorView).apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
             }
