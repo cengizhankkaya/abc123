@@ -6,14 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/constants/image_constants.dart';
 import '../../../../core/utils/image_manager.dart';
-import '../../../../shared/counter_provider.dart';
 import '../../../../shared/language_provider.dart';
 import '../../../draw/presentation/screens/draw_screen.dart';
 import '../../../letters/presentation/screens/letter_draw_screen.dart';
+import '../../../shapes/presentation/screens/shapes_draw_screen.dart';
 import '../widgets/welcome_card.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_font_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
 import '../../../../core/utils/rewarded_ad_helper.dart';
 import '../widgets/activity_card.dart';
 import '../tutorial/tutorial_section.dart';
@@ -133,10 +132,16 @@ class _HomeScreenState extends State<HomeScreen>
                                             ),
                                           ),
                                           SizedBox(width: 16),
-                                          // Şekilleri Çiziyorum Kartı (Yeni Kart)
+                                          // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran
                                           ActivityCard(
                                             onTap: () {
-                                              showRewardedAd(context);
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ShapesDrawScreen(),
+                                                ),
+                                              );
                                             },
                                             image: ImageManager.getImage(
                                               ImageConstants.shapesImage,
@@ -151,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                   left: 8,
                                                   child: Container(
                                                     padding:
-                                                        EdgeInsets.symmetric(
+                                                        const EdgeInsets.symmetric(
                                                             horizontal: 8,
                                                             vertical: 4),
                                                     decoration: BoxDecoration(
@@ -160,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen>
                                                           BorderRadius.circular(
                                                               8),
                                                     ),
-                                                    child: Text(
+                                                    child: const Text(
                                                       'Şekilleri Çiziyorum',
                                                       style: TextStyle(
                                                         color: Colors.white,
@@ -168,87 +173,6 @@ class _HomeScreenState extends State<HomeScreen>
                                                             FontWeight.bold,
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                                Positioned(
-                                                  top: 8,
-                                                  left: 8,
-                                                  right: 8,
-                                                  child:
-                                                      Consumer<CounterProvider>(
-                                                    builder: (context,
-                                                        counterProvider, _) {
-                                                      return Container(
-                                                        padding: EdgeInsets.all(
-                                                            AppSizes
-                                                                .paddingSmall(
-                                                                    context)),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.orange,
-                                                          borderRadius: BorderRadius
-                                                              .circular(AppRadii
-                                                                  .cardRadius(
-                                                                      context)),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            Text(
-                                                              getLocalizedText(
-                                                                  'watchAdToUnlock',
-                                                                  lang),
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 11,
-                                                              ),
-                                                              maxLines: 2,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            SizedBox(height: 4),
-                                                            LinearProgressIndicator(
-                                                              value: counterProvider
-                                                                      .counter /
-                                                                  500,
-                                                              minHeight: 6,
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .white24,
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                          Color>(
-                                                                      Colors
-                                                                          .white),
-                                                            ),
-                                                            SizedBox(height: 4),
-                                                            Text(
-                                                              '${counterProvider.counter} / 500',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 12,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    },
                                                   ),
                                                 ),
                                               ],
@@ -314,10 +238,16 @@ class _HomeScreenState extends State<HomeScreen>
                                           ),
                                         ),
                                         SizedBox(width: 16),
-                                        // Şekilleri Çiziyorum Kartı (Yeni Kart)
+                                        // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran
                                         ActivityCard(
                                           onTap: () {
-                                            showRewardedAd(context);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ShapesDrawScreen(),
+                                              ),
+                                            );
                                           },
                                           image: ImageManager.getImage(
                                             ImageConstants.shapesImage,
@@ -331,16 +261,17 @@ class _HomeScreenState extends State<HomeScreen>
                                                 bottom: 8,
                                                 left: 8,
                                                 child: Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 8,
-                                                      vertical: 4),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 4),
                                                   decoration: BoxDecoration(
                                                     color: Colors.black54,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
                                                   ),
-                                                  child: Text(
+                                                  child: const Text(
                                                     'Şekilleri Çiziyorum',
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -348,82 +279,6 @@ class _HomeScreenState extends State<HomeScreen>
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                top: 8,
-                                                left: 8,
-                                                right: 8,
-                                                child:
-                                                    Consumer<CounterProvider>(
-                                                  builder: (context,
-                                                      counterProvider, _) {
-                                                    return Container(
-                                                      padding: EdgeInsets.all(
-                                                          AppSizes.paddingSmall(
-                                                              context)),
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.orange,
-                                                        borderRadius: BorderRadius
-                                                            .circular(AppRadii
-                                                                .cardRadius(
-                                                                    context)),
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                          Text(
-                                                            getLocalizedText(
-                                                                'watchAdToUnlock',
-                                                                lang),
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 11,
-                                                            ),
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                          SizedBox(height: 4),
-                                                          LinearProgressIndicator(
-                                                            value: counterProvider
-                                                                    .counter /
-                                                                500,
-                                                            minHeight: 6,
-                                                            backgroundColor:
-                                                                Colors.white24,
-                                                            valueColor:
-                                                                AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                    Colors
-                                                                        .white),
-                                                          ),
-                                                          SizedBox(height: 4),
-                                                          Text(
-                                                            '${counterProvider.counter} / 500',
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 12,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
                                                 ),
                                               ),
                                             ],

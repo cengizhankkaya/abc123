@@ -153,8 +153,8 @@ Widget buildDrawingArea(
                       ),
                       SizedBox(height: AppSizes.imageSize(context) * 0.14),
                       Container(
-                        width: AppSizes.imageSize(context) * 0.35,
-                        height: AppSizes.imageSize(context) * 0.35,
+                        width: AppSizes.imageSize(context) * 0.7,
+                        height: AppSizes.imageSize(context) * 0.7,
                         decoration: BoxDecoration(
                           color: AppColors.accentColor,
                           shape: BoxShape.circle,
@@ -167,12 +167,16 @@ Widget buildDrawingArea(
                           ],
                         ),
                         child: Center(
-                          child: Text(
-                            recognitionResult,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: AppSizes.imageSize(context) * 0.2,
-                              fontWeight: FontWeight.bold,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              recognitionResult,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: AppSizes.imageSize(context) * 0.28,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
