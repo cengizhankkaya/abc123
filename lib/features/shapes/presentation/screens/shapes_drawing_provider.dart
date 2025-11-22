@@ -117,6 +117,9 @@ class ShapesDrawingProvider extends ChangeNotifier {
   ShapesDrawingProvider() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = AudioService().currentVolume;
+    // Başlangıçta sıralı çizim modunu açık başlat
+    sequentialManager.toggleSequentialMode(true);
+    _updateTanima();
     _loadModel();
   }
 

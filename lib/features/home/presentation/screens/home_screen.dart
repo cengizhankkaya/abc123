@@ -92,67 +92,72 @@ class _HomeScreenState extends State<HomeScreen>
                                   // Sol taraf: Aktivite kartları
                                   Expanded(
                                     flex: 3,
-                                    child: SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: [
-                                          // Rakamları Çiziyorum Kartı
-                                          ActivityCard(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DrawScreen()),
-                                              );
-                                            },
-                                            image: ImageManager.getImage(
-                                              ImageConstants.numberImage,
-                                              width: 160,
-                                              height: 160,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          SizedBox(width: 16),
-                                          // Harfleri Çiziyorum Kartı
-                                          ActivityCard(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LetterDrawScreen()),
-                                              );
-                                            },
-                                            image: ImageManager.getImage(
-                                              ImageConstants.abcImage,
-                                              width: 160,
-                                              height: 160,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          SizedBox(width: 16),
-                                          // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran
-                                          ActivityCard(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ShapesDrawScreen(),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              // Rakamları Çiziyorum Kartı
+                                              ActivityCard(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            DrawScreen()),
+                                                  );
+                                                },
+                                                image: ImageManager.getImage(
+                                                  ImageConstants.numberImage,
+                                                  width: 160,
+                                                  height: 160,
+                                                  fit: BoxFit.cover,
                                                 ),
-                                              );
-                                            },
-                                            image: ImageManager.getImage(
-                                              ImageConstants.shapesImage,
-                                              width: 160,
-                                              height: 160,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            overlay: null,
+                                              ),
+                                              SizedBox(width: 16),
+                                              // Harfleri Çiziyorum Kartı
+                                              ActivityCard(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LetterDrawScreen()),
+                                                  );
+                                                },
+                                                image: ImageManager.getImage(
+                                                  ImageConstants.abcImage,
+                                                  width: 160,
+                                                  height: 160,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        SizedBox(height: 16),
+                                        // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran, ayrı satırda
+                                        ActivityCard(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ShapesDrawScreen(),
+                                              ),
+                                            );
+                                          },
+                                          image: ImageManager.getImage(
+                                            ImageConstants.shapesImage,
+                                            width: 160,
+                                            height: 160,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(width: size.width * 0.03),
@@ -210,26 +215,28 @@ class _HomeScreenState extends State<HomeScreen>
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        SizedBox(width: 16),
-                                        // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran
-                                        ActivityCard(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ShapesDrawScreen(),
-                                              ),
-                                            );
-                                          },
-                                          image: ImageManager.getImage(
-                                            ImageConstants.shapesImage,
-                                            width: 160,
-                                            height: 160,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
                                       ],
+                                    ),
+                                  ),
+                                  SizedBox(height: size.height * 0.02),
+                                  // Şekilleri Çiziyorum Kartı (Yeni Kart) - Reklamsız doğrudan ekran, ayrı satırda
+                                  Center(
+                                    child: ActivityCard(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const ShapesDrawScreen(),
+                                          ),
+                                        );
+                                      },
+                                      image: ImageManager.getImage(
+                                        ImageConstants.shapesImage,
+                                        width: 160,
+                                        height: 160,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: size.height * 0.03),
