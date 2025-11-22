@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioService {
   static final AudioService _instance = AudioService._internal();
@@ -26,12 +27,30 @@ class AudioService {
   final AudioPlayer _bgPlayer = AudioPlayer();
   final AudioPlayer _effectPlayer = AudioPlayer();
 
+  static const String _volumeKey = 'global_volume';
+  double _currentVolume = 1.0;
+
+  double get currentVolume => _currentVolume;
+
+  /// Uygulama başlarken daha önce kaydedilmiş ses seviyesini yükler
+  Future<void> init() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _currentVolume = prefs.getDouble(_volumeKey) ?? 1.0;
+      await _bgPlayer.setVolume(_currentVolume);
+      await _effectPlayer.setVolume(_currentVolume);
+      debugPrint('AudioService init: volume=$_currentVolume');
+    } catch (e) {
+      debugPrint('AudioService init hatası: $e');
+    }
+  }
+
   Future<void> playBackground(String assetPath, {bool loop = true}) async {
     try {
       await _bgPlayer.stop();
       await _bgPlayer
           .setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.stop);
-      await _bgPlayer.setVolume(1.0);
+      await _bgPlayer.setVolume(_currentVolume);
       await _bgPlayer.play(AssetSource(assetPath));
       debugPrint('Arka plan müziği başlatıldı: $assetPath');
     } catch (e) {
@@ -63,7 +82,14 @@ class AudioService {
   }
 
   Future<void> setVolume(double volume) async {
-    await _bgPlayer.setVolume(volume);
-    await _effectPlayer.setVolume(volume);
+    _currentVolume = volume.clamp(0.0, 1.0);
+    await _bgPlayer.setVolume(_currentVolume);
+    await _effectPlayer.setVolume(_currentVolume);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setDouble(_volumeKey, _currentVolume);
+    } catch (e) {
+      debugPrint('Ses seviyesi kaydedilemedi: $e');
+    }
   }
 }

@@ -149,34 +149,7 @@ class _HomeScreenState extends State<HomeScreen>
                                               height: 160,
                                               fit: BoxFit.cover,
                                             ),
-                                            overlay: Stack(
-                                              children: [
-                                                Positioned(
-                                                  bottom: 8,
-                                                  left: 8,
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                            horizontal: 8,
-                                                            vertical: 4),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.black54,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                    ),
-                                                    child: const Text(
-                                                      'Şekilleri Çiziyorum',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                            overlay: null,
                                           ),
                                         ],
                                       ),
@@ -254,34 +227,6 @@ class _HomeScreenState extends State<HomeScreen>
                                             width: 160,
                                             height: 160,
                                             fit: BoxFit.cover,
-                                          ),
-                                          overlay: Stack(
-                                            children: [
-                                              Positioned(
-                                                bottom: 8,
-                                                left: 8,
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                          horizontal: 8,
-                                                          vertical: 4),
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.black54,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                  child: const Text(
-                                                    'Şekilleri Çiziyorum',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -156,7 +155,7 @@ class _ResultScreenState extends State<ResultScreen>
                             children: [
                               Text(
                                 texts['drawn'] as String,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   fontSize:
                                       AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
@@ -176,9 +175,10 @@ class _ResultScreenState extends State<ResultScreen>
                                 ),
                                 child: Text(
                                   widget.recognizedLetter,
-                                  style: GoogleFonts.poppins(
+                                  style: const TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
+                                  ).copyWith(
                                     color: widget.isCorrect
                                         ? Colors.green
                                         : Colors.red,
@@ -211,7 +211,7 @@ class _ResultScreenState extends State<ResultScreen>
                             widget.isCorrect
                                 ? texts['congrats'] as String
                                 : texts['tryAgain'] as String,
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
                               fontSize: AppFontSizes.title(context) * 0.4,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
@@ -231,7 +231,7 @@ class _ResultScreenState extends State<ResultScreen>
                             children: [
                               Text(
                                 texts['targetLetter'] as String,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   fontSize:
                                       AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
@@ -256,14 +256,14 @@ class _ResultScreenState extends State<ResultScreen>
                                 child: Center(
                                   child: Text(
                                     widget.targetLetter.toString(),
-                                    style: GoogleFonts.poppins(
-                                      fontSize:
-                                          AppFontSizes.title(context) * 0.4,
-                                      fontWeight: FontWeight.bold,
-                                      color: widget.isCorrect
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
+                                  style: TextStyle(
+                                    fontSize:
+                                        AppFontSizes.title(context) * 0.4,
+                                    fontWeight: FontWeight.bold,
+                                    color: widget.isCorrect
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
                                   ),
                                 ),
                               ),
@@ -282,7 +282,7 @@ class _ResultScreenState extends State<ResultScreen>
                                       ? texts['successMessage'] as String
                                       : texts['failMessage'] as String,
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
+                                  style: TextStyle(
                                     fontSize:
                                         AppFontSizes.subtitle(context) * 0.4,
                                     color: Colors.white,
@@ -301,7 +301,7 @@ class _ResultScreenState extends State<ResultScreen>
                                       (texts['progress'] as dynamic)(
                                           widget.correctCount,
                                           widget.totalAttempts) as String,
-                                      style: GoogleFonts.poppins(
+                                      style: TextStyle(
                                         fontSize:
                                             AppFontSizes.subtitle(context) *
                                                 0.4,
@@ -342,7 +342,7 @@ class _ResultScreenState extends State<ResultScreen>
                                   ),
                                   child: Text(
                                     texts['tryAgainBtn'] as String,
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontSize:
                                           AppFontSizes.subtitle(context) * 0.4,
                                       fontWeight: FontWeight.bold,
@@ -377,7 +377,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     widget.isCorrect
                                         ? texts['nextLetter'] as String
                                         : texts['nextLetterFail'] as String,
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontSize:
                                           AppFontSizes.subtitle(context) * 0.4,
                                       fontWeight: FontWeight.bold,
@@ -422,10 +422,12 @@ class LanguageFlagPanel extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           '${langOption.label} (${langOption.code})',
-          style: GoogleFonts.poppins(
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.w600,
+            // const olamayacağı için shadows'u dışarı aldık
+          ).copyWith(
             shadows: [
               Shadow(
                 color: Colors.black.withOpacity(0.2),

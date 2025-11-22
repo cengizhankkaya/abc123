@@ -147,14 +147,14 @@ Widget buildDrawingArea(
                         "Tahmin Sonucu:",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: AppSizes.imageSize(context) * 0.16,
+                          fontSize: drawingSize * 0.14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: AppSizes.imageSize(context) * 0.14),
+                      SizedBox(height: drawingSize * 0.08),
                       Container(
-                        width: AppSizes.imageSize(context) * 0.7,
-                        height: AppSizes.imageSize(context) * 0.7,
+                        width: drawingSize * 0.7,
+                        height: drawingSize * 0.7,
                         decoration: BoxDecoration(
                           color: AppColors.accentColor,
                           shape: BoxShape.circle,
@@ -174,14 +174,14 @@ Widget buildDrawingArea(
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: AppSizes.imageSize(context) * 0.28,
+                                fontSize: drawingSize * 0.3,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: AppSizes.imageSize(context) * 0.14),
+                      SizedBox(height: drawingSize * 0.08),
                       ElevatedButton(
                         onPressed: clearDrawing,
                         style: ElevatedButton.styleFrom(

@@ -1,15 +1,25 @@
 // ignore_for_file: deprecated_member_use
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/audio.dart';
+import 'package:abc123/core/constants/image_constants.dart';
+import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/features/draw/data/models/drawing_content.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
-import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
+import 'package:abc123/features/draw/presentation/widgets/drawing_area_widget.dart';
+import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../shared/language_provider.dart';
+
 import 'shapes_drawing_provider.dart';
+import '../../../info/presentation/screens/result_screen.dart';
 
 class ShapesDrawScreen extends StatefulWidget {
   const ShapesDrawScreen({super.key});
@@ -68,8 +78,30 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
         builder: (context, provider, _) {
           final responsive = ResponsiveSize(context);
 
-          // Şekiller için basit açıklama metni
-          const String tanimaText = 'Bir şekil çizin (daire, kare veya üçgen)';
+          // Şekiller için rehber kartı:
+          // Serbest modda genel shapes görseli,
+          // sıralı modda ise hedef şekle göre daire/üçgen/kare görselleri.
+          String shapesImagePath;
+          if (provider.isSequentialModeActive) {
+            switch (provider.currentTargetShape.toUpperCase()) {
+              case 'DAIRE':
+                shapesImagePath = ImageConstants.shapeCircleImage;
+                break;
+              case 'KARE':
+                shapesImagePath = ImageConstants.shapeSquareImage;
+                break;
+              case 'ÜÇGEN':
+              case 'UCGEN':
+                shapesImagePath = ImageConstants.shapeTriangleImage;
+                break;
+              default:
+                shapesImagePath = ImageConstants.shapesImage;
+            }
+          } else {
+            shapesImagePath = ImageConstants.shapesImage;
+          }
+
+          final shapesGuide = DrawingGuide(imagePath: shapesImagePath);
 
           // Çizim alanı key'i provider içinde tutuluyor
           final drawingAreaKey = provider.drawingAreaKey;
@@ -89,46 +121,85 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
               child: SafeArea(
                 child: Column(
                   children: [
-                    // Üst başlık
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Şekilleri Çiziyorum',
-                        style: TextStyle(
-                          fontSize: responsive.titleFontSize,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
+                    // Üst: Harf ekranındaki gibi araç kontrol paneli
+                    ToolControlPanel(
+                      titleKey: 'shapeTitle',
+                      strokeWidth: provider.strokeWidth,
+                      eraseMode: provider.eraseMode,
+                      selectedColor: provider.selectedColor,
+                      colors: const [
+                        Colors.black,
+                        Colors.red,
+                        Colors.blue,
+                        Colors.yellow,
+                        Colors.green,
+                        Colors.purple,
+                        Colors.orange,
+                      ],
+                      onStrokeWidthChanged: provider.setStrokeWidth,
+                      onColorChanged: provider.setColor,
+                      onEraseModeChanged: provider.setEraseMode,
+                      volume: provider.volume,
+                      onVolumeChanged: provider.setVolume,
                     ),
-                    // Çizim alanı
+                    // Orta: Harf ekranındaki gibi 3 kolonlu yapı
                     Expanded(
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: buildDrawingArea(
-                            Size(responsive.width, responsive.height),
-                            drawingAreaKey,
-                            provider.points,
-                            provider.eraseMode,
-                            provider.selectedColor,
-                            provider.strokeWidth,
-                            provider.showResult,
-                            provider.isLoading,
-                            provider.recognitionResult,
-                            _animation,
-                            tanimaText,
-                            () {
-                              provider.clear();
-                            },
-                            (DrawingPoint point) {
-                              provider.addPoint(point);
-                            },
-                            () {
-                              provider.endLine();
-                            },
-                            context,
-                          ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSizes.paddingSmall(context) * 0.003,
+                          vertical: AppSizes.paddingSmall(context) * 0.003,
+                        ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  // Sol: Şekil rehber kartı
+                                  Expanded(
+                                    flex: responsive.isLargeScreen ? 2 : 3,
+                                    child: LetterGuideCard(
+                                      guide: shapesGuide,
+                                      onNext: () {},
+                                      onPrevious: () {},
+                                    ),
+                                  ),
+                                  // Orta: Çizim alanı
+                                  Expanded(
+                                    flex: responsive.isLargeScreen ? 6 : 6,
+                                    child: DrawingAreaWidget(
+                                      points: provider.points,
+                                      eraseMode: provider.eraseMode,
+                                      selectedColor: provider.selectedColor,
+                                      strokeWidth: provider.strokeWidth,
+                                      showResult: false,
+                                      isLoading: provider.isLoading,
+                                      recognitionResult: '',
+                                      animation: _animation,
+                                      tanima: provider.tanima,
+                                      drawingAreaKey: drawingAreaKey,
+                                      onClear: provider.clear,
+                                      onDrawPoint: provider.addPoint,
+                                      onEndDrawing: () {
+                                        provider.endLine();
+                                      },
+                                    ),
+                                  ),
+                                  // Sağ: Puzzle paneli (ilerleme için)
+                                  Expanded(
+                                    flex: responsive.isLargeScreen ? 2 : 3,
+                                    child: LetterRightPanel(
+                                      tanimaText: provider.tanima,
+                                      isLoading: provider.isLoading,
+                                      isSequentialMode:
+                                          provider.isSequentialModeActive,
+                                      correctlyDrawnCount:
+                                          provider.correctlyDrawnCount,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -137,34 +208,107 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                       onClear: provider.clear,
                       onPenMode: () {
                         provider.setColor(Colors.black);
-                        provider.setStrokeWidth(
-                            responsive.mediumStrokeWidth.clamp(15.0, 35.0));
+                        provider.setStrokeWidth(20.0);
                         provider.setEraseMode(false);
                       },
                       onEraseMode: () {
                         provider.setEraseMode(true);
-                        provider.setStrokeWidth(
-                            responsive.eraserStrokeWidth.clamp(30.0, 60.0));
+                        provider.setStrokeWidth(35.0);
                       },
                       onRecognize: () async {
-                        if (!provider.showResult && !provider.isLoading) {
-                          await provider.recognizeShape(context);
-                          if (provider.showResult) {
-                            _animationController.reset();
-                            _animationController.forward();
+                        if (provider.isLoading) return;
+                        await provider.recognizeShape(context);
+
+                        if (provider.drawingImage != null &&
+                            provider.recognitionResult.isNotEmpty) {
+                          _animationController.reset();
+                          _animationController.forward();
+
+                          // Sıralı modda: harf ekranındaki ResultScreen tasarımını kullan
+                          if (provider.isSequentialModeActive) {
+                            final lang =
+                                context.read<LanguageProvider>().language;
+                            final bool isCorrect =
+                                provider.evaluateSequentialRecognition();
+                            final String targetShapeCode =
+                                provider.currentTargetShape;
+                            final String localizedTargetShape =
+                                getLocalizedShapeName(targetShapeCode, lang);
+
+                            // İç mantık için provider.recognitionResult hala
+                            // 'DAIRE'/'KARE'/'ÜÇGEN' kodlarını tutuyor; sadece
+                            // ekranda gösterirken çevrili halini kullanalım.
+                            final String localizedRecognizedShape =
+                                getLocalizedShapeName(
+                                    provider.recognitionResult, lang);
+
+                            // ignore: use_build_context_synchronously
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResultScreen(
+                                  drawingImage: provider.drawingImage,
+                                  recognizedLetter: localizedRecognizedShape,
+                                  targetLetter: localizedTargetShape,
+                                  isCorrect: isCorrect,
+                                  correctCount: provider.correctlyDrawnCount,
+                                  totalAttempts: provider.totalAttempts,
+                                  onTryAgain: () {
+                                    Navigator.pop(context);
+                                    provider.onResultScreenAction(isCorrect,
+                                        tryAgain: true);
+                                  },
+                                  onContinue: () {
+                                    Navigator.pop(context);
+                                    provider.onResultScreenAction(isCorrect,
+                                        tryAgain: false);
+                                  },
+                                ),
+                              ),
+                            );
+                          } else {
+                            // Serbest modda da aynı tasarımı, basit bir akışla kullan
+                            const bool isCorrect = true;
+                            final lang =
+                                context.read<LanguageProvider>().language;
+                            final String recognizedCode =
+                                provider.recognitionResult;
+                            final String localizedShape =
+                                getLocalizedShapeName(recognizedCode, lang);
+
+                            // ignore: use_build_context_synchronously
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResultScreen(
+                                  drawingImage: provider.drawingImage,
+                                  recognizedLetter: localizedShape,
+                                  targetLetter: localizedShape,
+                                  isCorrect: isCorrect,
+                                  correctCount: 0,
+                                  totalAttempts: 0,
+                                  onTryAgain: () {
+                                    Navigator.pop(context);
+                                    provider.clear();
+                                  },
+                                  onContinue: () {
+                                    Navigator.pop(context);
+                                    provider.clear();
+                                  },
+                                ),
+                              ),
+                            );
                           }
-                        } else if (provider.showResult) {
-                          provider.clear();
                         }
                       },
                       eraseMode: provider.eraseMode,
                       selectedColor: provider.selectedColor,
                       showResult: provider.showResult,
                       isLoading: provider.isLoading,
-                      isSequentialModeActive: false,
-                      onSequentialModeChanged: (_) {},
-                      correctlyDrawnCount: 0,
-                      totalAttempts: 0,
+                      isSequentialModeActive: provider.isSequentialModeActive,
+                      onSequentialModeChanged: provider.toggleSequentialMode,
+                      correctlyDrawnCount: provider.correctlyDrawnCount,
+                      totalAttempts: provider.totalAttempts,
                     ),
                   ],
                 ),

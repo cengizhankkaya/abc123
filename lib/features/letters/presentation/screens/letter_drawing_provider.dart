@@ -61,6 +61,8 @@ class DrawingProvider with ChangeNotifier {
   double volume = 1.0;
 
   DrawingProvider() {
+    // AudioService içindeki kaydedilmiş ses seviyesini başlat
+    volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = true;
     _loadModel();
     activeGuide = DrawingContentProvider.activeLetterGuide;
@@ -117,7 +119,8 @@ class DrawingProvider with ChangeNotifier {
           width: 28, height: 28, interpolation: img.Interpolation.average);
       final Uint8List processedData = preprocessImage(resizedImage);
       final result = await runInference(processedData);
-      drawingImage?.dispose();
+      // Önceki resmi manuel dispose etme, ResultScreen hâlâ kullanıyor olabilir.
+      // GC'ye bırakmak daha güvenli.
       drawingImage = image;
       recognitionResult = result;
       isLoading = false;
@@ -240,7 +243,7 @@ class DrawingProvider with ChangeNotifier {
     } else {
       tanima = 'Lütfen bir harf çizin';
     }
-    drawingImage?.dispose();
+    // drawingImage'i manuel dispose etmiyoruz, GC'ye bırakıyoruz.
     drawingImage = null;
     notifyListeners();
   }

@@ -230,66 +230,79 @@ final localizedToolControlPanelTexts = {
     'penColor': 'Kalem Rengi',
     'numberTitle': 'Rakam Öğrenme',
     'letterTitle': 'Harf Öğrenme',
+    'shapeTitle': 'Şekil Öğrenme',
   },
   AppLanguage.english: {
     'penColor': 'Pen Color',
     'numberTitle': 'Learn Numbers',
     'letterTitle': 'Learn Letters',
+    'shapeTitle': 'Learn Shapes',
   },
   AppLanguage.chinese: {
     'penColor': '笔的颜色',
     'numberTitle': '学习数字',
     'letterTitle': '学习字母',
+    'shapeTitle': '学习形状',
   },
   AppLanguage.spanish: {
     'penColor': 'Color del bolígrafo',
     'numberTitle': 'Aprender números',
     'letterTitle': 'Aprender letras',
+    'shapeTitle': 'Aprender figuras',
   },
   AppLanguage.hindi: {
     'penColor': 'कलम का रंग',
     'numberTitle': 'संख्या सीखें',
     'letterTitle': 'अक्षर सीखें',
+    'shapeTitle': 'आकृतियाँ सीखें',
   },
   AppLanguage.french: {
     'penColor': 'Couleur du stylo',
     'numberTitle': 'Apprendre les chiffres',
     'letterTitle': 'Apprendre les lettres',
+    'shapeTitle': 'Apprendre les formes',
   },
   AppLanguage.arabic: {
     'penColor': 'لون القلم',
     'numberTitle': 'تعلم الأرقام',
     'letterTitle': 'تعلم الحروف',
+    'shapeTitle': 'تعلم الأشكال',
   },
   AppLanguage.portuguese: {
     'penColor': 'Cor da caneta',
     'numberTitle': 'Aprender números',
     'letterTitle': 'Aprender letras',
+    'shapeTitle': 'Aprender formas',
   },
   AppLanguage.bengali: {
     'penColor': 'কলমের রং',
     'numberTitle': 'সংখ্যা শিখুন',
     'letterTitle': 'অক্ষর শিখুন',
+    'shapeTitle': 'আকৃতি শিখুন',
   },
   AppLanguage.russian: {
     'penColor': 'Цвет ручки',
     'numberTitle': 'Изучать числа',
     'letterTitle': 'Изучать буквы',
+    'shapeTitle': 'Изучать фигуры',
   },
   AppLanguage.urdu: {
     'penColor': 'قلم کا رنگ',
     'numberTitle': 'نمبر سیکھیں',
     'letterTitle': 'حروف سیکھیں',
+    'shapeTitle': 'اشکال سیکھیں',
   },
   AppLanguage.azerbaijani: {
     'penColor': 'Qələm rəngi',
     'numberTitle': 'Rəqəmləri öyrən',
     'letterTitle': 'Hərfləri öyrən',
+    'shapeTitle': 'Fiqurları öyrən',
   },
   AppLanguage.german: {
     'penColor': 'Stiftfarbe',
     'numberTitle': 'Zahlen lernen',
     'letterTitle': 'Buchstaben lernen',
+    'shapeTitle': 'Formen lernen',
   },
 };
 
@@ -394,177 +407,190 @@ final localizedResultScreenTexts = {
     'drawn': 'Çizdiğin:',
     'congrats': 'Tebrikler!',
     'tryAgain': 'Tekrar Dene!',
-    'targetLetter': 'Hedef Harf:',
-    'successMessage': 'Harika iş çıkardın! Bu harfi doğru bir şekilde tanıdım!',
-    'failMessage': 'Tekrar denemelisin! Çizimin farklı bir harfe benzedi.',
+    'targetLetter': 'Hedef Çizim:',
+    'successMessage':
+        'Harika iş çıkardın! Çizimini doğru bir şekilde tanıdım!',
+    'failMessage':
+        'Tekrar denemelisin! Çizimin farklı bir şeye benziyor.',
     'progress': (int correct, int total) => 'Doğru: $correct / Toplam: $total',
     'tryAgainBtn': 'Tekrar Dene',
-    'nextLetter': 'Sonraki Harf',
-    'nextLetterFail': 'Sonraki Harfe Geç',
+    'nextLetter': 'Sonrakine Geç',
+    'nextLetterFail': 'Sonrakine Geç',
   },
   AppLanguage.english: {
     'drawingNotFound': 'Drawing Not Found',
     'drawn': 'Your Drawing:',
     'congrats': 'Congratulations!',
     'tryAgain': 'Try Again!',
-    'targetLetter': 'Target Letter:',
-    'successMessage': 'Great job! I recognized this letter correctly!',
-    'failMessage': 'Try again! Your drawing looks like a different letter.',
+    'targetLetter': 'Target:',
+    'successMessage': 'Great job! I recognized your drawing correctly!',
+    'failMessage': 'Try again! Your drawing looks like something else.',
     'progress': (int correct, int total) => 'Correct: $correct / Total: $total',
     'tryAgainBtn': 'Try Again',
-    'nextLetter': 'Next Letter',
-    'nextLetterFail': 'Go to Next Letter',
+    'nextLetter': 'Next',
+    'nextLetterFail': 'Go to Next',
   },
   AppLanguage.chinese: {
     'drawingNotFound': '未找到绘图',
     'drawn': '你画的是：',
     'congrats': '恭喜！',
     'tryAgain': '请再试一次！',
-    'targetLetter': '目标字母：',
-    'successMessage': '干得好！我正确识别了这个字母！',
-    'failMessage': '请再试一次！你的绘图看起来像另一个字母。',
+    'targetLetter': '目标：',
+    'successMessage': '干得好！我正确识别了你的绘画！',
+    'failMessage': '请再试一次！你的绘画看起来像别的东西。',
     'progress': (int correct, int total) => '正确: $correct / 总数: $total',
     'tryAgainBtn': '再试一次',
-    'nextLetter': '下一个字母',
-    'nextLetterFail': '跳到下一个字母',
+    'nextLetter': '下一个',
+    'nextLetterFail': '跳到下一个',
   },
   AppLanguage.spanish: {
     'drawingNotFound': 'Dibujo no encontrado',
     'drawn': 'Tu dibujo:',
     'congrats': '¡Felicidades!',
     'tryAgain': '¡Inténtalo de nuevo!',
-    'targetLetter': 'Letra objetivo:',
-    'successMessage': '¡Buen trabajo! ¡He reconocido esta letra correctamente!',
-    'failMessage': '¡Inténtalo de nuevo! Tu dibujo parece otra letra.',
+    'targetLetter': 'Objetivo:',
+    'successMessage':
+        '¡Buen trabajo! ¡He reconocido correctamente tu dibujo!',
+    'failMessage':
+        '¡Inténtalo de nuevo! Tu dibujo parece otra cosa.',
     'progress': (int correct, int total) =>
         'Correcto: $correct / Total: $total',
     'tryAgainBtn': 'Intentar de nuevo',
-    'nextLetter': 'Siguiente letra',
-    'nextLetterFail': 'Ir a la siguiente letra',
+    'nextLetter': 'Siguiente',
+    'nextLetterFail': 'Ir al siguiente',
   },
   AppLanguage.hindi: {
     'drawingNotFound': 'चित्र नहीं मिला',
     'drawn': 'आपकी ड्राइंग:',
     'congrats': 'बधाई हो!',
     'tryAgain': 'फिर से प्रयास करें!',
-    'targetLetter': 'लक्ष्य अक्षर:',
-    'successMessage': 'शानदार! मैंने इस अक्षर को सही पहचाना!',
+    'targetLetter': 'लक्ष्य:',
+    'successMessage': 'शानदार! मैंने आपकी ड्राइंग को सही पहचाना!',
     'failMessage':
-        'फिर से प्रयास करें! आपकी ड्राइंग किसी अन्य अक्षर जैसी लगती है।',
+        'फिर से प्रयास करें! आपकी ड्राइंग किसी और चीज़ जैसी लगती है।',
     'progress': (int correct, int total) => 'सही: $correct / कुल: $total',
     'tryAgainBtn': 'फिर से प्रयास करें',
-    'nextLetter': 'अगला अक्षर',
-    'nextLetterFail': 'अगले अक्षर पर जाएं',
+    'nextLetter': 'आगे बढ़ें',
+    'nextLetterFail': 'अगले पर जाएं',
   },
   AppLanguage.french: {
     'drawingNotFound': 'Dessin non trouvé',
     'drawn': 'Votre dessin :',
     'congrats': 'Félicitations !',
     'tryAgain': 'Réessayez !',
-    'targetLetter': 'Lettre cible :',
-    'successMessage': 'Bravo ! J\'ai reconnu cette lettre correctement !',
-    'failMessage': 'Réessayez ! Votre dessin ressemble à une autre lettre.',
+    'targetLetter': 'Cible :',
+    'successMessage':
+        'Bravo ! J\'ai correctement reconnu votre dessin !',
+    'failMessage':
+        'Réessayez ! Votre dessin ressemble à autre chose.',
     'progress': (int correct, int total) =>
         'Correct : $correct / Total : $total',
     'tryAgainBtn': 'Réessayer',
-    'nextLetter': 'Lettre suivante',
-    'nextLetterFail': 'Passer à la lettre suivante',
+    'nextLetter': 'Suivant',
+    'nextLetterFail': 'Passer au suivant',
   },
   AppLanguage.arabic: {
     'drawingNotFound': 'لم يتم العثور على الرسم',
     'drawn': 'رسمك:',
     'congrats': 'تهانينا!',
     'tryAgain': 'حاول مرة أخرى!',
-    'targetLetter': 'الحرف المستهدف:',
-    'successMessage': 'عمل رائع! لقد تعرفت على هذا الحرف بشكل صحيح!',
-    'failMessage': 'حاول مرة أخرى! يبدو أن رسمك يشبه حرفًا آخر.',
+    'targetLetter': 'الهدف:',
+    'successMessage': 'عمل رائع! لقد تعرفت على رسمك بشكل صحيح!',
+    'failMessage': 'حاول مرة أخرى! يبدو أن رسمك يشبه شيئًا آخر.',
     'progress': (int correct, int total) => 'صحيح: $correct / الإجمالي: $total',
     'tryAgainBtn': 'حاول مرة أخرى',
-    'nextLetter': 'الحرف التالي',
-    'nextLetterFail': 'انتقل إلى الحرف التالي',
+    'nextLetter': 'التالي',
+    'nextLetterFail': 'انتقل إلى التالي',
   },
   AppLanguage.portuguese: {
     'drawingNotFound': 'Desenho não encontrado',
     'drawn': 'Seu desenho:',
     'congrats': 'Parabéns!',
     'tryAgain': 'Tente novamente!',
-    'targetLetter': 'Letra alvo:',
-    'successMessage': 'Ótimo trabalho! Reconheci esta letra corretamente!',
-    'failMessage': 'Tente novamente! Seu desenho parece outra letra.',
+    'targetLetter': 'Alvo:',
+    'successMessage':
+        'Ótimo trabalho! Reconheci corretamente o seu desenho!',
+    'failMessage':
+        'Tente novamente! Seu desenho parece outra coisa.',
     'progress': (int correct, int total) => 'Correto: $correct / Total: $total',
     'tryAgainBtn': 'Tentar novamente',
-    'nextLetter': 'Próxima letra',
-    'nextLetterFail': 'Ir para a próxima letra',
+    'nextLetter': 'Próximo',
+    'nextLetterFail': 'Ir para o próximo',
   },
   AppLanguage.bengali: {
     'drawingNotFound': 'অঙ্কন পাওয়া যায়নি',
     'drawn': 'তোমার অঙ্কন:',
     'congrats': 'অভিনন্দন!',
     'tryAgain': 'আবার চেষ্টা করুন!',
-    'targetLetter': 'লক্ষ্য অক্ষর:',
-    'successMessage': 'দারুণ কাজ! আমি এই অক্ষরটি সঠিকভাবে চিনতে পেরেছি!',
+    'targetLetter': 'লক্ষ্যঃ',
+    'successMessage':
+        'দারুণ কাজ! আমি তোমার অঙ্কনটি সঠিকভাবে চিনতে পেরেছি!',
     'failMessage':
-        'আবার চেষ্টা করুন! তোমার অঙ্কনটি অন্য একটি অক্ষরের মতো দেখাচ্ছে।',
+        'আবার চেষ্টা করুন! তোমার অঙ্কনটি অন্য কিছুর মতো দেখাচ্ছে।',
     'progress': (int correct, int total) => 'সঠিক: $correct / মোট: $total',
     'tryAgainBtn': 'আবার চেষ্টা করুন',
-    'nextLetter': 'পরবর্তী অক্ষর',
-    'nextLetterFail': 'পরবর্তী অক্ষরে যান',
+    'nextLetter': 'পরবর্তী',
+    'nextLetterFail': 'পরবর্তীতে যান',
   },
   AppLanguage.russian: {
     'drawingNotFound': 'Рисунок не найден',
     'drawn': 'Ваш рисунок:',
     'congrats': 'Поздравляем!',
     'tryAgain': 'Попробуйте еще раз!',
-    'targetLetter': 'Целевая буква:',
-    'successMessage': 'Отличная работа! Я правильно распознал эту букву!',
-    'failMessage': 'Попробуйте еще раз! Ваш рисунок похож на другую букву.',
+    'targetLetter': 'Цель:',
+    'successMessage':
+        'Отличная работа! Я правильно распознал ваш рисунок!',
+    'failMessage':
+        'Попробуйте еще раз! Ваш рисунок похож на что‑то другое.',
     'progress': (int correct, int total) =>
         'Правильно: $correct / Всего: $total',
     'tryAgainBtn': 'Попробовать снова',
-    'nextLetter': 'Следующая буква',
-    'nextLetterFail': 'Перейти к следующей букве',
+    'nextLetter': 'Далее',
+    'nextLetterFail': 'Перейти далее',
   },
   AppLanguage.urdu: {
     'drawingNotFound': 'ڈراؤنگ نہیں ملی',
     'drawn': 'آپ کی ڈرائنگ:',
     'congrats': 'مبارک ہو!',
     'tryAgain': 'دوبارہ کوشش کریں!',
-    'targetLetter': 'ہدف حرف:',
-    'successMessage': 'زبردست! میں نے اس حرف کو صحیح پہچانا!',
-    'failMessage': 'دوبارہ کوشش کریں! آپ کی ڈرائنگ کسی اور حرف جیسی لگتی ہے۔',
+    'targetLetter': 'ہدف:',
+    'successMessage': 'زبردست! میں نے آپ کی ڈرائنگ کو صحیح پہچانا!',
+    'failMessage':
+        'دوبارہ کوشش کریں! آپ کی ڈرائنگ کسی اور چیز جیسی لگتی ہے۔',
     'progress': (int correct, int total) => 'درست: $correct / کل: $total',
     'tryAgainBtn': 'دوبارہ کوشش کریں',
-    'nextLetter': 'اگلا حرف',
-    'nextLetterFail': 'اگلے حرف پر جائیں',
+    'nextLetter': 'اگلا',
+    'nextLetterFail': 'اگلے پر جائیں',
   },
   AppLanguage.azerbaijani: {
     'drawingNotFound': 'Çizim tapılmadı',
     'drawn': 'Sənin çəkdiyin:',
     'congrats': 'Təbriklər!',
     'tryAgain': 'Yenidən cəhd et!',
-    'targetLetter': 'Hədəf hərf:',
-    'successMessage': 'Əla iş! Bu hərfi düzgün tanıdım!',
-    'failMessage': 'Yenidən cəhd et! Çizimin başqa bir hərfə bənzəyir.',
+    'targetLetter': 'Hədəf:',
+    'successMessage': 'Əla iş! Çizimini düzgün tanıdım!',
+    'failMessage':
+        'Yenidən cəhd et! Çizimin başqa bir şeyə bənzəyir.',
     'progress': (int correct, int total) => 'Düzgün: $correct / Cəmi: $total',
     'tryAgainBtn': 'Yenidən cəhd et',
-    'nextLetter': 'Növbəti hərf',
-    'nextLetterFail': 'Növbəti hərfə keç',
+    'nextLetter': 'Növbəti',
+    'nextLetterFail': 'Növbətiyə keç',
   },
   AppLanguage.german: {
     'drawingNotFound': 'Zeichnung nicht gefunden',
-    'drawn': 'Dein gezeichneter Buchstabe',
+    'drawn': 'Deine Zeichnung:',
     'congrats': 'Glückwunsch!',
     'tryAgain': 'Nochmal versuchen!',
-    'targetLetter': 'Zielbuchstabe:',
+    'targetLetter': 'Ziel:',
     'successMessage':
-        'Großartige Arbeit! Ich habe diesen Buchstaben richtig erkannt!',
+        'Großartige Arbeit! Ich habe deine Zeichnung richtig erkannt!',
     'failMessage':
-        'Versuche es erneut! Deine Zeichnung sieht wie ein anderer Buchstabe aus.',
+        'Versuche es erneut! Deine Zeichnung sieht nach etwas anderem aus.',
     'progress': (int correct, int total) =>
         'Richtig: $correct / Gesamt: $total',
     'tryAgainBtn': 'Nochmal versuchen',
-    'nextLetter': 'Nächster Buchstabe',
-    'nextLetterFail': 'Zum nächsten Buchstaben',
+    'nextLetter': 'Weiter',
+    'nextLetterFail': 'Zum nächsten',
   },
 };
 
@@ -688,4 +714,85 @@ String getLocalizedText(String key, AppLanguage lang) {
   return localizedTexts[key]?[lang] ??
       localizedTexts[key]?[AppLanguage.english] ??
       '';
+}
+
+/// Şekil adları için dil bazlı gösterim (özellikle sonuç ekranında daire/üçgen/kare)
+///
+/// Anahtar olarak, model ve sıralı modda kullanılan Türkçe büyük harf kodları
+/// kullanılıyor: 'DAIRE', 'KARE', 'ÜÇGEN'.
+final Map<AppLanguage, Map<String, String>> localizedShapeNames = {
+  AppLanguage.turkish: {
+    'DAIRE': 'Daire',
+    'KARE': 'Kare',
+    'ÜÇGEN': 'Üçgen',
+  },
+  AppLanguage.english: {
+    'DAIRE': 'Circle',
+    'KARE': 'Square',
+    'ÜÇGEN': 'Triangle',
+  },
+  AppLanguage.chinese: {
+    'DAIRE': '圆形',
+    'KARE': '正方形',
+    'ÜÇGEN': '三角形',
+  },
+  AppLanguage.spanish: {
+    'DAIRE': 'Círculo',
+    'KARE': 'Cuadrado',
+    'ÜÇGEN': 'Triángulo',
+  },
+  AppLanguage.hindi: {
+    'DAIRE': 'वृत्त',
+    'KARE': 'वर्ग',
+    'ÜÇGEN': 'त्रिभुज',
+  },
+  AppLanguage.french: {
+    'DAIRE': 'Cercle',
+    'KARE': 'Carré',
+    'ÜÇGEN': 'Triangle',
+  },
+  AppLanguage.arabic: {
+    'DAIRE': 'دائرة',
+    'KARE': 'مربع',
+    'ÜÇGEN': 'مثلث',
+  },
+  AppLanguage.portuguese: {
+    'DAIRE': 'Círculo',
+    'KARE': 'Quadrado',
+    'ÜÇGEN': 'Triângulo',
+  },
+  AppLanguage.bengali: {
+    'DAIRE': 'বৃত্ত',
+    'KARE': 'বর্গ',
+    'ÜÇGEN': 'ত্রিভুজ',
+  },
+  AppLanguage.russian: {
+    'DAIRE': 'Круг',
+    'KARE': 'Квадрат',
+    'ÜÇGEN': 'Треугольник',
+  },
+  AppLanguage.urdu: {
+    'DAIRE': 'دایره',
+    'KARE': 'مربع',
+    'ÜÇGEN': 'مثلث',
+  },
+  AppLanguage.azerbaijani: {
+    'DAIRE': 'Dairə',
+    'KARE': 'Kvadrat',
+    'ÜÇGEN': 'Üçbucaq',
+  },
+  AppLanguage.german: {
+    'DAIRE': 'Kreis',
+    'KARE': 'Quadrat',
+    'ÜÇGEN': 'Dreieck',
+  },
+};
+
+/// Şekil kodunu (ör. 'DAIRE', 'KARE', 'ÜÇGEN') aktif dile göre kullanıcıya
+/// gösterilecek metne çevirir. Eşleşme bulunamazsa orijinal kodu geri döner.
+String getLocalizedShapeName(String shapeCode, AppLanguage lang) {
+  final upperCode = shapeCode.toUpperCase();
+  return localizedShapeNames[lang]?[upperCode] ??
+      localizedShapeNames[AppLanguage.english]?[upperCode] ??
+      shapeCode;
 }

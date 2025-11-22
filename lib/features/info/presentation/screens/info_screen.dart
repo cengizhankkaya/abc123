@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
@@ -140,7 +139,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           ),
                           Text(
                             texts['drawnLetter']!,
-                            style: GoogleFonts.poppins(
+                            style: TextStyle(
                               fontSize: AppFontSizes.title(context) * 0.4,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
@@ -173,7 +172,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             // Tebrikler yazısı
                             Text(
                               texts['congrats']!,
-                              style: GoogleFonts.poppins(
+                              style: TextStyle(
                                 fontSize: AppFontSizes.title(context) * 0.4,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -206,7 +205,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               child: Center(
                                 child: Text(
                                   widget.recognizedLetter,
-                                  style: GoogleFonts.poppins(
+                                  style: TextStyle(
                                     fontSize: AppFontSizes.title(context) * 0.4,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.indigo,
@@ -221,7 +220,7 @@ class _InfoScreenState extends State<InfoScreen> {
                               child: Text(
                                 texts['successMessage']!,
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   fontSize:
                                       AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
@@ -251,10 +250,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                 ),
                                 child: Text(
                                   texts['back']!,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: buttonFontSize,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                style: TextStyle(
+                                  fontSize: buttonFontSize,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 ),
                               ),
                             ),

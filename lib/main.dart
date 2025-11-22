@@ -12,6 +12,8 @@ import 'core/utils/screen_util.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Ses servisini başlatıp kaydedilmiş ses seviyesini yükle
+  await AudioService().init();
   await MobileAds.instance.initialize();
   // Uygulamayı yalnızca dikey (portre) modunda çalıştır
   // Not: setPreferredOrientations deprecated ama hala destekleniyor

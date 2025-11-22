@@ -6,8 +6,75 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 
+import '../../../../core/services/audio_service.dart';
 import '../../../../core/utils/responsive_size.dart';
 import '../../../draw/presentation/widgets/build_drawing_area.dart';
+
+/// Şekiller için sıralı çizim durum yöneticisi
+class ShapesSequentialDrawingManager {
+  // Sıralı çizim modu aktif mi
+  bool _isSequentialModeActive = false;
+
+  // Kullanıcının çizmesi gereken mevcut şeklin indeksi
+  int _currentItemIndex = 0;
+
+  // Doğru çizilen şekil sayısı
+  int _correctlyDrawnCount = 0;
+
+  // Toplam deneme sayısı
+  int _totalAttempts = 0;
+
+  // Hedef şekiller
+  final List<String> _targetShapes = ['DAIRE', 'ÜÇGEN', 'KARE'];
+
+  // Getters
+  bool get isSequentialModeActive => _isSequentialModeActive;
+  int get correctlyDrawnCount => _correctlyDrawnCount;
+  int get totalAttempts => _totalAttempts;
+
+  String get currentTargetShape =>
+      _targetShapes[_currentItemIndex % _targetShapes.length];
+
+  // Sıralı modu aktif/pasif yapar
+  void toggleSequentialMode(bool isActive) {
+    _isSequentialModeActive = isActive;
+    if (isActive) {
+      resetProgress();
+    }
+  }
+
+  // İlerlemeyi sıfırla
+  void resetProgress() {
+    _currentItemIndex = 0;
+    _correctlyDrawnCount = 0;
+    _totalAttempts = 0;
+  }
+
+  // Bir sonraki şekle geç
+  void moveToNextShape(bool wasCorrect) {
+    if (!_isSequentialModeActive) return;
+
+    _totalAttempts++;
+
+    if (wasCorrect) {
+      _correctlyDrawnCount++;
+      _currentItemIndex = (_currentItemIndex + 1) % _targetShapes.length;
+    }
+  }
+
+  // Tanıma sonucunu değerlendir (sadece doğru/yanlış döner, state'i değiştirmez)
+  bool evaluateRecognitionResult(String recognizedShape) {
+    final normalizedResult = recognizedShape.trim().toUpperCase();
+    final normalizedTarget = currentTargetShape.trim().toUpperCase();
+    return normalizedResult == normalizedTarget;
+  }
+
+  // Başarı oranını hesapla
+  double getSuccessRate() {
+    if (_totalAttempts == 0) return 0.0;
+    return (_correctlyDrawnCount / _totalAttempts) * 100;
+  }
+}
 
 class ShapesDrawingProvider extends ChangeNotifier {
   final GlobalKey drawingAreaKey = GlobalKey();
@@ -18,9 +85,29 @@ class ShapesDrawingProvider extends ChangeNotifier {
   Color selectedColor = Colors.black;
   double strokeWidth = 25.0;
 
+  // Metin ve durumlar
+  static const String _freeDrawText =
+      'Bir şekil çizin (daire, kare veya üçgen)';
+  String tanima = _freeDrawText;
+
   bool isLoading = false;
   bool showResult = false;
   String recognitionResult = '';
+
+  // Sıralı mod yöneticisi
+  final ShapesSequentialDrawingManager sequentialManager =
+      ShapesSequentialDrawingManager();
+
+  bool get isSequentialModeActive => sequentialManager.isSequentialModeActive;
+  String get currentTargetShape => sequentialManager.currentTargetShape;
+  int get correctlyDrawnCount => sequentialManager.correctlyDrawnCount;
+  int get totalAttempts => sequentialManager.totalAttempts;
+
+  // Son tahmin doğru mu? (özellikle sıralı modda UI için)
+  bool lastPredictionCorrect = true;
+
+  // Ses seviyesi
+  double volume = 1.0;
 
   ui.Image? drawingImage;
   Interpreter? interpreter;
@@ -28,13 +115,23 @@ class ShapesDrawingProvider extends ChangeNotifier {
   // Ses için harici servis kullanılacak (AudioService) – burada sadece state var
 
   ShapesDrawingProvider() {
+    // AudioService içindeki kaydedilmiş ses seviyesini başlat
+    volume = AudioService().currentVolume;
     _loadModel();
+  }
+
+  void _updateTanima() {
+    if (isSequentialModeActive) {
+      tanima = 'Sıradaki şekil: $currentTargetShape';
+    } else {
+      tanima = _freeDrawText;
+    }
   }
 
   Future<void> _loadModel() async {
     try {
-      final loadedInterpreter =
-          await Interpreter.fromAsset('assets/models/geometric_shapes_model.tflite');
+      final loadedInterpreter = await Interpreter.fromAsset(
+          'assets/models/geometric_shapes_model.tflite');
       interpreter = loadedInterpreter;
       notifyListeners();
     } catch (e) {
@@ -104,15 +201,17 @@ class ShapesDrawingProvider extends ChangeNotifier {
       final Float32List inputBuffer = _preprocessImage(resizedImage);
       final String resultLabel = await _runInference(inputBuffer);
 
-      drawingImage?.dispose();
+      // Önceki resmi manuel dispose etmiyoruz, sonuç ekranı kullanıyor olabilir.
       drawingImage = image;
       recognitionResult = resultLabel;
+      lastPredictionCorrect = true; // varsayılan
 
       isLoading = false;
       showResult = true;
       notifyListeners();
     } catch (e) {
       recognitionResult = 'Hata oluştu: $e';
+      lastPredictionCorrect = false;
       isLoading = false;
       showResult = true;
       notifyListeners();
@@ -254,7 +353,8 @@ class ShapesDrawingProvider extends ChangeNotifier {
   void clear() {
     points.clear();
     showResult = false;
-    drawingImage?.dispose();
+    _updateTanima();
+    // drawingImage'i manuel dispose etmiyoruz, GC'ye bırakıyoruz.
     drawingImage = null;
     notifyListeners();
   }
@@ -273,6 +373,45 @@ class ShapesDrawingProvider extends ChangeNotifier {
     strokeWidth = width;
     notifyListeners();
   }
+
+  void setVolume(double value) {
+    volume = value;
+    AudioService().setVolume(value);
+    notifyListeners();
+  }
+
+  void toggleSequentialMode(bool enabled) {
+    sequentialManager.toggleSequentialMode(enabled);
+    clear();
+  }
+
+  /// Sıralı modda tanıma sonucunu değerlendirir ve doğru/yanlış bilgisini döner
+  bool evaluateSequentialRecognition() {
+    if (!isSequentialModeActive) return true;
+    final bool isCorrect =
+        sequentialManager.evaluateRecognitionResult(recognitionResult);
+    lastPredictionCorrect = isCorrect;
+    return isCorrect;
+  }
+
+  /// Sonuç ekranı kapatıldıktan sonra sıralı mod ilerlemesini günceller
+  void handleSequentialResult(bool isCorrect) {
+    if (!isSequentialModeActive) return;
+    sequentialManager.moveToNextShape(isCorrect);
+    _updateTanima();
+    notifyListeners();
+  }
+
+  /// Sonuç ekranı sonrası yapılacak işlemler (tekrar dene veya devam)
+  void onResultScreenAction(bool isCorrect, {required bool tryAgain}) {
+    if (tryAgain) {
+      // Aynı şekli tekrar dene
+      clear();
+    } else {
+      // Bir sonrakine geç
+      handleSequentialResult(isCorrect);
+      clear();
+    }
+    notifyListeners();
+  }
 }
-
-

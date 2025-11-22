@@ -56,6 +56,8 @@ class DrawScreenProvider extends ChangeNotifier {
   AppLanguage language = AppLanguage.turkish;
 
   DrawScreenProvider({this.context, this.language = AppLanguage.turkish}) {
+    // AudioService içindeki kaydedilmiş ses seviyesini başlat
+    volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = false;
     sequentialManager.toggleSequentialMode(true); // Sıralı mod otomatik aktif
     _loadModel();
@@ -157,7 +159,7 @@ class DrawScreenProvider extends ChangeNotifier {
           width: 28, height: 28, interpolation: img.Interpolation.average);
       final Uint8List processedData = _preprocessImage(resizedImage);
       final result = await _runInference(processedData);
-      drawingImage?.dispose();
+      // Önceki resmi manuel dispose etmiyoruz, sonuç ekranı veya başka widget'lar kullanıyor olabilir.
       drawingImage = image;
       animationController?.forward();
       recognitionResult = result.toString();
@@ -277,7 +279,7 @@ class DrawScreenProvider extends ChangeNotifier {
     } else {
       tanima = 'Lütfen bir rakam çizin';
     }
-    drawingImage?.dispose();
+    // drawingImage'i manuel dispose etmiyoruz, GC'ye bırakıyoruz.
     drawingImage = null;
     animationController?.reset();
     animationController?.forward().then((_) => animationController?.reverse());

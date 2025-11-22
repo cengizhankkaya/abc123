@@ -126,11 +126,18 @@ class ToolControlPanel extends StatelessWidget {
                         },
                       ),
                     )),
-                Icon(
-                  volume == 0.0 ? Icons.volume_off : Icons.volume_up,
-                  color: AppColors.surfaceColor,
-                  size: responsive
-                      .tinyIconSize, // largeIconSize yerine mediumIconSize kullanıldı
+                GestureDetector(
+                  onTap: () {
+                    // İkona tıklayınca sesi 0 <-> 1 arasında toggle et
+                    final double newVolume = volume == 0.0 ? 1.0 : 0.0;
+                    onVolumeChanged(newVolume);
+                  },
+                  child: Icon(
+                    volume == 0.0 ? Icons.volume_off : Icons.volume_up,
+                    color: AppColors.surfaceColor,
+                    size: responsive
+                        .tinyIconSize, // largeIconSize yerine mediumIconSize kullanıldı
+                  ),
                 ),
                 Container(
                   width: AppSizes.sliderWidth(context),
