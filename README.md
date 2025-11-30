@@ -11,7 +11,7 @@
 
 ## 📱 Uygulama Hakkında
 
-ABC123, çocukların rakam ve harf öğrenimini eğlenceli bir şekilde destekleyen interaktif bir Flutter uygulamasıdır. TensorFlow Lite makine öğrenmesi teknolojisi kullanarak çocukların çizdikleri rakam ve harfleri tanır ve doğru çizim konusunda rehberlik eder.
+ABC123, çocukların rakam, harf ve şekil öğrenimini eğlenceli bir şekilde destekleyen interaktif bir Flutter uygulamasıdır. TensorFlow Lite makine öğrenmesi teknolojisi kullanarak çocukların çizdikleri rakam, harf ve şekilleri tanır ve doğru çizim konusunda rehberlik eder.
 
 ## ✨ Özellikler
 
