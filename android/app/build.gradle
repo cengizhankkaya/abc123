@@ -63,29 +63,6 @@ android {
         }
     }
 
-    // 16 KB sayfa boyutu desteği için packaging ayarları
-    // Modern packaging API (Android Gradle Plugin 8.x)
-    // 16 KB sayfa boyutu desteği için useLegacyPackaging = false kullanılmalı
-    // Flutter motoru ve diğer native kütüphanelerin APK'ya eklenmesini engelleme
-    // riskine karşı, varsayılan Flutter packaging ayarlarına geri dön.
-    // İleride spesifik gereksinimler için tekrar etkinleştirilecekse
-    // eşzamanlı olarak libflutter.so varlığı doğrulanmalı.
-    //
-    // packaging {
-    //     jniLibs {
-    //         useLegacyPackaging = false
-    //         keepDebugSymbols += ['**/*.so']
-    //         doNotStrip += ['**/*.so']
-    //     }
-    //     resources {
-    //         excludes += ['**/*.tflite', '**/*.lite']
-    //     }
-    // }
-    //
-    // androidResources {
-    //     noCompress 'tflite'
-    //     noCompress 'lite'
-    // }
 }
 
 flutter {
@@ -99,23 +76,3 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.9.3'
 }
 
-// afterEvaluate ve benzeri bloklar Flutter plugin'in libflutter.so'yu kopyalamasını
-// durdurabiliyor; bu yüzden şimdilik varsayılan davranışa dönülüyor.
-// afterEvaluate {
-//     tasks.matching { task ->
-//         task.name.contains("Strip") || 
-//         task.name.contains("strip") ||
-//         task.name.contains("stripDebugSymbols")
-//     }.all { task ->
-//         task.enabled = false
-//         task.doLast {}
-//     }
-// }
-//
-// tasks.whenTaskAdded { task ->
-//     if (task.name.contains("Strip") || 
-//         task.name.contains("strip") ||
-//         task.name.contains("stripDebugSymbols")) {
-//         task.enabled = false
-//     }
-// }
