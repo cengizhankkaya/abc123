@@ -3,7 +3,6 @@
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 
-import 'package:abc123/core/constants/app_colors.dart';
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
@@ -14,6 +13,8 @@ import 'package:provider/provider.dart';
 import '../../../draw/presentation/widgets/action_toolbar_widget.dart';
 import '../../../draw/presentation/widgets/main_content_area.dart';
 import '../../../draw/presentation/widgets/tool_control_panel.dart';
+import 'package:abc123/core/constants/gamification_constants.dart';
+import '../../../home/presentation/providers/gamification_provider.dart';
 import '../../../info/presentation/screens/info_screen.dart';
 import '../../../info/presentation/screens/result_screen.dart';
 
@@ -78,7 +79,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
 
     // Tek seferlik bir ölçeklendirme yap
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<DrawingProvider>(context, listen: false)
+      Provider.of<LetterDrawingProvider>(context, listen: false)
           .adjustStrokeWidthForScreenSize(20.0);
     });
   }
@@ -97,6 +98,13 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
 
   // _showResultScreen fonksiyonunu güncelliyorum
   void _showResultScreenWithModel(ResultScreenData data) {
+    // Gamification Integration
+    if (data.isCorrect) {
+      Provider.of<GamificationProvider>(context, listen: false)
+          .incrementTotalDrawings(
+              type: DrawingType.letter, label: data.recognizedLetter);
+    }
+
     try {
       if (data.isCorrect) {
         AudioService().playEffectAndResumeBackground(
@@ -128,7 +136,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
 
   @override
   Widget build(BuildContext context) {
-    final drawingProvider = Provider.of<DrawingProvider>(context);
+    final drawingProvider = Provider.of<LetterDrawingProvider>(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -136,8 +144,8 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColors.backgroundColor,
-              AppColors.backgroundColor.withBlue(220),
+              const Color(0xFF74B9FF).withOpacity(0.2),
+              Colors.white,
             ],
           ),
         ),
@@ -166,6 +174,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
                   drawingProvider.setColor(color);
                 },
                 onEraseModeChanged: drawingProvider.setEraseMode,
+                panelColor: const Color(0xFF74B9FF),
                 volume: drawingProvider.volume,
                 onVolumeChanged: drawingProvider.setVolume,
               ),

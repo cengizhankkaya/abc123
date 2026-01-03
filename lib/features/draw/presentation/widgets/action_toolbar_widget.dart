@@ -20,6 +20,7 @@ class ActionToolbarWidget extends StatelessWidget {
   final Function(bool) onSequentialModeChanged;
   final int correctlyDrawnCount;
   final int totalAttempts;
+  final Color? panelColor;
 
   const ActionToolbarWidget({
     super.key,
@@ -35,6 +36,7 @@ class ActionToolbarWidget extends StatelessWidget {
     required this.onSequentialModeChanged,
     required this.correctlyDrawnCount,
     required this.totalAttempts,
+    this.panelColor,
   });
 
   double _optimizedFontSize(ResponsiveSize responsive) {
@@ -120,7 +122,7 @@ class ActionToolbarWidget extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.panelColor,
+          color: panelColor ?? AppColors.panelColor,
           borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
         ),
         height: toolbarHeight,

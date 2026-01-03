@@ -1,5 +1,7 @@
 // import 'package:abcproject/presentation/screens/draw_screen.dart.dart';
-import 'package:abc123/features/home/presentation/screens/home_screen.dart';
+import 'package:abc123/features/draw/presentation/screens/draw_screen_provider.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:abc123/features/home/presentation/screens/main_screen.dart';
 import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
 import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/shared/counter_provider.dart';
@@ -25,9 +27,11 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => DrawingProvider()),
+        ChangeNotifierProvider(create: (_) => DrawScreenProvider()),
+        ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
         ChangeNotifierProvider(create: (_) => LanguageProvider()),
         ChangeNotifierProvider(create: (_) => CounterProvider()),
+        ChangeNotifierProvider(create: (_) => GamificationProvider()),
       ],
       child: const MyApp(),
     ),
@@ -78,7 +82,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           secondary: Colors.amber,
         ),
       ),
-      home: const HomeScreen(),
+      home: const MainScreen(),
+      routes: {
+        '/home': (context) => const MainScreen(),
+      },
     );
   }
 }

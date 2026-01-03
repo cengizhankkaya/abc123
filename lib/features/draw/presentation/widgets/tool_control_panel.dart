@@ -23,6 +23,7 @@ class ToolControlPanel extends StatelessWidget {
   final String titleKey;
   final double volume;
   final Function(double) onVolumeChanged;
+  final Color? panelColor;
 
   const ToolControlPanel({
     super.key,
@@ -36,6 +37,7 @@ class ToolControlPanel extends StatelessWidget {
     required this.titleKey,
     required this.volume,
     required this.onVolumeChanged,
+    this.panelColor,
   });
 
   @override
@@ -52,7 +54,7 @@ class ToolControlPanel extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.panelColor,
+          color: panelColor ?? AppColors.panelColor,
           borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
           boxShadow: [
             BoxShadow(
@@ -71,22 +73,22 @@ class ToolControlPanel extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                GestureDetector(
-                  onTap: () => Navigator.of(context).maybePop(),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    size: responsive.tinyIconSize * 1.5,
-                    color: AppColors.surfaceColor,
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).maybePop(),
+                    child: Icon(
+                      Icons.arrow_back_ios_new_outlined,
+                      size: responsive.tinyIconSize * 1.5,
+                      color: AppColors.surfaceColor,
+                    ),
                   ),
-                ),
-                SizedBox(
-                    width: AppSizes.paddingSmall(context) * 0.5), // azaltıldı
-                Text(texts[titleKey] as String,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: responsive.headerFontSize,
-                    )),
+                  SizedBox(
+                      width: AppSizes.paddingSmall(context) * 0.5), // azaltıldı
+                  Text(texts[titleKey] as String,
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.bold,
+                        fontSize: responsive.headerFontSize,
+                      )),
                 ],
               ),
             ),
@@ -103,54 +105,54 @@ class ToolControlPanel extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                Text(
-                  texts['penColor'] as String,
-                  style: TextStyle(
-                    color: AppColors.surfaceColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: responsive.subtitleFontSize,
-                  ),
-                ), // azaltıldı
-                ...colors.map((color) => Padding(
-                      padding: EdgeInsets.only(
-                          right: responsive.tinyPadding * 0.5), // azaltıldı
-                      child: BuildColorButton(
-                        color: color,
+                    Text(
+                      texts['penColor'] as String,
+                      style: TextStyle(
+                        color: AppColors.surfaceColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: responsive.subtitleFontSize,
+                      ),
+                    ), // azaltıldı
+                    ...colors.map((color) => Padding(
+                          padding: EdgeInsets.only(
+                              right: responsive.tinyPadding * 0.5), // azaltıldı
+                          child: BuildColorButton(
+                            color: color,
+                            size: responsive
+                                .tinyIconSize, // largeIconSize yerine mediumIconSize kullanıldı
+                            selectedColor: selectedColor,
+                            eraseMode: eraseMode,
+                            onTap: (color) {
+                              onColorChanged(color);
+                              onEraseModeChanged(false);
+                            },
+                          ),
+                        )),
+                    GestureDetector(
+                      onTap: () {
+                        // İkona tıklayınca sesi 0 <-> 1 arasında toggle et
+                        final double newVolume = volume == 0.0 ? 1.0 : 0.0;
+                        onVolumeChanged(newVolume);
+                      },
+                      child: Icon(
+                        volume == 0.0 ? Icons.volume_off : Icons.volume_up,
+                        color: AppColors.surfaceColor,
                         size: responsive
                             .tinyIconSize, // largeIconSize yerine mediumIconSize kullanıldı
-                        selectedColor: selectedColor,
-                        eraseMode: eraseMode,
-                        onTap: (color) {
-                          onColorChanged(color);
-                          onEraseModeChanged(false);
-                        },
                       ),
-                    )),
-                GestureDetector(
-                  onTap: () {
-                    // İkona tıklayınca sesi 0 <-> 1 arasında toggle et
-                    final double newVolume = volume == 0.0 ? 1.0 : 0.0;
-                    onVolumeChanged(newVolume);
-                  },
-                  child: Icon(
-                    volume == 0.0 ? Icons.volume_off : Icons.volume_up,
-                    color: AppColors.surfaceColor,
-                    size: responsive
-                        .tinyIconSize, // largeIconSize yerine mediumIconSize kullanıldı
-                  ),
-                ),
-                Container(
-                  width: AppSizes.sliderWidth(context),
-                  height: AppSizes.sliderHeight(context),
-                  child: Slider(
-                    value: volume,
-                    min: 0.0,
-                    max: 1.0,
-                    onChanged: onVolumeChanged,
-                    activeColor: AppColors.surfaceColor,
-                    inactiveColor: AppColors.surfaceColor.withOpacity(0.3),
-                  ),
-                ),
+                    ),
+                    Container(
+                      width: AppSizes.sliderWidth(context),
+                      height: AppSizes.sliderHeight(context),
+                      child: Slider(
+                        value: volume,
+                        min: 0.0,
+                        max: 1.0,
+                        onChanged: onVolumeChanged,
+                        activeColor: AppColors.surfaceColor,
+                        inactiveColor: AppColors.surfaceColor.withOpacity(0.3),
+                      ),
+                    ),
                   ],
                 ),
               ),

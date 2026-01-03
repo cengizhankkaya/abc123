@@ -1,8 +1,9 @@
 // ignore_for_file: deprecated_member_use
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/constants/image_constants.dart';
+import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/services/audio_service.dart';
 import 'package:abc123/core/utils/responsive_size.dart';
@@ -17,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../shared/language_provider.dart';
+import '../../../home/presentation/providers/gamification_provider.dart';
 
 import 'shapes_drawing_provider.dart';
 import '../../../info/presentation/screens/result_screen.dart';
@@ -113,8 +115,8 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.backgroundColor,
-                    AppColors.backgroundColor.withBlue(220),
+                    const Color(0xFF55EFC4).withOpacity(0.2),
+                    Colors.white,
                   ],
                 ),
               ),
@@ -139,6 +141,7 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                       onStrokeWidthChanged: provider.setStrokeWidth,
                       onColorChanged: provider.setColor,
                       onEraseModeChanged: provider.setEraseMode,
+                      panelColor: const Color(0xFF55EFC4),
                       volume: provider.volume,
                       onVolumeChanged: provider.setVolume,
                     ),
@@ -242,6 +245,12 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                                 getLocalizedShapeName(
                                     provider.recognitionResult, lang);
 
+                            // Gamification Integration
+                            Provider.of<GamificationProvider>(context,
+                                    listen: false)
+                                .incrementTotalDrawings(
+                                    type: DrawingType.shape);
+
                             // ignore: use_build_context_synchronously
                             await Navigator.push(
                               context,
@@ -267,6 +276,12 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                               ),
                             );
                           } else {
+                            // Gamification Integration
+                            // Serbest modda da çizim tanındıysa puan ver
+                            Provider.of<GamificationProvider>(context,
+                                    listen: false)
+                                .incrementTotalDrawings(
+                                    type: DrawingType.shape);
                             // Serbest modda da aynı tasarımı, basit bir akışla kullan
                             const bool isCorrect = true;
                             final lang =
@@ -309,6 +324,7 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                       onSequentialModeChanged: provider.toggleSequentialMode,
                       correctlyDrawnCount: provider.correctlyDrawnCount,
                       totalAttempts: provider.totalAttempts,
+                      panelColor: const Color(0xFF55EFC4),
                     ),
                   ],
                 ),
@@ -320,5 +336,3 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
     );
   }
 }
-
-

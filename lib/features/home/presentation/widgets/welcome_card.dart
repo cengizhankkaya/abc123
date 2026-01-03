@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/image_manager.dart';
 import '../../../../core/constants/language_constants.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -16,8 +15,27 @@ class WelcomeCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.paddingNormal(context)),
       decoration: BoxDecoration(
-        color: AppColors.panelColor,
-        borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
+        color: Colors.white,
+        gradient: LinearGradient(
+          colors: [
+            const Color(0xFF6C5CE7).withOpacity(0.1),
+            const Color(0xFFA29BFE).withOpacity(0.1)
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24), // More rounded
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF6C5CE7).withOpacity(0.15),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+        border: Border.all(
+          color: Colors.white.withOpacity(0.8),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [

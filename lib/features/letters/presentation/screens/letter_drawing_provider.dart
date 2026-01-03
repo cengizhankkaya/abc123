@@ -13,7 +13,7 @@ import '../../../draw/data/models/drawing_content.dart';
 import '../../../draw/data/models/sequential_drawing.dart';
 import '../../../draw/presentation/widgets/build_drawing_area.dart';
 
-class DrawingProvider with ChangeNotifier {
+class LetterDrawingProvider with ChangeNotifier {
   List<DrawingPoint?> points = [];
   bool eraseMode = false;
   Color selectedColor = Colors.black;
@@ -60,7 +60,7 @@ class DrawingProvider with ChangeNotifier {
 
   double volume = 1.0;
 
-  DrawingProvider() {
+  LetterDrawingProvider() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = true;

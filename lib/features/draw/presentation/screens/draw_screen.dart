@@ -1,8 +1,9 @@
 import 'dart:ui' as ui;
-import 'package:abc123/core/constants/app_colors.dart';
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/services/audio_service.dart';
+import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/features/draw/presentation/screens/draw_screen_provider.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
@@ -117,8 +118,8 @@ class _DrawScreenState extends State<DrawScreen>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.backgroundColor,
-                    AppColors.backgroundColor.withBlue(220),
+                    const Color(0xFFFF7675).withOpacity(0.2),
+                    Colors.white,
                   ],
                 ),
               ),
@@ -137,6 +138,7 @@ class _DrawScreenState extends State<DrawScreen>
                       volume: provider.volume,
                       onVolumeChanged: provider.setVolume,
                       onEraseModeChanged: provider.toggleEraseMode,
+                      panelColor: const Color(0xFFFF7675),
                     ),
                     // Ana İçerik
                     Expanded(
@@ -183,6 +185,12 @@ class _DrawScreenState extends State<DrawScreen>
                               if (isCorrect) {
                                 AudioService().playEffectAndResumeBackground(
                                     AppAudios.success, AppAudios.happyKids);
+                                // Gamification: Puan ekle ve çizim sayısını artır
+                                context
+                                    .read<GamificationProvider>()
+                                    .incrementTotalDrawings(
+                                        type: DrawingType.number,
+                                        label: provider.recognitionResult);
                               } else {
                                 AudioService().playEffectAndResumeBackground(
                                     AppAudios.fail, AppAudios.happyKids);
@@ -253,6 +261,7 @@ class _DrawScreenState extends State<DrawScreen>
                       correctlyDrawnCount:
                           provider.sequentialManager.correctlyDrawnCount,
                       totalAttempts: provider.sequentialManager.totalAttempts,
+                      panelColor: const Color(0xFFFF7675),
                     ),
                   ],
                 ),

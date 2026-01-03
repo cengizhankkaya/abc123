@@ -2,6 +2,9 @@ import 'package:flutter/widgets.dart';
 import '../utils/screen_util.dart';
 
 class AppSizes {
+  static bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.shortestSide > 600;
+
   static double paddingNormal(BuildContext context) =>
       ScreenUtil.w(16).clamp(8, 32);
   static double paddingSmall(BuildContext context) =>
