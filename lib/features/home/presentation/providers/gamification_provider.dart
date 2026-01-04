@@ -32,7 +32,7 @@ class GamificationProvider extends ChangeNotifier {
     // Hats
     const ShopItemModel(
       id: 'hat_blue_cap',
-      name: 'Mavi Şapka',
+      name: 'hat_blue_cap',
       type: ShopItemType.hat,
       price: 50,
       iconData: Icons.school,
@@ -40,7 +40,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'hat_crown',
-      name: 'Kral Tacı',
+      name: 'hat_crown',
       type: ShopItemType.hat,
       price: 500,
       iconData: Icons.emoji_events,
@@ -48,7 +48,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'hat_wizard',
-      name: 'Büyücü Şapkası',
+      name: 'hat_wizard',
       type: ShopItemType.hat,
       price: 150,
       iconData: Icons.auto_fix_high,
@@ -56,7 +56,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'hat_flower',
-      name: 'Çiçekli Taç',
+      name: 'hat_flower',
       type: ShopItemType.hat,
       price: 75,
       iconData: Icons.local_florist,
@@ -64,7 +64,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'hat_pirate',
-      name: 'Korsan Şapkası',
+      name: 'hat_pirate',
       type: ShopItemType.hat,
       price: 120,
       iconData: Icons.explore,
@@ -72,7 +72,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'hat_chef',
-      name: 'Aşçı Şapkası',
+      name: 'hat_chef',
       type: ShopItemType.hat,
       price: 80,
       iconData: Icons.restaurant_menu,
@@ -83,7 +83,7 @@ class GamificationProvider extends ChangeNotifier {
     // Glasses
     const ShopItemModel(
       id: 'glasses_sun',
-      name: 'Güneş Gözlüğü',
+      name: 'glasses_sun',
       type: ShopItemType.glasses,
       price: 100,
       iconData: Icons.visibility,
@@ -91,7 +91,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_nerd',
-      name: 'Bilgiç Gözlüğü',
+      name: 'glasses_nerd',
       type: ShopItemType.glasses,
       price: 75,
       iconData: Icons.remove_red_eye,
@@ -99,7 +99,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_heart',
-      name: 'Kalpli Gözlük',
+      name: 'glasses_heart',
       type: ShopItemType.glasses,
       price: 125,
       iconData: Icons.favorite,
@@ -107,7 +107,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_3d',
-      name: '3D Gözlük',
+      name: 'glasses_3d',
       type: ShopItemType.glasses,
       price: 150,
       iconData: Icons.videogame_asset,
@@ -115,7 +115,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_vr',
-      name: 'VR Gözlüğü',
+      name: 'glasses_vr',
       type: ShopItemType.glasses,
       price: 300,
       iconData: Icons.vrpano,
@@ -123,7 +123,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_ski',
-      name: 'Kayak Gözlüğü',
+      name: 'glasses_ski',
       type: ShopItemType.glasses,
       price: 180,
       iconData: Icons.downhill_skiing,
@@ -131,7 +131,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_mask',
-      name: 'Maske',
+      name: 'glasses_mask',
       type: ShopItemType.glasses,
       price: 50,
       iconData: Icons.masks,
@@ -139,7 +139,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'glasses_reading',
-      name: 'Okuma Gözlüğü',
+      name: 'glasses_reading',
       type: ShopItemType.glasses,
       price: 60,
       iconData: Icons.menu_book,
@@ -149,7 +149,7 @@ class GamificationProvider extends ChangeNotifier {
     // Outfits
     const ShopItemModel(
       id: 'outfit_red',
-      name: 'Kırmızı Tişört',
+      name: 'outfit_red',
       type: ShopItemType.outfit,
       price: 200,
       iconData: Icons.checkroom,
@@ -157,7 +157,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_super',
-      name: 'Süper Kahraman',
+      name: 'outfit_super',
       type: ShopItemType.outfit,
       price: 1000,
       iconData: Icons.shield,
@@ -165,7 +165,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_green',
-      name: 'Yeşil Hoodie',
+      name: 'outfit_green',
       type: ShopItemType.outfit,
       price: 250,
       iconData: Icons.forest,
@@ -173,7 +173,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_doctor',
-      name: 'Doktor Önlüğü',
+      name: 'outfit_doctor',
       type: ShopItemType.outfit,
       price: 400,
       iconData: Icons.medical_services,
@@ -181,7 +181,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_space',
-      name: 'Uzay Kostümü',
+      name: 'outfit_space',
       type: ShopItemType.outfit,
       price: 800,
       iconData: Icons.rocket_launch,
@@ -189,7 +189,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_sports',
-      name: 'Forma',
+      name: 'outfit_sports',
       type: ShopItemType.outfit,
       price: 220,
       iconData: Icons.sports_soccer,
@@ -197,7 +197,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_police',
-      name: 'Polis Üniforması',
+      name: 'outfit_police',
       type: ShopItemType.outfit,
       price: 350,
       iconData: Icons.local_police,
@@ -205,7 +205,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_chef',
-      name: 'Aşçı Önlüğü',
+      name: 'outfit_chef',
       type: ShopItemType.outfit,
       price: 280,
       iconData: Icons.restaurant,
@@ -213,7 +213,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_winter',
-      name: 'Kışlık Mont',
+      name: 'outfit_winter',
       type: ShopItemType.outfit,
       price: 300,
       iconData: Icons.ac_unit,
@@ -221,7 +221,7 @@ class GamificationProvider extends ChangeNotifier {
     ),
     const ShopItemModel(
       id: 'outfit_tuxedo',
-      name: 'Smokin',
+      name: 'outfit_tuxedo',
       type: ShopItemType.outfit,
       price: 600,
       iconData: Icons.person,
@@ -403,16 +403,6 @@ class GamificationProvider extends ChangeNotifier {
     if (_quests.isEmpty) {
       _generateQuests();
     }
-
-    // --- TESTING MODE: UNLOCK EVERYTHING (FORCED) ---
-    // if (_ownedItemIds.isEmpty) { // Removed condition to force unlock
-    _points = 50000;
-    _ownedItemIds = _shopItems.map((e) => e.id).toList();
-    await prefs.setInt(GamificationConstants.keyPoints, _points);
-    await prefs.setStringList(
-        GamificationConstants.keyOwnedItems, _ownedItemIds);
-    // }
-    // ---------------------------------------
 
     notifyListeners();
   }

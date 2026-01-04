@@ -1,6 +1,9 @@
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/utils/responsive_size.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/core/constants/language_constants.dart';
 
 class BadgeHeaderWidget extends StatelessWidget {
   final int unlockedCount;
@@ -14,6 +17,7 @@ class BadgeHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = context.watch<LanguageProvider>().language;
     final responsive = ResponsiveSize(context);
 
     // Progress percentage
@@ -75,9 +79,9 @@ class BadgeHeaderWidget extends StatelessWidget {
                         blurRadius: 4,
                       )
                     ]),
-                child: const Text(
-                  'ROZETLERİM',
-                  style: TextStyle(
+                child: Text(
+                  getLocalizedText('badgesTitle', lang),
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w900,
                     color: Colors.black,
@@ -93,7 +97,7 @@ class BadgeHeaderWidget extends StatelessWidget {
 
         // Progress Info
         Text(
-          'Toplam: $unlockedCount/$totalCount',
+          '${getLocalizedText('totalBadges', lang)} $unlockedCount/$totalCount',
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

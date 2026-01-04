@@ -3,6 +3,8 @@ import 'package:abc123/features/home/domain/models/quest_model.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/core/constants/language_constants.dart';
 
 class DailyQuestWidget extends StatelessWidget {
   final QuestModel quest;
@@ -15,6 +17,7 @@ class DailyQuestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<GamificationProvider>();
+    final lang = context.watch<LanguageProvider>().language;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -57,8 +60,8 @@ class DailyQuestWidget extends StatelessWidget {
                 children: [
                   Text(
                     quest.id.contains('weekly')
-                        ? "HAFTALIK GÖREV"
-                        : "GÜNLÜK GÖREV",
+                        ? getLocalizedText('weeklyQuest', lang)
+                        : getLocalizedText('dailyQuest', lang),
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,

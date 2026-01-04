@@ -57,7 +57,23 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.abc, size: 40, color: const Color(0xFF6C5CE7)),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.abc, size: 40, color: const Color(0xFF6C5CE7)),
+                      const SizedBox(width: 4),
+                      const Text(
+                        "123",
+                        style: TextStyle(
+                          fontFamily:
+                              'Roboto', // Using default font but ensuring clean look
+                          fontSize: 24,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xFF6C5CE7),
+                        ),
+                      ),
+                    ],
+                  ),
                   const LanguageSelector(),
                 ],
               ),

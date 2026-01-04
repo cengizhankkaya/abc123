@@ -14,7 +14,7 @@ android {
     namespace "com.cengizhan.abc123"
     compileSdk = 36
     // NDK versiyonunu sabitle - strip hatasını önlemek için
-    ndkVersion = "27.0.12077973"
+    // ndkVersion = "27.0.12077973"
 
     compileOptions {
         // Java 11 kullanılıyor - modern Android için önerilen
@@ -53,14 +53,22 @@ android {
             // Native kütüphanelerden debug sembollerini kaldırma işlemini tamamen devre dışı bırak
             // Bazı native kütüphaneler (özellikle TensorFlow Lite) strip edilemez
             // Bu ayar 16 KB sayfa boyutu desteği için de önemli
-            ndk {
-                debugSymbolLevel 'NONE'
-            }
+
             // Strip işlemini tamamen devre dışı bırak
             debuggable false
             minifyEnabled false
             shrinkResources false
         }
+    }
+
+    packaging {
+        jniLibs {
+            keepDebugSymbols += "**/*.so"
+            // Native kütüphanelerden debug sembollerini kaldırma işlemini devre dışı bırak
+            doNotStrip "**/*.so"
+        }
+        // Tüm native kütüphaneler için strip işlemini devre dışı bırak
+        doNotStrip "**/*.so"
     }
 
 }

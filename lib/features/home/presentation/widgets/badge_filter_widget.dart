@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/core/constants/language_constants.dart';
 
 enum BadgeFilter { all, earned, locked }
 
@@ -14,14 +17,18 @@ class BadgeFilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lang = context.watch<LanguageProvider>().language;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(context, 'TÜMÜ', BadgeFilter.all),
-          _buildTab(context, 'KAZANILAN', BadgeFilter.earned),
-          _buildTab(context, 'BEKLEYEN', BadgeFilter.locked),
+          _buildTab(
+              context, getLocalizedText('filterAll', lang), BadgeFilter.all),
+          _buildTab(context, getLocalizedText('filterEarned', lang),
+              BadgeFilter.earned),
+          _buildTab(context, getLocalizedText('filterLocked', lang),
+              BadgeFilter.locked),
         ],
       ),
     );

@@ -1,8 +1,11 @@
 import 'package:abc123/features/home/domain/models/shop_item_model.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/widgets/avatar_widget.dart';
+import 'package:abc123/core/services/ad_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/core/constants/language_constants.dart';
 
 class AvatarShopScreen extends StatefulWidget {
   const AvatarShopScreen({super.key});
@@ -19,6 +22,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    AdService().initialize();
   }
 
   @override
@@ -30,6 +34,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<GamificationProvider>();
+    final lang = context.watch<LanguageProvider>().language;
     final points = provider.points;
 
     return Scaffold(
@@ -50,9 +55,9 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "MAĞAZA",
-                      style: TextStyle(
+                    Text(
+                      getLocalizedText('shopTitle', lang),
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w900,
                         color: Colors.purple,
@@ -143,10 +148,10 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                   ),
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-                  tabs: const [
-                    Tab(text: "Şapka"),
-                    Tab(text: "Gözlük"),
-                    Tab(text: "Kıyafet"),
+                  tabs: [
+                    Tab(text: getLocalizedText('tabHat', lang)),
+                    Tab(text: getLocalizedText('tabGlasses', lang)),
+                    Tab(text: getLocalizedText('tabOutfit', lang)),
                   ],
                 ),
               ),
@@ -156,9 +161,9 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    _buildGrid(provider, ShopItemType.hat),
-                    _buildGrid(provider, ShopItemType.glasses),
-                    _buildGrid(provider, ShopItemType.outfit),
+                    _buildGrid(provider, ShopItemType.hat, lang),
+                    _buildGrid(provider, ShopItemType.glasses, lang),
+                    _buildGrid(provider, ShopItemType.outfit, lang),
                   ],
                 ),
               ),
@@ -166,10 +171,31 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
           ),
         ),
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 110.0),
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            AdService().showRewardedAd(onReward: (amount) {
+              provider.addPoints(amount);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(getLocalizedText('rewardEarned', lang)
+                      .replaceAll('{amount}', '$amount')),
+                  backgroundColor: Colors.green,
+                ),
+              );
+            });
+          },
+          label: Text(getLocalizedText('freePointsBtn', lang)),
+          icon: const Icon(Icons.video_library),
+          backgroundColor: Colors.amber,
+        ),
+      ),
     );
   }
 
-  Widget _buildGrid(GamificationProvider provider, ShopItemType type) {
+  Widget _buildGrid(
+      GamificationProvider provider, ShopItemType type, AppLanguage lang) {
     final items =
         provider.shopItems.where((item) => item.type == type).toList();
 
@@ -198,10 +224,12 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                 provider.equipItem(item);
               }
             } else if (canBuy) {
-              _showBuyDialog(context, provider, item);
+              _showBuyDialog(context, provider, item, lang);
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Yeterli puanın yok! 😢")),
+                SnackBar(
+                    content:
+                        Text(getLocalizedText('insufficientPoints', lang))),
               );
             }
           },
@@ -230,7 +258,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  item.name,
+                  getLocalizedText(item.name, lang),
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -246,7 +274,9 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      isEquipped ? "Giydin" : "Senin",
+                      isEquipped
+                          ? getLocalizedText('equipped', lang)
+                          : getLocalizedText('owned', lang),
                       style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
@@ -276,18 +306,18 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
     );
   }
 
-  void _showBuyDialog(
-      BuildContext context, GamificationProvider provider, ShopItemModel item) {
+  void _showBuyDialog(BuildContext context, GamificationProvider provider,
+      ShopItemModel item, AppLanguage lang) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text("${item.name} Satın Al?"),
-        content: Text(
-            "${item.price} yıldız harcayarak bu eşyayı almak istiyor musun?"),
+        title: Text(getLocalizedText('buyTitle', lang)),
+        content: Text(getLocalizedText('buyDescription', lang)
+            .replaceAll('{price}', '${item.price}')),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Hayır"),
+            child: Text(getLocalizedText('noBtn', lang)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
@@ -295,10 +325,13 @@ class _AvatarShopScreenState extends State<AvatarShopScreen>
               provider.buyItem(item);
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("${item.name} satın alındı! 🎉")),
+                SnackBar(
+                    content: Text(getLocalizedText('itemBought', lang)
+                        .replaceAll(
+                            '{item}', getLocalizedText(item.name, lang)))),
               );
             },
-            child: const Text("Evet, Al!"),
+            child: Text(getLocalizedText('yesBuyBtn', lang)),
           ),
         ],
       ),
