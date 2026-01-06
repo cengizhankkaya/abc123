@@ -93,10 +93,9 @@ class ToolControlPanel extends StatelessWidget {
               ),
             ),
             //Ortada deneme reklamı kutusu
-            Expanded(
-              flex: 2,
-              child: Center(child: AdmobBannerWidget()),
-            ),
+            //Ortada deneme reklamı kutusu
+            Center(
+                child: AdmobBannerWidget(showTitle: true, isTitleSide: true)),
             // Kalem Rengi - Sağ tarafta
             Flexible(
               flex: 5,

@@ -27,7 +27,7 @@ mixin RewardedAdHelper<T extends StatefulWidget> on State<T> {
     );
   }
 
-  void showRewardedAd(BuildContext context) {
+  void showRewardedAd(BuildContext context) async {
     if (_isRewardedAdLoaded && _rewardedAd != null) {
       _rewardedAd!.show(
         onUserEarnedReward: (ad, reward) async {

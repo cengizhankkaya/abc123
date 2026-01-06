@@ -196,17 +196,14 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 30),
+                      // Banner Ad in ScrollView
+                      const AdmobBannerWidget(),
+                      const SizedBox(
+                          height: 80), // Extra padding for safe scrolling
                     ],
                   ),
                 ),
-              ),
-
-              // Bottom Banner Ad
-              const SizedBox(
-                height: 60,
-                child: AdmobBannerWidget(),
               ),
             ],
           ),

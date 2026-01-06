@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Ses servisini başlatıp kaydedilmiş ses seviyesini yükle
   await AudioService().init();
-  await MobileAds.instance.initialize();
+  // await MobileAds.instance.initialize();
   // Uygulamayı yalnızca dikey (portre) modunda çalıştır
   // Not: setPreferredOrientations deprecated ama hala destekleniyor
   // Android'de AndroidManifest.xml'de de ayarlanabilir

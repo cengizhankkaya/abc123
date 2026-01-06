@@ -14,7 +14,7 @@ android {
     namespace "com.cengizhan.abc123"
     compileSdk = 36
     // NDK versiyonunu sabitle - strip hatasını önlemek için
-    // ndkVersion = "27.0.12077973"
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         // Java 11 kullanılıyor - modern Android için önerilen
@@ -61,14 +61,16 @@ android {
         }
     }
 
-    packaging {
-        jniLibs {
-            keepDebugSymbols += "**/*.so"
-            // Native kütüphanelerden debug sembollerini kaldırma işlemini devre dışı bırak
-            doNotStrip "**/*.so"
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled false
+            shrinkResources false
+            packagingOptions {
+                doNotStrip "**/*.so"
+            }
         }
-        // Tüm native kütüphaneler için strip işlemini devre dışı bırak
-        doNotStrip "**/*.so"
     }
 
 }

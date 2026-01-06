@@ -46,7 +46,7 @@ class DailyQuestScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const AdmobBannerWidget(),
+            // const AdmobBannerWidget(), // Removed top banner to avoid clutter
             const SizedBox(height: 8),
             Expanded(
               child: Consumer<GamificationProvider>(

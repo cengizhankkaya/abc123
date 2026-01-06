@@ -206,15 +206,13 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    // Banner Ad in ScrollView
+                    const AdmobBannerWidget(),
                     // No bottom space here needed as padding is on ScrollView
                   ],
                 ),
               ),
-            ),
-            // Bottom Banner Ad
-            const SizedBox(
-              height: 60,
-              child: AdmobBannerWidget(),
             ),
           ],
         ),
