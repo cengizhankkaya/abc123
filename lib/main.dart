@@ -1,11 +1,91 @@
+// import 'package:abcproject/presentation/screens/draw_screen.dart.dart';
+import 'package:abc123/features/draw/presentation/screens/draw_screen_provider.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:abc123/features/home/presentation/screens/main_screen.dart';
+import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
+import 'package:abc123/core/services/audio_service.dart';
+import 'package:abc123/shared/counter_provider.dart';
+import 'package:abc123/shared/language_provider.dart';
 import 'package:flutter/material.dart';
-void main() {
+import 'package:flutter/services.dart'; // SystemChrome için eklendi
+import 'package:provider/provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'core/utils/screen_util.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Ses servisini başlatıp kaydedilmiş ses seviyesini yükle
+  await AudioService().init();
+  // await MobileAds.instance.initialize();
+  // Uygulamayı yalnızca dikey (portre) modunda çalıştır
+  // Not: setPreferredOrientations deprecated ama hala destekleniyor
+  // Android'de AndroidManifest.xml'de de ayarlanabilir
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.green,
-        body: Center(child: Text('MINIMAL TEST', style: TextStyle(fontSize: 32, color: Colors.white))),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => DrawScreenProvider()),
+        ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider(create: (_) => CounterProvider()),
+        ChangeNotifierProvider(create: (_) => GamificationProvider()),
+      ],
+      child: const MyApp(),
     ),
   );
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Arka plana geçildiğinde arka plan müziğini durdur
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.detached) {
+      AudioService().stopBackground();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ScreenUtil.init(context);
+    return MaterialApp(
+      title: 'Rakam Tanıma Uygulaması',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        // visualDensity kaldırıldı - deprecated
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+          secondary: Colors.amber,
+        ),
+      ),
+      home: const MainScreen(),
+      routes: {
+        '/home': (context) => const MainScreen(),
+      },
+    );
+  }
 }
