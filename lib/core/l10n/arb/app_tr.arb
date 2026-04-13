@@ -1,0 +1,22 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Rakam Tanıma Uygulaması",
+  "navHome": "Ana sayfa",
+  "navQuests": "Görevler",
+  "navShop": "Mağaza",
+  "navBadges": "Rozetler",
+  "tutorialScreenTitle": "Abc123 Eğitim",
+  "tutorialRedirectMessage": "YouTube videosuna yönlendiriliyorsunuz…",
+  "navMenuTooltip": "Menü",
+  "tutorialHttpsOnlyMessage": "Yalnızca güvenli (HTTPS) bağlantılar açılabilir.",
+  "tutorialOpenFailedMessage": "Video açılamadı. Lütfen tekrar deneyin.",
+  "navErrorPageNotFound": "Sayfa bulunamadı:\n{uri}",
+  "routerInvalidResultData": "Geçersiz sonuç verisi",
+  "routerInvalidInfoDrawData": "Geçersiz bilgi ekranı verisi",
+  "adRewardPointEarned": "Tebrikler! 1 puan kazandınız.",
+  "adLoadFailedRetry": "Reklam yüklenemedi, lütfen tekrar deneyin.",
+  "themeModeTooltip": "Görünüm",
+  "themeModeLight": "Açık",
+  "themeModeDark": "Koyu",
+  "themeModeSystem": "Sisteme göre"
+}

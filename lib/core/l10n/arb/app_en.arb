@@ -1,0 +1,85 @@
+{
+  "@@locale": "en",
+  "appTitle": "Number Learning App",
+  "@appTitle": {
+    "description": "Application title shown in the task switcher and stores"
+  },
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Main shell navigation: home tab"
+  },
+  "navQuests": "Quests",
+  "@navQuests": {
+    "description": "Main shell navigation: daily quests tab"
+  },
+  "navShop": "Shop",
+  "@navShop": {
+    "description": "Main shell navigation: avatar shop tab"
+  },
+  "navBadges": "Badges",
+  "@navBadges": {
+    "description": "Main shell navigation: badges tab"
+  },
+  "tutorialScreenTitle": "Tutorial",
+  "@tutorialScreenTitle": {
+    "description": "App bar title on the YouTube tutorial redirect screen"
+  },
+  "tutorialRedirectMessage": "Opening YouTube…",
+  "@tutorialRedirectMessage": {
+    "description": "Body text while redirecting to the tutorial video"
+  },
+  "navMenuTooltip": "Menu",
+  "@navMenuTooltip": {
+    "description": "Accessibility tooltip for the navigation menu button"
+  },
+  "tutorialHttpsOnlyMessage": "Only secure (HTTPS) links can be opened.",
+  "@tutorialHttpsOnlyMessage": {
+    "description": "SnackBar when external URL is not allowed"
+  },
+  "tutorialOpenFailedMessage": "Could not open the video. Please try again.",
+  "@tutorialOpenFailedMessage": {
+    "description": "SnackBar when YouTube URL cannot be launched"
+  },
+  "navErrorPageNotFound": "Page not found:\n{uri}",
+  "@navErrorPageNotFound": {
+    "description": "404-style message with attempted path",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "/unknown"
+      }
+    }
+  },
+  "routerInvalidResultData": "Invalid result data",
+  "@routerInvalidResultData": {
+    "description": "Fallback when GoRouter extra is not ResultScreenData"
+  },
+  "routerInvalidInfoDrawData": "Invalid info screen data",
+  "@routerInvalidInfoDrawData": {
+    "description": "Fallback when GoRouter extra is not InfoDrawExtra"
+  },
+  "adRewardPointEarned": "Congratulations! You earned 1 point.",
+  "@adRewardPointEarned": {
+    "description": "SnackBar after rewarded ad grants a point"
+  },
+  "adLoadFailedRetry": "Ad could not be loaded. Please try again.",
+  "@adLoadFailedRetry": {
+    "description": "SnackBar when rewarded ad is not ready"
+  },
+  "themeModeTooltip": "Theme",
+  "@themeModeTooltip": {
+    "description": "Tooltip for theme mode (light/dark/system) menu button"
+  },
+  "themeModeLight": "Light",
+  "@themeModeLight": {
+    "description": "Theme option: light mode"
+  },
+  "themeModeDark": "Dark",
+  "@themeModeDark": {
+    "description": "Theme option: dark mode"
+  },
+  "themeModeSystem": "System default",
+  "@themeModeSystem": {
+    "description": "Theme option: follow system setting"
+  }
+}
