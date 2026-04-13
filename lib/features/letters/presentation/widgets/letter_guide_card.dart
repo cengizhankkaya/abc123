@@ -1,12 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:flutter/material.dart';
 
-import '../../../draw/data/models/drawing_content.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
+import 'package:abc123/core/constants/app_radii.dart';
 
 class LetterGuideCard extends StatefulWidget {
   final DrawingGuide guide;

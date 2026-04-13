@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../draw/data/models/drawing_content.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
 
 class LettersScreenController extends ChangeNotifier {
   // Aktif harf rehberi

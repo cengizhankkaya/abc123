@@ -1,17 +1,18 @@
-import 'package:abc123/core/services/audio_service.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:flutter/services.dart';
 
-import '../../../draw/data/models/drawing_content.dart';
-import '../../../draw/data/models/sequential_drawing.dart';
-import '../../../draw/presentation/widgets/build_drawing_area.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
+import 'package:abc123/features/draw/domain/sequential_drawing.dart';
+import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 
 class LetterDrawingProvider with ChangeNotifier {
   List<DrawingPoint?> points = [];
@@ -70,8 +71,8 @@ class LetterDrawingProvider with ChangeNotifier {
 
   Future<void> _loadModel() async {
     try {
-      final loadedInterpreter = await Interpreter.fromAsset(
-          'assets/models/final_combined_model-2.tflite');
+      final loadedInterpreter =
+          await Interpreter.fromAsset('assets/models/final_combined_model-2.tflite');
       interpreter = loadedInterpreter;
       notifyListeners();
     } catch (e) {
@@ -99,8 +100,7 @@ class LetterDrawingProvider with ChangeNotifier {
         notifyListeners();
         return;
       }
-      final ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
         isLoading = false;
@@ -146,8 +146,13 @@ class LetterDrawingProvider with ChangeNotifier {
       painter.paint(canvas, Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e) {
-      debugPrint("Görüntü oluşturma hatası: $e");
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Image render failed',
+        tag: 'LetterDraw',
+        error: e,
+        stackTrace: st,
+      );
       return null;
     }
   }
@@ -199,8 +204,13 @@ class LetterDrawingProvider with ChangeNotifier {
         }
       }
       return letterLabels[maxIndex];
-    } catch (e) {
-      debugPrint('Inference hatası: $e');
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Inference failed',
+        tag: 'LetterDraw',
+        error: e,
+        stackTrace: st,
+      );
       throw Exception('Tahmin hatası: $e');
     }
   }

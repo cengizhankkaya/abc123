@@ -1,45 +1,23 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
-
 import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/services/audio_service.dart';
-import 'package:abc123/features/letters/presentation/screens/letter_drawing_provider.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../draw/presentation/widgets/action_toolbar_widget.dart';
-import '../../../draw/presentation/widgets/main_content_area.dart';
-import '../../../draw/presentation/widgets/tool_control_panel.dart';
+import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
+import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart';
+import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
-import '../../../home/presentation/providers/gamification_provider.dart';
-import '../../../info/presentation/screens/info_screen.dart';
-import '../../../info/presentation/screens/result_screen.dart';
-
-// ResultScreenData modelini ekliyorum
-class ResultScreenData {
-  final ui.Image? drawingImage;
-  final String recognizedLetter;
-  final dynamic targetLetter;
-  final bool isCorrect;
-  final int correctCount;
-  final int totalAttempts;
-  final VoidCallback onTryAgain;
-  final VoidCallback onContinue;
-
-  ResultScreenData({
-    required this.drawingImage,
-    required this.recognizedLetter,
-    required this.targetLetter,
-    required this.isCorrect,
-    required this.correctCount,
-    required this.totalAttempts,
-    required this.onTryAgain,
-    required this.onContinue,
-  });
-}
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
+import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
+import 'package:go_router/go_router.dart';
 
 class LetterDrawScreen extends StatefulWidget {
   const LetterDrawScreen({super.key});
@@ -48,8 +26,7 @@ class LetterDrawScreen extends StatefulWidget {
   State<LetterDrawScreen> createState() => _LetterDrawScreenState();
 }
 
-class _LetterDrawScreenState extends State<LetterDrawScreen>
-    with SingleTickerProviderStateMixin {
+class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerProviderStateMixin {
   final GlobalKey _drawingAreaKey = GlobalKey();
   // Animasyon için controller
   late AnimationController _animationController;
@@ -101,35 +78,26 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
     // Gamification Integration
     if (data.isCorrect) {
       Provider.of<GamificationProvider>(context, listen: false)
-          .incrementTotalDrawings(
-              type: DrawingType.letter, label: data.recognizedLetter);
+          .incrementTotalDrawings(type: DrawingType.letter, label: data.recognizedLetter);
     }
 
     try {
       if (data.isCorrect) {
-        AudioService().playEffectAndResumeBackground(
-            AppAudios.success, AppAudios.happyKids);
+        AudioService().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
       } else {
-        AudioService()
-            .playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
+        AudioService().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
       }
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultScreen(
-            drawingImage: data.drawingImage,
-            recognizedLetter: data.recognizedLetter,
-            targetLetter: data.targetLetter,
-            isCorrect: data.isCorrect,
-            correctCount: data.correctCount,
-            totalAttempts: data.totalAttempts,
-            onTryAgain: data.onTryAgain,
-            onContinue: data.onContinue,
-          ),
-        ),
+      context.push(
+        AppRoutes.result,
+        extra: data,
       );
-    } catch (e) {
-      debugPrint('Sonuç ekranı açılamadı: $e');
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Result screen navigation failed',
+        tag: 'LetterDraw',
+        error: e,
+        stackTrace: st,
+      );
       data.onContinue();
     }
   }
@@ -202,10 +170,8 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
                   onEndDrawing: () {
                     drawingProvider.endLine();
                   },
-                  isSequentialModeActive:
-                      drawingProvider.sequentialManager.isSequentialModeActive,
-                  correctlyDrawnCount:
-                      drawingProvider.sequentialManager.correctlyDrawnCount,
+                  isSequentialModeActive: drawingProvider.sequentialManager.isSequentialModeActive,
+                  correctlyDrawnCount: drawingProvider.sequentialManager.correctlyDrawnCount,
                 ),
               ),
               // Alt araç çubuğu
@@ -221,44 +187,34 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
                   drawingProvider.setStrokeWidth(35.0);
                 },
                 onRecognize: () async {
-                  if (!drawingProvider.showResult &&
-                      !drawingProvider.isLoading) {
+                  if (!drawingProvider.showResult && !drawingProvider.isLoading) {
                     await drawingProvider.tanimlaHarf(context);
                     // Sıralı mod aktifse, sonuç ekranını göster
-                    if (drawingProvider
-                        .sequentialManager.isSequentialModeActive) {
+                    if (drawingProvider.sequentialManager.isSequentialModeActive) {
                       final bool isCorrect = drawingProvider.sequentialManager
-                          .evaluateRecognitionResult(
-                              drawingProvider.recognitionResult);
+                          .evaluateRecognitionResult(drawingProvider.recognitionResult);
                       _showResultScreenWithModel(ResultScreenData(
                         drawingImage: drawingProvider.drawingImage,
                         recognizedLetter: drawingProvider.recognitionResult,
-                        targetLetter: drawingProvider
-                            .sequentialManager.currentTargetLetter,
+                        targetLetter: drawingProvider.sequentialManager.currentTargetLetter,
                         isCorrect: isCorrect,
-                        correctCount: drawingProvider
-                            .sequentialManager.correctlyDrawnCount,
-                        totalAttempts:
-                            drawingProvider.sequentialManager.totalAttempts,
+                        correctCount: drawingProvider.sequentialManager.correctlyDrawnCount,
+                        totalAttempts: drawingProvider.sequentialManager.totalAttempts,
                         onTryAgain: () {
-                          Navigator.pop(context);
-                          drawingProvider.onResultScreenAction(isCorrect,
-                              tryAgain: true);
+                          context.pop();
+                          drawingProvider.onResultScreenAction(isCorrect, tryAgain: true);
                         },
                         onContinue: () {
-                          Navigator.pop(context);
-                          drawingProvider.onResultScreenAction(isCorrect,
-                              tryAgain: false);
+                          context.pop();
+                          drawingProvider.onResultScreenAction(isCorrect, tryAgain: false);
                         },
                       ));
                     } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => InfoScreen(
-                            drawingImage: drawingProvider.drawingImage,
-                            recognizedLetter: drawingProvider.recognitionResult,
-                          ),
+                      context.push(
+                        AppRoutes.infoDraw,
+                        extra: InfoDrawExtra(
+                          drawingImage: drawingProvider.drawingImage,
+                          recognizedLetter: drawingProvider.recognitionResult,
                         ),
                       );
                     }
@@ -270,11 +226,9 @@ class _LetterDrawScreenState extends State<LetterDrawScreen>
                 selectedColor: drawingProvider.selectedColor,
                 showResult: drawingProvider.showResult,
                 isLoading: drawingProvider.isLoading,
-                isSequentialModeActive:
-                    drawingProvider.sequentialManager.isSequentialModeActive,
+                isSequentialModeActive: drawingProvider.sequentialManager.isSequentialModeActive,
                 onSequentialModeChanged: drawingProvider.toggleSequentialMode,
-                correctlyDrawnCount:
-                    drawingProvider.sequentialManager.correctlyDrawnCount,
+                correctlyDrawnCount: drawingProvider.sequentialManager.correctlyDrawnCount,
                 totalAttempts: drawingProvider.sequentialManager.totalAttempts,
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:abc123/core/constants/image_constants.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:ui';
@@ -86,8 +87,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius:
-                    BorderRadius.circular(AppRadii.cardRadius(context)),
+                borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -123,7 +123,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
         ),
         SizedBox(height: responsive.height * 0.015),
         Text(
-          "Puzzle hazırlanıyor...",
+          context.drawL10n!.drawLetterPuzzlePreparing,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: responsive.subtitleFontSize * 1.1,
@@ -159,8 +159,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
                   : ImageFiltered(
                       imageFilter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
                       child: Image.asset(
-                        ImageConstants
-                            .puzzlePieceAssets[row * puzzleCols + col],
+                        ImageConstants.puzzlePieceAssets[row * puzzleCols + col],
                         fit: BoxFit.cover,
                       ),
                     ),
