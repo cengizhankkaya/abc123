@@ -1,0 +1,409 @@
+{
+  "@@locale": "ru",
+  "hello": "Здравствуйте",
+  "@hello": {
+    "description": "l10n: hello"
+  },
+  "slogan": "Рисуй, учись, развлекайся!",
+  "@slogan": {
+    "description": "l10n: slogan"
+  },
+  "seeTutorial": "Смотреть учебник",
+  "@seeTutorial": {
+    "description": "l10n: seeTutorial"
+  },
+  "tutorial": "Учебник",
+  "@tutorial": {
+    "description": "l10n: tutorial"
+  },
+  "points": "Очки",
+  "@points": {
+    "description": "l10n: points"
+  },
+  "streakDay": "Дней",
+  "@streakDay": {
+    "description": "l10n: streakDay"
+  },
+  "badgeFirstLoginName": "Первый Шаг",
+  "@badgeFirstLoginName": {
+    "description": "l10n: badgeFirstLoginName"
+  },
+  "badgeFirstLoginDesc": "Вы вошли в систему в первый раз!",
+  "@badgeFirstLoginDesc": {
+    "description": "l10n: badgeFirstLoginDesc"
+  },
+  "badgeFirstDrawName": "Начинающий Художник",
+  "@badgeFirstDrawName": {
+    "description": "l10n: badgeFirstDrawName"
+  },
+  "badgeFirstDrawDesc": "Вы завершили свой первый рисунок!",
+  "@badgeFirstDrawDesc": {
+    "description": "l10n: badgeFirstDrawDesc"
+  },
+  "badgeStreak3Name": "Решительный",
+  "@badgeStreak3Name": {
+    "description": "l10n: badgeStreak3Name"
+  },
+  "badgeStreak3Desc": "Вы заходили 3 дня подряд!",
+  "@badgeStreak3Desc": {
+    "description": "l10n: badgeStreak3Desc"
+  },
+  "badgeStreak7Name": "Звезда Недели",
+  "@badgeStreak7Name": {
+    "description": "l10n: badgeStreak7Name"
+  },
+  "badgeStreak7Desc": "Вы практиковались 7 дней!",
+  "@badgeStreak7Desc": {
+    "description": "l10n: badgeStreak7Desc"
+  },
+  "badgeMasterArtistName": "Мастер-Художник",
+  "@badgeMasterArtistName": {
+    "description": "l10n: badgeMasterArtistName"
+  },
+  "badgeMasterArtistDesc": "Вы сделали 100 рисунков!",
+  "@badgeMasterArtistDesc": {
+    "description": "l10n: badgeMasterArtistDesc"
+  },
+  "badgeStreak30Name": "Ежемесячный Мастер",
+  "@badgeStreak30Name": {
+    "description": "l10n: badgeStreak30Name"
+  },
+  "badgeStreak30Desc": "Вы заходили регулярно 30 дней!",
+  "@badgeStreak30Desc": {
+    "description": "l10n: badgeStreak30Desc"
+  },
+  "badgeBronzeArtistName": "Бронзовый Карандаш",
+  "@badgeBronzeArtistName": {
+    "description": "l10n: badgeBronzeArtistName"
+  },
+  "badgeBronzeArtistDesc": "Вы сделали 10 рисунков!",
+  "@badgeBronzeArtistDesc": {
+    "description": "l10n: badgeBronzeArtistDesc"
+  },
+  "badgeSilverArtistName": "Серебряный Карандаш",
+  "@badgeSilverArtistName": {
+    "description": "l10n: badgeSilverArtistName"
+  },
+  "badgeSilverArtistDesc": "Вы сделали 50 рисунков!",
+  "@badgeSilverArtistDesc": {
+    "description": "l10n: badgeSilverArtistDesc"
+  },
+  "badgeGoldArtistName": "Золотой Карандаш",
+  "@badgeGoldArtistName": {
+    "description": "l10n: badgeGoldArtistName"
+  },
+  "badgeGoldArtistDesc": "Вы сделали 250 рисунков!",
+  "@badgeGoldArtistDesc": {
+    "description": "l10n: badgeGoldArtistDesc"
+  },
+  "badgeDiamondArtistName": "Бриллиантовый Художник",
+  "@badgeDiamondArtistName": {
+    "description": "l10n: badgeDiamondArtistName"
+  },
+  "badgeDiamondArtistDesc": "Вы сделали 500 рисунков! Невероятно!",
+  "@badgeDiamondArtistDesc": {
+    "description": "l10n: badgeDiamondArtistDesc"
+  },
+  "badgeEarlyBirdName": "Ранняя Пташка",
+  "@badgeEarlyBirdName": {
+    "description": "l10n: badgeEarlyBirdName"
+  },
+  "badgeEarlyBirdDesc": "Вы начали работать рано утром!",
+  "@badgeEarlyBirdDesc": {
+    "description": "l10n: badgeEarlyBirdDesc"
+  },
+  "badgeNightOwlName": "Ночная Сова",
+  "@badgeNightOwlName": {
+    "description": "l10n: badgeNightOwlName"
+  },
+  "badgeNightOwlDesc": "Вы работаете даже поздно ночью!",
+  "@badgeNightOwlDesc": {
+    "description": "l10n: badgeNightOwlDesc"
+  },
+  "badgeWeekendWarriorName": "Выходные Веселье",
+  "@badgeWeekendWarriorName": {
+    "description": "l10n: badgeWeekendWarriorName"
+  },
+  "badgeWeekendWarriorDesc": "Вы проводите выходные, обучаясь!",
+  "@badgeWeekendWarriorDesc": {
+    "description": "l10n: badgeWeekendWarriorDesc"
+  },
+  "badgeNumberMasterName": "Математический Гений",
+  "@badgeNumberMasterName": {
+    "description": "l10n: badgeNumberMasterName"
+  },
+  "badgeNumberMasterDesc": "Вы нарисовали 50 цифр!",
+  "@badgeNumberMasterDesc": {
+    "description": "l10n: badgeNumberMasterDesc"
+  },
+  "badgeLetterMasterName": "Профи Алфавита",
+  "@badgeLetterMasterName": {
+    "description": "l10n: badgeLetterMasterName"
+  },
+  "badgeLetterMasterDesc": "Вы нарисовали 50 букв!",
+  "@badgeLetterMasterDesc": {
+    "description": "l10n: badgeLetterMasterDesc"
+  },
+  "badgeShapeMasterName": "Волшебник Геометрии",
+  "@badgeShapeMasterName": {
+    "description": "l10n: badgeShapeMasterName"
+  },
+  "badgeShapeMasterDesc": "Вы нарисовали 50 фигур!",
+  "@badgeShapeMasterDesc": {
+    "description": "l10n: badgeShapeMasterDesc"
+  },
+  "badgeHighScorerName": "High Scorer",
+  "@badgeHighScorerName": {
+    "description": "l10n: badgeHighScorerName"
+  },
+  "badgeHighScorerDesc": "You reached 1000 points!",
+  "@badgeHighScorerDesc": {
+    "description": "l10n: badgeHighScorerDesc"
+  },
+  "badgeScoreLegendName": "Score Legend",
+  "@badgeScoreLegendName": {
+    "description": "l10n: badgeScoreLegendName"
+  },
+  "badgeScoreLegendDesc": "You reached 5000 points!",
+  "@badgeScoreLegendDesc": {
+    "description": "l10n: badgeScoreLegendDesc"
+  },
+  "badgeBadgeCollectorName": "Badge Collector",
+  "@badgeBadgeCollectorName": {
+    "description": "l10n: badgeBadgeCollectorName"
+  },
+  "badgeBadgeCollectorDesc": "You earned 5 badges!",
+  "@badgeBadgeCollectorDesc": {
+    "description": "l10n: badgeBadgeCollectorDesc"
+  },
+  "badgeBadgeMasterName": "Badge Master",
+  "@badgeBadgeMasterName": {
+    "description": "l10n: badgeBadgeMasterName"
+  },
+  "badgeBadgeMasterDesc": "You earned 15 badges!",
+  "@badgeBadgeMasterDesc": {
+    "description": "l10n: badgeBadgeMasterDesc"
+  },
+  "shopTitle": "МАГАЗИН",
+  "@shopTitle": {
+    "description": "l10n: shopTitle"
+  },
+  "tabHat": "Шляпа",
+  "@tabHat": {
+    "description": "l10n: tabHat"
+  },
+  "tabGlasses": "Очки",
+  "@tabGlasses": {
+    "description": "l10n: tabGlasses"
+  },
+  "tabOutfit": "Наряд",
+  "@tabOutfit": {
+    "description": "l10n: tabOutfit"
+  },
+  "owned": "Куплено",
+  "@owned": {
+    "description": "l10n: owned"
+  },
+  "equipped": "Надето",
+  "@equipped": {
+    "description": "l10n: equipped"
+  },
+  "insufficientPoints": "Недостаточно очков! 😢",
+  "@insufficientPoints": {
+    "description": "l10n: insufficientPoints"
+  },
+  "buyTitle": "Купить предмет?",
+  "@buyTitle": {
+    "description": "l10n: buyTitle"
+  },
+  "buyDescription": "Вы хотите купить этот предмет за {price} звезд?",
+  "@buyDescription": {
+    "description": "l10n: buyDescription",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "noBtn": "Нет",
+  "@noBtn": {
+    "description": "l10n: noBtn"
+  },
+  "yesBuyBtn": "Да, купить!",
+  "@yesBuyBtn": {
+    "description": "l10n: yesBuyBtn"
+  },
+  "itemBought": "{item} куплено! 🎉",
+  "@itemBought": {
+    "description": "l10n: itemBought",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "freePointsBtn": "СМОТРЕТЬ РЕКЛАМУ",
+  "@freePointsBtn": {
+    "description": "l10n: freePointsBtn"
+  },
+  "rewardEarned": "Поздравляем! Вы заработали {amount} очков! 🎉",
+  "@rewardEarned": {
+    "description": "l10n: rewardEarned",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "myQuestsTitle": "МОИ ЗАДАНИЯ",
+  "@myQuestsTitle": {
+    "description": "l10n: myQuestsTitle"
+  },
+  "loadingQuests": "Загрузка заданий...",
+  "@loadingQuests": {
+    "description": "l10n: loadingQuests"
+  },
+  "dailyQuest": "ЕЖЕДНЕВНОЕ ЗАДАНИЕ",
+  "@dailyQuest": {
+    "description": "l10n: dailyQuest"
+  },
+  "weeklyQuest": "ЕЖЕНЕДЕЛЬНОЕ ЗАДАНИЕ",
+  "@weeklyQuest": {
+    "description": "l10n: weeklyQuest"
+  },
+  "hat_blue_cap": "Синяя Кепка",
+  "@hat_blue_cap": {
+    "description": "l10n: hat_blue_cap"
+  },
+  "hat_crown": "Корона",
+  "@hat_crown": {
+    "description": "l10n: hat_crown"
+  },
+  "hat_wizard": "Шляпа Волшебника",
+  "@hat_wizard": {
+    "description": "l10n: hat_wizard"
+  },
+  "hat_flower": "Цветочный Венок",
+  "@hat_flower": {
+    "description": "l10n: hat_flower"
+  },
+  "hat_pirate": "Шляпа Пирата",
+  "@hat_pirate": {
+    "description": "l10n: hat_pirate"
+  },
+  "hat_chef": "Поварской Колпак",
+  "@hat_chef": {
+    "description": "l10n: hat_chef"
+  },
+  "glasses_sun": "Солнцезащитные очки",
+  "@glasses_sun": {
+    "description": "l10n: glasses_sun"
+  },
+  "glasses_nerd": "Очки Ботана",
+  "@glasses_nerd": {
+    "description": "l10n: glasses_nerd"
+  },
+  "glasses_heart": "Очки-Сердечки",
+  "@glasses_heart": {
+    "description": "l10n: glasses_heart"
+  },
+  "glasses_3d": "3D Очки",
+  "@glasses_3d": {
+    "description": "l10n: glasses_3d"
+  },
+  "glasses_vr": "VR Шлем",
+  "@glasses_vr": {
+    "description": "l10n: glasses_vr"
+  },
+  "glasses_ski": "Лыжные Очки",
+  "@glasses_ski": {
+    "description": "l10n: glasses_ski"
+  },
+  "glasses_mask": "Маска",
+  "@glasses_mask": {
+    "description": "l10n: glasses_mask"
+  },
+  "glasses_reading": "Очки для Чтения",
+  "@glasses_reading": {
+    "description": "l10n: glasses_reading"
+  },
+  "outfit_red": "Красная Рубашка",
+  "@outfit_red": {
+    "description": "l10n: outfit_red"
+  },
+  "outfit_super": "Супергерой",
+  "@outfit_super": {
+    "description": "l10n: outfit_super"
+  },
+  "outfit_green": "Зеленая Толстовка",
+  "@outfit_green": {
+    "description": "l10n: outfit_green"
+  },
+  "outfit_doctor": "Халат Врача",
+  "@outfit_doctor": {
+    "description": "l10n: outfit_doctor"
+  },
+  "outfit_space": "Скафандр",
+  "@outfit_space": {
+    "description": "l10n: outfit_space"
+  },
+  "outfit_sports": "Джерси",
+  "@outfit_sports": {
+    "description": "l10n: outfit_sports"
+  },
+  "outfit_police": "Полицейская Форма",
+  "@outfit_police": {
+    "description": "l10n: outfit_police"
+  },
+  "outfit_chef": "Поварской Фартук",
+  "@outfit_chef": {
+    "description": "l10n: outfit_chef"
+  },
+  "outfit_winter": "Зимнее Пальто",
+  "@outfit_winter": {
+    "description": "l10n: outfit_winter"
+  },
+  "outfit_tuxedo": "Смокинг",
+  "@outfit_tuxedo": {
+    "description": "l10n: outfit_tuxedo"
+  },
+  "badgesTitle": "МОИ ЗНАЧКИ",
+  "@badgesTitle": {
+    "description": "l10n: badgesTitle"
+  },
+  "totalBadges": "Всего:",
+  "@totalBadges": {
+    "description": "l10n: totalBadges"
+  },
+  "filterAll": "ВСЕ",
+  "@filterAll": {
+    "description": "l10n: filterAll"
+  },
+  "filterEarned": "ПОЛУЧЕНО",
+  "@filterEarned": {
+    "description": "l10n: filterEarned"
+  },
+  "filterLocked": "ЗАКРЫТО",
+  "@filterLocked": {
+    "description": "l10n: filterLocked"
+  },
+  "numbersTitle": "Изучать числа",
+  "@numbersTitle": {
+    "description": "l10n: numbersTitle"
+  },
+  "lettersTitle": "Изучать буквы",
+  "@lettersTitle": {
+    "description": "l10n: lettersTitle"
+  },
+  "shapesTitle": "Изучать фигуры",
+  "@shapesTitle": {
+    "description": "l10n: shapesTitle"
+  },
+  "noBadgesFound": "No badges found",
+  "@noBadgesFound": {
+    "description": "l10n: noBadgesFound"
+  }
+}

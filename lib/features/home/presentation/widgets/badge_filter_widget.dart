@@ -1,13 +1,11 @@
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:abc123/shared/language_provider.dart';
-import 'package:abc123/core/constants/language_constants.dart';
 
 enum BadgeFilter { all, earned, locked }
 
 class BadgeFilterWidget extends StatelessWidget {
   final BadgeFilter selectedFilter;
-  final Function(BadgeFilter) onFilterChanged;
+  final void Function(BadgeFilter) onFilterChanged;
 
   const BadgeFilterWidget({
     super.key,
@@ -17,18 +15,15 @@ class BadgeFilterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lang = context.watch<LanguageProvider>().language;
+    final h = context.homeL10n!;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildTab(
-              context, getLocalizedText('filterAll', lang), BadgeFilter.all),
-          _buildTab(context, getLocalizedText('filterEarned', lang),
-              BadgeFilter.earned),
-          _buildTab(context, getLocalizedText('filterLocked', lang),
-              BadgeFilter.locked),
+          _buildTab(context, h.filterAll, BadgeFilter.all),
+          _buildTab(context, h.filterEarned, BadgeFilter.earned),
+          _buildTab(context, h.filterLocked, BadgeFilter.locked),
         ],
       ),
     );

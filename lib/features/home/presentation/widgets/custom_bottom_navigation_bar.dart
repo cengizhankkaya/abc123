@@ -1,9 +1,11 @@
 import 'dart:ui';
+
+import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
-  final Function(int) onTap;
+  final void Function(int) onTap;
 
   const CustomBottomNavigationBar({
     required this.currentIndex,
@@ -34,10 +36,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(Icons.home_rounded, 0),
-              _buildNavItem(Icons.rocket_launch_rounded, 1),
-              _buildNavItem(Icons.store_rounded, 2),
-              _buildNavItem(Icons.emoji_events_rounded, 3),
+              _buildNavItem(context, Icons.home_rounded, 0),
+              _buildNavItem(context, Icons.rocket_launch_rounded, 1),
+              _buildNavItem(context, Icons.store_rounded, 2),
+              _buildNavItem(context, Icons.emoji_events_rounded, 3),
             ],
           ),
         ),
@@ -45,41 +47,53 @@ class CustomBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, int index) {
+  String _navLabel(BuildContext context, int index) {
+    final l10n = AppLocalizations.of(context)!;
+    return switch (index) {
+      0 => l10n.navHome,
+      1 => l10n.navQuests,
+      2 => l10n.navShop,
+      _ => l10n.navBadges,
+    };
+  }
+
+  Widget _buildNavItem(BuildContext context, IconData icon, int index) {
     final isSelected = currentIndex == index;
-    return GestureDetector(
-      onTap: () => onTap(index),
-      behavior: HitTestBehavior.opaque,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFF6C5CE7).withOpacity(0.1)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 28,
-              color:
-                  isSelected ? const Color(0xFF6C5CE7) : Colors.grey.shade400,
-            ),
-            if (isSelected)
-              Container(
-                margin: const EdgeInsets.only(top: 4),
-                width: 4,
-                height: 4,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF6C5CE7),
-                  shape: BoxShape.circle,
-                ),
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      label: _navLabel(context, index),
+      child: GestureDetector(
+        onTap: () => onTap(index),
+        behavior: HitTestBehavior.opaque,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFF6C5CE7).withOpacity(0.1) : Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                icon,
+                size: 28,
+                color: isSelected ? const Color(0xFF6C5CE7) : Colors.grey.shade400,
               ),
-          ],
+              if (isSelected)
+                Container(
+                  margin: const EdgeInsets.only(top: 4),
+                  width: 4,
+                  height: 4,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF6C5CE7),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,9 +1,5 @@
-import 'package:abc123/core/constants/app_sizes.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:abc123/shared/language_provider.dart';
-import 'package:abc123/core/constants/language_constants.dart';
 
 class BadgeHeaderWidget extends StatelessWidget {
   final int unlockedCount;
@@ -17,9 +13,7 @@ class BadgeHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lang = context.watch<LanguageProvider>().language;
-    final responsive = ResponsiveSize(context);
-
+    final h = context.homeL10n!;
     // Progress percentage
     final double progress = totalCount > 0 ? unlockedCount / totalCount : 0.0;
 
@@ -80,7 +74,7 @@ class BadgeHeaderWidget extends StatelessWidget {
                       )
                     ]),
                 child: Text(
-                  getLocalizedText('badgesTitle', lang),
+                  h.badgesTitle,
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w900,
@@ -97,7 +91,7 @@ class BadgeHeaderWidget extends StatelessWidget {
 
         // Progress Info
         Text(
-          '${getLocalizedText('totalBadges', lang)} $unlockedCount/$totalCount',
+          '${h.totalBadges} $unlockedCount/$totalCount',
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -128,8 +122,7 @@ class BadgeHeaderWidget extends StatelessWidget {
                     child: LinearProgressIndicator(
                       value: progress,
                       backgroundColor: Colors.transparent,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                          Color(0xFFFFA502)), // Orange
+                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFFFFA502)), // Orange
                       minHeight: 24,
                     ),
                   ),

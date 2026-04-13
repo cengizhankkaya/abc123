@@ -1,0 +1,409 @@
+{
+  "@@locale": "ur",
+  "hello": "سلام",
+  "@hello": {
+    "description": "l10n: hello"
+  },
+  "slogan": "ڈرا کریں، سیکھیں، مزہ کریں!",
+  "@slogan": {
+    "description": "l10n: slogan"
+  },
+  "seeTutorial": "سبق دیکھیں",
+  "@seeTutorial": {
+    "description": "l10n: seeTutorial"
+  },
+  "tutorial": "سبق",
+  "@tutorial": {
+    "description": "l10n: tutorial"
+  },
+  "points": "پوائنٹس",
+  "@points": {
+    "description": "l10n: points"
+  },
+  "streakDay": "دن",
+  "@streakDay": {
+    "description": "l10n: streakDay"
+  },
+  "badgeFirstLoginName": "پہلا قدم",
+  "@badgeFirstLoginName": {
+    "description": "l10n: badgeFirstLoginName"
+  },
+  "badgeFirstLoginDesc": "آپ نے پہلی بار لاگ ان کیا!",
+  "@badgeFirstLoginDesc": {
+    "description": "l10n: badgeFirstLoginDesc"
+  },
+  "badgeFirstDrawName": "ابتدائی آرٹسٹ",
+  "@badgeFirstDrawName": {
+    "description": "l10n: badgeFirstDrawName"
+  },
+  "badgeFirstDrawDesc": "آپ نے اپنی پہلی ڈرائنگ مکمل کی!",
+  "@badgeFirstDrawDesc": {
+    "description": "l10n: badgeFirstDrawDesc"
+  },
+  "badgeStreak3Name": "پرعزم",
+  "@badgeStreak3Name": {
+    "description": "l10n: badgeStreak3Name"
+  },
+  "badgeStreak3Desc": "آپ مسلسل 3 دن آئے!",
+  "@badgeStreak3Desc": {
+    "description": "l10n: badgeStreak3Desc"
+  },
+  "badgeStreak7Name": "ہفتہ وار اسٹار",
+  "@badgeStreak7Name": {
+    "description": "l10n: badgeStreak7Name"
+  },
+  "badgeStreak7Desc": "آپ نے 7 دن پریکٹس کی!",
+  "@badgeStreak7Desc": {
+    "description": "l10n: badgeStreak7Desc"
+  },
+  "badgeMasterArtistName": "ماस्टर آرٹسٹ",
+  "@badgeMasterArtistName": {
+    "description": "l10n: badgeMasterArtistName"
+  },
+  "badgeMasterArtistDesc": "آپ نے 100 ڈرائنگز کیں!",
+  "@badgeMasterArtistDesc": {
+    "description": "l10n: badgeMasterArtistDesc"
+  },
+  "badgeStreak30Name": "ماہانہ ماسٹر",
+  "@badgeStreak30Name": {
+    "description": "l10n: badgeStreak30Name"
+  },
+  "badgeStreak30Desc": "آپ 30 دن تک باقاعدگی سے آئے!",
+  "@badgeStreak30Desc": {
+    "description": "l10n: badgeStreak30Desc"
+  },
+  "badgeBronzeArtistName": "کانسی پنسل",
+  "@badgeBronzeArtistName": {
+    "description": "l10n: badgeBronzeArtistName"
+  },
+  "badgeBronzeArtistDesc": "آپ نے 10 ڈرائنگز کیں!",
+  "@badgeBronzeArtistDesc": {
+    "description": "l10n: badgeBronzeArtistDesc"
+  },
+  "badgeSilverArtistName": "چاندی پنسل",
+  "@badgeSilverArtistName": {
+    "description": "l10n: badgeSilverArtistName"
+  },
+  "badgeSilverArtistDesc": "آپ نے 50 ڈرائنگز کیں!",
+  "@badgeSilverArtistDesc": {
+    "description": "l10n: badgeSilverArtistDesc"
+  },
+  "badgeGoldArtistName": "سونے کی پنسل",
+  "@badgeGoldArtistName": {
+    "description": "l10n: badgeGoldArtistName"
+  },
+  "badgeGoldArtistDesc": "آپ نے 250 ڈرائنگز کیں!",
+  "@badgeGoldArtistDesc": {
+    "description": "l10n: badgeGoldArtistDesc"
+  },
+  "badgeDiamondArtistName": "ہیرا آرٹسٹ",
+  "@badgeDiamondArtistName": {
+    "description": "l10n: badgeDiamondArtistName"
+  },
+  "badgeDiamondArtistDesc": "آپ نے 500 ڈرائنگز کیں! ناقابل یقین!",
+  "@badgeDiamondArtistDesc": {
+    "description": "l10n: badgeDiamondArtistDesc"
+  },
+  "badgeEarlyBirdName": "صبح کا پرندہ",
+  "@badgeEarlyBirdName": {
+    "description": "l10n: badgeEarlyBirdName"
+  },
+  "badgeEarlyBirdDesc": "آپ نے صبح سویرے کام شروع کر دیا!",
+  "@badgeEarlyBirdDesc": {
+    "description": "l10n: badgeEarlyBirdDesc"
+  },
+  "badgeNightOwlName": "رات کا اللو",
+  "@badgeNightOwlName": {
+    "description": "l10n: badgeNightOwlName"
+  },
+  "badgeNightOwlDesc": "آپ رات گئے بھی کام کر رہے ہیں!",
+  "@badgeNightOwlDesc": {
+    "description": "l10n: badgeNightOwlDesc"
+  },
+  "badgeWeekendWarriorName": "ہفتے کے آخر میں تفریح",
+  "@badgeWeekendWarriorName": {
+    "description": "l10n: badgeWeekendWarriorName"
+  },
+  "badgeWeekendWarriorDesc": "آپ اپنا ہفتہ وار چھٹی سیکھنے میں گزار رہے ہیں!",
+  "@badgeWeekendWarriorDesc": {
+    "description": "l10n: badgeWeekendWarriorDesc"
+  },
+  "badgeNumberMasterName": "ریاضی باصلاحیت",
+  "@badgeNumberMasterName": {
+    "description": "l10n: badgeNumberMasterName"
+  },
+  "badgeNumberMasterDesc": "آپ نے 50 نمبر کھینچے!",
+  "@badgeNumberMasterDesc": {
+    "description": "l10n: badgeNumberMasterDesc"
+  },
+  "badgeLetterMasterName": "حروف تہجی پرو",
+  "@badgeLetterMasterName": {
+    "description": "l10n: badgeLetterMasterName"
+  },
+  "badgeLetterMasterDesc": "آپ نے 50 حروف کھینچے!",
+  "@badgeLetterMasterDesc": {
+    "description": "l10n: badgeLetterMasterDesc"
+  },
+  "badgeShapeMasterName": "جیومیٹری وزرڈ",
+  "@badgeShapeMasterName": {
+    "description": "l10n: badgeShapeMasterName"
+  },
+  "badgeShapeMasterDesc": "آپ نے 50 شکلیں بنائیں!",
+  "@badgeShapeMasterDesc": {
+    "description": "l10n: badgeShapeMasterDesc"
+  },
+  "badgeHighScorerName": "High Scorer",
+  "@badgeHighScorerName": {
+    "description": "l10n: badgeHighScorerName"
+  },
+  "badgeHighScorerDesc": "You reached 1000 points!",
+  "@badgeHighScorerDesc": {
+    "description": "l10n: badgeHighScorerDesc"
+  },
+  "badgeScoreLegendName": "Score Legend",
+  "@badgeScoreLegendName": {
+    "description": "l10n: badgeScoreLegendName"
+  },
+  "badgeScoreLegendDesc": "You reached 5000 points!",
+  "@badgeScoreLegendDesc": {
+    "description": "l10n: badgeScoreLegendDesc"
+  },
+  "badgeBadgeCollectorName": "Badge Collector",
+  "@badgeBadgeCollectorName": {
+    "description": "l10n: badgeBadgeCollectorName"
+  },
+  "badgeBadgeCollectorDesc": "You earned 5 badges!",
+  "@badgeBadgeCollectorDesc": {
+    "description": "l10n: badgeBadgeCollectorDesc"
+  },
+  "badgeBadgeMasterName": "Badge Master",
+  "@badgeBadgeMasterName": {
+    "description": "l10n: badgeBadgeMasterName"
+  },
+  "badgeBadgeMasterDesc": "You earned 15 badges!",
+  "@badgeBadgeMasterDesc": {
+    "description": "l10n: badgeBadgeMasterDesc"
+  },
+  "shopTitle": "دکان",
+  "@shopTitle": {
+    "description": "l10n: shopTitle"
+  },
+  "tabHat": "ٹوپی",
+  "@tabHat": {
+    "description": "l10n: tabHat"
+  },
+  "tabGlasses": "عینک",
+  "@tabGlasses": {
+    "description": "l10n: tabGlasses"
+  },
+  "tabOutfit": "لباس",
+  "@tabOutfit": {
+    "description": "l10n: tabOutfit"
+  },
+  "owned": "ملکیت",
+  "@owned": {
+    "description": "l10n: owned"
+  },
+  "equipped": "لیس",
+  "@equipped": {
+    "description": "l10n: equipped"
+  },
+  "insufficientPoints": "پوائنٹس ناکافی ہیں! 😢",
+  "@insufficientPoints": {
+    "description": "l10n: insufficientPoints"
+  },
+  "buyTitle": "آئٹم خریدیں؟",
+  "@buyTitle": {
+    "description": "l10n: buyTitle"
+  },
+  "buyDescription": "کیا آپ {price} ستاروں کے بدلے یہ آئٹم خریدنا چاہتے ہیں؟",
+  "@buyDescription": {
+    "description": "l10n: buyDescription",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "noBtn": "نہیں",
+  "@noBtn": {
+    "description": "l10n: noBtn"
+  },
+  "yesBuyBtn": "ہاں، خریدیں!",
+  "@yesBuyBtn": {
+    "description": "l10n: yesBuyBtn"
+  },
+  "itemBought": "{item} خریدا گیا! 🎉",
+  "@itemBought": {
+    "description": "l10n: itemBought",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "freePointsBtn": "اشتہار دیکھیں پوائنٹس حاصل کریں",
+  "@freePointsBtn": {
+    "description": "l10n: freePointsBtn"
+  },
+  "rewardEarned": "مبارک ہو! آپ نے {amount} پوائنٹس حاصل کیے! 🎉",
+  "@rewardEarned": {
+    "description": "l10n: rewardEarned",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "myQuestsTitle": "میری مہمات",
+  "@myQuestsTitle": {
+    "description": "l10n: myQuestsTitle"
+  },
+  "loadingQuests": "مہمات لوڈ ہو رہی ہیں...",
+  "@loadingQuests": {
+    "description": "l10n: loadingQuests"
+  },
+  "dailyQuest": "روزانہ کی مہم",
+  "@dailyQuest": {
+    "description": "l10n: dailyQuest"
+  },
+  "weeklyQuest": "ہفتہ وار مہم",
+  "@weeklyQuest": {
+    "description": "l10n: weeklyQuest"
+  },
+  "hat_blue_cap": "نیلی ٹوپی",
+  "@hat_blue_cap": {
+    "description": "l10n: hat_blue_cap"
+  },
+  "hat_crown": "تاج",
+  "@hat_crown": {
+    "description": "l10n: hat_crown"
+  },
+  "hat_wizard": "جادوگر کی ٹوپی",
+  "@hat_wizard": {
+    "description": "l10n: hat_wizard"
+  },
+  "hat_flower": "پھولوں کا تاج",
+  "@hat_flower": {
+    "description": "l10n: hat_flower"
+  },
+  "hat_pirate": "سمندری ڈاکو کی ٹوپی",
+  "@hat_pirate": {
+    "description": "l10n: hat_pirate"
+  },
+  "hat_chef": "بورچی کی ٹوپی",
+  "@hat_chef": {
+    "description": "l10n: hat_chef"
+  },
+  "glasses_sun": "دھوپ کا چشمہ",
+  "@glasses_sun": {
+    "description": "l10n: glasses_sun"
+  },
+  "glasses_nerd": "پڑھاکو عینک",
+  "@glasses_nerd": {
+    "description": "l10n: glasses_nerd"
+  },
+  "glasses_heart": "دل والی عینک",
+  "@glasses_heart": {
+    "description": "l10n: glasses_heart"
+  },
+  "glasses_3d": "3D عینک",
+  "@glasses_3d": {
+    "description": "l10n: glasses_3d"
+  },
+  "glasses_vr": "VR ہیڈسیٹ",
+  "@glasses_vr": {
+    "description": "l10n: glasses_vr"
+  },
+  "glasses_ski": "اسکی چشمہ",
+  "@glasses_ski": {
+    "description": "l10n: glasses_ski"
+  },
+  "glasses_mask": "ماسک",
+  "@glasses_mask": {
+    "description": "l10n: glasses_mask"
+  },
+  "glasses_reading": "پڑھنے کی عینک",
+  "@glasses_reading": {
+    "description": "l10n: glasses_reading"
+  },
+  "outfit_red": "سرخ قمیض",
+  "@outfit_red": {
+    "description": "l10n: outfit_red"
+  },
+  "outfit_super": "سپر ہیرو",
+  "@outfit_super": {
+    "description": "l10n: outfit_super"
+  },
+  "outfit_green": "سبز ہوڈی",
+  "@outfit_green": {
+    "description": "l10n: outfit_green"
+  },
+  "outfit_doctor": "ڈاکٹر کا کوٹ",
+  "@outfit_doctor": {
+    "description": "l10n: outfit_doctor"
+  },
+  "outfit_space": "خلائی سوٹ",
+  "@outfit_space": {
+    "description": "l10n: outfit_space"
+  },
+  "outfit_sports": "جرسی",
+  "@outfit_sports": {
+    "description": "l10n: outfit_sports"
+  },
+  "outfit_police": "پولیس کی وردی",
+  "@outfit_police": {
+    "description": "l10n: outfit_police"
+  },
+  "outfit_chef": "بورچی ایپن",
+  "@outfit_chef": {
+    "description": "l10n: outfit_chef"
+  },
+  "outfit_winter": "سرمائی کوٹ",
+  "@outfit_winter": {
+    "description": "l10n: outfit_winter"
+  },
+  "outfit_tuxedo": "ٹکسیڈو",
+  "@outfit_tuxedo": {
+    "description": "l10n: outfit_tuxedo"
+  },
+  "badgesTitle": "میرے بیجز",
+  "@badgesTitle": {
+    "description": "l10n: badgesTitle"
+  },
+  "totalBadges": "کل:",
+  "@totalBadges": {
+    "description": "l10n: totalBadges"
+  },
+  "filterAll": "سب",
+  "@filterAll": {
+    "description": "l10n: filterAll"
+  },
+  "filterEarned": "حاصل شدہ",
+  "@filterEarned": {
+    "description": "l10n: filterEarned"
+  },
+  "filterLocked": "مقفل",
+  "@filterLocked": {
+    "description": "l10n: filterLocked"
+  },
+  "numbersTitle": "نمبر سیکھیں",
+  "@numbersTitle": {
+    "description": "l10n: numbersTitle"
+  },
+  "lettersTitle": "حروف سیکھیں",
+  "@lettersTitle": {
+    "description": "l10n: lettersTitle"
+  },
+  "shapesTitle": "اشکال سیکھیں",
+  "@shapesTitle": {
+    "description": "l10n: shapesTitle"
+  },
+  "noBadgesFound": "No badges found",
+  "@noBadgesFound": {
+    "description": "l10n: noBadgesFound"
+  }
+}

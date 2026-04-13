@@ -1,0 +1,409 @@
+{
+  "@@locale": "hi",
+  "hello": "नमस्ते",
+  "@hello": {
+    "description": "l10n: hello"
+  },
+  "slogan": "ड्रॉ करें, सीखें, मज़े करें!",
+  "@slogan": {
+    "description": "l10n: slogan"
+  },
+  "seeTutorial": "ट्यूटोरियल देखें",
+  "@seeTutorial": {
+    "description": "l10n: seeTutorial"
+  },
+  "tutorial": "ट्यूटोरियल",
+  "@tutorial": {
+    "description": "l10n: tutorial"
+  },
+  "points": "अंक",
+  "@points": {
+    "description": "l10n: points"
+  },
+  "streakDay": "दिन",
+  "@streakDay": {
+    "description": "l10n: streakDay"
+  },
+  "badgeFirstLoginName": "पहला कदम",
+  "@badgeFirstLoginName": {
+    "description": "l10n: badgeFirstLoginName"
+  },
+  "badgeFirstLoginDesc": "आपने पहली बार लॉग इन किया!",
+  "@badgeFirstLoginDesc": {
+    "description": "l10n: badgeFirstLoginDesc"
+  },
+  "badgeFirstDrawName": "शुरुआती कलाकार",
+  "@badgeFirstDrawName": {
+    "description": "l10n: badgeFirstDrawName"
+  },
+  "badgeFirstDrawDesc": "आपने अपना पहला चित्र पूरा किया!",
+  "@badgeFirstDrawDesc": {
+    "description": "l10n: badgeFirstDrawDesc"
+  },
+  "badgeStreak3Name": "दृढ़",
+  "@badgeStreak3Name": {
+    "description": "l10n: badgeStreak3Name"
+  },
+  "badgeStreak3Desc": "आप लगातार 3 दिन आए!",
+  "@badgeStreak3Desc": {
+    "description": "l10n: badgeStreak3Desc"
+  },
+  "badgeStreak7Name": "साप्ताहिक सितारा",
+  "@badgeStreak7Name": {
+    "description": "l10n: badgeStreak7Name"
+  },
+  "badgeStreak7Desc": "आपने 7 दिनों तक अभ्यास किया!",
+  "@badgeStreak7Desc": {
+    "description": "l10n: badgeStreak7Desc"
+  },
+  "badgeMasterArtistName": "मास्टर कलाकार",
+  "@badgeMasterArtistName": {
+    "description": "l10n: badgeMasterArtistName"
+  },
+  "badgeMasterArtistDesc": "आपने 100 चित्र बनाए!",
+  "@badgeMasterArtistDesc": {
+    "description": "l10n: badgeMasterArtistDesc"
+  },
+  "badgeStreak30Name": "मासिक गुरु",
+  "@badgeStreak30Name": {
+    "description": "l10n: badgeStreak30Name"
+  },
+  "badgeStreak30Desc": "आप 30 दिनों तक नियमित रूप से आए!",
+  "@badgeStreak30Desc": {
+    "description": "l10n: badgeStreak30Desc"
+  },
+  "badgeBronzeArtistName": "कांस्य पेंसिल",
+  "@badgeBronzeArtistName": {
+    "description": "l10n: badgeBronzeArtistName"
+  },
+  "badgeBronzeArtistDesc": "आपने 10 चित्र बनाए!",
+  "@badgeBronzeArtistDesc": {
+    "description": "l10n: badgeBronzeArtistDesc"
+  },
+  "badgeSilverArtistName": "चांदी की पेंसिल",
+  "@badgeSilverArtistName": {
+    "description": "l10n: badgeSilverArtistName"
+  },
+  "badgeSilverArtistDesc": "आपने 50 चित्र बनाए!",
+  "@badgeSilverArtistDesc": {
+    "description": "l10n: badgeSilverArtistDesc"
+  },
+  "badgeGoldArtistName": "सोने की पेंसिल",
+  "@badgeGoldArtistName": {
+    "description": "l10n: badgeGoldArtistName"
+  },
+  "badgeGoldArtistDesc": "आपने 250 चित्र बनाए!",
+  "@badgeGoldArtistDesc": {
+    "description": "l10n: badgeGoldArtistDesc"
+  },
+  "badgeDiamondArtistName": "हीरा कलाकार",
+  "@badgeDiamondArtistName": {
+    "description": "l10n: badgeDiamondArtistName"
+  },
+  "badgeDiamondArtistDesc": "आपने 500 चित्र बनाए! अविश्वसनीय!",
+  "@badgeDiamondArtistDesc": {
+    "description": "l10n: badgeDiamondArtistDesc"
+  },
+  "badgeEarlyBirdName": "जल्दी उठने वाला",
+  "@badgeEarlyBirdName": {
+    "description": "l10n: badgeEarlyBirdName"
+  },
+  "badgeEarlyBirdDesc": "आपने सुबह जल्दी काम शुरू कर दिया!",
+  "@badgeEarlyBirdDesc": {
+    "description": "l10n: badgeEarlyBirdDesc"
+  },
+  "badgeNightOwlName": "रात का उल्लू",
+  "@badgeNightOwlName": {
+    "description": "l10n: badgeNightOwlName"
+  },
+  "badgeNightOwlDesc": "आप देर रात भी काम कर रहे हैं!",
+  "@badgeNightOwlDesc": {
+    "description": "l10n: badgeNightOwlDesc"
+  },
+  "badgeWeekendWarriorName": "सप्ताहांत मज़ा",
+  "@badgeWeekendWarriorName": {
+    "description": "l10n: badgeWeekendWarriorName"
+  },
+  "badgeWeekendWarriorDesc": "आप अपना सप्ताहांत सीखने में बिता रहे हैं!",
+  "@badgeWeekendWarriorDesc": {
+    "description": "l10n: badgeWeekendWarriorDesc"
+  },
+  "badgeNumberMasterName": "गणित प्रतिभा",
+  "@badgeNumberMasterName": {
+    "description": "l10n: badgeNumberMasterName"
+  },
+  "badgeNumberMasterDesc": "आपने 50 नंबर बनाए!",
+  "@badgeNumberMasterDesc": {
+    "description": "l10n: badgeNumberMasterDesc"
+  },
+  "badgeLetterMasterName": "वर्णमाला समर्थक",
+  "@badgeLetterMasterName": {
+    "description": "l10n: badgeLetterMasterName"
+  },
+  "badgeLetterMasterDesc": "आपने 50 अक्षर बनाए!",
+  "@badgeLetterMasterDesc": {
+    "description": "l10n: badgeLetterMasterDesc"
+  },
+  "badgeShapeMasterName": "ज्यामिति जादूगर",
+  "@badgeShapeMasterName": {
+    "description": "l10n: badgeShapeMasterName"
+  },
+  "badgeShapeMasterDesc": "आपने 50 आकार बनाए!",
+  "@badgeShapeMasterDesc": {
+    "description": "l10n: badgeShapeMasterDesc"
+  },
+  "badgeHighScorerName": "High Scorer",
+  "@badgeHighScorerName": {
+    "description": "l10n: badgeHighScorerName"
+  },
+  "badgeHighScorerDesc": "You reached 1000 points!",
+  "@badgeHighScorerDesc": {
+    "description": "l10n: badgeHighScorerDesc"
+  },
+  "badgeScoreLegendName": "Score Legend",
+  "@badgeScoreLegendName": {
+    "description": "l10n: badgeScoreLegendName"
+  },
+  "badgeScoreLegendDesc": "You reached 5000 points!",
+  "@badgeScoreLegendDesc": {
+    "description": "l10n: badgeScoreLegendDesc"
+  },
+  "badgeBadgeCollectorName": "Badge Collector",
+  "@badgeBadgeCollectorName": {
+    "description": "l10n: badgeBadgeCollectorName"
+  },
+  "badgeBadgeCollectorDesc": "You earned 5 badges!",
+  "@badgeBadgeCollectorDesc": {
+    "description": "l10n: badgeBadgeCollectorDesc"
+  },
+  "badgeBadgeMasterName": "Badge Master",
+  "@badgeBadgeMasterName": {
+    "description": "l10n: badgeBadgeMasterName"
+  },
+  "badgeBadgeMasterDesc": "You earned 15 badges!",
+  "@badgeBadgeMasterDesc": {
+    "description": "l10n: badgeBadgeMasterDesc"
+  },
+  "shopTitle": "दुकान",
+  "@shopTitle": {
+    "description": "l10n: shopTitle"
+  },
+  "tabHat": "टोपी",
+  "@tabHat": {
+    "description": "l10n: tabHat"
+  },
+  "tabGlasses": "चश्मा",
+  "@tabGlasses": {
+    "description": "l10n: tabGlasses"
+  },
+  "tabOutfit": "पोशाक",
+  "@tabOutfit": {
+    "description": "l10n: tabOutfit"
+  },
+  "owned": "स्वामित्व",
+  "@owned": {
+    "description": "l10n: owned"
+  },
+  "equipped": "सुसज्जित",
+  "@equipped": {
+    "description": "l10n: equipped"
+  },
+  "insufficientPoints": "अपर्याप्त अंक! 😢",
+  "@insufficientPoints": {
+    "description": "l10n: insufficientPoints"
+  },
+  "buyTitle": "वस्तु खरीदें?",
+  "@buyTitle": {
+    "description": "l10n: buyTitle"
+  },
+  "buyDescription": "क्या आप {price} सितारों के लिए इस वस्तु को खरीदना चाहते हैं?",
+  "@buyDescription": {
+    "description": "l10n: buyDescription",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "noBtn": "नहीं",
+  "@noBtn": {
+    "description": "l10n: noBtn"
+  },
+  "yesBuyBtn": "हाँ, खरीदें!",
+  "@yesBuyBtn": {
+    "description": "l10n: yesBuyBtn"
+  },
+  "itemBought": "{item} खरीदा गया! 🎉",
+  "@itemBought": {
+    "description": "l10n: itemBought",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "freePointsBtn": "विज्ञापन देखें अंक कमाएं",
+  "@freePointsBtn": {
+    "description": "l10n: freePointsBtn"
+  },
+  "rewardEarned": "बधाई हो! आपने {amount} अंक अर्जित किए! 🎉",
+  "@rewardEarned": {
+    "description": "l10n: rewardEarned",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "myQuestsTitle": "मेरी खोज",
+  "@myQuestsTitle": {
+    "description": "l10n: myQuestsTitle"
+  },
+  "loadingQuests": "खोज लोड हो रही हैं...",
+  "@loadingQuests": {
+    "description": "l10n: loadingQuests"
+  },
+  "dailyQuest": "दैनिक खोज",
+  "@dailyQuest": {
+    "description": "l10n: dailyQuest"
+  },
+  "weeklyQuest": "साप्ताहिक खोज",
+  "@weeklyQuest": {
+    "description": "l10n: weeklyQuest"
+  },
+  "hat_blue_cap": "नीली टोपी",
+  "@hat_blue_cap": {
+    "description": "l10n: hat_blue_cap"
+  },
+  "hat_crown": "ताज",
+  "@hat_crown": {
+    "description": "l10n: hat_crown"
+  },
+  "hat_wizard": "जादूगर टोपी",
+  "@hat_wizard": {
+    "description": "l10n: hat_wizard"
+  },
+  "hat_flower": "फूलों का ताज",
+  "@hat_flower": {
+    "description": "l10n: hat_flower"
+  },
+  "hat_pirate": "समुद्री डाकू टोपी",
+  "@hat_pirate": {
+    "description": "l10n: hat_pirate"
+  },
+  "hat_chef": "बावर्ची टोपी",
+  "@hat_chef": {
+    "description": "l10n: hat_chef"
+  },
+  "glasses_sun": "धूप का चश्मा",
+  "@glasses_sun": {
+    "description": "l10n: glasses_sun"
+  },
+  "glasses_nerd": "पढ़ाकू चश्मा",
+  "@glasses_nerd": {
+    "description": "l10n: glasses_nerd"
+  },
+  "glasses_heart": "दिल चश्मा",
+  "@glasses_heart": {
+    "description": "l10n: glasses_heart"
+  },
+  "glasses_3d": "3D चश्मा",
+  "@glasses_3d": {
+    "description": "l10n: glasses_3d"
+  },
+  "glasses_vr": "VR हेडसेट",
+  "@glasses_vr": {
+    "description": "l10n: glasses_vr"
+  },
+  "glasses_ski": "स्की चश्मा",
+  "@glasses_ski": {
+    "description": "l10n: glasses_ski"
+  },
+  "glasses_mask": "मुखौटा",
+  "@glasses_mask": {
+    "description": "l10n: glasses_mask"
+  },
+  "glasses_reading": "पढ़ने का चश्मा",
+  "@glasses_reading": {
+    "description": "l10n: glasses_reading"
+  },
+  "outfit_red": "लाल कमीज",
+  "@outfit_red": {
+    "description": "l10n: outfit_red"
+  },
+  "outfit_super": "सुपरहीरो",
+  "@outfit_super": {
+    "description": "l10n: outfit_super"
+  },
+  "outfit_green": "हरी हुडी",
+  "@outfit_green": {
+    "description": "l10n: outfit_green"
+  },
+  "outfit_doctor": "डॉक्टर कोट",
+  "@outfit_doctor": {
+    "description": "l10n: outfit_doctor"
+  },
+  "outfit_space": "अंतरिक्ष सूट",
+  "@outfit_space": {
+    "description": "l10n: outfit_space"
+  },
+  "outfit_sports": "जर्सी",
+  "@outfit_sports": {
+    "description": "l10n: outfit_sports"
+  },
+  "outfit_police": "पुलिस वर्दी",
+  "@outfit_police": {
+    "description": "l10n: outfit_police"
+  },
+  "outfit_chef": "बावर्ची एप्रन",
+  "@outfit_chef": {
+    "description": "l10n: outfit_chef"
+  },
+  "outfit_winter": "सर्दी का कोट",
+  "@outfit_winter": {
+    "description": "l10n: outfit_winter"
+  },
+  "outfit_tuxedo": "टक्सीडो",
+  "@outfit_tuxedo": {
+    "description": "l10n: outfit_tuxedo"
+  },
+  "badgesTitle": "मेरे बैज",
+  "@badgesTitle": {
+    "description": "l10n: badgesTitle"
+  },
+  "totalBadges": "कुल:",
+  "@totalBadges": {
+    "description": "l10n: totalBadges"
+  },
+  "filterAll": "सभी",
+  "@filterAll": {
+    "description": "l10n: filterAll"
+  },
+  "filterEarned": "अर्जित",
+  "@filterEarned": {
+    "description": "l10n: filterEarned"
+  },
+  "filterLocked": "बंद",
+  "@filterLocked": {
+    "description": "l10n: filterLocked"
+  },
+  "numbersTitle": "संख्या सीखें",
+  "@numbersTitle": {
+    "description": "l10n: numbersTitle"
+  },
+  "lettersTitle": "अक्षर सीखें",
+  "@lettersTitle": {
+    "description": "l10n: lettersTitle"
+  },
+  "shapesTitle": "आकृतियाँ सीखें",
+  "@shapesTitle": {
+    "description": "l10n: shapesTitle"
+  },
+  "noBadgesFound": "No badges found",
+  "@noBadgesFound": {
+    "description": "l10n: noBadgesFound"
+  }
+}

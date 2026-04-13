@@ -1,0 +1,409 @@
+{
+  "@@locale": "de",
+  "hello": "Hallo",
+  "@hello": {
+    "description": "l10n: hello"
+  },
+  "slogan": "Zeichne, lerne, hab Spaß!",
+  "@slogan": {
+    "description": "l10n: slogan"
+  },
+  "seeTutorial": "Tutorial ansehen",
+  "@seeTutorial": {
+    "description": "l10n: seeTutorial"
+  },
+  "tutorial": "Tutorial",
+  "@tutorial": {
+    "description": "l10n: tutorial"
+  },
+  "points": "Punkte",
+  "@points": {
+    "description": "l10n: points"
+  },
+  "streakDay": "Tage",
+  "@streakDay": {
+    "description": "l10n: streakDay"
+  },
+  "badgeFirstLoginName": "Erster Schritt",
+  "@badgeFirstLoginName": {
+    "description": "l10n: badgeFirstLoginName"
+  },
+  "badgeFirstLoginDesc": "Du hast dich zum ersten Mal eingeloggt!",
+  "@badgeFirstLoginDesc": {
+    "description": "l10n: badgeFirstLoginDesc"
+  },
+  "badgeFirstDrawName": "Anfänger Künstler",
+  "@badgeFirstDrawName": {
+    "description": "l10n: badgeFirstDrawName"
+  },
+  "badgeFirstDrawDesc": "Du hast deine erste Zeichnung fertiggestellt!",
+  "@badgeFirstDrawDesc": {
+    "description": "l10n: badgeFirstDrawDesc"
+  },
+  "badgeStreak3Name": "Entschlossen",
+  "@badgeStreak3Name": {
+    "description": "l10n: badgeStreak3Name"
+  },
+  "badgeStreak3Desc": "Du warst 3 Tage hintereinander da!",
+  "@badgeStreak3Desc": {
+    "description": "l10n: badgeStreak3Desc"
+  },
+  "badgeStreak7Name": "Wochenstar",
+  "@badgeStreak7Name": {
+    "description": "l10n: badgeStreak7Name"
+  },
+  "badgeStreak7Desc": "Du hast 7 Tage lang geübt!",
+  "@badgeStreak7Desc": {
+    "description": "l10n: badgeStreak7Desc"
+  },
+  "badgeMasterArtistName": "Meisterkünstler",
+  "@badgeMasterArtistName": {
+    "description": "l10n: badgeMasterArtistName"
+  },
+  "badgeMasterArtistDesc": "Du hast 100 Zeichnungen gemacht!",
+  "@badgeMasterArtistDesc": {
+    "description": "l10n: badgeMasterArtistDesc"
+  },
+  "badgeStreak30Name": "Monatlicher Meister",
+  "@badgeStreak30Name": {
+    "description": "l10n: badgeStreak30Name"
+  },
+  "badgeStreak30Desc": "Du bist 30 Tage lang regelmäßig gekommen!",
+  "@badgeStreak30Desc": {
+    "description": "l10n: badgeStreak30Desc"
+  },
+  "badgeBronzeArtistName": "Bronzestift",
+  "@badgeBronzeArtistName": {
+    "description": "l10n: badgeBronzeArtistName"
+  },
+  "badgeBronzeArtistDesc": "Du hast 10 Zeichnungen gemacht!",
+  "@badgeBronzeArtistDesc": {
+    "description": "l10n: badgeBronzeArtistDesc"
+  },
+  "badgeSilverArtistName": "Silberstift",
+  "@badgeSilverArtistName": {
+    "description": "l10n: badgeSilverArtistName"
+  },
+  "badgeSilverArtistDesc": "Du hast 50 Zeichnungen gemacht!",
+  "@badgeSilverArtistDesc": {
+    "description": "l10n: badgeSilverArtistDesc"
+  },
+  "badgeGoldArtistName": "Goldstift",
+  "@badgeGoldArtistName": {
+    "description": "l10n: badgeGoldArtistName"
+  },
+  "badgeGoldArtistDesc": "Du hast 250 Zeichnungen gemacht!",
+  "@badgeGoldArtistDesc": {
+    "description": "l10n: badgeGoldArtistDesc"
+  },
+  "badgeDiamondArtistName": "Diamantkünstler",
+  "@badgeDiamondArtistName": {
+    "description": "l10n: badgeDiamondArtistName"
+  },
+  "badgeDiamondArtistDesc": "Du hast 500 Zeichnungen gemacht! Unglaublich!",
+  "@badgeDiamondArtistDesc": {
+    "description": "l10n: badgeDiamondArtistDesc"
+  },
+  "badgeEarlyBirdName": "Frühaufsteher",
+  "@badgeEarlyBirdName": {
+    "description": "l10n: badgeEarlyBirdName"
+  },
+  "badgeEarlyBirdDesc": "Du hast früh am Morgen angefangen zu arbeiten!",
+  "@badgeEarlyBirdDesc": {
+    "description": "l10n: badgeEarlyBirdDesc"
+  },
+  "badgeNightOwlName": "Nachteule",
+  "@badgeNightOwlName": {
+    "description": "l10n: badgeNightOwlName"
+  },
+  "badgeNightOwlDesc": "Du arbeitest sogar spät in der Nacht!",
+  "@badgeNightOwlDesc": {
+    "description": "l10n: badgeNightOwlDesc"
+  },
+  "badgeWeekendWarriorName": "Wochenendspaß",
+  "@badgeWeekendWarriorName": {
+    "description": "l10n: badgeWeekendWarriorName"
+  },
+  "badgeWeekendWarriorDesc": "Du verbringst dein Wochenende mit Lernen!",
+  "@badgeWeekendWarriorDesc": {
+    "description": "l10n: badgeWeekendWarriorDesc"
+  },
+  "badgeNumberMasterName": "Mathe-Genie",
+  "@badgeNumberMasterName": {
+    "description": "l10n: badgeNumberMasterName"
+  },
+  "badgeNumberMasterDesc": "Du hast 50 Zahlen gezeichnet!",
+  "@badgeNumberMasterDesc": {
+    "description": "l10n: badgeNumberMasterDesc"
+  },
+  "badgeLetterMasterName": "Alphabet-Profi",
+  "@badgeLetterMasterName": {
+    "description": "l10n: badgeLetterMasterName"
+  },
+  "badgeLetterMasterDesc": "Du hast 50 Buchstaben gezeichnet!",
+  "@badgeLetterMasterDesc": {
+    "description": "l10n: badgeLetterMasterDesc"
+  },
+  "badgeShapeMasterName": "Geometrie-Zauberer",
+  "@badgeShapeMasterName": {
+    "description": "l10n: badgeShapeMasterName"
+  },
+  "badgeShapeMasterDesc": "Du hast 50 Formen gezeichnet!",
+  "@badgeShapeMasterDesc": {
+    "description": "l10n: badgeShapeMasterDesc"
+  },
+  "badgeHighScorerName": "High Scorer",
+  "@badgeHighScorerName": {
+    "description": "l10n: badgeHighScorerName"
+  },
+  "badgeHighScorerDesc": "You reached 1000 points!",
+  "@badgeHighScorerDesc": {
+    "description": "l10n: badgeHighScorerDesc"
+  },
+  "badgeScoreLegendName": "Score Legend",
+  "@badgeScoreLegendName": {
+    "description": "l10n: badgeScoreLegendName"
+  },
+  "badgeScoreLegendDesc": "You reached 5000 points!",
+  "@badgeScoreLegendDesc": {
+    "description": "l10n: badgeScoreLegendDesc"
+  },
+  "badgeBadgeCollectorName": "Badge Collector",
+  "@badgeBadgeCollectorName": {
+    "description": "l10n: badgeBadgeCollectorName"
+  },
+  "badgeBadgeCollectorDesc": "You earned 5 badges!",
+  "@badgeBadgeCollectorDesc": {
+    "description": "l10n: badgeBadgeCollectorDesc"
+  },
+  "badgeBadgeMasterName": "Badge Master",
+  "@badgeBadgeMasterName": {
+    "description": "l10n: badgeBadgeMasterName"
+  },
+  "badgeBadgeMasterDesc": "You earned 15 badges!",
+  "@badgeBadgeMasterDesc": {
+    "description": "l10n: badgeBadgeMasterDesc"
+  },
+  "shopTitle": "LADEN",
+  "@shopTitle": {
+    "description": "l10n: shopTitle"
+  },
+  "tabHat": "Hut",
+  "@tabHat": {
+    "description": "l10n: tabHat"
+  },
+  "tabGlasses": "Brille",
+  "@tabGlasses": {
+    "description": "l10n: tabGlasses"
+  },
+  "tabOutfit": "Outfit",
+  "@tabOutfit": {
+    "description": "l10n: tabOutfit"
+  },
+  "owned": "Besitz",
+  "@owned": {
+    "description": "l10n: owned"
+  },
+  "equipped": "Ausgerüstet",
+  "@equipped": {
+    "description": "l10n: equipped"
+  },
+  "insufficientPoints": "Nicht genug Punkte! 😢",
+  "@insufficientPoints": {
+    "description": "l10n: insufficientPoints"
+  },
+  "buyTitle": "Artikel kaufen?",
+  "@buyTitle": {
+    "description": "l10n: buyTitle"
+  },
+  "buyDescription": "Möchtest du diesen Artikel für {price} Sterne kaufen?",
+  "@buyDescription": {
+    "description": "l10n: buyDescription",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "noBtn": "Nein",
+  "@noBtn": {
+    "description": "l10n: noBtn"
+  },
+  "yesBuyBtn": "Ja, Kaufen!",
+  "@yesBuyBtn": {
+    "description": "l10n: yesBuyBtn"
+  },
+  "itemBought": "{item} gekauft! 🎉",
+  "@itemBought": {
+    "description": "l10n: itemBought",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "freePointsBtn": "WERBUNG ANSEHEN PUNKTE SAMMELN",
+  "@freePointsBtn": {
+    "description": "l10n: freePointsBtn"
+  },
+  "rewardEarned": "Glückwunsch! Du hast {amount} Punkte verdient! 🎉",
+  "@rewardEarned": {
+    "description": "l10n: rewardEarned",
+    "placeholders": {
+      "amount": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "myQuestsTitle": "MEINE MISSIONEN",
+  "@myQuestsTitle": {
+    "description": "l10n: myQuestsTitle"
+  },
+  "loadingQuests": "Missionen werden geladen...",
+  "@loadingQuests": {
+    "description": "l10n: loadingQuests"
+  },
+  "dailyQuest": "TÄGLICHE MISSION",
+  "@dailyQuest": {
+    "description": "l10n: dailyQuest"
+  },
+  "weeklyQuest": "WÖCHENTLICHE MISSION",
+  "@weeklyQuest": {
+    "description": "l10n: weeklyQuest"
+  },
+  "hat_blue_cap": "Blaue Mütze",
+  "@hat_blue_cap": {
+    "description": "l10n: hat_blue_cap"
+  },
+  "hat_crown": "Krone",
+  "@hat_crown": {
+    "description": "l10n: hat_crown"
+  },
+  "hat_wizard": "Zaubererhut",
+  "@hat_wizard": {
+    "description": "l10n: hat_wizard"
+  },
+  "hat_flower": "Blumenkrone",
+  "@hat_flower": {
+    "description": "l10n: hat_flower"
+  },
+  "hat_pirate": "Piratenhut",
+  "@hat_pirate": {
+    "description": "l10n: hat_pirate"
+  },
+  "hat_chef": "Kochmütze",
+  "@hat_chef": {
+    "description": "l10n: hat_chef"
+  },
+  "glasses_sun": "Sonnenbrille",
+  "@glasses_sun": {
+    "description": "l10n: glasses_sun"
+  },
+  "glasses_nerd": "Nerd-Brille",
+  "@glasses_nerd": {
+    "description": "l10n: glasses_nerd"
+  },
+  "glasses_heart": "Herzbrille",
+  "@glasses_heart": {
+    "description": "l10n: glasses_heart"
+  },
+  "glasses_3d": "3D-Brille",
+  "@glasses_3d": {
+    "description": "l10n: glasses_3d"
+  },
+  "glasses_vr": "VR-Headset",
+  "@glasses_vr": {
+    "description": "l10n: glasses_vr"
+  },
+  "glasses_ski": "Skibrille",
+  "@glasses_ski": {
+    "description": "l10n: glasses_ski"
+  },
+  "glasses_mask": "Maske",
+  "@glasses_mask": {
+    "description": "l10n: glasses_mask"
+  },
+  "glasses_reading": "Lesebrille",
+  "@glasses_reading": {
+    "description": "l10n: glasses_reading"
+  },
+  "outfit_red": "Rotes Hemd",
+  "@outfit_red": {
+    "description": "l10n: outfit_red"
+  },
+  "outfit_super": "Superheld",
+  "@outfit_super": {
+    "description": "l10n: outfit_super"
+  },
+  "outfit_green": "Grüner Hoodie",
+  "@outfit_green": {
+    "description": "l10n: outfit_green"
+  },
+  "outfit_doctor": "Arztkittel",
+  "@outfit_doctor": {
+    "description": "l10n: outfit_doctor"
+  },
+  "outfit_space": "Raumanzug",
+  "@outfit_space": {
+    "description": "l10n: outfit_space"
+  },
+  "outfit_sports": "Trikot",
+  "@outfit_sports": {
+    "description": "l10n: outfit_sports"
+  },
+  "outfit_police": "Polizeiuniform",
+  "@outfit_police": {
+    "description": "l10n: outfit_police"
+  },
+  "outfit_chef": "Kochschürze",
+  "@outfit_chef": {
+    "description": "l10n: outfit_chef"
+  },
+  "outfit_winter": "Wintermantel",
+  "@outfit_winter": {
+    "description": "l10n: outfit_winter"
+  },
+  "outfit_tuxedo": "Smoking",
+  "@outfit_tuxedo": {
+    "description": "l10n: outfit_tuxedo"
+  },
+  "badgesTitle": "MEINE ABZEICHEN",
+  "@badgesTitle": {
+    "description": "l10n: badgesTitle"
+  },
+  "totalBadges": "Gesamt:",
+  "@totalBadges": {
+    "description": "l10n: totalBadges"
+  },
+  "filterAll": "ALLE",
+  "@filterAll": {
+    "description": "l10n: filterAll"
+  },
+  "filterEarned": "VERDIENT",
+  "@filterEarned": {
+    "description": "l10n: filterEarned"
+  },
+  "filterLocked": "GESPERRT",
+  "@filterLocked": {
+    "description": "l10n: filterLocked"
+  },
+  "numbersTitle": "Zahlen lernen",
+  "@numbersTitle": {
+    "description": "l10n: numbersTitle"
+  },
+  "lettersTitle": "Buchstaben lernen",
+  "@lettersTitle": {
+    "description": "l10n: lettersTitle"
+  },
+  "shapesTitle": "Formen lernen",
+  "@shapesTitle": {
+    "description": "l10n: shapesTitle"
+  },
+  "noBadgesFound": "No badges found",
+  "@noBadgesFound": {
+    "description": "l10n: noBadgesFound"
+  }
+}

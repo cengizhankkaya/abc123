@@ -1,6 +1,6 @@
-import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
-import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,10 +9,11 @@ class HomeHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GamificationProvider>(
-      builder: (context, provider, _) {
-        final lang = context.watch<LanguageProvider>().language;
-
+    return Selector<GamificationProvider, int>(
+      selector: (_, p) => headerPointsStreakSignature(p),
+      builder: (context, _, __) {
+        final provider = context.read<GamificationProvider>();
+        final h = context.homeL10n!;
         return Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
@@ -39,7 +40,7 @@ class HomeHeaderWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        getLocalizedText('hello', lang),
+                        h.hello,
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -48,7 +49,7 @@ class HomeHeaderWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        getLocalizedText('slogan', lang),
+                        h.slogan,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.white.withOpacity(0.9),
@@ -74,18 +75,18 @@ class HomeHeaderWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildStatItem(
-                    Icons.star_rounded,
-                    provider.points.toString(),
-                    getLocalizedText('points', lang),
-                    Colors.amberAccent,
+                  _HeaderStatItem(
+                    icon: Icons.star_rounded,
+                    value: provider.points.toString(),
+                    label: h.points,
+                    iconColor: Colors.amberAccent,
                   ),
                   Container(width: 1, height: 40, color: Colors.white24),
-                  _buildStatItem(
-                    Icons.local_fire_department_rounded,
-                    provider.streak.toString(),
-                    getLocalizedText('streakDay', lang),
-                    Colors.orangeAccent,
+                  _HeaderStatItem(
+                    icon: Icons.local_fire_department_rounded,
+                    value: provider.streak.toString(),
+                    label: h.streakDay,
+                    iconColor: Colors.orangeAccent,
                   ),
                 ],
               ),
@@ -95,9 +96,23 @@ class HomeHeaderWidget extends StatelessWidget {
       },
     );
   }
+}
 
-  Widget _buildStatItem(
-      IconData icon, String value, String label, Color iconColor) {
+class _HeaderStatItem extends StatelessWidget {
+  const _HeaderStatItem({
+    required this.icon,
+    required this.value,
+    required this.label,
+    required this.iconColor,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+  final Color iconColor;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Row(

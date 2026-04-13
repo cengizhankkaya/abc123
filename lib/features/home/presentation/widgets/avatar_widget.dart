@@ -1,4 +1,5 @@
-import 'package:abc123/features/home/domain/models/shop_item_model.dart';
+import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
+import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,13 +64,13 @@ class AvatarWidget extends StatelessWidget {
                   width: size * 0.5,
                   height: size * 0.4,
                   decoration: BoxDecoration(
-                    color: outfit?.color ?? const Color(0xFFE4BC9D),
+                    color: gamificationColor(outfit?.colorArgb) ?? const Color(0xFFE4BC9D),
                     borderRadius: BorderRadius.circular(size * 0.2),
                   ),
                 ),
-                if (outfit?.iconData != null)
+                if (outfit?.iconKey != null)
                   Icon(
-                    outfit!.iconData,
+                    gamificationIcon(outfit!.iconKey),
                     size: size * 0.25,
                     color: Colors.white.withOpacity(0.8),
                   ),
@@ -113,8 +114,7 @@ class AvatarWidget extends StatelessWidget {
                     height: size * 0.05,
                     decoration: BoxDecoration(
                       border: Border(
-                        bottom: BorderSide(
-                            color: Colors.brown, width: size * 0.015),
+                        bottom: BorderSide(color: Colors.brown, width: size * 0.015),
                       ),
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -132,23 +132,23 @@ class AvatarWidget extends StatelessWidget {
                         children: [
                           // Left Lens
                           Icon(
-                            glasses.iconData,
+                            gamificationIcon(glasses.iconKey),
                             size: size * 0.14,
-                            color: glasses.color?.withOpacity(0.8),
+                            color: gamificationColor(glasses.colorArgb)?.withOpacity(0.8),
                           ),
                           // Bridge
                           Expanded(
                             child: Container(
                               height: size * 0.015,
-                              color: glasses.color,
+                              color: gamificationColor(glasses.colorArgb),
                               margin: EdgeInsets.only(top: size * 0.02),
                             ),
                           ),
                           // Right Lens
                           Icon(
-                            glasses.iconData,
+                            gamificationIcon(glasses.iconKey),
                             size: size * 0.14,
-                            color: glasses.color?.withOpacity(0.8),
+                            color: gamificationColor(glasses.colorArgb)?.withOpacity(0.8),
                           ),
                         ],
                       ),
@@ -160,9 +160,9 @@ class AvatarWidget extends StatelessWidget {
                   Positioned(
                     bottom: size * 0.35,
                     child: Icon(
-                      hat.iconData,
+                      gamificationIcon(hat.iconKey),
                       size: size * 0.35,
-                      color: hat.color,
+                      color: gamificationColor(hat.colorArgb),
                     ),
                   ),
               ],

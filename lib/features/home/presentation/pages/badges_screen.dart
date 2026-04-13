@@ -1,11 +1,12 @@
-import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
+import 'package:abc123/features/home/l10n/home_string_lookup.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
+import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/widgets/badge_filter_widget.dart';
 import 'package:abc123/features/home/presentation/widgets/badge_header_widget.dart';
-import 'package:abc123/shared/language_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class BadgesScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<GamificationProvider>();
-    final lang = context.watch<LanguageProvider>().language;
+    final h = context.homeL10n!;
 
     // Filter logic
     final allBadges = provider.badges;
@@ -62,9 +63,9 @@ class _BadgesScreenState extends State<BadgesScreen> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16, top: 8),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new,
-                          color: Colors.black87),
-                      onPressed: () => Navigator.pop(context),
+                      tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                      icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
+                      onPressed: () => context.pop(),
                     ),
                   ),
                 ),
@@ -96,18 +97,13 @@ class _BadgesScreenState extends State<BadgesScreen> {
                 child: filteredBadges.isEmpty
                     ? Center(
                         child: Text(
-                          getLocalizedText('noBadgesFound', lang) ??
-                              (_selectedFilter == BadgeFilter.earned
-                                  ? 'Henüz rozet kazanılmadı'
-                                  : 'Rozet bulunamadı'),
-                          style: const TextStyle(
-                              fontSize: 16, color: Colors.black54),
+                          h.noBadgesFound,
+                          style: const TextStyle(fontSize: 16, color: Colors.black54),
                         ),
                       )
                     : GridView.builder(
                         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           crossAxisSpacing: 16,
                           mainAxisSpacing: 24,
@@ -117,8 +113,9 @@ class _BadgesScreenState extends State<BadgesScreen> {
                         itemBuilder: (context, index) {
                           final badge = filteredBadges[index];
                           return GestureDetector(
+                            key: ValueKey<String>('badge-grid-${badge.id}'),
                             onTap: () {
-                              showDialog(
+                              showDialog<void>(
                                 context: context,
                                 builder: (context) => Dialog(
                                   shape: RoundedRectangleBorder(
@@ -132,7 +129,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                         Icon(
                                           badge.isLocked
                                               ? Icons.lock
-                                              : badge.iconData ?? Icons.stars,
+                                              : gamificationIcon(badge.iconKey),
                                           size: 64,
                                           color: badge.isLocked
                                               ? Colors.grey
@@ -140,11 +137,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                         ),
                                         const SizedBox(height: 16),
                                         Text(
-                                          getLocalizedText(badge.nameKey, lang)
-                                                  .isEmpty
-                                              ? badge.nameKey
-                                              : getLocalizedText(
-                                                  badge.nameKey, lang),
+                                          homeBadgeLine(h, badge.nameKey),
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontSize: 20,
@@ -154,12 +147,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          getLocalizedText(badge.descriptionKey,
-                                                      lang)
-                                                  .isEmpty
-                                              ? badge.descriptionKey
-                                              : getLocalizedText(
-                                                  badge.descriptionKey, lang),
+                                          homeBadgeLine(h, badge.descriptionKey),
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             fontSize: 16,
@@ -168,25 +156,21 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                         ),
                                         const SizedBox(height: 24),
                                         ElevatedButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
+                                          onPressed: () => context.pop(),
                                           style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                const Color(0xFF00B894),
+                                            backgroundColor: const Color(0xFF00B894),
                                             shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 32,
                                               vertical: 12,
                                             ),
                                           ),
-                                          child: const Text(
-                                            'Tamam',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
+                                          child: Text(
+                                            MaterialLocalizations.of(context).closeButtonLabel,
+                                            style: const TextStyle(
+                                                color: Colors.white, fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],
@@ -205,16 +189,10 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                   decoration: BoxDecoration(
                                     gradient: badge.isLocked
                                         ? LinearGradient(
-                                            colors: [
-                                              Colors.grey.shade200,
-                                              Colors.grey.shade300
-                                            ],
+                                            colors: [Colors.grey.shade200, Colors.grey.shade300],
                                           )
                                         : const LinearGradient(
-                                            colors: [
-                                              Color(0xFF00B894),
-                                              Color(0xFF55EFC4)
-                                            ],
+                                            colors: [Color(0xFF00B894), Color(0xFF55EFC4)],
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                           ),
@@ -223,8 +201,7 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                         ? []
                                         : [
                                             BoxShadow(
-                                              color: const Color(0xFF00B894)
-                                                  .withOpacity(0.4),
+                                              color: const Color(0xFF00B894).withOpacity(0.4),
                                               blurRadius: 12,
                                               offset: const Offset(0, 6),
                                             ),
@@ -236,29 +213,21 @@ class _BadgesScreenState extends State<BadgesScreen> {
                                   ),
                                   child: Center(
                                     child: Icon(
-                                      badge.isLocked
-                                          ? Icons.lock
-                                          : badge.iconData ?? Icons.stars,
+                                      badge.isLocked ? Icons.lock : gamificationIcon(badge.iconKey),
                                       size: 36,
-                                      color: badge.isLocked
-                                          ? Colors.grey.shade500
-                                          : Colors.white,
+                                      color: badge.isLocked ? Colors.grey.shade500 : Colors.white,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(height: 12),
                                 // Badge Name
                                 Text(
-                                  getLocalizedText(badge.nameKey, lang).isEmpty
-                                      ? badge.nameKey
-                                      : getLocalizedText(badge.nameKey, lang),
+                                  homeBadgeLine(h, badge.nameKey),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold,
-                                    color: badge.isLocked
-                                        ? Colors.grey
-                                        : const Color(0xFF2D3436),
+                                    color: badge.isLocked ? Colors.grey : const Color(0xFF2D3436),
                                     height: 1.2,
                                   ),
                                   maxLines: 2,

@@ -14,8 +14,7 @@ class StreakWidget extends StatefulWidget {
   State<StreakWidget> createState() => _StreakWidgetState();
 }
 
-class _StreakWidgetState extends State<StreakWidget>
-    with SingleTickerProviderStateMixin {
+class _StreakWidgetState extends State<StreakWidget> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 

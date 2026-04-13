@@ -1,16 +1,16 @@
+import 'package:abc123/core/constants/app_font_sizes.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
+import 'package:abc123/core/infrastructure/images/image_manager.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/utils/image_manager.dart';
-import '../../../../core/constants/language_constants.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
-import '../../../../core/constants/app_font_sizes.dart';
 
 class WelcomeCard extends StatelessWidget {
-  final AppLanguage lang;
-  const WelcomeCard({required this.lang, super.key});
+  const WelcomeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final h = context.homeL10n!;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(AppSizes.paddingNormal(context)),
@@ -24,7 +24,7 @@ class WelcomeCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24), // More rounded
+        borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: const Color(0xFF6C5CE7).withOpacity(0.15),
@@ -45,9 +45,11 @@ class WelcomeCard extends StatelessWidget {
               width: AppSizes.imageSize(context),
               height: AppSizes.imageSize(context),
               color: Colors.grey.withOpacity(0.3),
-              child: ImageManager.getRobotImage(
-                width: AppSizes.imageSize(context),
-                height: AppSizes.imageSize(context),
+              child: ExcludeSemantics(
+                child: ImageManager.getRobotImage(
+                  width: AppSizes.imageSize(context),
+                  height: AppSizes.imageSize(context),
+                ),
               ),
             ),
           ),
@@ -57,7 +59,7 @@ class WelcomeCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getLocalizedText('hello', lang),
+                  h.hello,
                   style: TextStyle(
                     fontSize: AppFontSizes.title(context),
                     fontWeight: FontWeight.bold,
@@ -66,7 +68,7 @@ class WelcomeCard extends StatelessWidget {
                 ),
                 SizedBox(height: AppSizes.paddingSmall(context)),
                 Text(
-                  getLocalizedText('slogan', lang),
+                  h.slogan,
                   style: TextStyle(
                     fontSize: AppFontSizes.subtitle(context),
                     color: Colors.black87,

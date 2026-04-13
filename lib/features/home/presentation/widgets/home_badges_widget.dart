@@ -1,8 +1,10 @@
-import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
-import 'package:abc123/features/home/presentation/screens/badges_screen.dart';
-import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class HomeBadgesWidget extends StatelessWidget {
@@ -10,10 +12,12 @@ class HomeBadgesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<GamificationProvider>(
-      builder: (context, provider, _) {
+    return Selector<GamificationProvider, int>(
+      selector: (_, p) => unlockedBadgeListSignature(p.unlockedBadges),
+      builder: (context, _, __) {
+        final provider = context.read<GamificationProvider>();
         final unlockedBadges = provider.unlockedBadges;
-        final lang = context.watch<LanguageProvider>().language;
+        final h = context.homeL10n!;
 
         if (unlockedBadges.isEmpty) {
           return const SizedBox.shrink();
@@ -28,7 +32,7 @@ class HomeBadgesWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
                 child: Text(
-                  getLocalizedText('badgesTitle', lang),
+                  h.badgesTitle,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -43,13 +47,8 @@ class HomeBadgesWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final badge = unlockedBadges[index];
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BadgesScreen()),
-                        );
-                      },
+                      key: ValueKey<String>('home-badge-${badge.id}'),
+                      onTap: () => context.push(AppRoutes.badgesFull),
                       child: Container(
                         width: 60,
                         margin: const EdgeInsets.only(right: 12),
@@ -70,7 +69,7 @@ class HomeBadgesWidget extends StatelessWidget {
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: Icon(
-                          badge.iconData,
+                          gamificationIcon(badge.iconKey),
                           color: Colors.white,
                           size: 30,
                         ),

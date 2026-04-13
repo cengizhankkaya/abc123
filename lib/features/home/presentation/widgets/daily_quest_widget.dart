@@ -1,10 +1,9 @@
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/features/home/domain/models/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest_model.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:abc123/shared/language_provider.dart';
-import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 class DailyQuestWidget extends StatelessWidget {
   final QuestModel quest;
@@ -17,7 +16,7 @@ class DailyQuestWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.read<GamificationProvider>();
-    final lang = context.watch<LanguageProvider>().language;
+    final h = context.homeL10n!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -44,8 +43,7 @@ class DailyQuestWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 color: _getQuestColor(quest.targetType).withOpacity(0.2),
                 shape: BoxShape.circle,
-                border: Border.all(
-                    color: _getQuestColor(quest.targetType), width: 4),
+                border: Border.all(color: _getQuestColor(quest.targetType), width: 4),
               ),
               child: Center(
                 child: _buildTargetVisual(quest),
@@ -59,9 +57,7 @@ class DailyQuestWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    quest.id.contains('weekly')
-                        ? getLocalizedText('weeklyQuest', lang)
-                        : getLocalizedText('dailyQuest', lang),
+                    quest.id.contains('weekly') ? h.weeklyQuest : h.dailyQuest,
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -87,31 +83,24 @@ class DailyQuestWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: quest.isClaimed
                       ? Colors.green.shade100
-                      : (quest.isCompleted
-                          ? const Color(0xFFFFD32A)
-                          : Colors.grey.shade100),
+                      : (quest.isCompleted ? const Color(0xFFFFD32A) : Colors.grey.shade100),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color:
-                        quest.isCompleted ? Colors.black : Colors.grey.shade300,
+                    color: quest.isCompleted ? Colors.black : Colors.grey.shade300,
                     width: quest.isCompleted ? 2 : 1,
                   ),
                 ),
                 child: quest.isClaimed
-                    ? const Icon(Icons.check_rounded,
-                        color: Colors.green, size: 32)
+                    ? const Icon(Icons.check_rounded, color: Colors.green, size: 32)
                     : (quest.isCompleted
-                        ? const Icon(Icons.card_giftcard_rounded,
-                            color: Colors.black, size: 32)
+                        ? const Icon(Icons.card_giftcard_rounded, color: Colors.black, size: 32)
                         : Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.stars_rounded,
-                                  color: Colors.amber, size: 24),
+                              const Icon(Icons.stars_rounded, color: Colors.amber, size: 24),
                               Text(
                                 "+${quest.rewardPoints}",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               )
                             ],
                           )),
