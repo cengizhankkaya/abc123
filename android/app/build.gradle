@@ -47,6 +47,8 @@ android {
         }
     }
 
+    // 15_security.md: iOS/Android için ayrıca `flutter build ... --obfuscate --split-debug-info=build/debug-info`
+    // (TensorFlow Lite / native strip kısıtları nedeniyle Android R8 şu an kapalı.)
     buildTypes {
         release {
             signingConfig signingConfigs.release
