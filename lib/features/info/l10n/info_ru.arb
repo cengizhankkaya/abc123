@@ -1,0 +1,77 @@
+{
+  "@@locale": "ru",
+  "infoDrawingNotFound": "Рисунок не найден",
+  "@infoDrawingNotFound": {
+    "description": "l10n: infoDrawingNotFound"
+  },
+  "infoDrawnLetter": "Ваш рисунок",
+  "@infoDrawnLetter": {
+    "description": "l10n: infoDrawnLetter"
+  },
+  "infoCongrats": "Поздравляем!",
+  "@infoCongrats": {
+    "description": "l10n: infoCongrats"
+  },
+  "infoSuccessMessage": "Отличная работа! Я правильно распознал эту букву!",
+  "@infoSuccessMessage": {
+    "description": "l10n: infoSuccessMessage"
+  },
+  "infoBack": "Назад",
+  "@infoBack": {
+    "description": "l10n: infoBack"
+  },
+  "resultDrawingNotFound": "Рисунок не найден",
+  "@resultDrawingNotFound": {
+    "description": "l10n: resultDrawingNotFound"
+  },
+  "resultDrawn": "Ваш рисунок:",
+  "@resultDrawn": {
+    "description": "l10n: resultDrawn"
+  },
+  "resultCongrats": "Поздравляем!",
+  "@resultCongrats": {
+    "description": "l10n: resultCongrats"
+  },
+  "resultTryAgain": "Попробуйте еще раз!",
+  "@resultTryAgain": {
+    "description": "l10n: resultTryAgain"
+  },
+  "resultTargetLetter": "Цель:",
+  "@resultTargetLetter": {
+    "description": "l10n: resultTargetLetter"
+  },
+  "resultSuccessMessage": "Отличная работа! Я правильно распознал ваш рисунок!",
+  "@resultSuccessMessage": {
+    "description": "l10n: resultSuccessMessage"
+  },
+  "resultFailMessage": "Попробуйте еще раз! Ваш рисунок похож на что‑то другое.",
+  "@resultFailMessage": {
+    "description": "l10n: resultFailMessage"
+  },
+  "resultProgress": "Правильно: {correct} / Всего: {total}",
+  "@resultProgress": {
+    "description": "l10n: resultProgress",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "resultTryAgainBtn": "Попробовать снова",
+  "@resultTryAgainBtn": {
+    "description": "l10n: resultTryAgainBtn"
+  },
+  "resultNextLetter": "Далее",
+  "@resultNextLetter": {
+    "description": "l10n: resultNextLetter"
+  },
+  "resultNextLetterFail": "Перейти далее",
+  "@resultNextLetterFail": {
+    "description": "l10n: resultNextLetterFail"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "@@locale": "fr",
+  "infoDrawingNotFound": "Dessin non trouvé",
+  "@infoDrawingNotFound": {
+    "description": "l10n: infoDrawingNotFound"
+  },
+  "infoDrawnLetter": "Votre dessin",
+  "@infoDrawnLetter": {
+    "description": "l10n: infoDrawnLetter"
+  },
+  "infoCongrats": "Félicitations !",
+  "@infoCongrats": {
+    "description": "l10n: infoCongrats"
+  },
+  "infoSuccessMessage": "Bravo ! J'ai reconnu cette lettre correctement !",
+  "@infoSuccessMessage": {
+    "description": "l10n: infoSuccessMessage"
+  },
+  "infoBack": "Retour",
+  "@infoBack": {
+    "description": "l10n: infoBack"
+  },
+  "resultDrawingNotFound": "Dessin non trouvé",
+  "@resultDrawingNotFound": {
+    "description": "l10n: resultDrawingNotFound"
+  },
+  "resultDrawn": "Votre dessin :",
+  "@resultDrawn": {
+    "description": "l10n: resultDrawn"
+  },
+  "resultCongrats": "Félicitations !",
+  "@resultCongrats": {
+    "description": "l10n: resultCongrats"
+  },
+  "resultTryAgain": "Réessayez !",
+  "@resultTryAgain": {
+    "description": "l10n: resultTryAgain"
+  },
+  "resultTargetLetter": "Cible :",
+  "@resultTargetLetter": {
+    "description": "l10n: resultTargetLetter"
+  },
+  "resultSuccessMessage": "Bravo ! J'ai correctement reconnu votre dessin !",
+  "@resultSuccessMessage": {
+    "description": "l10n: resultSuccessMessage"
+  },
+  "resultFailMessage": "Réessayez ! Votre dessin ressemble à autre chose.",
+  "@resultFailMessage": {
+    "description": "l10n: resultFailMessage"
+  },
+  "resultProgress": "Correct : {correct} / Total : {total}",
+  "@resultProgress": {
+    "description": "l10n: resultProgress",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "resultTryAgainBtn": "Réessayer",
+  "@resultTryAgainBtn": {
+    "description": "l10n: resultTryAgainBtn"
+  },
+  "resultNextLetter": "Suivant",
+  "@resultNextLetter": {
+    "description": "l10n: resultNextLetter"
+  },
+  "resultNextLetterFail": "Passer au suivant",
+  "@resultNextLetterFail": {
+    "description": "l10n: resultNextLetterFail"
+  }
+}

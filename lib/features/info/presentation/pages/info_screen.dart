@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/app_font_sizes.dart';
 import 'package:abc123/core/constants/app_radii.dart';
 
-import '../../../../shared/language_provider.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 
 // Ana uygulamanın main.dart dosyasında uygulamayı başlatırken bu kodu çağırın
 void enforceInfoScreenOrientation() {
@@ -25,8 +26,7 @@ class InfoScreen extends StatefulWidget {
   final ui.Image? drawingImage;
   final String recognizedLetter;
 
-  const InfoScreen(
-      {super.key, required this.drawingImage, required this.recognizedLetter});
+  const InfoScreen({super.key, required this.drawingImage, required this.recognizedLetter});
 
   @override
   State<InfoScreen> createState() => _InfoScreenState();
@@ -62,9 +62,8 @@ class _InfoScreenState extends State<InfoScreen> {
     ]);
 
     final screenSize = MediaQuery.of(context).size;
-    final lang = context.watch<LanguageProvider>().language;
-    final texts = localizedInfoScreenTexts[lang] ??
-        localizedInfoScreenTexts[AppLanguage.english]!;
+    context.watch<LanguageProvider>();
+    final i = context.infoL10n!;
 
     final screenWidth = MediaQuery.of(context).size.width;
     final buttonHorizontalPadding = screenWidth * 0.01; // %1
@@ -109,8 +108,7 @@ class _InfoScreenState extends State<InfoScreen> {
                             height: AppSizes.imageSize(context) * 0.8,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                  AppRadii.cardRadius(context)),
+                              borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.3),
@@ -122,23 +120,20 @@ class _InfoScreenState extends State<InfoScreen> {
                             ),
                             child: widget.drawingImage != null
                                 ? CustomPaint(
-                                    painter: DrawingImagePainter(
-                                        image: widget.drawingImage!),
+                                    painter: DrawingImagePainter(image: widget.drawingImage!),
                                   )
                                 : Center(
                                     child: Text(
-                                      texts['drawingNotFound']!,
+                                      i.infoDrawingNotFound,
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize:
-                                            AppFontSizes.subtitle(context) *
-                                                0.4,
+                                        fontSize: AppFontSizes.subtitle(context) * 0.4,
                                       ),
                                     ),
                                   ),
                           ),
                           Text(
-                            texts['drawnLetter']!,
+                            i.infoDrawnLetter,
                             style: TextStyle(
                               fontSize: AppFontSizes.title(context) * 0.4,
                               color: Colors.white,
@@ -171,7 +166,7 @@ class _InfoScreenState extends State<InfoScreen> {
                           children: [
                             // Tebrikler yazısı
                             Text(
-                              texts['congrats']!,
+                              i.infoCongrats,
                               style: TextStyle(
                                 fontSize: AppFontSizes.title(context) * 0.4,
                                 fontWeight: FontWeight.bold,
@@ -215,14 +210,13 @@ class _InfoScreenState extends State<InfoScreen> {
                             ),
                             // Mesaj metni
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: AppSizes.paddingLarge(context)),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: AppSizes.paddingLarge(context)),
                               child: Text(
-                                texts['successMessage']!,
+                                i.infoSuccessMessage,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize:
-                                      AppFontSizes.subtitle(context) * 0.4,
+                                  fontSize: AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -233,9 +227,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                 maxWidth: buttonMaxWidth,
                               ),
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                                onPressed: () => context.pop(),
                                 style: ElevatedButton.styleFrom(
                                   foregroundColor: const Color(0xFF303F9F),
                                   backgroundColor: Colors.white,
@@ -249,11 +241,11 @@ class _InfoScreenState extends State<InfoScreen> {
                                   elevation: 5,
                                 ),
                                 child: Text(
-                                  texts['back']!,
-                                style: TextStyle(
-                                  fontSize: buttonFontSize,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                  i.infoBack,
+                                  style: TextStyle(
+                                    fontSize: buttonFontSize,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -322,8 +314,7 @@ class ColorfulConfetti extends StatelessWidget {
             confettiCount,
             (index) {
               // Rastgele renk
-              final color = Colors
-                  .primaries[math.Random().nextInt(Colors.primaries.length)];
+              final color = Colors.primaries[math.Random().nextInt(Colors.primaries.length)];
               // Rastgele şekil (kare, yıldız, daire)
               final shape = math.Random().nextInt(3);
               // Rastgele konum

@@ -1,0 +1,77 @@
+{
+  "@@locale": "az",
+  "infoDrawingNotFound": "Çizim tapılmadı",
+  "@infoDrawingNotFound": {
+    "description": "l10n: infoDrawingNotFound"
+  },
+  "infoDrawnLetter": "Sənin çəkdiyin",
+  "@infoDrawnLetter": {
+    "description": "l10n: infoDrawnLetter"
+  },
+  "infoCongrats": "Təbriklər!",
+  "@infoCongrats": {
+    "description": "l10n: infoCongrats"
+  },
+  "infoSuccessMessage": "Əla iş! Bu hərfi düzgün tanıdım!",
+  "@infoSuccessMessage": {
+    "description": "l10n: infoSuccessMessage"
+  },
+  "infoBack": "Geri dön",
+  "@infoBack": {
+    "description": "l10n: infoBack"
+  },
+  "resultDrawingNotFound": "Çizim tapılmadı",
+  "@resultDrawingNotFound": {
+    "description": "l10n: resultDrawingNotFound"
+  },
+  "resultDrawn": "Sənin çəkdiyin:",
+  "@resultDrawn": {
+    "description": "l10n: resultDrawn"
+  },
+  "resultCongrats": "Təbriklər!",
+  "@resultCongrats": {
+    "description": "l10n: resultCongrats"
+  },
+  "resultTryAgain": "Yenidən cəhd et!",
+  "@resultTryAgain": {
+    "description": "l10n: resultTryAgain"
+  },
+  "resultTargetLetter": "Hədəf:",
+  "@resultTargetLetter": {
+    "description": "l10n: resultTargetLetter"
+  },
+  "resultSuccessMessage": "Əla iş! Çizimini düzgün tanıdım!",
+  "@resultSuccessMessage": {
+    "description": "l10n: resultSuccessMessage"
+  },
+  "resultFailMessage": "Yenidən cəhd et! Çizimin başqa bir şeyə bənzəyir.",
+  "@resultFailMessage": {
+    "description": "l10n: resultFailMessage"
+  },
+  "resultProgress": "Düzgün: {correct} / Cəmi: {total}",
+  "@resultProgress": {
+    "description": "l10n: resultProgress",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "resultTryAgainBtn": "Yenidən cəhd et",
+  "@resultTryAgainBtn": {
+    "description": "l10n: resultTryAgainBtn"
+  },
+  "resultNextLetter": "Növbəti",
+  "@resultNextLetter": {
+    "description": "l10n: resultNextLetter"
+  },
+  "resultNextLetterFail": "Növbətiyə keç",
+  "@resultNextLetterFail": {
+    "description": "l10n: resultNextLetterFail"
+  }
+}

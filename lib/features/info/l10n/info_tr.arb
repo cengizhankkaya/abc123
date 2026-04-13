@@ -1,0 +1,77 @@
+{
+  "@@locale": "tr",
+  "infoDrawingNotFound": "Çizim Bulunamadı",
+  "@infoDrawingNotFound": {
+    "description": "l10n: infoDrawingNotFound"
+  },
+  "infoDrawnLetter": "Çizdiğin Harf",
+  "@infoDrawnLetter": {
+    "description": "l10n: infoDrawnLetter"
+  },
+  "infoCongrats": "Tebrikler!",
+  "@infoCongrats": {
+    "description": "l10n: infoCongrats"
+  },
+  "infoSuccessMessage": "Harika iş çıkardın! Bu harfi doğru bir şekilde tanıdım!",
+  "@infoSuccessMessage": {
+    "description": "l10n: infoSuccessMessage"
+  },
+  "infoBack": "Geri Dön",
+  "@infoBack": {
+    "description": "l10n: infoBack"
+  },
+  "resultDrawingNotFound": "Çizim Bulunamadı",
+  "@resultDrawingNotFound": {
+    "description": "l10n: resultDrawingNotFound"
+  },
+  "resultDrawn": "Çizdiğin:",
+  "@resultDrawn": {
+    "description": "l10n: resultDrawn"
+  },
+  "resultCongrats": "Tebrikler!",
+  "@resultCongrats": {
+    "description": "l10n: resultCongrats"
+  },
+  "resultTryAgain": "Tekrar Dene!",
+  "@resultTryAgain": {
+    "description": "l10n: resultTryAgain"
+  },
+  "resultTargetLetter": "Hedef Çizim:",
+  "@resultTargetLetter": {
+    "description": "l10n: resultTargetLetter"
+  },
+  "resultSuccessMessage": "Harika iş çıkardın! Çizimini doğru bir şekilde tanıdım!",
+  "@resultSuccessMessage": {
+    "description": "l10n: resultSuccessMessage"
+  },
+  "resultFailMessage": "Tekrar denemelisin! Çizimin farklı bir şeye benziyor.",
+  "@resultFailMessage": {
+    "description": "l10n: resultFailMessage"
+  },
+  "resultProgress": "Doğru: {correct} / Toplam: {total}",
+  "@resultProgress": {
+    "description": "l10n: resultProgress",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "resultTryAgainBtn": "Tekrar Dene",
+  "@resultTryAgainBtn": {
+    "description": "l10n: resultTryAgainBtn"
+  },
+  "resultNextLetter": "Sonrakine Geç",
+  "@resultNextLetter": {
+    "description": "l10n: resultNextLetter"
+  },
+  "resultNextLetterFail": "Sonrakine Geç",
+  "@resultNextLetterFail": {
+    "description": "l10n: resultNextLetterFail"
+  }
+}

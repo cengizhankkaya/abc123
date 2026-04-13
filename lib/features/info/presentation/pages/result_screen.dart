@@ -3,11 +3,12 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_font_sizes.dart';
 import '../../../../core/constants/app_radii.dart';
 
-import '../../../../shared/language_provider.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
 
 class ResultScreen extends StatefulWidget {
   final ui.Image? drawingImage;
@@ -35,8 +36,7 @@ class ResultScreen extends StatefulWidget {
   State<ResultScreen> createState() => _ResultScreenState();
 }
 
-class _ResultScreenState extends State<ResultScreen>
-    with TickerProviderStateMixin {
+class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMixin {
   late AnimationController _confettiController;
 
   @override
@@ -69,7 +69,7 @@ class _ResultScreenState extends State<ResultScreen>
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final lang = context.watch<LanguageProvider>().language;
-    final texts = localizedResultScreenTexts[lang]!;
+    final i = context.infoL10n!;
 
     return Scaffold(
       body: Container(
@@ -134,17 +134,14 @@ class _ResultScreenState extends State<ResultScreen>
                             ),
                             child: widget.drawingImage != null
                                 ? CustomPaint(
-                                    painter: DrawingImagePainter(
-                                        image: widget.drawingImage!),
+                                    painter: DrawingImagePainter(image: widget.drawingImage!),
                                   )
                                 : Center(
                                     child: Text(
-                                      texts['drawingNotFound'] as String,
+                                      i.resultDrawingNotFound,
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize:
-                                            AppFontSizes.subtitle(context) *
-                                                0.4,
+                                        fontSize: AppFontSizes.subtitle(context) * 0.4,
                                       ),
                                     ),
                                   ),
@@ -154,24 +151,20 @@ class _ResultScreenState extends State<ResultScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                texts['drawn'] as String,
+                                i.resultDrawn,
                                 style: TextStyle(
-                                  fontSize:
-                                      AppFontSizes.subtitle(context) * 0.4,
+                                  fontSize: AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal:
-                                        AppSizes.paddingNormal(context) * 0.5,
-                                    vertical:
-                                        AppSizes.paddingSmall(context) * 0.5),
+                                    horizontal: AppSizes.paddingNormal(context) * 0.5,
+                                    vertical: AppSizes.paddingSmall(context) * 0.5),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(
-                                      AppRadii.cardRadius(context)),
+                                  borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                                 ),
                                 child: Text(
                                   widget.recognizedLetter,
@@ -179,9 +172,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ).copyWith(
-                                    color: widget.isCorrect
-                                        ? Colors.green
-                                        : Colors.red,
+                                    color: widget.isCorrect ? Colors.green : Colors.red,
                                   ),
                                 ),
                               ),
@@ -196,8 +187,8 @@ class _ResultScreenState extends State<ResultScreen>
                       height: screenSize.height * 0.5,
                       width: 1,
                       color: Colors.white.withOpacity(0.3),
-                      margin: EdgeInsets.symmetric(
-                          horizontal: AppSizes.paddingSmall(context) * 0.003),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: AppSizes.paddingSmall(context) * 0.003),
                     ),
 
                     // Sağ bölüm - Sonuç ve butonlar
@@ -208,9 +199,7 @@ class _ResultScreenState extends State<ResultScreen>
                         children: [
                           // Başlık yazısı
                           Text(
-                            widget.isCorrect
-                                ? texts['congrats'] as String
-                                : texts['tryAgain'] as String,
+                            widget.isCorrect ? i.resultCongrats : i.resultTryAgain,
                             style: TextStyle(
                               fontSize: AppFontSizes.title(context) * 0.4,
                               fontWeight: FontWeight.bold,
@@ -230,10 +219,9 @@ class _ResultScreenState extends State<ResultScreen>
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                texts['targetLetter'] as String,
+                                i.resultTargetLetter,
                                 style: TextStyle(
-                                  fontSize:
-                                      AppFontSizes.subtitle(context) * 0.4,
+                                  fontSize: AppFontSizes.subtitle(context) * 0.4,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -256,14 +244,11 @@ class _ResultScreenState extends State<ResultScreen>
                                 child: Center(
                                   child: Text(
                                     widget.targetLetter.toString(),
-                                  style: TextStyle(
-                                    fontSize:
-                                        AppFontSizes.title(context) * 0.4,
-                                    fontWeight: FontWeight.bold,
-                                    color: widget.isCorrect
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
+                                    style: TextStyle(
+                                      fontSize: AppFontSizes.title(context) * 0.4,
+                                      fontWeight: FontWeight.bold,
+                                      color: widget.isCorrect ? Colors.green : Colors.red,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -273,18 +258,14 @@ class _ResultScreenState extends State<ResultScreen>
                           // İlerleme ve istatistik bilgisi
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    AppSizes.paddingSmall(context) * 0.003),
+                                horizontal: AppSizes.paddingSmall(context) * 0.003),
                             child: Column(
                               children: [
                                 Text(
-                                  widget.isCorrect
-                                      ? texts['successMessage'] as String
-                                      : texts['failMessage'] as String,
+                                  widget.isCorrect ? i.resultSuccessMessage : i.resultFailMessage,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize:
-                                        AppFontSizes.subtitle(context) * 0.4,
+                                    fontSize: AppFontSizes.subtitle(context) * 0.4,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -294,17 +275,15 @@ class _ResultScreenState extends State<ResultScreen>
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.check_circle,
-                                        color: Colors.white),
+                                    const Icon(Icons.check_circle, color: Colors.white),
                                     const SizedBox(width: 5),
                                     Text(
-                                      (texts['progress'] as dynamic)(
-                                          widget.correctCount,
-                                          widget.totalAttempts) as String,
+                                      i.resultProgress(
+                                        widget.correctCount,
+                                        widget.totalAttempts,
+                                      ),
                                       style: TextStyle(
-                                        fontSize:
-                                            AppFontSizes.subtitle(context) *
-                                                0.4,
+                                        fontSize: AppFontSizes.subtitle(context) * 0.4,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -322,8 +301,7 @@ class _ResultScreenState extends State<ResultScreen>
                               ConstrainedBox(
                                 constraints: BoxConstraints(
                                   minWidth: 120,
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.25,
+                                  maxWidth: MediaQuery.of(context).size.width * 0.25,
                                 ),
                                 child: ElevatedButton(
                                   onPressed: widget.onTryAgain,
@@ -331,9 +309,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     foregroundColor: Colors.grey[800],
                                     backgroundColor: Colors.white,
                                     padding: EdgeInsets.symmetric(
-                                      vertical:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
+                                      vertical: MediaQuery.of(context).size.height * 0.015,
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
@@ -341,10 +317,9 @@ class _ResultScreenState extends State<ResultScreen>
                                     elevation: 5,
                                   ),
                                   child: Text(
-                                    texts['tryAgainBtn'] as String,
+                                    i.resultTryAgainBtn,
                                     style: TextStyle(
-                                      fontSize:
-                                          AppFontSizes.subtitle(context) * 0.4,
+                                      fontSize: AppFontSizes.subtitle(context) * 0.4,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -353,20 +328,16 @@ class _ResultScreenState extends State<ResultScreen>
                               ConstrainedBox(
                                 constraints: BoxConstraints(
                                   minWidth: 120,
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.25,
+                                  maxWidth: MediaQuery.of(context).size.width * 0.25,
                                 ),
                                 child: ElevatedButton(
                                   onPressed: widget.onContinue,
                                   style: ElevatedButton.styleFrom(
                                     foregroundColor: Colors.white,
-                                    backgroundColor: widget.isCorrect
-                                        ? Colors.green[600]
-                                        : Colors.blue[600],
+                                    backgroundColor:
+                                        widget.isCorrect ? Colors.green[600] : Colors.blue[600],
                                     padding: EdgeInsets.symmetric(
-                                      vertical:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
+                                      vertical: MediaQuery.of(context).size.height * 0.015,
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
@@ -374,12 +345,9 @@ class _ResultScreenState extends State<ResultScreen>
                                     elevation: 5,
                                   ),
                                   child: Text(
-                                    widget.isCorrect
-                                        ? texts['nextLetter'] as String
-                                        : texts['nextLetterFail'] as String,
+                                    widget.isCorrect ? i.resultNextLetter : i.resultNextLetterFail,
                                     style: TextStyle(
-                                      fontSize:
-                                          AppFontSizes.subtitle(context) * 0.4,
+                                      fontSize: AppFontSizes.subtitle(context) * 0.4,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
