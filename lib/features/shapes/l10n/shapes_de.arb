@@ -1,0 +1,15 @@
+{
+  "@@locale": "de",
+  "shapeDaire": "Kreis",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "Quadrat",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "Dreieck",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}

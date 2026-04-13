@@ -1,0 +1,15 @@
+{
+  "@@locale": "es",
+  "shapeDaire": "Círculo",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "Cuadrado",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "Triángulo",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "@@locale": "bn",
+  "shapeDaire": "বৃত্ত",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "বর্গ",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "ত্রিভুজ",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "@@locale": "az",
+  "shapeDaire": "Dairə",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "Kvadrat",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "Üçbucaq",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}

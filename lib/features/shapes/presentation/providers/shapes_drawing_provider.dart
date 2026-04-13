@@ -1,14 +1,15 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 
-import '../../../../core/services/audio_service.dart';
-import '../../../../core/utils/responsive_size.dart';
-import '../../../draw/presentation/widgets/build_drawing_area.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 
 /// Şekiller için sıralı çizim durum yöneticisi
 class ShapesSequentialDrawingManager {
@@ -32,8 +33,7 @@ class ShapesSequentialDrawingManager {
   int get correctlyDrawnCount => _correctlyDrawnCount;
   int get totalAttempts => _totalAttempts;
 
-  String get currentTargetShape =>
-      _targetShapes[_currentItemIndex % _targetShapes.length];
+  String get currentTargetShape => _targetShapes[_currentItemIndex % _targetShapes.length];
 
   // Sıralı modu aktif/pasif yapar
   void toggleSequentialMode(bool isActive) {
@@ -86,8 +86,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
   double strokeWidth = 25.0;
 
   // Metin ve durumlar
-  static const String _freeDrawText =
-      'Bir şekil çizin (daire, kare veya üçgen)';
+  static const String _freeDrawText = 'Bir şekil çizin (daire, kare veya üçgen)';
   String tanima = _freeDrawText;
 
   bool isLoading = false;
@@ -95,8 +94,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
   String recognitionResult = '';
 
   // Sıralı mod yöneticisi
-  final ShapesSequentialDrawingManager sequentialManager =
-      ShapesSequentialDrawingManager();
+  final ShapesSequentialDrawingManager sequentialManager = ShapesSequentialDrawingManager();
 
   bool get isSequentialModeActive => sequentialManager.isSequentialModeActive;
   String get currentTargetShape => sequentialManager.currentTargetShape;
@@ -133,8 +131,8 @@ class ShapesDrawingProvider extends ChangeNotifier {
 
   Future<void> _loadModel() async {
     try {
-      final loadedInterpreter = await Interpreter.fromAsset(
-          'assets/models/geometric_shapes_model.tflite');
+      final loadedInterpreter =
+          await Interpreter.fromAsset('assets/models/geometric_shapes_model.tflite');
       interpreter = loadedInterpreter;
       notifyListeners();
     } catch (e) {
@@ -173,8 +171,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
         return;
       }
 
-      final ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         recognitionResult = 'Görüntü işlenemedi';
         isLoading = false;
@@ -240,8 +237,13 @@ class ShapesDrawingProvider extends ChangeNotifier {
 
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e) {
-      debugPrint('Görüntü oluşturma hatası (şekiller): $e');
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Image render failed',
+        tag: 'ShapesDraw',
+        error: e,
+        stackTrace: st,
+      );
       return null;
     }
   }
@@ -311,8 +313,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
       const baseClassNames = ['Circle', 'Square', 'Triangle'];
       final classNames = List<String>.generate(
         numClasses,
-        (index) =>
-            index < baseClassNames.length ? baseClassNames[index] : 'Class $index',
+        (index) => index < baseClassNames.length ? baseClassNames[index] : 'Class $index',
       );
       if (maxIndex < 0 || maxIndex >= classNames.length) {
         return 'Bilinmeyen şekil';
@@ -323,8 +324,13 @@ class ShapesDrawingProvider extends ChangeNotifier {
 
       // Overlay içinde büyük ve net görünsün diye sadece şekil adını dön
       return predictedLabelTr.toUpperCase();
-    } catch (e) {
-      debugPrint('Şekil tahmin hatası: $e');
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Shape inference failed',
+        tag: 'ShapesDraw',
+        error: e,
+        stackTrace: st,
+      );
       throw Exception('Tahmin hatası: $e');
     }
   }
@@ -391,8 +397,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
   /// Sıralı modda tanıma sonucunu değerlendirir ve doğru/yanlış bilgisini döner
   bool evaluateSequentialRecognition() {
     if (!isSequentialModeActive) return true;
-    final bool isCorrect =
-        sequentialManager.evaluateRecognitionResult(recognitionResult);
+    final bool isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
     lastPredictionCorrect = isCorrect;
     return isCorrect;
   }

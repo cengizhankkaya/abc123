@@ -1,0 +1,15 @@
+{
+  "@@locale": "hi",
+  "shapeDaire": "वृत्त",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "वर्ग",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "त्रिभुज",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}

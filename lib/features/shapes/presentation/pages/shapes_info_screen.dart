@@ -4,6 +4,7 @@ import 'package:abc123/core/constants/app_font_sizes.dart';
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ShapesInfoScreen extends StatelessWidget {
   final ui.Image? drawingImage;
@@ -74,11 +75,10 @@ class ShapesInfoScreen extends StatelessWidget {
                             : Center(
                                 child: Text(
                                   'Çizim bulunamadı',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize:
-                                            AppFontSizes.subtitle(context) * 0.5,
-                                      ),
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: AppFontSizes.subtitle(context) * 0.5,
+                                  ),
                                 ),
                               ),
                       ),
@@ -151,8 +151,7 @@ class ShapesInfoScreen extends StatelessWidget {
                                 recognizedShape,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  fontSize:
-                                      AppFontSizes.title(context) * 0.55,
+                                  fontSize: AppFontSizes.title(context) * 0.55,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.indigo,
                                 ),
@@ -171,8 +170,7 @@ class ShapesInfoScreen extends StatelessWidget {
                               'Hedef şekil: $targetShape',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize:
-                                    AppFontSizes.subtitle(context) * 0.42,
+                                fontSize: AppFontSizes.subtitle(context) * 0.42,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -189,8 +187,7 @@ class ShapesInfoScreen extends StatelessWidget {
                                 : 'Bu sefer olmadı. Aynı şekli tekrar çizmeyi dene, sonra yeniden deneyelim!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize:
-                                  AppFontSizes.subtitle(context) * 0.42,
+                              fontSize: AppFontSizes.subtitle(context) * 0.42,
                               color: Colors.white,
                               fontWeight: FontWeight.w500,
                             ),
@@ -198,7 +195,7 @@ class ShapesInfoScreen extends StatelessWidget {
                         ),
                         SizedBox(height: size.height * 0.035),
                         ElevatedButton(
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () => context.pop(),
                           style: ElevatedButton.styleFrom(
                             foregroundColor: const Color(0xFF303F9F),
                             backgroundColor: Colors.white,
@@ -253,5 +250,3 @@ class _ShapesDrawingImagePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
-
-

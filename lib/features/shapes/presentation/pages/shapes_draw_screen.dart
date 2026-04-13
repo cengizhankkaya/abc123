@@ -4,10 +4,11 @@ import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/services/audio_service.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
-import 'package:abc123/features/draw/data/models/drawing_content.dart';
+import 'package:abc123/features/shapes/l10n/l10n_extensions.dart';
+import 'package:abc123/features/shapes/l10n/shapes_shape_lookup.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/drawing_area_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
@@ -17,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../shared/language_provider.dart';
-import '../../../home/presentation/providers/gamification_provider.dart';
-
-import 'shapes_drawing_provider.dart';
-import '../../../info/presentation/screens/result_screen.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
+import 'package:abc123/features/shapes/presentation/providers/shapes_drawing_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class ShapesDrawScreen extends StatefulWidget {
   const ShapesDrawScreen({super.key});
@@ -30,8 +31,7 @@ class ShapesDrawScreen extends StatefulWidget {
   State<ShapesDrawScreen> createState() => _ShapesDrawScreenState();
 }
 
-class _ShapesDrawScreenState extends State<ShapesDrawScreen>
-    with SingleTickerProviderStateMixin {
+class _ShapesDrawScreenState extends State<ShapesDrawScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
@@ -193,10 +193,8 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
                                     child: LetterRightPanel(
                                       tanimaText: provider.tanima,
                                       isLoading: provider.isLoading,
-                                      isSequentialMode:
-                                          provider.isSequentialModeActive,
-                                      correctlyDrawnCount:
-                                          provider.correctlyDrawnCount,
+                                      isSequentialMode: provider.isSequentialModeActive,
+                                      correctlyDrawnCount: provider.correctlyDrawnCount,
                                     ),
                                   ),
                                 ],
@@ -229,88 +227,71 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen>
 
                           // Sıralı modda: harf ekranındaki ResultScreen tasarımını kullan
                           if (provider.isSequentialModeActive) {
-                            final lang =
-                                context.read<LanguageProvider>().language;
-                            final bool isCorrect =
-                                provider.evaluateSequentialRecognition();
-                            final String targetShapeCode =
-                                provider.currentTargetShape;
+                            final sl = context.shapesL10n!;
+                            final bool isCorrect = provider.evaluateSequentialRecognition();
+                            final String targetShapeCode = provider.currentTargetShape;
                             final String localizedTargetShape =
-                                getLocalizedShapeName(targetShapeCode, lang);
+                                shapesLabelForCode(sl, targetShapeCode);
 
                             // İç mantık için provider.recognitionResult hala
                             // 'DAIRE'/'KARE'/'ÜÇGEN' kodlarını tutuyor; sadece
                             // ekranda gösterirken çevrili halini kullanalım.
                             final String localizedRecognizedShape =
-                                getLocalizedShapeName(
-                                    provider.recognitionResult, lang);
+                                shapesLabelForCode(sl, provider.recognitionResult);
 
                             // Gamification Integration
-                            Provider.of<GamificationProvider>(context,
-                                    listen: false)
-                                .incrementTotalDrawings(
-                                    type: DrawingType.shape);
+                            Provider.of<GamificationProvider>(context, listen: false)
+                                .incrementTotalDrawings(type: DrawingType.shape);
 
                             // ignore: use_build_context_synchronously
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ResultScreen(
-                                  drawingImage: provider.drawingImage,
-                                  recognizedLetter: localizedRecognizedShape,
-                                  targetLetter: localizedTargetShape,
-                                  isCorrect: isCorrect,
-                                  correctCount: provider.correctlyDrawnCount,
-                                  totalAttempts: provider.totalAttempts,
-                                  onTryAgain: () {
-                                    Navigator.pop(context);
-                                    provider.onResultScreenAction(isCorrect,
-                                        tryAgain: true);
-                                  },
-                                  onContinue: () {
-                                    Navigator.pop(context);
-                                    provider.onResultScreenAction(isCorrect,
-                                        tryAgain: false);
-                                  },
-                                ),
+                            await context.push(
+                              AppRoutes.result,
+                              extra: ResultScreenData(
+                                drawingImage: provider.drawingImage,
+                                recognizedLetter: localizedRecognizedShape,
+                                targetLetter: localizedTargetShape,
+                                isCorrect: isCorrect,
+                                correctCount: provider.correctlyDrawnCount,
+                                totalAttempts: provider.totalAttempts,
+                                onTryAgain: () {
+                                  context.pop();
+                                  provider.onResultScreenAction(isCorrect, tryAgain: true);
+                                },
+                                onContinue: () {
+                                  context.pop();
+                                  provider.onResultScreenAction(isCorrect, tryAgain: false);
+                                },
                               ),
                             );
                           } else {
                             // Gamification Integration
                             // Serbest modda da çizim tanındıysa puan ver
-                            Provider.of<GamificationProvider>(context,
-                                    listen: false)
-                                .incrementTotalDrawings(
-                                    type: DrawingType.shape);
+                            Provider.of<GamificationProvider>(context, listen: false)
+                                .incrementTotalDrawings(type: DrawingType.shape);
                             // Serbest modda da aynı tasarımı, basit bir akışla kullan
                             const bool isCorrect = true;
-                            final lang =
-                                context.read<LanguageProvider>().language;
-                            final String recognizedCode =
-                                provider.recognitionResult;
-                            final String localizedShape =
-                                getLocalizedShapeName(recognizedCode, lang);
+                            final sl = context.shapesL10n!;
+                            final String recognizedCode = provider.recognitionResult;
+                            final String localizedShape = shapesLabelForCode(sl, recognizedCode);
 
                             // ignore: use_build_context_synchronously
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ResultScreen(
-                                  drawingImage: provider.drawingImage,
-                                  recognizedLetter: localizedShape,
-                                  targetLetter: localizedShape,
-                                  isCorrect: isCorrect,
-                                  correctCount: 0,
-                                  totalAttempts: 0,
-                                  onTryAgain: () {
-                                    Navigator.pop(context);
-                                    provider.clear();
-                                  },
-                                  onContinue: () {
-                                    Navigator.pop(context);
-                                    provider.clear();
-                                  },
-                                ),
+                            await context.push(
+                              AppRoutes.result,
+                              extra: ResultScreenData(
+                                drawingImage: provider.drawingImage,
+                                recognizedLetter: localizedShape,
+                                targetLetter: localizedShape,
+                                isCorrect: isCorrect,
+                                correctCount: 0,
+                                totalAttempts: 0,
+                                onTryAgain: () {
+                                  context.pop();
+                                  provider.clear();
+                                },
+                                onContinue: () {
+                                  context.pop();
+                                  provider.clear();
+                                },
                               ),
                             );
                           }

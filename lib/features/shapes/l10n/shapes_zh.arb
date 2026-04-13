@@ -1,0 +1,15 @@
+{
+  "@@locale": "zh",
+  "shapeDaire": "圆形",
+  "@shapeDaire": {
+    "description": "l10n: shapeDaire"
+  },
+  "shapeKare": "正方形",
+  "@shapeKare": {
+    "description": "l10n: shapeKare"
+  },
+  "shapeUcgen": "三角形",
+  "@shapeUcgen": {
+    "description": "l10n: shapeUcgen"
+  }
+}
