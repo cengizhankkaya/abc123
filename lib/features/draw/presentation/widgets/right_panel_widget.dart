@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_radii.dart';
@@ -23,8 +26,7 @@ class RightPanelWidget extends StatefulWidget {
   State<RightPanelWidget> createState() => _RightPanelWidgetState();
 }
 
-class _RightPanelWidgetState extends State<RightPanelWidget>
-    with TickerProviderStateMixin {
+class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProviderStateMixin {
   int _score = 0;
   bool _isGameStarted = false;
   bool _isGamePaused = false;
@@ -95,7 +97,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
         timer.cancel();
       } catch (e) {
         // Sessizce hatayı yoksay
-        debugPrint("Timer iptal hatası: $e");
+        getIt<AppLogger>().debug(
+          'Timer cancel error',
+          tag: 'RightPanel',
+          data: {'error': e.toString()},
+        );
       }
     }
     _balloonTimers.clear();
@@ -107,7 +113,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
       try {
         setState(fn);
       } catch (e) {
-        debugPrint("setState hatası: $e");
+        getIt<AppLogger>().debug(
+          'setState after dispose',
+          tag: 'RightPanel',
+          data: {'error': e.toString()},
+        );
         // Hata durumunda temizlik yap
         _cleanupTimers();
       }
@@ -150,8 +160,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
 
         // Ekrandaki balon sayısı 5'ten az ve daha oluşturulacak balon varsa yeni balon ekle
         if (_balloons.length < 5 &&
-            _poppedBalloons + _missedBalloons + _balloons.length <
-                _totalBalloons) {
+            _poppedBalloons + _missedBalloons + _balloons.length < _totalBalloons) {
           _createBalloon();
         }
       } else {
@@ -185,8 +194,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
 
           // Ekrandaki balon sayısı 5'ten az ve daha oluşturulacak balon varsa yeni balon ekle
           if (_balloons.length < 5 &&
-              _poppedBalloons + _missedBalloons + _balloons.length <
-                  _totalBalloons) {
+              _poppedBalloons + _missedBalloons + _balloons.length < _totalBalloons) {
             _createBalloon();
           }
         } else {
@@ -212,8 +220,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
     if (!mounted || _disposed) return;
 
     // Tüm balonlar oluşturulmuşsa daha fazla oluşturma
-    if (_poppedBalloons + _missedBalloons + _balloons.length >=
-        _totalBalloons) {
+    if (_poppedBalloons + _missedBalloons + _balloons.length >= _totalBalloons) {
       return;
     }
 
@@ -224,10 +231,9 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
 
     // Hız faktörü - ekran boyutuna göre ayarlanır, daha yavaş
     final baseSpeed = _gameHeight * 0.001; // Temel hız yarıya indirildi
-    final speedFactor =
-        _random.nextDouble() * 1.2 + 0.6; // Hız aralığı azaltıldı
-    final speed = baseSpeed * speedFactor +
-        (_currentLevel * baseSpeed * 0.2); // Seviye artışı daha yavaş
+    final speedFactor = _random.nextDouble() * 1.2 + 0.6; // Hız aralığı azaltıldı
+    final speed =
+        baseSpeed * speedFactor + (_currentLevel * baseSpeed * 0.2); // Seviye artışı daha yavaş
 
     // X pozisyonu - balonun tamamen ekran içinde kalması sağlanıyor
     final horizontalPadding = size * 0.1; // Kenarlara daha az yaklaşsın
@@ -273,8 +279,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
             // Balon ekrandan çıkmasın, sınırları kontrol et
             if (_balloons[index].x < 0) {
               _balloons[index].x = 0;
-            } else if (_balloons[index].x >
-                _gameWidth - _balloons[index].size) {
+            } else if (_balloons[index].x > _gameWidth - _balloons[index].size) {
               _balloons[index].x = _gameWidth - _balloons[index].size;
             }
 
@@ -282,15 +287,12 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
             if (_balloons[index].y < -_balloons[index].size) {
               _balloons.removeAt(index);
               _missedBalloons++;
-              _remainingBalloons =
-                  _totalBalloons - (_poppedBalloons + _missedBalloons);
+              _remainingBalloons = _totalBalloons - (_poppedBalloons + _missedBalloons);
               timer.cancel();
               _balloonTimers.remove(timer);
 
               // Tüm balonlar bittiğinde oyunu kontrol et
-              if (mounted &&
-                  !_disposed &&
-                  _poppedBalloons + _missedBalloons >= _totalBalloons) {
+              if (mounted && !_disposed && _poppedBalloons + _missedBalloons >= _totalBalloons) {
                 _checkGameEnd();
               } else if (mounted && !_disposed && _balloons.length < 5) {
                 // Yeni balon ekle (ekrandaki balon sayısı 5'ten azsa)
@@ -306,7 +308,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
         // Hata oluşursa timer'ı iptal et
         timer.cancel();
         _balloonTimers.remove(timer);
-        debugPrint("Balon animasyon hatası: $e");
+        getIt<AppLogger>().debug(
+          'Balloon animation error',
+          tag: 'RightPanel',
+          data: {'error': e.toString()},
+        );
       }
     });
 
@@ -321,13 +327,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
       try {
         _safeSetState(() {
           // Puanı arttır (küçük balonlar daha çok puan)
-          final points =
-              (100 / _balloons[index].size * _gameWidth * 0.1).round();
+          final points = (100 / _balloons[index].size * _gameWidth * 0.1).round();
           _score += points;
           _poppedBalloons++;
           _balloons.removeAt(index);
-          _remainingBalloons =
-              _totalBalloons - (_poppedBalloons + _missedBalloons);
+          _remainingBalloons = _totalBalloons - (_poppedBalloons + _missedBalloons);
 
           // Tüm balonlar bittiğinde oyunu kontrol et
           if (_poppedBalloons + _missedBalloons >= _totalBalloons) {
@@ -342,7 +346,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
           }
         });
       } catch (e) {
-        debugPrint("Balon patlatma hatası: $e");
+        getIt<AppLogger>().debug(
+          'Balloon pop error',
+          tag: 'RightPanel',
+          data: {'error': e.toString()},
+        );
       }
     }
   }
@@ -391,8 +399,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius:
-                      BorderRadius.circular(AppRadii.cardRadius(context)),
+                  borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
@@ -409,8 +416,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(
                         vertical: responsive.height * 0.015,
-                        horizontal:
-                            responsive.width * 0.015, // Yatay dolguyu azalttım
+                        horizontal: responsive.width * 0.015, // Yatay dolguyu azalttım
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -457,73 +463,6 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
     );
   }
 
-  Widget _buildGameStatusIcon({
-    required ResponsiveSize responsive,
-    required IconData icon,
-    required Color color,
-    required String value,
-    required String tooltip,
-  }) {
-    // Daha da küçük boyutlar tanımlayalım
-    final iconSize = responsive.width * 0.022; // Daha da küçültüldü
-    final innerIconSize = responsive.width * 0.012; // Daha da küçültüldü
-    final badgeSize = responsive.width * 0.011; // Daha da küçültüldü
-    final badgeFontSize = responsive.width * 0.006; // Daha da küçültüldü
-    final margin = responsive.width * 0.001; // Daha da azaltıldı
-
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: margin),
-      child: Tooltip(
-        message: tooltip,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            // Arka plan daire
-            Container(
-              width: iconSize,
-              height: iconSize,
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-            ),
-            // İkon
-            Icon(icon, color: color, size: innerIconSize),
-            // Değer
-            Positioned(
-              bottom: 0,
-              right: -responsive.width * 0.001, // Daha az kaydırma
-              child: Container(
-                padding: EdgeInsets.all(
-                    responsive.width * 0.0005), // Daha az iç dolgu
-                decoration: BoxDecoration(
-                  color: Colors.black45,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      color: Colors.white, width: 0.2), // Daha ince kenarlık
-                ),
-                constraints: BoxConstraints(
-                  minWidth: badgeSize,
-                  minHeight: badgeSize,
-                ),
-                child: Center(
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: badgeFontSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _buildGameContent(ResponsiveSize responsive) {
     if (_disposed) return Container(); // Dispose edilmişse boş container döndür
 
@@ -558,8 +497,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                         // Balonun ekrandan taşmamasını sağla
                         double x = balloon.x;
                         if (x < 0) x = 0;
-                        if (x > _gameWidth - balloon.size)
-                          x = _gameWidth - balloon.size;
+                        if (x > _gameWidth - balloon.size) x = _gameWidth - balloon.size;
 
                         return Positioned(
                           left: x,
@@ -613,8 +551,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                       }).toList(),
 
                       // Tüm balonlar patlatıldıysa oyun sonu mesajı
-                      if (_poppedBalloons + _missedBalloons >= _totalBalloons &&
-                          _totalBalloons > 0)
+                      if (_poppedBalloons + _missedBalloons >= _totalBalloons && _totalBalloons > 0)
                         Center(
                           child: Container(
                             padding: EdgeInsets.all(responsive.width * 0.02),
@@ -660,14 +597,17 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
             backgroundColor: Colors.white70,
             radius: responsive.width * 0.02,
             child: IconButton(
+              tooltip: _isGamePaused
+                  ? context.drawL10n!.drawSemanticResumeGame
+                  : context.drawL10n!.drawSemanticPauseGame,
               icon: Icon(_isGamePaused ? Icons.play_arrow : Icons.pause),
               onPressed: _pauseGame,
               color: AppColors.primaryColor,
-              iconSize: responsive.width * 0.015,
+              iconSize: (responsive.width * 0.015).clamp(20.0, 28.0),
               padding: EdgeInsets.zero,
-              constraints: BoxConstraints(
-                minWidth: responsive.width * 0.01,
-                minHeight: responsive.width * 0.01,
+              constraints: const BoxConstraints(
+                minWidth: 48,
+                minHeight: 48,
               ),
             ),
           ),
@@ -681,7 +621,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "OYUN DURAKLATILDI",
+                    context.drawL10n!.drawGamePausedTitle,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: responsive.subtitleFontSize * 1.5,
@@ -692,7 +632,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                   ElevatedButton.icon(
                     onPressed: _pauseGame,
                     icon: const Icon(Icons.play_arrow),
-                    label: const Text("Devam Et"),
+                    label: Text(context.drawL10n!.drawContinue),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
                       foregroundColor: Colors.white,
@@ -715,6 +655,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
 
     // Sayı sınırlaması (1-20 arası sayı)
     final balloonCount = number.clamp(1, 20);
+    final l10n = context.drawL10n!;
 
     return Stack(
       children: [
@@ -752,7 +693,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                 ),
                 SizedBox(height: responsive.height * 0.015),
                 Text(
-                  "$balloonCount adet balonla oynamaya hazır mısın?",
+                  l10n.drawBalloonReady(balloonCount),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.subtitleFontSize * 1.1,
@@ -762,7 +703,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                 ),
                 SizedBox(height: responsive.height * 0.01),
                 Text(
-                  "Balonları patlatarak puan kazan!\nNe kadar küçük balon patlatırsan o kadar çok puan alırsın.",
+                  l10n.drawBalloonScoreHint,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.bodyFontSize,
@@ -773,7 +714,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget>
                 ElevatedButton.icon(
                   onPressed: _startGame,
                   icon: const Icon(Icons.play_arrow),
-                  label: const Text("OYUNU BAŞLAT"),
+                  label: Text(l10n.drawStartGame),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     foregroundColor: Colors.white,

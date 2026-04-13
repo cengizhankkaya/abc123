@@ -1,4 +1,4 @@
-import 'package:abc123/features/draw/data/models/drawing_content.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
 
 /// Sıralı rakam ve harf çizimi için durum yönetim sınıfı
 class SequentialDrawingManager {
@@ -49,8 +49,7 @@ class SequentialDrawingManager {
 
   // Getters
   bool get isSequentialModeActive => _isSequentialModeActive;
-  int get currentNumberIndex =>
-      _currentItemIndex; // Eski adı korunmuştur (geriye dönük uyumluluk)
+  int get currentNumberIndex => _currentItemIndex; // Eski adı korunmuştur (geriye dönük uyumluluk)
   int get correctlyDrawnCount => _correctlyDrawnCount;
   int get totalAttempts => _totalAttempts;
   bool get isLetterMode => _isLetterMode;
@@ -96,8 +95,7 @@ class SequentialDrawingManager {
         // Belirli bir harf rehberi bulunamazsa, genel bir harf rehberi al
         if (DrawingContentProvider.letterGuides.isNotEmpty) {
           // İndeks sınırları içinde kal
-          int safeIndex =
-              _currentItemIndex % DrawingContentProvider.letterGuides.length;
+          int safeIndex = _currentItemIndex % DrawingContentProvider.letterGuides.length;
           return DrawingContentProvider.letterGuides[safeIndex];
         }
       }
@@ -147,9 +145,7 @@ class SequentialDrawingManager {
   // Tanıma sonucunu değerlendir
   bool evaluateRecognitionResult(String recognizedItem) {
     // Rakam için
-    if (!_isLetterMode &&
-        recognizedItem.length == 1 &&
-        int.tryParse(recognizedItem) != null) {
+    if (!_isLetterMode && recognizedItem.length == 1 && int.tryParse(recognizedItem) != null) {
       return int.parse(recognizedItem) == currentTargetNumber;
     }
     // Harf için

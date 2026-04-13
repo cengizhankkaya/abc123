@@ -1,14 +1,14 @@
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/drawing_area_widget.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../../letters/presentation/widgets/letter_guide_card.dart';
-import '../../../letters/presentation/widgets/letter_right_panel_widget.dart'
+import 'package:abc123/core/constants/app_sizes.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_widget.dart'
     show LetterRightPanel;
-import '../../data/models/drawing_content.dart';
-import '../../../../core/constants/app_sizes.dart';
 
 class MainContentArea extends StatelessWidget {
   final DrawingGuide activeGuide;
@@ -25,7 +25,7 @@ class MainContentArea extends StatelessWidget {
   final String tanima;
   final GlobalKey drawingAreaKey;
   final VoidCallback onClear;
-  final Function(DrawingPoint?) onDrawPoint;
+  final void Function(DrawingPoint?) onDrawPoint;
   final VoidCallback onEndDrawing;
   final bool isSequentialModeActive;
   final int correctlyDrawnCount;

@@ -1,9 +1,6 @@
 import 'package:abc123/core/constants/image_constants.dart';
-import 'package:flutter/material.dart';
 
-/// Sabit resim yolları için sınıf
-
-/// Çizim rehberi modeli
+/// Çizim rehberi (saf domain: yalnızca asset yolu).
 class DrawingGuide {
   final String imagePath;
 
@@ -12,20 +9,7 @@ class DrawingGuide {
   });
 }
 
-/// Yardım bilgisi modeli
-class HelpInfo {
-  final String title;
-  final String description;
-  final IconData icon;
-
-  HelpInfo({
-    required this.title,
-    required this.description,
-    required this.icon,
-  });
-}
-
-/// Tüm rakamlar ve harfler için rehber ve yardım içeriklerini sağlayan sınıf
+/// Tüm rakamlar ve harfler için rehber içeriklerini sağlayan sınıf
 class DrawingContentProvider {
   // Tüm rakamlar için çizim rehberleri
   static final List<DrawingGuide> numberGuides = [
@@ -179,16 +163,14 @@ class DrawingContentProvider {
 
   // Önceki rakam rehberine geç
   static DrawingGuide previousGuide() {
-    _activeGuideIndex =
-        (_activeGuideIndex - 1 + numberGuides.length) % numberGuides.length;
+    _activeGuideIndex = (_activeGuideIndex - 1 + numberGuides.length) % numberGuides.length;
     return activeGuide;
   }
 
   // Sonraki harf rehberine geç
   static DrawingGuide nextLetterGuide() {
     if (letterGuides.isNotEmpty) {
-      _activeLetterGuideIndex =
-          (_activeLetterGuideIndex + 1) % letterGuides.length;
+      _activeLetterGuideIndex = (_activeLetterGuideIndex + 1) % letterGuides.length;
       return activeLetterGuide;
     }
     return activeGuide; // Harf rehberi yoksa rakam rehberi döndür
@@ -198,8 +180,7 @@ class DrawingContentProvider {
   static DrawingGuide previousLetterGuide() {
     if (letterGuides.isNotEmpty) {
       _activeLetterGuideIndex =
-          (_activeLetterGuideIndex - 1 + letterGuides.length) %
-              letterGuides.length;
+          (_activeLetterGuideIndex - 1 + letterGuides.length) % letterGuides.length;
       return activeLetterGuide;
     }
     return activeGuide; // Harf rehberi yoksa rakam rehberi döndür
@@ -212,38 +193,5 @@ class DrawingContentProvider {
     }
     // Eğer harf rehberi yoksa veya indeks geçersizse, rakam rehberi döndür
     return numberGuides[0]; // Varsayılan olarak ilk rakam rehberini döndür
-  }
-
-  // Yardım bilgilerini al
-  static List<HelpInfo> getHelpInfos() {
-    return [
-      HelpInfo(
-        title: "1. Kalem rengi ve boyutunu seçin",
-        description: "Üst panelden istediğiniz kalemi ayarlayabilirsiniz.",
-        icon: Icons.palette,
-      ),
-      HelpInfo(
-        title: "2. Bir rakam çizin",
-        description:
-            "Orta paneldeki beyaz alana bir rakam çizin. Sol taraftaki rehberden yardım alabilirsiniz.",
-        icon: Icons.edit,
-      ),
-      HelpInfo(
-        title: "3. Tanımlama yapın",
-        description:
-            "Çizimi tamamladığınızda 'Tanımla' butonuna basarak yapay zeka ile rakamı tanımlayın.",
-        icon: Icons.psychology,
-      ),
-      HelpInfo(
-        title: "4. Temizle butonu",
-        description: "Çizimi silmek için 'Temizle' butonunu kullanabilirsiniz.",
-        icon: Icons.delete_outline,
-      ),
-      HelpInfo(
-        title: "5. Silgi kullanımı",
-        description: "Silgi butonuyla çizimin bir kısmını silebilirsiniz.",
-        icon: Icons.cleaning_services_outlined,
-      ),
-    ];
   }
 }

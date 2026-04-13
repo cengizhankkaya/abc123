@@ -5,7 +5,7 @@ class BuildStrokeButton extends StatelessWidget {
   final double size;
   final double currentStrokeWidth;
   final bool eraseMode;
-  final Function(double) onTap;
+  final void Function(double) onTap;
 
   const BuildStrokeButton({
     super.key,

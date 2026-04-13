@@ -1,5 +1,6 @@
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobBannerWidget extends StatefulWidget {
@@ -36,8 +37,11 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
           }
         },
         onAdFailedToLoad: (ad, error) {
-          debugPrint(
-              'Reklam yüklenemedi! Hata kodu: ${error.code}, mesaj: ${error.message}');
+          getIt<AppLogger>().warning(
+            'Banner ad failed to load',
+            tag: 'AdMobBanner',
+            data: {'code': error.code, 'message': error.message},
+          );
           ad.dispose();
           if (mounted) {
             setState(() {
@@ -72,8 +76,8 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
     );
 
     Widget adContent = Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300), color: Colors.white),
+      decoration:
+          BoxDecoration(border: Border.all(color: Colors.grey.shade300), color: Colors.white),
       width: _bannerAd!.size.width.toDouble(),
       height: _bannerAd!.size.height.toDouble(),
       child: AdWidget(ad: _bannerAd!),

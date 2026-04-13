@@ -1,4 +1,4 @@
-import 'package:abc123/core/utils/responsive_size.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -16,7 +16,7 @@ class DrawingAreaWidget extends StatelessWidget {
   final String tanima;
   final GlobalKey drawingAreaKey;
   final VoidCallback onClear;
-  final Function(DrawingPoint?) onDrawPoint;
+  final void Function(DrawingPoint?) onDrawPoint;
   final VoidCallback onEndDrawing;
 
   const DrawingAreaWidget({
@@ -50,25 +50,27 @@ class DrawingAreaWidget extends StatelessWidget {
         children: [
           // Çizim alanı
           Expanded(
-            child: Center(
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: buildDrawingArea(
-                  Size(responsive.width, responsive.height),
-                  drawingAreaKey,
-                  points,
-                  eraseMode,
-                  selectedColor,
-                  strokeWidth,
-                  showResult,
-                  isLoading,
-                  recognitionResult,
-                  animation,
-                  tanima,
-                  onClear,
-                  onDrawPoint,
-                  onEndDrawing,
-                  context,
+            child: RepaintBoundary(
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: buildDrawingArea(
+                    Size(responsive.width, responsive.height),
+                    drawingAreaKey,
+                    points,
+                    eraseMode,
+                    selectedColor,
+                    strokeWidth,
+                    showResult,
+                    isLoading,
+                    recognitionResult,
+                    animation,
+                    tanima,
+                    onClear,
+                    onDrawPoint,
+                    onEndDrawing,
+                    context,
+                  ),
                 ),
               ),
             ),

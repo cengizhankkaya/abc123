@@ -1,16 +1,17 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:abc123/core/utils/responsive_size.dart';
-import 'package:abc123/features/draw/data/models/drawing_content.dart';
-import 'package:abc123/features/draw/data/models/sequential_drawing.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
+import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
-import '../../../../core/constants/language_constants.dart';
-import '../../../../core/services/audio_service.dart' show AudioService;
+import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart' show AudioService;
 
 class DrawScreenProvider extends ChangeNotifier {
   final GlobalKey drawingAreaKey = GlobalKey();
@@ -75,8 +76,7 @@ class DrawScreenProvider extends ChangeNotifier {
 
   Future<void> _loadModel() async {
     try {
-      final loadedInterpreter =
-          await Interpreter.fromAsset('assets/models/rakam_model.tflite');
+      final loadedInterpreter = await Interpreter.fromAsset('assets/models/rakam_model.tflite');
       interpreter = loadedInterpreter;
       notifyListeners();
     } catch (e) {
@@ -93,9 +93,7 @@ class DrawScreenProvider extends ChangeNotifier {
       activeGuide = sequentialManager.getCurrentGuide();
       tanima = '${sequentialManager.currentTargetNumber} rakamını çizin';
       animationController?.reset();
-      animationController
-          ?.forward()
-          .then((_) => animationController?.reverse());
+      animationController?.forward().then((_) => animationController?.reverse());
       clearDrawing();
     } else {
       activeGuide = DrawingContentProvider.activeGuide;
@@ -116,16 +114,13 @@ class DrawScreenProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> tanimlaRakam(
-      Function showResultScreen, Function goToInfoScreen) async {
+  Future<void> tanimlaRakam(Function showResultScreen, Function goToInfoScreen) async {
     if (sequentialManager.isLetterMode) {
       sequentialManager.isLetterMode = false;
     }
     if (points.isEmpty) {
       tanima = 'Lütfen bir rakam çizin';
-      animationController
-          ?.forward()
-          .then((_) => animationController?.reverse());
+      animationController?.forward().then((_) => animationController?.reverse());
       notifyListeners();
       return;
     }
@@ -139,8 +134,7 @@ class DrawScreenProvider extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
         isLoading = false;
@@ -166,8 +160,7 @@ class DrawScreenProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       if (sequentialManager.isSequentialModeActive) {
-        final bool isCorrect =
-            sequentialManager.evaluateRecognitionResult(recognitionResult);
+        final bool isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
         showResultScreen(isCorrect);
         if (isCorrect) {
           updateAfterContinue(true);
@@ -182,8 +175,7 @@ class DrawScreenProvider extends ChangeNotifier {
     }
   }
 
-  void showResultScreenFn(
-      bool isCorrect, Function onTryAgain, Function onContinue) {
+  void showResultScreenFn(bool isCorrect, Function onTryAgain, Function onContinue) {
     // Bu fonksiyon, ekranda ResultScreen açmak için kullanılacak
     // Ekran widget'ında context ile çağrılacak
   }
@@ -203,8 +195,13 @@ class DrawScreenProvider extends ChangeNotifier {
       painter.paint(canvas, Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e) {
-      debugPrint("Görüntü oluşturma hatası: $e");
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Image render failed',
+        tag: 'DrawScreen',
+        error: e,
+        stackTrace: st,
+      );
       return null;
     }
   }
@@ -244,9 +241,7 @@ class DrawScreenProvider extends ChangeNotifier {
               (c) {
                 final index = y * 28 + x;
                 if (index < imageData.length / 4) {
-                  return index < imageData.length / 4
-                      ? imageData[index * 4] / 255.0
-                      : 0.0;
+                  return index < imageData.length / 4 ? imageData[index * 4] / 255.0 : 0.0;
                 }
                 return 0.0;
               },
@@ -265,8 +260,13 @@ class DrawScreenProvider extends ChangeNotifier {
         }
       }
       return maxIndex;
-    } catch (e) {
-      debugPrint('Inference hatası: $e');
+    } catch (e, st) {
+      getIt<AppLogger>().error(
+        'Inference failed',
+        tag: 'DrawScreen',
+        error: e,
+        stackTrace: st,
+      );
       throw Exception('Tahmin hatası: $e');
     }
   }

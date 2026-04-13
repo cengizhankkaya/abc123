@@ -1,43 +1,22 @@
 import 'dart:ui' as ui;
 import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/services/audio_service.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/features/draw/presentation/screens/draw_screen_provider.dart';
+import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
-import 'package:abc123/features/info/presentation/screens/info_screen.dart';
-import 'package:abc123/shared/language_provider.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
+import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
+import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:abc123/core/constants/language_constants.dart';
-
-import '../../../info/presentation/screens/result_screen.dart';
-
-// ResultScreenData modelini ekliyorum
-class ResultScreenData {
-  final ui.Image? drawingImage;
-  final String recognizedLetter;
-  final dynamic targetLetter;
-  final bool isCorrect;
-  final int correctCount;
-  final int totalAttempts;
-  final VoidCallback onTryAgain;
-  final VoidCallback onContinue;
-
-  ResultScreenData({
-    required this.drawingImage,
-    required this.recognizedLetter,
-    required this.targetLetter,
-    required this.isCorrect,
-    required this.correctCount,
-    required this.totalAttempts,
-    required this.onTryAgain,
-    required this.onContinue,
-  });
-}
 
 class DrawScreen extends StatefulWidget {
   const DrawScreen({super.key});
@@ -46,8 +25,7 @@ class DrawScreen extends StatefulWidget {
   State<DrawScreen> createState() => _DrawScreenState();
 }
 
-class _DrawScreenState extends State<DrawScreen>
-    with SingleTickerProviderStateMixin {
+class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   DrawScreenProvider? _provider;
@@ -96,19 +74,20 @@ class _DrawScreenState extends State<DrawScreen>
 
   @override
   Widget build(BuildContext context) {
-    final lang = context.watch<LanguageProvider>().language;
+    context.watch<LanguageProvider>();
     return ChangeNotifierProvider<DrawScreenProvider>.value(
       value: _provider!,
       child: Consumer<DrawScreenProvider>(
         builder: (context, provider, _) {
           // DİL VE MODA GÖRE TANIMA METNİNİ HESAPLA
-          String tanima;
+          final d = context.drawL10n!;
+          final String tanima;
           if (provider.sequentialManager.isSequentialModeActive) {
-            tanima = getLocalizedText('drawNumberInstruction', lang).replaceAll(
-                '{number}',
-                provider.sequentialManager.currentTargetNumber.toString());
+            tanima = d.drawNumberInstruction(
+              provider.sequentialManager.currentTargetNumber.toString(),
+            );
           } else {
-            tanima = getLocalizedText('drawAnyNumberInstruction', lang);
+            tanima = d.drawAnyNumberInstruction;
           }
 
           return Scaffold(
@@ -143,10 +122,8 @@ class _DrawScreenState extends State<DrawScreen>
                     // Ana İçerik
                     Expanded(
                       child: MainContentArea(
-                        correctlyDrawnCount:
-                            provider.sequentialManager.correctlyDrawnCount,
-                        isSequentialModeActive:
-                            provider.sequentialManager.isSequentialModeActive,
+                        correctlyDrawnCount: provider.sequentialManager.correctlyDrawnCount,
+                        isSequentialModeActive: provider.sequentialManager.isSequentialModeActive,
                         activeGuide: provider.activeGuide,
                         onNextGuide: provider.nextDrawingGuide,
                         onPreviousGuide: provider.previousDrawingGuide,
@@ -186,11 +163,8 @@ class _DrawScreenState extends State<DrawScreen>
                                 AudioService().playEffectAndResumeBackground(
                                     AppAudios.success, AppAudios.happyKids);
                                 // Gamification: Puan ekle ve çizim sayısını artır
-                                context
-                                    .read<GamificationProvider>()
-                                    .incrementTotalDrawings(
-                                        type: DrawingType.number,
-                                        label: provider.recognitionResult);
+                                context.read<GamificationProvider>().incrementTotalDrawings(
+                                    type: DrawingType.number, label: provider.recognitionResult);
                               } else {
                                 AudioService().playEffectAndResumeBackground(
                                     AppAudios.fail, AppAudios.happyKids);
@@ -199,49 +173,32 @@ class _DrawScreenState extends State<DrawScreen>
                               final resultData = ResultScreenData(
                                 drawingImage: provider.drawingImage,
                                 recognizedLetter: provider.recognitionResult,
-                                targetLetter: provider
-                                    .sequentialManager.currentTargetNumber,
+                                targetLetter: provider.sequentialManager.currentTargetNumber,
                                 isCorrect: isCorrect,
-                                correctCount: provider
-                                    .sequentialManager.correctlyDrawnCount,
-                                totalAttempts:
-                                    provider.sequentialManager.totalAttempts,
+                                correctCount: provider.sequentialManager.correctlyDrawnCount,
+                                totalAttempts: provider.sequentialManager.totalAttempts,
                                 onTryAgain: () {
-                                  Navigator.pop(context);
+                                  context.pop();
                                   provider.clearDrawing();
                                 },
                                 onContinue: () {
-                                  Navigator.pop(context);
+                                  context.pop();
                                   provider.clearDrawing();
                                   provider.updateAfterContinue(false);
                                 },
                               );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                    drawingImage: resultData.drawingImage,
-                                    recognizedLetter:
-                                        resultData.recognizedLetter,
-                                    targetLetter: resultData.targetLetter,
-                                    isCorrect: resultData.isCorrect,
-                                    correctCount: resultData.correctCount,
-                                    totalAttempts: resultData.totalAttempts,
-                                    onTryAgain: resultData.onTryAgain,
-                                    onContinue: resultData.onContinue,
-                                  ),
-                                ),
+                              context.push(
+                                AppRoutes.result,
+                                extra: resultData,
                               );
                             },
                             (ui.Image? image, String result) {
                               // Normal mod sonucu
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => InfoScreen(
-                                    drawingImage: image,
-                                    recognizedLetter: result,
-                                  ),
+                              context.push(
+                                AppRoutes.infoDraw,
+                                extra: InfoDrawExtra(
+                                  drawingImage: image,
+                                  recognizedLetter: result,
                                 ),
                               );
                             },
@@ -255,11 +212,9 @@ class _DrawScreenState extends State<DrawScreen>
                       selectedColor: provider.selectedColor,
                       showResult: provider.showResult,
                       isLoading: provider.isLoading,
-                      isSequentialModeActive:
-                          provider.sequentialManager.isSequentialModeActive,
+                      isSequentialModeActive: provider.sequentialManager.isSequentialModeActive,
                       onSequentialModeChanged: provider.toggleSequentialMode,
-                      correctlyDrawnCount:
-                          provider.sequentialManager.correctlyDrawnCount,
+                      correctlyDrawnCount: provider.sequentialManager.correctlyDrawnCount,
                       totalAttempts: provider.sequentialManager.totalAttempts,
                       panelColor: const Color(0xFFFF7675),
                     ),

@@ -1,0 +1,111 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'draw_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for French (`fr`).
+class DrawLocalizationsFr extends DrawLocalizations {
+  DrawLocalizationsFr([String locale = 'fr']) : super(locale);
+
+  @override
+  String drawNumberInstruction(String number) {
+    return 'Dessine le chiffre $number';
+  }
+
+  @override
+  String get drawAnyNumberInstruction => 'Dessine un chiffre';
+
+  @override
+  String get watchAdToUnlock =>
+      'Regardez des publicités pour gagner des points et débloquer cette section';
+
+  @override
+  String get drawSequentialMode => 'Mode de dessin séquentiel :';
+
+  @override
+  String drawCorrectTotal(int correct, int total) {
+    return 'Correct : $correct / Total : $total';
+  }
+
+  @override
+  String get drawClear => 'Effacer';
+
+  @override
+  String get drawPen => 'Stylo';
+
+  @override
+  String get drawEraser => 'Gomme';
+
+  @override
+  String get drawRecognize => 'Reconnaître';
+
+  @override
+  String get drawPenColor => 'Couleur du stylo';
+
+  @override
+  String get drawNumberSectionTitle => 'Apprendre les chiffres';
+
+  @override
+  String get drawLetterSectionTitle => 'Apprendre les lettres';
+
+  @override
+  String get drawShapeSectionTitle => 'Apprendre les formes';
+
+  @override
+  String get drawLetterPuzzlePreparing => 'Preparing puzzle…';
+
+  @override
+  String get drawGamePausedTitle => 'GAME PAUSED';
+
+  @override
+  String get drawContinue => 'Continue';
+
+  @override
+  String get drawStartGame => 'START GAME';
+
+  @override
+  String drawBalloonReady(int count) {
+    return 'Ready to play with $count balloons?';
+  }
+
+  @override
+  String get drawBalloonScoreHint =>
+      'Pop balloons to earn points!\nThe smaller the balloon, the more points you get.';
+
+  @override
+  String get drawSemanticMute => 'Mute sounds';
+
+  @override
+  String get drawSemanticUnmute => 'Unmute sounds';
+
+  @override
+  String get drawSemanticDrawingCanvas => 'Drawing area. Draw with your finger.';
+
+  @override
+  String get drawSemanticPauseGame => 'Pause game';
+
+  @override
+  String get drawSemanticResumeGame => 'Resume game';
+
+  @override
+  String get drawSemanticPenColorBlack => 'Black pen color';
+
+  @override
+  String get drawSemanticPenColorRed => 'Red pen color';
+
+  @override
+  String get drawSemanticPenColorBlue => 'Blue pen color';
+
+  @override
+  String get drawSemanticPenColorYellow => 'Yellow pen color';
+
+  @override
+  String get drawSemanticPenColorGreen => 'Green pen color';
+
+  @override
+  String get drawSemanticPenColorPurple => 'Purple pen color';
+
+  @override
+  String get drawSemanticPenColorOrange => 'Orange pen color';
+}

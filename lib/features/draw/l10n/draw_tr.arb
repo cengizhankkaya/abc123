@@ -1,0 +1,149 @@
+{
+  "@@locale": "tr",
+  "drawNumberInstruction": "{number} rakamını çiziniz",
+  "@drawNumberInstruction": {
+    "description": "l10n: drawNumberInstruction",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "drawAnyNumberInstruction": "Bir rakam çiziniz",
+  "@drawAnyNumberInstruction": {
+    "description": "l10n: drawAnyNumberInstruction"
+  },
+  "watchAdToUnlock": "Bu Bölümü Açmak için Reklam izle Puan Topla",
+  "@watchAdToUnlock": {
+    "description": "l10n: watchAdToUnlock"
+  },
+  "drawSequentialMode": "Sıralı Çizme Modu:",
+  "@drawSequentialMode": {
+    "description": "l10n: drawSequentialMode"
+  },
+  "drawCorrectTotal": "Doğru: {correct} / Toplam: {total}",
+  "@drawCorrectTotal": {
+    "description": "l10n: drawCorrectTotal",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "drawClear": "Temizle",
+  "@drawClear": {
+    "description": "l10n: drawClear"
+  },
+  "drawPen": "Kalem",
+  "@drawPen": {
+    "description": "l10n: drawPen"
+  },
+  "drawEraser": "Silgi",
+  "@drawEraser": {
+    "description": "l10n: drawEraser"
+  },
+  "drawRecognize": "Tanımla",
+  "@drawRecognize": {
+    "description": "l10n: drawRecognize"
+  },
+  "drawPenColor": "Kalem Rengi",
+  "@drawPenColor": {
+    "description": "l10n: drawPenColor"
+  },
+  "drawNumberSectionTitle": "Rakam Öğrenme",
+  "@drawNumberSectionTitle": {
+    "description": "l10n: drawNumberSectionTitle"
+  },
+  "drawLetterSectionTitle": "Harf Öğrenme",
+  "@drawLetterSectionTitle": {
+    "description": "l10n: drawLetterSectionTitle"
+  },
+  "drawShapeSectionTitle": "Şekil Öğrenme",
+  "@drawShapeSectionTitle": {
+    "description": "l10n: drawShapeSectionTitle"
+  },
+  "drawLetterPuzzlePreparing": "Puzzle hazırlanıyor…",
+  "@drawLetterPuzzlePreparing": {
+    "description": "l10n: drawLetterPuzzlePreparing"
+  },
+  "drawGamePausedTitle": "OYUN DURAKLATILDI",
+  "@drawGamePausedTitle": {
+    "description": "l10n: drawGamePausedTitle"
+  },
+  "drawContinue": "Devam Et",
+  "@drawContinue": {
+    "description": "l10n: drawContinue"
+  },
+  "drawStartGame": "OYUNU BAŞLAT",
+  "@drawStartGame": {
+    "description": "l10n: drawStartGame"
+  },
+  "drawBalloonReady": "{count} adet balonla oynamaya hazır mısın?",
+  "@drawBalloonReady": {
+    "description": "l10n: drawBalloonReady",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "drawBalloonScoreHint": "Balonları patlatarak puan kazan!\nNe kadar küçük balon patlatırsan o kadar çok puan alırsın.",
+  "@drawBalloonScoreHint": {
+    "description": "l10n: drawBalloonScoreHint"
+  },
+  "drawSemanticMute": "Sesi kapat",
+  "@drawSemanticMute": {
+    "description": "l10n: drawSemanticMute"
+  },
+  "drawSemanticUnmute": "Sesi aç",
+  "@drawSemanticUnmute": {
+    "description": "l10n: drawSemanticUnmute"
+  },
+  "drawSemanticDrawingCanvas": "Çizim alanı. Parmağınla çiz.",
+  "@drawSemanticDrawingCanvas": {
+    "description": "l10n: drawSemanticDrawingCanvas"
+  },
+  "drawSemanticPauseGame": "Oyunu duraklat",
+  "@drawSemanticPauseGame": {
+    "description": "l10n: drawSemanticPauseGame"
+  },
+  "drawSemanticResumeGame": "Oyuna devam et",
+  "@drawSemanticResumeGame": {
+    "description": "l10n: drawSemanticResumeGame"
+  },
+  "drawSemanticPenColorBlack": "Siyah kalem rengi",
+  "@drawSemanticPenColorBlack": {
+    "description": "l10n: drawSemanticPenColorBlack"
+  },
+  "drawSemanticPenColorRed": "Kırmızı kalem rengi",
+  "@drawSemanticPenColorRed": {
+    "description": "l10n: drawSemanticPenColorRed"
+  },
+  "drawSemanticPenColorBlue": "Mavi kalem rengi",
+  "@drawSemanticPenColorBlue": {
+    "description": "l10n: drawSemanticPenColorBlue"
+  },
+  "drawSemanticPenColorYellow": "Sarı kalem rengi",
+  "@drawSemanticPenColorYellow": {
+    "description": "l10n: drawSemanticPenColorYellow"
+  },
+  "drawSemanticPenColorGreen": "Yeşil kalem rengi",
+  "@drawSemanticPenColorGreen": {
+    "description": "l10n: drawSemanticPenColorGreen"
+  },
+  "drawSemanticPenColorPurple": "Mor kalem rengi",
+  "@drawSemanticPenColorPurple": {
+    "description": "l10n: drawSemanticPenColorPurple"
+  },
+  "drawSemanticPenColorOrange": "Turuncu kalem rengi",
+  "@drawSemanticPenColorOrange": {
+    "description": "l10n: drawSemanticPenColorOrange"
+  }
+}

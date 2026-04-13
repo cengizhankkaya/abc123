@@ -1,0 +1,149 @@
+{
+  "@@locale": "zh",
+  "drawNumberInstruction": "{number} 数字を描いてください",
+  "@drawNumberInstruction": {
+    "description": "l10n: drawNumberInstruction",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "drawAnyNumberInstruction": "任意数字を描いてください",
+  "@drawAnyNumberInstruction": {
+    "description": "l10n: drawAnyNumberInstruction"
+  },
+  "watchAdToUnlock": "观看广告赚取积分以解锁此部分",
+  "@watchAdToUnlock": {
+    "description": "l10n: watchAdToUnlock"
+  },
+  "drawSequentialMode": "顺序绘画模式：",
+  "@drawSequentialMode": {
+    "description": "l10n: drawSequentialMode"
+  },
+  "drawCorrectTotal": "正确: {correct} / 总数: {total}",
+  "@drawCorrectTotal": {
+    "description": "l10n: drawCorrectTotal",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "drawClear": "清除",
+  "@drawClear": {
+    "description": "l10n: drawClear"
+  },
+  "drawPen": "笔",
+  "@drawPen": {
+    "description": "l10n: drawPen"
+  },
+  "drawEraser": "橡皮擦",
+  "@drawEraser": {
+    "description": "l10n: drawEraser"
+  },
+  "drawRecognize": "识别",
+  "@drawRecognize": {
+    "description": "l10n: drawRecognize"
+  },
+  "drawPenColor": "笔的颜色",
+  "@drawPenColor": {
+    "description": "l10n: drawPenColor"
+  },
+  "drawNumberSectionTitle": "学习数字",
+  "@drawNumberSectionTitle": {
+    "description": "l10n: drawNumberSectionTitle"
+  },
+  "drawLetterSectionTitle": "学习字母",
+  "@drawLetterSectionTitle": {
+    "description": "l10n: drawLetterSectionTitle"
+  },
+  "drawShapeSectionTitle": "学习形状",
+  "@drawShapeSectionTitle": {
+    "description": "l10n: drawShapeSectionTitle"
+  },
+  "drawLetterPuzzlePreparing": "Preparing puzzle…",
+  "@drawLetterPuzzlePreparing": {
+    "description": "l10n: drawLetterPuzzlePreparing"
+  },
+  "drawGamePausedTitle": "GAME PAUSED",
+  "@drawGamePausedTitle": {
+    "description": "l10n: drawGamePausedTitle"
+  },
+  "drawContinue": "Continue",
+  "@drawContinue": {
+    "description": "l10n: drawContinue"
+  },
+  "drawStartGame": "START GAME",
+  "@drawStartGame": {
+    "description": "l10n: drawStartGame"
+  },
+  "drawBalloonReady": "Ready to play with {count} balloons?",
+  "@drawBalloonReady": {
+    "description": "l10n: drawBalloonReady",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "drawBalloonScoreHint": "Pop balloons to earn points!\nThe smaller the balloon, the more points you get.",
+  "@drawBalloonScoreHint": {
+    "description": "l10n: drawBalloonScoreHint"
+  },
+  "drawSemanticMute": "Mute sounds",
+  "@drawSemanticMute": {
+    "description": "l10n: drawSemanticMute"
+  },
+  "drawSemanticUnmute": "Unmute sounds",
+  "@drawSemanticUnmute": {
+    "description": "l10n: drawSemanticUnmute"
+  },
+  "drawSemanticDrawingCanvas": "Drawing area. Draw with your finger.",
+  "@drawSemanticDrawingCanvas": {
+    "description": "l10n: drawSemanticDrawingCanvas"
+  },
+  "drawSemanticPauseGame": "Pause game",
+  "@drawSemanticPauseGame": {
+    "description": "l10n: drawSemanticPauseGame"
+  },
+  "drawSemanticResumeGame": "Resume game",
+  "@drawSemanticResumeGame": {
+    "description": "l10n: drawSemanticResumeGame"
+  },
+  "drawSemanticPenColorBlack": "Black pen color",
+  "@drawSemanticPenColorBlack": {
+    "description": "l10n: drawSemanticPenColorBlack"
+  },
+  "drawSemanticPenColorRed": "Red pen color",
+  "@drawSemanticPenColorRed": {
+    "description": "l10n: drawSemanticPenColorRed"
+  },
+  "drawSemanticPenColorBlue": "Blue pen color",
+  "@drawSemanticPenColorBlue": {
+    "description": "l10n: drawSemanticPenColorBlue"
+  },
+  "drawSemanticPenColorYellow": "Yellow pen color",
+  "@drawSemanticPenColorYellow": {
+    "description": "l10n: drawSemanticPenColorYellow"
+  },
+  "drawSemanticPenColorGreen": "Green pen color",
+  "@drawSemanticPenColorGreen": {
+    "description": "l10n: drawSemanticPenColorGreen"
+  },
+  "drawSemanticPenColorPurple": "Purple pen color",
+  "@drawSemanticPenColorPurple": {
+    "description": "l10n: drawSemanticPenColorPurple"
+  },
+  "drawSemanticPenColorOrange": "Orange pen color",
+  "@drawSemanticPenColorOrange": {
+    "description": "l10n: drawSemanticPenColorOrange"
+  }
+}

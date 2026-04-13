@@ -1,4 +1,5 @@
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_radii.dart';
@@ -38,18 +39,19 @@ Widget buildDrawingArea(
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
-            child: GestureDetector(
+            child: Semantics(
+              label: DrawLocalizations.of(context)?.drawSemanticDrawingCanvas ??
+                  'Drawing area',
+              child: GestureDetector(
               onPanStart: (details) {
                 if (showResult) return;
-                final RenderBox renderBox = drawingAreaKey.currentContext
-                    ?.findRenderObject() as RenderBox;
+                final RenderBox renderBox =
+                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition =
-                    renderBox.globalToLocal(details.globalPosition);
+                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition =
-                    localPosition * (280 / drawingSize);
+                final Offset normalizedPosition = localPosition * (280 / drawingSize);
 
                 onAddPoint(
                   DrawingPoint(
@@ -64,15 +66,13 @@ Widget buildDrawingArea(
               },
               onPanUpdate: (details) {
                 if (showResult) return;
-                final RenderBox renderBox = drawingAreaKey.currentContext
-                    ?.findRenderObject() as RenderBox;
+                final RenderBox renderBox =
+                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition =
-                    renderBox.globalToLocal(details.globalPosition);
+                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition =
-                    localPosition * (280 / drawingSize);
+                final Offset normalizedPosition = localPosition * (280 / drawingSize);
 
                 onAddPoint(
                   DrawingPoint(
@@ -87,15 +87,13 @@ Widget buildDrawingArea(
               },
               onTapDown: (TapDownDetails details) {
                 if (showResult) return;
-                final RenderBox renderBox = drawingAreaKey.currentContext
-                    ?.findRenderObject() as RenderBox;
+                final RenderBox renderBox =
+                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition =
-                    renderBox.globalToLocal(details.globalPosition);
+                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition =
-                    localPosition * (280 / drawingSize);
+                final Offset normalizedPosition = localPosition * (280 / drawingSize);
 
                 // Tek noktada çizim için aynı konuma iki nokta ekle
                 onAddPoint(
@@ -119,6 +117,7 @@ Widget buildDrawingArea(
                 size: Size(drawingSize, drawingSize),
               ),
             ),
+            ),
           ),
         ),
 
@@ -133,8 +132,7 @@ Widget buildDrawingArea(
                   height: drawingSize,
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.85),
-                    borderRadius:
-                        BorderRadius.circular(AppRadii.cardRadius(context)),
+                    borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                     border: Border.all(
                       color: AppColors.accentColor,
                       width: 3,
@@ -193,8 +191,7 @@ Widget buildDrawingArea(
                             vertical: drawingSize * 0.04,
                           ),
                           shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(drawingSize * 0.1),
+                            borderRadius: BorderRadius.circular(drawingSize * 0.1),
                           ),
                         ),
                         child: Row(
@@ -233,8 +230,7 @@ Widget buildDrawingArea(
                       height: drawingSize * 0.15,
                       child: CircularProgressIndicator(
                         strokeWidth: drawingSize * 0.015,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                            AppColors.accentColor),
+                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.accentColor),
                       ),
                     ),
                     SizedBox(height: drawingSize * 0.07),
@@ -272,17 +268,14 @@ class DrawingPainter extends CustomPainter {
       if (pointsList[i] != null && pointsList[i + 1] != null) {
         // Çizgi çiz - ölçeklendirilmiş koordinatlar
         canvas.drawLine(
-          Offset(pointsList[i]!.point.dx * scaleX,
-              pointsList[i]!.point.dy * scaleY),
-          Offset(pointsList[i + 1]!.point.dx * scaleX,
-              pointsList[i + 1]!.point.dy * scaleY),
+          Offset(pointsList[i]!.point.dx * scaleX, pointsList[i]!.point.dy * scaleY),
+          Offset(pointsList[i + 1]!.point.dx * scaleX, pointsList[i + 1]!.point.dy * scaleY),
           pointsList[i]!.paint,
         );
       } else if (pointsList[i] != null && pointsList[i + 1] == null) {
         // Nokta çiz - ölçeklendirilmiş koordinatlar
         canvas.drawCircle(
-          Offset(pointsList[i]!.point.dx * scaleX,
-              pointsList[i]!.point.dy * scaleY),
+          Offset(pointsList[i]!.point.dx * scaleX, pointsList[i]!.point.dy * scaleY),
           pointsList[i]!.paint.strokeWidth / 2,
           pointsList[i]!.paint,
         );
@@ -292,8 +285,7 @@ class DrawingPainter extends CustomPainter {
     // Son nokta kontrolü (eğer liste boş değilse ve son eleman null değilse)
     if (pointsList.isNotEmpty && pointsList.last != null) {
       canvas.drawCircle(
-        Offset(pointsList.last!.point.dx * scaleX,
-            pointsList.last!.point.dy * scaleY),
+        Offset(pointsList.last!.point.dx * scaleX, pointsList.last!.point.dy * scaleY),
         pointsList.last!.paint.strokeWidth / 2,
         pointsList.last!.paint,
       );
