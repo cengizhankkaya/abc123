@@ -1,5 +1,6 @@
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/logging/app_logger.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AudioService {
@@ -27,6 +28,8 @@ class AudioService {
   final AudioPlayer _bgPlayer = AudioPlayer();
   final AudioPlayer _effectPlayer = AudioPlayer();
 
+  AppLogger get _log => getIt<AppLogger>();
+
   static const String _volumeKey = 'global_volume';
   double _currentVolume = 1.0;
 
@@ -39,22 +42,40 @@ class AudioService {
       _currentVolume = prefs.getDouble(_volumeKey) ?? 1.0;
       await _bgPlayer.setVolume(_currentVolume);
       await _effectPlayer.setVolume(_currentVolume);
-      debugPrint('AudioService init: volume=$_currentVolume');
-    } catch (e) {
-      debugPrint('AudioService init hatası: $e');
+      _log.debug(
+        'init volume',
+        tag: 'AudioService',
+        data: {'volume': _currentVolume},
+      );
+    } catch (e, st) {
+      _log.error(
+        'init failed',
+        tag: 'AudioService',
+        error: e,
+        stackTrace: st,
+      );
     }
   }
 
   Future<void> playBackground(String assetPath, {bool loop = true}) async {
     try {
       await _bgPlayer.stop();
-      await _bgPlayer
-          .setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.stop);
+      await _bgPlayer.setReleaseMode(loop ? ReleaseMode.loop : ReleaseMode.stop);
       await _bgPlayer.setVolume(_currentVolume);
       await _bgPlayer.play(AssetSource(assetPath));
-      debugPrint('Arka plan müziği başlatıldı: $assetPath');
-    } catch (e) {
-      debugPrint('Arka plan müziği başlatılamadı: $e');
+      _log.debug(
+        'Background started',
+        tag: 'AudioService',
+        data: {'assetPath': assetPath},
+      );
+    } catch (e, st) {
+      _log.error(
+        'Background start failed',
+        tag: 'AudioService',
+        error: e,
+        stackTrace: st,
+        data: {'assetPath': assetPath},
+      );
     }
   }
 
@@ -67,8 +88,7 @@ class AudioService {
     await _effectPlayer.play(AssetSource(assetPath));
   }
 
-  Future<void> playEffectAndResumeBackground(
-      String effectPath, String bgPath) async {
+  Future<void> playEffectAndResumeBackground(String effectPath, String bgPath) async {
     await _bgPlayer.pause();
     await _effectPlayer.setReleaseMode(ReleaseMode.stop);
     await _effectPlayer.play(AssetSource(effectPath));
@@ -88,8 +108,13 @@ class AudioService {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setDouble(_volumeKey, _currentVolume);
-    } catch (e) {
-      debugPrint('Ses seviyesi kaydedilemedi: $e');
+    } catch (e, st) {
+      _log.error(
+        'Volume persist failed',
+        tag: 'AudioService',
+        error: e,
+        stackTrace: st,
+      );
     }
   }
 }

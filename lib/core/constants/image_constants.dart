@@ -19,10 +19,8 @@ class ImageConstants {
   static const String settingsIcon = '$_imagePath/settings_icon.png';
 
   // Öğrenme ekranı görselleri
-  static const String numberBackgroundPattern =
-      '$_imagePath/number_pattern.png';
-  static const String letterBackgroundPattern =
-      '$_imagePath/letter_pattern.png';
+  static const String numberBackgroundPattern = '$_imagePath/number_pattern.png';
+  static const String letterBackgroundPattern = '$_imagePath/letter_pattern.png';
 
   static const List<String> puzzlePieceAssets = [
     'assets/images/puzzle/piece_0_0.png',

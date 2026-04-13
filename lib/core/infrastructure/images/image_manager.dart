@@ -6,10 +6,7 @@ import 'package:flutter/services.dart';
 class ImageManager {
   // Varsayılan görsel yükleyici - kaliteyi korur
   static Widget getImage(String path,
-      {double? width,
-      double? height,
-      BoxFit fit = BoxFit.contain,
-      BorderRadius? borderRadius}) {
+      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius}) {
     Widget image = Image.asset(
       path,
       width: width,
@@ -29,8 +26,7 @@ class ImageManager {
   }
 
   // Robot görseli
-  static Widget getRobotImage(
-      {double? width, double? height, BorderRadius? borderRadius}) {
+  static Widget getRobotImage({double? width, double? height, BorderRadius? borderRadius}) {
     return getImage(
       ImageConstants.robotImage,
       width: width,
@@ -40,8 +36,7 @@ class ImageManager {
   }
 
   // Numara görseli
-  static Widget getNumberImage(
-      {double? width, double? height, BorderRadius? borderRadius}) {
+  static Widget getNumberImage({double? width, double? height, BorderRadius? borderRadius}) {
     return getImage(
       ImageConstants.numberImage,
       width: width,
@@ -51,8 +46,7 @@ class ImageManager {
   }
 
   // ABC görseli
-  static Widget getABCImage(
-      {double? width, double? height, BorderRadius? borderRadius}) {
+  static Widget getABCImage({double? width, double? height, BorderRadius? borderRadius}) {
     return getImage(
       ImageConstants.abcImage,
       width: width,
@@ -62,8 +56,7 @@ class ImageManager {
   }
 
   // Öğretici görseli
-  static Widget getTutorialImage(
-      {double? width, double? height, BorderRadius? borderRadius}) {
+  static Widget getTutorialImage({double? width, double? height, BorderRadius? borderRadius}) {
     return getImage(
       ImageConstants.tutorialImage,
       width: width,
@@ -115,8 +108,7 @@ class ImageManager {
   }
 
   // Yedek görsel (varsayılan)
-  static Widget getPlaceholderImage(
-      {double? width, double? height, String? text}) {
+  static Widget getPlaceholderImage({double? width, double? height, String? text}) {
     return Container(
       width: width,
       height: height,

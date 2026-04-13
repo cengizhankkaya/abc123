@@ -1,5 +1,6 @@
 import 'package:abc123/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -21,11 +22,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: showBackButton
           ? IconButton(
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               icon: const Icon(
                 Icons.arrow_back_ios_new,
                 color: Colors.white,
               ),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
             )
           : null,
       title: Text(

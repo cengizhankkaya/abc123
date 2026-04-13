@@ -1,37 +1,120 @@
 import 'package:flutter/widgets.dart';
-import '../utils/screen_util.dart';
+
+import 'package:abc123/core/presentation/responsive/screen_size.dart';
+
+ScreenSize _screenSize(BuildContext context) =>
+    ScreenSize.fromWidth(MediaQuery.sizeOf(context).width);
 
 class AppSizes {
-  static bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.shortestSide > 600;
+  /// Geniş ekran; [ScreenSize] compact dışı (`14_adaptive_ui_strategy.md`).
+  static bool isWideLayout(BuildContext context) => _screenSize(context) != ScreenSize.compact;
 
-  static double paddingNormal(BuildContext context) =>
-      ScreenUtil.w(16).clamp(8, 32);
-  static double paddingSmall(BuildContext context) =>
-      ScreenUtil.w(8).clamp(4, 20);
-  static double paddingLarge(BuildContext context) =>
-      ScreenUtil.w(24).clamp(12, 48);
+  static double paddingNormal(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 12,
+      ScreenSize.medium => 14,
+      ScreenSize.expanded => 16,
+      ScreenSize.large => 20,
+      ScreenSize.extraLarge => 24,
+    };
+  }
 
-  static double imageSize(BuildContext context) =>
-      ScreenUtil.w(100).clamp(60, 180);
+  static double paddingSmall(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 8,
+      ScreenSize.medium => 10,
+      ScreenSize.expanded => 12,
+      ScreenSize.large => 14,
+      ScreenSize.extraLarge => 16,
+    };
+  }
 
-  static double drawingAreaSize(BuildContext context) =>
-      ScreenUtil.w(300).clamp(180, 400);
+  static double paddingLarge(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 16,
+      ScreenSize.medium => 20,
+      ScreenSize.expanded => 24,
+      ScreenSize.large => 28,
+      ScreenSize.extraLarge => 32,
+    };
+  }
 
-  static double sliderWidth(BuildContext context) =>
-      ScreenUtil.w(70).clamp(30, 150);
-  static double sliderHeight(BuildContext context) =>
-      ScreenUtil.h(10).clamp(6, 20);
+  static double imageSize(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 72,
+      ScreenSize.medium => 88,
+      ScreenSize.expanded => 100,
+      ScreenSize.large => 112,
+      ScreenSize.extraLarge => 120,
+    };
+  }
 
-  // Action bar'a özel boyutlar
-  static double actionBarHeight(BuildContext context) =>
-      ScreenUtil.w(48).clamp(40, 64);
-  static double actionBarButtonFontSize(BuildContext context) =>
-      ScreenUtil.sp(16).clamp(14, 20);
-  static double actionBarButtonIconSize(BuildContext context) =>
-      ScreenUtil.w(22).clamp(18, 28);
-  static double actionBarButtonHPadding(BuildContext context) =>
-      ScreenUtil.w(12).clamp(8, 20);
-  static double actionBarButtonVPadding(BuildContext context) =>
-      ScreenUtil.h(7).clamp(4, 14);
+  static double drawingAreaSize(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 220,
+      ScreenSize.medium => 260,
+      ScreenSize.expanded => 300,
+      ScreenSize.large => 340,
+      ScreenSize.extraLarge => 360,
+    };
+  }
+
+  static double sliderWidth(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 48,
+      ScreenSize.medium => 56,
+      ScreenSize.expanded => 64,
+      ScreenSize.large => 72,
+      ScreenSize.extraLarge => 80,
+    };
+  }
+
+  static double sliderHeight(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 8,
+      ScreenSize.medium => 9,
+      _ => 10,
+    };
+  }
+
+  static double actionBarHeight(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 48,
+      ScreenSize.medium => 52,
+      ScreenSize.expanded => 56,
+      ScreenSize.large => 56,
+      ScreenSize.extraLarge => 60,
+    };
+  }
+
+  static double actionBarButtonFontSize(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 14,
+      ScreenSize.medium => 15,
+      _ => 16,
+    };
+  }
+
+  static double actionBarButtonIconSize(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 20,
+      ScreenSize.medium => 22,
+      _ => 24,
+    };
+  }
+
+  static double actionBarButtonHPadding(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 8,
+      ScreenSize.medium => 10,
+      _ => 12,
+    };
+  }
+
+  static double actionBarButtonVPadding(BuildContext context) {
+    return switch (_screenSize(context)) {
+      ScreenSize.compact => 6,
+      _ => 8,
+    };
+  }
 }

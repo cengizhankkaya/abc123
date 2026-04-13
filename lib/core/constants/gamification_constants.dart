@@ -13,12 +13,10 @@ class GamificationConstants {
   static const String badgeSilverArtist = 'badge_silver_artist'; // 50 drawings
   static const String badgeMasterArtist = 'badge_master_artist'; // 100 drawings
   static const String badgeGoldArtist = 'badge_gold_artist'; // 250 drawings
-  static const String badgeDiamondArtist =
-      'badge_diamond_artist'; // 500 drawings
+  static const String badgeDiamondArtist = 'badge_diamond_artist'; // 500 drawings
   static const String badgeEarlyBird = 'badge_early_bird'; // Morning login
   static const String badgeNightOwl = 'badge_night_owl'; // Night login
-  static const String badgeWeekendWarrior =
-      'badge_weekend_warrior'; // Weekend login
+  static const String badgeWeekendWarrior = 'badge_weekend_warrior'; // Weekend login
 
   // Category Badges
   static const String badgeNumberMaster = 'badge_number_master'; // 50 numbers
