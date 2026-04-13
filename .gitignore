@@ -99,6 +99,12 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+build/debug-info/
+
+# Secrets / local env (15_security.md)
+.env
+.env.*
+!.env.example
 
 # Large media files
 *.mp4
