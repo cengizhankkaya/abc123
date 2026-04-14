@@ -1,11 +1,15 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/features/home/application/dtos/drawing_counters_write.dart';
+import 'package:abc123/features/home/application/dtos/gamification_initial_state.dart';
+import 'package:abc123/features/home/application/dtos/quest_ledger.dart';
+import 'package:abc123/features/home/application/dtos/quest_ledger_write.dart';
+import 'package:abc123/features/home/application/quest/quest_rollover_resolver.dart';
 import 'package:abc123/features/home/application/usecases/load_gamification_initial_state.dart';
 import 'package:abc123/features/home/application/usecases/persist_drawing_counters.dart';
+import 'package:abc123/features/home/application/usecases/persist_quest_ledger.dart';
 import 'package:abc123/features/home/domain/entities/badge_model.dart';
 import 'package:abc123/features/home/domain/entities/quest_model.dart';
 import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
@@ -18,6 +22,8 @@ final class GamificationProvider extends ChangeNotifier {
   final IGamificationPersistence _persistence;
   final LoadGamificationInitialState _loadInitial;
   final PersistDrawingCounters _persistDrawingCounters;
+  final PersistQuestLedger _persistQuestLedger;
+  final QuestRolloverResolver _questRolloverResolver;
   final AppLogger _logger;
 
   int _points = 0;
@@ -26,8 +32,14 @@ final class GamificationProvider extends ChangeNotifier {
   int _numberDrawings = 0;
   int _letterDrawings = 0;
   int _shapeDrawings = 0;
+  int _colorRounds = 0;
   List<String> _unlockedBadgeIds = [];
   List<QuestModel> _quests = [];
+  QuestLedger? _questLedger;
+  int _questRolloverGeneration = 0;
+
+  /// Sıfırdan büyük olduğunda görev dönemi yenilenmiştir (UI geri bildirimi).
+  int get questRolloverGeneration => _questRolloverGeneration;
 
   // Shop State
   List<String> _ownedItemIds = [];
@@ -334,6 +346,12 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'category',
     ),
     BadgeModel(
+      id: GamificationConstants.badgeColorMaster,
+      nameKey: 'badgeColorMasterName',
+      descriptionKey: 'badgeColorMasterDesc',
+      iconKey: 'palette',
+    ),
+    BadgeModel(
       id: GamificationConstants.badgeHighScorer,
       nameKey: 'badgeHighScorerName',
       descriptionKey: 'badgeHighScorerDesc',
@@ -364,6 +382,7 @@ final class GamificationProvider extends ChangeNotifier {
   int get numberDrawings => _numberDrawings;
   int get letterDrawings => _letterDrawings;
   int get shapeDrawings => _shapeDrawings;
+  int get colorRounds => _colorRounds;
   List<BadgeModel> get badges {
     return _badges.map((badge) {
       return badge.copyWith(isLocked: !_unlockedBadgeIds.contains(badge.id));
@@ -378,16 +397,21 @@ final class GamificationProvider extends ChangeNotifier {
     required IGamificationPersistence persistence,
     required LoadGamificationInitialState loadInitial,
     required PersistDrawingCounters persistDrawingCounters,
+    required PersistQuestLedger persistQuestLedger,
+    required QuestRolloverResolver questRolloverResolver,
     required AppLogger logger,
   })  : _persistence = persistence,
         _loadInitial = loadInitial,
         _persistDrawingCounters = persistDrawingCounters,
+        _persistQuestLedger = persistQuestLedger,
+        _questRolloverResolver = questRolloverResolver,
         _logger = logger {
     _init();
   }
 
   Future<void> _init() async {
     _logger.debug('Gamification init started', tag: 'Gamification');
+    GamificationInitialState? loaded;
     final loadResult = await _loadInitial.call();
     loadResult.fold(
       (failure) => _logger.warning(
@@ -396,12 +420,14 @@ final class GamificationProvider extends ChangeNotifier {
         data: {'failure': failure.toString()},
       ),
       (s) {
+        loaded = s;
         _points = s.points;
         _streak = s.streak;
         _totalDrawings = s.totalDrawings;
         _numberDrawings = s.numberDrawings;
         _letterDrawings = s.letterDrawings;
         _shapeDrawings = s.shapeDrawings;
+        _colorRounds = s.colorRounds;
         _unlockedBadgeIds = List<String>.from(s.unlockedBadgeIds);
         _ownedItemIds = List<String>.from(s.ownedItemIds);
         if (s.equippedItemsJson != null) {
@@ -422,12 +448,47 @@ final class GamificationProvider extends ChangeNotifier {
 
     await _checkStreak();
 
-    // Initialize Quests if not present
-    if (_quests.isEmpty) {
-      _generateQuests();
+    final decoded = QuestLedger.tryDecode(loaded?.questsLedgerJson);
+    final resolved = _questRolloverResolver.resolve(
+      now: DateTime.now(),
+      saved: decoded,
+    );
+    _quests = List<QuestModel>.from(resolved.ledger.quests);
+    _questLedger = resolved.ledger;
+    if (resolved.didRollover) {
+      _questRolloverGeneration++;
     }
+    await _persistQuestLedgerSilent();
 
     notifyListeners();
+  }
+
+  void _syncQuestLedgerFromQuests() {
+    final cur = _questLedger;
+    if (cur == null) return;
+    _questLedger = QuestLedger(
+      schemaVersion: QuestLedger.currentSchemaVersion,
+      dayKey: cur.dayKey,
+      weekKey: cur.weekKey,
+      quests: List<QuestModel>.from(_quests),
+    );
+  }
+
+  Future<void> _persistQuestLedgerSilent() async {
+    final ledger = _questLedger;
+    if (ledger == null) return;
+    final r = await _persistQuestLedger.call(
+      QuestLedgerWrite(encodedJson: ledger.encode()),
+    );
+    r.fold(
+      (failure) => _logger.error(
+        'Persist quest ledger failed',
+        tag: 'Gamification',
+        error: failure,
+        data: {'failure': failure.toString()},
+      ),
+      (_) {},
+    );
   }
 
   Future<void> _checkStreak() async {
@@ -529,6 +590,7 @@ final class GamificationProvider extends ChangeNotifier {
         numberDrawings: _numberDrawings,
         letterDrawings: _letterDrawings,
         shapeDrawings: _shapeDrawings,
+        colorRounds: _colorRounds,
       ),
     );
     persistResult.fold(
@@ -562,8 +624,39 @@ final class GamificationProvider extends ChangeNotifier {
     await _addPoints(GamificationConstants.pointsPerCorrectDraw);
 
     // Check Quest Progress
-    checkQuestProgress(type, label);
+    await checkQuestProgress(type, label);
 
+    notifyListeners();
+  }
+
+  /// Renk oyununda doğru tur — çizim sayacından ayrı; puan ve `any` görevleri ilerler.
+  Future<void> recordColorRoundSuccess() async {
+    _colorRounds++;
+    if (_colorRounds >= 50) {
+      await _unlockBadge(GamificationConstants.badgeColorMaster);
+    }
+
+    final persistResult = await _persistDrawingCounters.call(
+      DrawingCountersWrite(
+        totalDrawings: _totalDrawings,
+        numberDrawings: _numberDrawings,
+        letterDrawings: _letterDrawings,
+        shapeDrawings: _shapeDrawings,
+        colorRounds: _colorRounds,
+      ),
+    );
+    persistResult.fold(
+      (failure) => _logger.error(
+        'Persist drawing counters failed (color)',
+        tag: 'Gamification',
+        error: failure,
+        data: {'failure': failure.toString()},
+      ),
+      (_) {},
+    );
+
+    await _addPoints(GamificationConstants.pointsPerCorrectDraw);
+    await checkQuestProgress(DrawingType.any, null);
     notifyListeners();
   }
 
@@ -586,63 +679,7 @@ final class GamificationProvider extends ChangeNotifier {
     }
   }
 
-  void _generateQuests() {
-    final random = Random();
-    _quests = [];
-
-    // 1. Daily Specific Quest
-    final typeIndex = random.nextInt(3);
-    final count = random.nextInt(3) + 3; // 3-5
-    DrawingType type;
-    String targetLabel;
-
-    switch (typeIndex) {
-      case 0:
-        type = DrawingType.number;
-        targetLabel = (random.nextInt(9) + 1).toString();
-        break;
-      case 1:
-        type = DrawingType.letter;
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        targetLabel = letters[random.nextInt(letters.length)];
-        break;
-      case 2:
-      default:
-        type = DrawingType.shape;
-        final shapes = ['DAIRE', 'UCGEN', 'KARE'];
-        targetLabel = shapes[random.nextInt(shapes.length)];
-        break;
-    }
-
-    _quests.add(QuestModel(
-      id: "daily_${DateTime.now().day}",
-      titleKey: 'daily_quest',
-      targetType: type,
-      targetLabel: targetLabel,
-      targetCount: count,
-      rewardPoints: 20,
-    ));
-
-    // 2. Weekly Category Quest (e.g. Draw 10 Numbers)
-    _quests.add(QuestModel(
-      id: "weekly_numbers",
-      titleKey: 'weekly_number_quest',
-      targetType: DrawingType.number,
-      targetCount: 10,
-      rewardPoints: 50,
-    ));
-
-    // 3. Weekly Generic Quest (Draw 20 Any)
-    _quests.add(QuestModel(
-      id: "weekly_generic",
-      titleKey: 'weekly_generic_quest',
-      targetType: DrawingType.any,
-      targetCount: 20,
-      rewardPoints: 100,
-    ));
-  }
-
-  void checkQuestProgress(DrawingType type, String? drawnLabel) {
+  Future<void> checkQuestProgress(DrawingType type, String? drawnLabel) async {
     _quests = _quests.map((quest) {
       if (quest.isCompleted) return quest;
 
@@ -663,6 +700,8 @@ final class GamificationProvider extends ChangeNotifier {
         isCompleted: completed,
       );
     }).toList();
+    _syncQuestLedgerFromQuests();
+    await _persistQuestLedgerSilent();
   }
 
   Future<void> claimQuestReward(String questId) async {
@@ -671,7 +710,9 @@ final class GamificationProvider extends ChangeNotifier {
     final quest = _quests[index];
     if (quest.isCompleted && !quest.isClaimed) {
       _quests = _quests.map((q) => q.id == questId ? q.copyWith(isClaimed: true) : q).toList();
+      _syncQuestLedgerFromQuests();
       await _addPoints(quest.rewardPoints);
+      await _persistQuestLedgerSilent();
       notifyListeners();
     }
   }

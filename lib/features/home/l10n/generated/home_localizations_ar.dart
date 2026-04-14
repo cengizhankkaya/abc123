@@ -201,6 +201,9 @@ class HomeLocalizationsAr extends HomeLocalizations {
   String get loadingQuests => 'جارٍ تحميل المهام...';
 
   @override
+  String get questsRefreshedMessage => 'تم تحديث مهامك.';
+
+  @override
   String get dailyQuest => 'المهمة اليومية';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsAr extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'تعلم الأشكال';
+
+  @override
+  String get colorsTitle => 'تعلم الألوان';
+
+  @override
+  String get badgeColorMasterName => 'خبير الألوان';
+
+  @override
+  String get badgeColorMasterDesc => 'أكملت 50 جولة ألوان!';
 
   @override
   String get noBadgesFound => 'No badges found';

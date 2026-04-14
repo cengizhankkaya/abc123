@@ -266,6 +266,10 @@
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
   },
+  "questsRefreshedMessage": "آپ کی مہمات اپ ڈیٹ ہو گئیں۔",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "dailyQuest": "روزانہ کی مہم",
   "@dailyQuest": {
     "description": "l10n: dailyQuest"
@@ -401,6 +405,18 @@
   "shapesTitle": "اشکال سیکھیں",
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
+  },
+  "colorsTitle": "رنگ سیکھیں",
+  "@colorsTitle": {
+    "description": "l10n: colorsTitle"
+  },
+  "badgeColorMasterName": "رنگ کا ماہر",
+  "@badgeColorMasterName": {
+    "description": "l10n: badgeColorMasterName"
+  },
+  "badgeColorMasterDesc": "آپ نے 50 رنگ کے راؤنڈ مکمل کیے!",
+  "@badgeColorMasterDesc": {
+    "description": "l10n: badgeColorMasterDesc"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {

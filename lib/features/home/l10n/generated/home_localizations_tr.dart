@@ -201,6 +201,9 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get loadingQuests => 'Görevler yükleniyor...';
 
   @override
+  String get questsRefreshedMessage => 'Görevlerin güncellendi.';
+
+  @override
   String get dailyQuest => 'GÜNLÜK GÖREV';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'Şekil Öğrenme';
+
+  @override
+  String get colorsTitle => 'Renk Öğrenme';
+
+  @override
+  String get badgeColorMasterName => 'Renk Ustası';
+
+  @override
+  String get badgeColorMasterDesc => '50 renk turunu tamamladın!';
 
   @override
   String get noBadgesFound => 'Rozet bulunamadı';

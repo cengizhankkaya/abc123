@@ -31,6 +31,37 @@ class QuestModel extends Entity {
   /// İlerleme 0.0–1.0 (saf hesaplama, yan etki yok).
   double get progress => (currentCount / targetCount).clamp(0.0, 1.0);
 
+  Map<String, Object?> toJson() => <String, Object?>{
+        'id': id,
+        'titleKey': titleKey,
+        'targetType': targetType.name,
+        'targetLabel': targetLabel,
+        'targetCount': targetCount,
+        'currentCount': currentCount,
+        'isCompleted': isCompleted,
+        'isClaimed': isClaimed,
+        'rewardPoints': rewardPoints,
+      };
+
+  factory QuestModel.fromJson(Map<String, dynamic> json) {
+    final typeName = json['targetType'] as String?;
+    final type = DrawingType.values.firstWhere(
+      (e) => e.name == typeName,
+      orElse: () => DrawingType.any,
+    );
+    return QuestModel(
+      id: json['id']! as String,
+      titleKey: json['titleKey']! as String,
+      targetType: type,
+      targetLabel: json['targetLabel'] as String?,
+      targetCount: (json['targetCount'] as num?)?.toInt() ?? 1,
+      currentCount: (json['currentCount'] as num?)?.toInt() ?? 0,
+      isCompleted: json['isCompleted'] as bool? ?? false,
+      isClaimed: json['isClaimed'] as bool? ?? false,
+      rewardPoints: (json['rewardPoints'] as num?)?.toInt() ?? 0,
+    );
+  }
+
   QuestModel copyWith({
     String? id,
     String? titleKey,

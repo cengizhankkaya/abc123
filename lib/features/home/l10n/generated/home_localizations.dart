@@ -77,8 +77,8 @@ abstract class HomeLocalizations {
 
   final String localeName;
 
-  static HomeLocalizations? of(BuildContext context) {
-    return Localizations.of<HomeLocalizations>(context, HomeLocalizations);
+  static HomeLocalizations of(BuildContext context) {
+    return Localizations.of<HomeLocalizations>(context, HomeLocalizations)!;
   }
 
   static const LocalizationsDelegate<HomeLocalizations> delegate = _HomeLocalizationsDelegate();
@@ -490,6 +490,12 @@ abstract class HomeLocalizations {
   /// **'Loading quests...'**
   String get loadingQuests;
 
+  /// l10n: questsRefreshedMessage
+  ///
+  /// In en, this message translates to:
+  /// **'Your quests were updated.'**
+  String get questsRefreshedMessage;
+
   /// l10n: dailyQuest
   ///
   /// In en, this message translates to:
@@ -693,6 +699,24 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Learn Shapes'**
   String get shapesTitle;
+
+  /// l10n: colorsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Learn Colors'**
+  String get colorsTitle;
+
+  /// l10n: badgeColorMasterName
+  ///
+  /// In en, this message translates to:
+  /// **'Color Expert'**
+  String get badgeColorMasterName;
+
+  /// l10n: badgeColorMasterDesc
+  ///
+  /// In en, this message translates to:
+  /// **'You completed 50 color rounds!'**
+  String get badgeColorMasterDesc;
 
   /// l10n: noBadgesFound
   ///

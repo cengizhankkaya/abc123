@@ -6,8 +6,56 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
-class DailyQuestScreen extends StatelessWidget {
+class DailyQuestScreen extends StatefulWidget {
   const DailyQuestScreen({super.key});
+
+  @override
+  State<DailyQuestScreen> createState() => _DailyQuestScreenState();
+}
+
+class _DailyQuestScreenState extends State<DailyQuestScreen> {
+  GamificationProvider? _gamification;
+  int _lastShownQuestRolloverGen = -1;
+  late final VoidCallback _onGamificationTick = _handleGamificationTick;
+
+  void _handleGamificationTick() {
+    if (!mounted) return;
+    final p = _gamification;
+    if (p == null) return;
+    final g = p.questRolloverGeneration;
+    if (g > _lastShownQuestRolloverGen && g > 0) {
+      final messenger = ScaffoldMessenger.maybeOf(context);
+      final h = context.homeL10n;
+      if (messenger != null && h != null) {
+        messenger.showSnackBar(
+          SnackBar(content: Text(h.questsRefreshedMessage)),
+        );
+      }
+    }
+    if (g > _lastShownQuestRolloverGen) {
+      _lastShownQuestRolloverGen = g;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final p = context.read<GamificationProvider>();
+      _gamification = p;
+      p.addListener(_onGamificationTick);
+      _handleGamificationTick();
+    });
+  }
+
+  @override
+  void dispose() {
+    if (_gamification != null) {
+      _gamification!.removeListener(_onGamificationTick);
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

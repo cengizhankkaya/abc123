@@ -9,6 +9,7 @@ int homeCategoryProgressSignature(GamificationProvider p) => Object.hash(
       p.numberDrawings,
       p.letterDrawings,
       p.shapeDrawings,
+      p.colorRounds,
     );
 
 int headerPointsStreakSignature(GamificationProvider p) => Object.hash(p.points, p.streak);

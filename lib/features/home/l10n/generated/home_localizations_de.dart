@@ -201,6 +201,9 @@ class HomeLocalizationsDe extends HomeLocalizations {
   String get loadingQuests => 'Missionen werden geladen...';
 
   @override
+  String get questsRefreshedMessage => 'Deine Missionen wurden aktualisiert.';
+
+  @override
   String get dailyQuest => 'TÄGLICHE MISSION';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsDe extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'Formen lernen';
+
+  @override
+  String get colorsTitle => 'Farben lernen';
+
+  @override
+  String get badgeColorMasterName => 'Farbexperte';
+
+  @override
+  String get badgeColorMasterDesc => 'Du hast 50 Farbrunden geschafft!';
 
   @override
   String get noBadgesFound => 'No badges found';

@@ -25,12 +25,15 @@ final class LoadGamificationInitialState
       final letterDrawings =
           await _persistence.getInt(GamificationConstants.keyLetterDrawings) ?? 0;
       final shapeDrawings = await _persistence.getInt(GamificationConstants.keyShapeDrawings) ?? 0;
+      final colorRounds = await _persistence.getInt(GamificationConstants.keyColorRounds) ?? 0;
       final unlockedBadgeIds =
           await _persistence.getStringList(GamificationConstants.keyUnlockedBadges) ?? [];
       final ownedItemIds =
           await _persistence.getStringList(GamificationConstants.keyOwnedItems) ?? [];
       final equippedItemsJson =
           await _persistence.getString(GamificationConstants.keyEquippedItems);
+      final questsLedgerJson =
+          await _persistence.getString(GamificationConstants.keyQuestsLedger);
 
       return GamificationInitialState(
         points: points,
@@ -39,9 +42,11 @@ final class LoadGamificationInitialState
         numberDrawings: numberDrawings,
         letterDrawings: letterDrawings,
         shapeDrawings: shapeDrawings,
+        colorRounds: colorRounds,
         unlockedBadgeIds: unlockedBadgeIds,
         ownedItemIds: ownedItemIds,
         equippedItemsJson: equippedItemsJson,
+        questsLedgerJson: questsLedgerJson,
       );
     });
   }

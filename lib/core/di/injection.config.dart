@@ -16,10 +16,14 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:synchronized/synchronized.dart' as _i409;
 
+import '../../features/home/application/quest/quest_rollover_resolver.dart'
+    as _i1018;
 import '../../features/home/application/usecases/load_gamification_initial_state.dart'
     as _i522;
 import '../../features/home/application/usecases/persist_drawing_counters.dart'
     as _i188;
+import '../../features/home/application/usecases/persist_quest_ledger.dart'
+    as _i110;
 import '../../features/home/domain/repositories/i_gamification_persistence.dart'
     as _i725;
 import '../../features/home/infrastructure/datasources/gamification_shared_preferences_data_source.dart'
@@ -51,6 +55,8 @@ Future<_i174.GetIt> init(
   final loggingModule = _$LoggingModule();
   final networkModule = _$NetworkModule();
   final storageModule = _$StorageModule();
+  gh.factory<_i1018.QuestRolloverResolver>(
+      () => _i1018.QuestRolloverResolver());
   gh.lazySingleton<_i354.AppLogger>(() => loggingModule.appLogger());
   gh.lazySingleton<_i409.Lock>(() => networkModule.apiRefreshLock());
   await gh.lazySingletonAsync<_i460.SharedPreferences>(
@@ -71,6 +77,8 @@ Future<_i174.GetIt> init(
       _i522.LoadGamificationInitialState(gh<_i725.IGamificationPersistence>()));
   gh.factory<_i188.PersistDrawingCounters>(
       () => _i188.PersistDrawingCounters(gh<_i725.IGamificationPersistence>()));
+  gh.factory<_i110.PersistQuestLedger>(
+      () => _i110.PersistQuestLedger(gh<_i725.IGamificationPersistence>()));
   gh.singleton<_i31.ChopperClient>(() => networkModule.chopperClient(
         gh<_i354.AppLogger>(),
         gh<_i42.NetworkErrorHandler>(),
@@ -81,6 +89,8 @@ Future<_i174.GetIt> init(
         persistence: gh<_i725.IGamificationPersistence>(),
         loadInitial: gh<_i522.LoadGamificationInitialState>(),
         persistDrawingCounters: gh<_i188.PersistDrawingCounters>(),
+        persistQuestLedger: gh<_i110.PersistQuestLedger>(),
+        questRolloverResolver: gh<_i1018.QuestRolloverResolver>(),
         logger: gh<_i354.AppLogger>(),
       ));
   gh.lazySingleton<_i393.AppApiService>(

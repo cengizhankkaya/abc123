@@ -266,6 +266,10 @@
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
   },
+  "questsRefreshedMessage": "Suas missões foram atualizadas.",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "dailyQuest": "MISSÃO DIÁRIA",
   "@dailyQuest": {
     "description": "l10n: dailyQuest"
@@ -401,6 +405,18 @@
   "shapesTitle": "Aprender formas",
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
+  },
+  "colorsTitle": "Aprender cores",
+  "@colorsTitle": {
+    "description": "l10n: colorsTitle"
+  },
+  "badgeColorMasterName": "Especialista em cores",
+  "@badgeColorMasterName": {
+    "description": "l10n: badgeColorMasterName"
+  },
+  "badgeColorMasterDesc": "Você completou 50 rodadas de cores!",
+  "@badgeColorMasterDesc": {
+    "description": "l10n: badgeColorMasterDesc"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {

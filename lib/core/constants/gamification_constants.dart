@@ -22,6 +22,7 @@ class GamificationConstants {
   static const String badgeNumberMaster = 'badge_number_master'; // 50 numbers
   static const String badgeLetterMaster = 'badge_letter_master'; // 50 letters
   static const String badgeShapeMaster = 'badge_shape_master'; // 50 shapes
+  static const String badgeColorMaster = 'badge_color_master'; // 50 color rounds
 
   // Meta Badges (Score & Collection)
   static const String badgeHighScorer = 'badge_high_scorer'; // 1000 points
@@ -38,10 +39,14 @@ class GamificationConstants {
   static const String keyNumberDrawings = 'number_drawings';
   static const String keyLetterDrawings = 'letter_drawings';
   static const String keyShapeDrawings = 'shape_drawings';
+  static const String keyColorRounds = 'color_rounds';
 
   // Shop Keys
   static const String keyOwnedItems = 'owned_items';
   static const String keyEquippedItems = 'equipped_items';
+
+  /// Serileştirilmiş görev defteri (JSON — `QuestLedger`).
+  static const String keyQuestsLedger = 'quests_ledger';
 }
 
 enum DrawingType { number, letter, shape, any }

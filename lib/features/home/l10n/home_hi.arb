@@ -266,6 +266,10 @@
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
   },
+  "questsRefreshedMessage": "आपकी खोज अपडेट हो गईं।",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "dailyQuest": "दैनिक खोज",
   "@dailyQuest": {
     "description": "l10n: dailyQuest"
@@ -401,6 +405,18 @@
   "shapesTitle": "आकृतियाँ सीखें",
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
+  },
+  "colorsTitle": "रंग सीखें",
+  "@colorsTitle": {
+    "description": "l10n: colorsTitle"
+  },
+  "badgeColorMasterName": "रंग विशेषज्ञ",
+  "@badgeColorMasterName": {
+    "description": "l10n: badgeColorMasterName"
+  },
+  "badgeColorMasterDesc": "आपने 50 रंग राउंड पूरे किए!",
+  "@badgeColorMasterDesc": {
+    "description": "l10n: badgeColorMasterDesc"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {

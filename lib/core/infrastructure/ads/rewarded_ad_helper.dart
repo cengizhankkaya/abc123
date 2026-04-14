@@ -1,3 +1,4 @@
+import 'package:abc123/core/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/feature_flags/feature_flag.dart';
@@ -16,7 +17,7 @@ mixin RewardedAdHelper<T extends StatefulWidget> on State<T> {
       return;
     }
     RewardedAd.load(
-      adUnitId: 'ca-app-pub-1254894147284178/7964725662',
+      adUnitId: AdmobRewardedIds.current,
       request: AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {

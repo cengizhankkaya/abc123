@@ -6,9 +6,11 @@ class GamificationInitialState {
   final int numberDrawings;
   final int letterDrawings;
   final int shapeDrawings;
+  final int colorRounds;
   final List<String> unlockedBadgeIds;
   final List<String> ownedItemIds;
   final String? equippedItemsJson;
+  final String? questsLedgerJson;
 
   const GamificationInitialState({
     required this.points,
@@ -17,8 +19,10 @@ class GamificationInitialState {
     required this.numberDrawings,
     required this.letterDrawings,
     required this.shapeDrawings,
+    required this.colorRounds,
     required this.unlockedBadgeIds,
     required this.ownedItemIds,
     this.equippedItemsJson,
+    this.questsLedgerJson,
   });
 }

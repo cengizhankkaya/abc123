@@ -84,8 +84,19 @@ class AudioService {
   }
 
   Future<void> playEffect(String assetPath) async {
-    await _effectPlayer.setReleaseMode(ReleaseMode.stop);
-    await _effectPlayer.play(AssetSource(assetPath));
+    try {
+      await _effectPlayer.setReleaseMode(ReleaseMode.stop);
+      await _effectPlayer.setVolume(_currentVolume);
+      await _effectPlayer.play(AssetSource(assetPath));
+    } catch (e, st) {
+      _log.error(
+        'playEffect failed',
+        tag: 'AudioService',
+        error: e,
+        stackTrace: st,
+        data: {'assetPath': assetPath},
+      );
+    }
   }
 
   Future<void> playEffectAndResumeBackground(String effectPath, String bgPath) async {

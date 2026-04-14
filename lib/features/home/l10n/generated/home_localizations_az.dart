@@ -201,6 +201,9 @@ class HomeLocalizationsAz extends HomeLocalizations {
   String get loadingQuests => 'Tapşırıqlar yüklənir...';
 
   @override
+  String get questsRefreshedMessage => 'Tapşırıqlarınız yeniləndi.';
+
+  @override
   String get dailyQuest => 'GÜNLÜK TAPŞIRIQ';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsAz extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'Fiqurları öyrən';
+
+  @override
+  String get colorsTitle => 'Rəngləri öyrən';
+
+  @override
+  String get badgeColorMasterName => 'Rəng ustası';
+
+  @override
+  String get badgeColorMasterDesc => '50 rəng turunu tamamladın!';
 
   @override
   String get noBadgesFound => 'No badges found';

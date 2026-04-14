@@ -1,3 +1,4 @@
+import 'package:abc123/core/config/admob_banner_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
   void initState() {
     super.initState();
     _bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-1254894147284178/4586935049',
+      adUnitId: AdmobBannerIds.current,
       size: AdSize.banner,
       request: AdRequest(),
       listener: BannerAdListener(

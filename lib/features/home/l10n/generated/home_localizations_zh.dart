@@ -201,6 +201,9 @@ class HomeLocalizationsZh extends HomeLocalizations {
   String get loadingQuests => '加载任务中...';
 
   @override
+  String get questsRefreshedMessage => '任务已更新。';
+
+  @override
   String get dailyQuest => '每日任务';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsZh extends HomeLocalizations {
 
   @override
   String get shapesTitle => '学习形状';
+
+  @override
+  String get colorsTitle => '学习颜色';
+
+  @override
+  String get badgeColorMasterName => '色彩达人';
+
+  @override
+  String get badgeColorMasterDesc => '你完成了50轮颜色游戏！';
 
   @override
   String get noBadgesFound => 'No badges found';

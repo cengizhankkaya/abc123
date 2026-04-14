@@ -39,6 +39,8 @@ void main() {
       when(
               () => mockPersistence.getInt(GamificationConstants.keyShapeDrawings))
           .thenAnswer((_) async => d.shapeDrawings);
+      when(() => mockPersistence.getInt(GamificationConstants.keyColorRounds))
+          .thenAnswer((_) async => d.colorRounds);
       when(() => mockPersistence
               .getStringList(GamificationConstants.keyUnlockedBadges))
           .thenAnswer((_) async => d.unlockedBadgeIds);
@@ -46,6 +48,8 @@ void main() {
           .thenAnswer((_) async => d.ownedItemIds);
       when(() => mockPersistence.getString(GamificationConstants.keyEquippedItems))
           .thenAnswer((_) async => d.equippedItemsJson);
+      when(() => mockPersistence.getString(GamificationConstants.keyQuestsLedger))
+          .thenAnswer((_) async => d.questsLedgerJson);
 
       final result = await useCase.call();
 
@@ -56,7 +60,9 @@ void main() {
       expect(state.streak, d.streak);
       expect(state.totalDrawings, d.totalDrawings);
       expect(state.unlockedBadgeIds, d.unlockedBadgeIds);
+      expect(state.colorRounds, d.colorRounds);
       expect(state.equippedItemsJson, d.equippedItemsJson);
+      expect(state.questsLedgerJson, d.questsLedgerJson);
     });
 
     test('null sayısal alanlarda varsayılan sıfır ve boş listeler kullanılır',

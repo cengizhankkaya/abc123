@@ -1,15 +1,16 @@
 import 'package:abc123/core/constants/image_constants.dart';
-import 'package:abc123/features/home/l10n/l10n_extensions.dart';
-import 'package:abc123/core/infrastructure/images/image_manager.dart';
 import 'package:abc123/core/infrastructure/ads/rewarded_ad_helper.dart';
+import 'package:abc123/core/infrastructure/images/image_manager.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
+import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/widgets/game_category_card.dart';
 import 'package:abc123/features/home/presentation/widgets/home_badges_widget.dart';
 import 'package:abc123/features/home/presentation/widgets/home_header_widget.dart';
-import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -113,6 +114,7 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                       selector: (_, p) => homeCategoryProgressSignature(p),
                       builder: (context, _, __) {
                         final provider = context.read<GamificationProvider>();
+                        final cv = context.colorsL10n;
                         return Column(
                           children: [
                             FadeInSlide(
@@ -149,6 +151,34 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                                     fit: BoxFit.cover),
                                 baseColor: const Color(0xFF55EFC4), // Soft Mint
                                 onTap: () => context.push(AppRoutes.shapes),
+                              ),
+                            ),
+                            FadeInSlide(
+                              delay: const Duration(milliseconds: 550),
+                              child: GameCategoryCard(
+                                title: h.colorsTitle,
+                                progressLabel: "${provider.colorRounds} / 50",
+                                progress: provider.colorRounds / 50,
+                                image: const FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Icon(Icons.palette, color: Colors.white, size: 56),
+                                ),
+                                baseColor: const Color(0xFFFFB74D),
+                                onTap: () => context.push(AppRoutes.colorGame),
+                              ),
+                            ),
+                            FadeInSlide(
+                              delay: const Duration(milliseconds: 600),
+                              child: GameCategoryCard(
+                                title: cv.colorVisionHomeTitle,
+                                progressLabel: cv.colorVisionHomeSubtitle,
+                                progress: 0,
+                                image: const FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Icon(Icons.visibility, color: Colors.white, size: 56),
+                                ),
+                                baseColor: const Color(0xFF9B59B6),
+                                onTap: () => context.push(AppRoutes.colorVisionGame),
                               ),
                             ),
                           ],

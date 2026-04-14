@@ -266,6 +266,10 @@
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
   },
+  "questsRefreshedMessage": "আপনার অনুসন্ধান আপডেট হয়েছে।",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "dailyQuest": "দৈনিক অনুসন্ধান",
   "@dailyQuest": {
     "description": "l10n: dailyQuest"
@@ -401,6 +405,18 @@
   "shapesTitle": "আকৃতি শিখুন",
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
+  },
+  "colorsTitle": "রং শিখুন",
+  "@colorsTitle": {
+    "description": "l10n: colorsTitle"
+  },
+  "badgeColorMasterName": "রং বিশেষজ্ঞ",
+  "@badgeColorMasterName": {
+    "description": "l10n: badgeColorMasterName"
+  },
+  "badgeColorMasterDesc": "আপনি ৫০টি রঙের রাউন্ড শেষ করেছেন!",
+  "@badgeColorMasterDesc": {
+    "description": "l10n: badgeColorMasterDesc"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {

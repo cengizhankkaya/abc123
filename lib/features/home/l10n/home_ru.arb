@@ -266,6 +266,10 @@
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
   },
+  "questsRefreshedMessage": "Задания обновлены.",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "dailyQuest": "ЕЖЕДНЕВНОЕ ЗАДАНИЕ",
   "@dailyQuest": {
     "description": "l10n: dailyQuest"
@@ -401,6 +405,18 @@
   "shapesTitle": "Изучать фигуры",
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
+  },
+  "colorsTitle": "Изучать цвета",
+  "@colorsTitle": {
+    "description": "l10n: colorsTitle"
+  },
+  "badgeColorMasterName": "Мастер цвета",
+  "@badgeColorMasterName": {
+    "description": "l10n: badgeColorMasterName"
+  },
+  "badgeColorMasterDesc": "Ты прошёл 50 цветовых раундов!",
+  "@badgeColorMasterDesc": {
+    "description": "l10n: badgeColorMasterDesc"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {

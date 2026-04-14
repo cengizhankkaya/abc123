@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:abc123/core/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/feature_flags/feature_flag.dart';
 import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
@@ -22,34 +23,17 @@ class AdService {
   int _numRewardedLoadAttempts = 0;
   final int maxFailedLoadAttempts = 3;
 
-  /// `--dart-define=ADMOB_REWARDED_ANDROID=...` / `ADMOB_REWARDED_IOS=...` (`15_security.md`).
-  static const String _defaultAndroidRewarded = 'ca-app-pub-1254894147284178/7964725662';
-  static const String _defaultIosRewarded = 'ca-app-pub-1254894147284178/7964725662';
-
-  static const String _androidRewardedId = String.fromEnvironment(
-    'ADMOB_REWARDED_ANDROID',
-    defaultValue: _defaultAndroidRewarded,
-  );
-  static const String _iosRewardedId = String.fromEnvironment(
-    'ADMOB_REWARDED_IOS',
-    defaultValue: _defaultIosRewarded,
-  );
-
-  String get _rewardedAdUnitId {
-    if (Platform.isAndroid) {
-      return _androidRewardedId;
-    } else if (Platform.isIOS) {
-      return _iosRewardedId;
-    } else {
-      throw UnsupportedError("Unsupported platform");
-    }
-  }
+  /// Birim kimlikleri: [AdmobRewardedIds] (`ADMOB_REWARDED_ANDROID` / `ADMOB_REWARDED_IOS`).
+  String get _rewardedAdUnitId => AdmobRewardedIds.current;
 
   void initialize() {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
-    if (kIsWeb || (!Platform.isAndroid && !Platform.isIOS)) {
+    if (kIsWeb) {
+      return;
+    }
+    if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
     MobileAds.instance.initialize();

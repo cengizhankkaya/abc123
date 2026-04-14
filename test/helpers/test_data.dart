@@ -13,9 +13,11 @@ abstract final class GamificationTestData {
     numberDrawings: 4,
     letterDrawings: 3,
     shapeDrawings: 3,
+    colorRounds: 2,
     unlockedBadgeIds: ['badge_first_login'],
     ownedItemIds: ['hat_blue_cap'],
-    equippedItemsJson: '{"hat":"hat_blue_cap"}',
+    equippedItemsJson: '{"ShopItemType.hat":"hat_blue_cap"}',
+    questsLedgerJson: null,
   );
 
   static const DrawingCountersWrite sampleCountersWrite =
@@ -24,6 +26,7 @@ abstract final class GamificationTestData {
     numberDrawings: 8,
     letterDrawings: 7,
     shapeDrawings: 5,
+    colorRounds: 1,
   );
 
   static QuestModel sampleQuest({

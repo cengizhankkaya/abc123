@@ -201,6 +201,9 @@ class HomeLocalizationsHi extends HomeLocalizations {
   String get loadingQuests => 'खोज लोड हो रही हैं...';
 
   @override
+  String get questsRefreshedMessage => 'आपकी खोज अपडेट हो गईं।';
+
+  @override
   String get dailyQuest => 'दैनिक खोज';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsHi extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'आकृतियाँ सीखें';
+
+  @override
+  String get colorsTitle => 'रंग सीखें';
+
+  @override
+  String get badgeColorMasterName => 'रंग विशेषज्ञ';
+
+  @override
+  String get badgeColorMasterDesc => 'आपने 50 रंग राउंड पूरे किए!';
 
   @override
   String get noBadgesFound => 'No badges found';

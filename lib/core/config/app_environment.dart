@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 /// Derleme / çalışma ortamı ve uç nokta tabanı (`15_security.md`).
 ///
 /// Gizli değerler için `--dart-define=KEY=value` kullanın; `.env` dosyalarını
@@ -35,12 +37,37 @@ enum AppEnvironment {
     };
   }
 
-  /// Taban adresin `https` olduğunu doğrular (assert ile geliştirme güvencesi).
+  /// Taban adresin güvenli olduğunu doğrular (assert; release derlemelerde kapalı).
+  ///
+  /// Release dışında (`!kReleaseMode`) yerel ve tipik LAN adresleri için `http`
+  /// kabul edilir; aksi halde yalnızca `https` (ör. staging/production).
   static void assertHttpsApiBase() {
-    final uri = Uri.tryParse(current.apiBaseUrl);
+    final raw = current.apiBaseUrl;
+    final uri = Uri.tryParse(raw);
     assert(
-      uri != null && uri.scheme == 'https',
-      'API_BASE_URL yalnızca https olmalıdır',
+      uri != null && uri.hasAuthority,
+      'API_BASE_URL çözümlenemedi veya host eksik: $raw',
     );
+    final u = uri!;
+    assert(
+      u.scheme == 'https' || _insecureDevApiBaseAllowed(u),
+      'API_BASE_URL yalnızca https olmalıdır '
+      '(debug/profile: http yalnızca localhost / 127.0.0.1 / 10.0.2.2 / RFC1918)',
+    );
+  }
+
+  /// Debug ve profile derlemelerde; yalnızca bilinen yerel / özel ağ HTTP tabanı.
+  static bool _insecureDevApiBaseAllowed(Uri uri) {
+    if (kReleaseMode) return false;
+    if (uri.scheme != 'http') return false;
+    final h = uri.host.toLowerCase();
+    if (h.isEmpty) return false;
+    if (h == 'localhost' || h.endsWith('.localhost')) return true;
+    if (h == '127.0.0.1' || h == '::1') return true;
+    if (h == '10.0.2.2') return true;
+    if (h.startsWith('192.168.')) return true;
+    if (h.startsWith('10.')) return true;
+    final re172 = RegExp(r'^172\.(1[6-9]|2\d|3[0-1])\.');
+    return re172.hasMatch(h);
   }
 }

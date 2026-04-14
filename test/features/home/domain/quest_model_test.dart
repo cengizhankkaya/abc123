@@ -45,6 +45,32 @@ void main() {
       expect(a, isNot(equals(b)));
     });
 
+    test('JSON serileştirme round-trip', () {
+      final original = QuestModel(
+        id: 'daily_2026-04-13',
+        titleKey: 'daily_quest',
+        targetType: DrawingType.shape,
+        targetLabel: 'KARE',
+        targetCount: 4,
+        currentCount: 2,
+        isCompleted: false,
+        isClaimed: false,
+        rewardPoints: 20,
+      );
+      final decoded = QuestModel.fromJson(
+        Map<String, dynamic>.from(original.toJson()),
+      );
+      expect(decoded.id, original.id);
+      expect(decoded.titleKey, original.titleKey);
+      expect(decoded.targetType, original.targetType);
+      expect(decoded.targetLabel, original.targetLabel);
+      expect(decoded.targetCount, original.targetCount);
+      expect(decoded.currentCount, original.currentCount);
+      expect(decoded.isCompleted, original.isCompleted);
+      expect(decoded.isClaimed, original.isClaimed);
+      expect(decoded.rewardPoints, original.rewardPoints);
+    });
+
     test('copyWith yeni örnek üretir; orijinal değişmez', () {
       final original = QuestModel(
         id: 'q',

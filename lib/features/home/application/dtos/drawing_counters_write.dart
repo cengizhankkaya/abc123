@@ -4,11 +4,13 @@ class DrawingCountersWrite {
   final int numberDrawings;
   final int letterDrawings;
   final int shapeDrawings;
+  final int colorRounds;
 
   const DrawingCountersWrite({
     required this.totalDrawings,
     required this.numberDrawings,
     required this.letterDrawings,
     required this.shapeDrawings,
+    required this.colorRounds,
   });
 }

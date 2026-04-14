@@ -2,6 +2,8 @@ import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/navigation/main_shell_scaffold.dart';
 import 'package:abc123/core/navigation/navigation_error_page.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/colors/presentation/pages/color_game_screen.dart';
+import 'package:abc123/features/colors/presentation/pages/color_vision_game_screen.dart';
 import 'package:abc123/features/draw/presentation/pages/draw_screen.dart';
 import 'package:abc123/features/home/presentation/pages/avatar_shop_screen.dart';
 import 'package:abc123/features/home/presentation/pages/badges_screen.dart';
@@ -83,6 +85,16 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.shapes,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const ShapesDrawScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.colorGame,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const ColorGameScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.colorVisionGame,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const ColorVisionGameScreen(),
     ),
     GoRoute(
       path: AppRoutes.tutorial,

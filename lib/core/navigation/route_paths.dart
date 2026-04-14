@@ -8,6 +8,8 @@ abstract final class AppRoutes {
   static const draw = '/draw';
   static const letters = '/letters';
   static const shapes = '/shapes';
+  static const colorGame = '/color-game';
+  static const colorVisionGame = '/color-vision-game';
   static const tutorial = '/tutorial';
   static const result = '/result';
   static const infoDraw = '/info-draw';

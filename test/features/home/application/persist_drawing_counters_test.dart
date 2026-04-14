@@ -55,6 +55,12 @@ void main() {
           input.shapeDrawings,
         ),
       ).called(1);
+      verify(
+        () => mockPersistence.setInt(
+          GamificationConstants.keyColorRounds,
+          input.colorRounds,
+        ),
+      ).called(1);
     });
 
     test('kalıcılık hata fırlatırsa Left döner', () async {

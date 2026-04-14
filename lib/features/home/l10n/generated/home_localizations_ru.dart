@@ -201,6 +201,9 @@ class HomeLocalizationsRu extends HomeLocalizations {
   String get loadingQuests => 'Загрузка заданий...';
 
   @override
+  String get questsRefreshedMessage => 'Задания обновлены.';
+
+  @override
   String get dailyQuest => 'ЕЖЕДНЕВНОЕ ЗАДАНИЕ';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsRu extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'Изучать фигуры';
+
+  @override
+  String get colorsTitle => 'Изучать цвета';
+
+  @override
+  String get badgeColorMasterName => 'Мастер цвета';
+
+  @override
+  String get badgeColorMasterDesc => 'Ты прошёл 50 цветовых раундов!';
 
   @override
   String get noBadgesFound => 'No badges found';

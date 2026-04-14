@@ -1,0 +1,365 @@
+{
+  "@@locale": "en",
+  "colorGameTitle": "Colors",
+  "@colorGameTitle": {
+    "description": "l10n: colorGameTitle"
+  },
+  "colorGameInstruction": "Read the word, then tap the matching color below.",
+  "@colorGameInstruction": {
+    "description": "l10n: colorGameInstruction"
+  },
+  "colorNameRed": "Red",
+  "@colorNameRed": {
+    "description": "l10n: colorNameRed"
+  },
+  "colorNameBlue": "Blue",
+  "@colorNameBlue": {
+    "description": "l10n: colorNameBlue"
+  },
+  "colorNameGreen": "Green",
+  "@colorNameGreen": {
+    "description": "l10n: colorNameGreen"
+  },
+  "colorNameYellow": "Yellow",
+  "@colorNameYellow": {
+    "description": "l10n: colorNameYellow"
+  },
+  "colorNameOrange": "Orange",
+  "@colorNameOrange": {
+    "description": "l10n: colorNameOrange"
+  },
+  "colorNamePurple": "Purple",
+  "@colorNamePurple": {
+    "description": "l10n: colorNamePurple"
+  },
+  "colorNamePink": "Pink",
+  "@colorNamePink": {
+    "description": "l10n: colorNamePink"
+  },
+  "colorNameCyan": "Cyan",
+  "@colorNameCyan": {
+    "description": "l10n: colorNameCyan"
+  },
+  "colorNameBrown": "Brown",
+  "@colorNameBrown": {
+    "description": "l10n: colorNameBrown"
+  },
+  "colorNameLime": "Lime",
+  "@colorNameLime": {
+    "description": "l10n: colorNameLime"
+  },
+  "colorNameTeal": "Teal",
+  "@colorNameTeal": {
+    "description": "l10n: colorNameTeal"
+  },
+  "colorNameIndigo": "Indigo",
+  "@colorNameIndigo": {
+    "description": "l10n: colorNameIndigo"
+  },
+  "colorNameMagenta": "Magenta",
+  "@colorNameMagenta": {
+    "description": "l10n: colorNameMagenta"
+  },
+  "colorNameNavy": "Navy",
+  "@colorNameNavy": {
+    "description": "l10n: colorNameNavy"
+  },
+  "colorNameCoral": "Coral",
+  "@colorNameCoral": {
+    "description": "l10n: colorNameCoral"
+  },
+  "colorNameGold": "Gold",
+  "@colorNameGold": {
+    "description": "l10n: colorNameGold"
+  },
+  "colorNameViolet": "Violet",
+  "@colorNameViolet": {
+    "description": "l10n: colorNameViolet"
+  },
+  "colorNameSky": "Sky blue",
+  "@colorNameSky": {
+    "description": "l10n: colorNameSky"
+  },
+  "colorChapterTitleBasics": "Chapter 1 · First colors",
+  "@colorChapterTitleBasics": {
+    "description": "l10n: colorChapterTitleBasics"
+  },
+  "colorChapterTitleWide": "Chapter 2 · Bigger palette",
+  "@colorChapterTitleWide": {
+    "description": "l10n: colorChapterTitleWide"
+  },
+  "colorChapterTitleMaster": "Chapter 3 · Color master",
+  "@colorChapterTitleMaster": {
+    "description": "l10n: colorChapterTitleMaster"
+  },
+  "colorGameChapterProgress": "Chapter {current} of {total}",
+  "@colorGameChapterProgress": {
+    "description": "l10n: colorGameChapterProgress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "colorGameLevelProgress": "Level {current} of {total}",
+  "@colorGameLevelProgress": {
+    "description": "l10n: colorGameLevelProgress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "colorGameNextChapterTitle": "New chapter!",
+  "@colorGameNextChapterTitle": {
+    "description": "l10n: colorGameNextChapterTitle"
+  },
+  "colorGameNextChapterBody": "A new set of colors is waiting for you.",
+  "@colorGameNextChapterBody": {
+    "description": "l10n: colorGameNextChapterBody"
+  },
+  "colorGameStageProgress": "Stage {current} of {total}",
+  "@colorGameStageProgress": {
+    "description": "l10n: colorGameStageProgress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "colorGameRoundProgress": "{done} of {need} correct",
+  "@colorGameRoundProgress": {
+    "description": "l10n: colorGameRoundProgress",
+    "placeholders": {
+      "done": {
+        "type": "int",
+        "example": "2"
+      },
+      "need": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "colorGameTimeLeft": "{seconds}s",
+  "@colorGameTimeLeft": {
+    "description": "l10n: colorGameTimeLeft",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "colorGameTimeUp": "Time's up!",
+  "@colorGameTimeUp": {
+    "description": "l10n: colorGameTimeUp"
+  },
+  "colorGameNextStageTitle": "Great job!",
+  "@colorGameNextStageTitle": {
+    "description": "l10n: colorGameNextStageTitle"
+  },
+  "colorGameNextStageBody": "Ready for the next level?",
+  "@colorGameNextStageBody": {
+    "description": "l10n: colorGameNextStageBody"
+  },
+  "colorGameContinue": "Continue",
+  "@colorGameContinue": {
+    "description": "l10n: colorGameContinue"
+  },
+  "colorGameVictoryTitle": "Amazing!",
+  "@colorGameVictoryTitle": {
+    "description": "l10n: colorGameVictoryTitle"
+  },
+  "colorGameVictoryBody": "You finished every chapter!",
+  "@colorGameVictoryBody": {
+    "description": "l10n: colorGameVictoryBody"
+  },
+  "colorGamePlayAgain": "Play again",
+  "@colorGamePlayAgain": {
+    "description": "l10n: colorGamePlayAgain"
+  },
+  "colorGameBack": "Back",
+  "@colorGameBack": {
+    "description": "l10n: colorGameBack"
+  },
+  "colorFeedbackCorrect": "Nice!",
+  "@colorFeedbackCorrect": {
+    "description": "l10n: colorFeedbackCorrect"
+  },
+  "colorFeedbackWrong": "Try again",
+  "@colorFeedbackWrong": {
+    "description": "l10n: colorFeedbackWrong"
+  },
+  "colorVisionHomeTitle": "Color shapes",
+  "@colorVisionHomeTitle": {
+    "description": "l10n: colorVisionHomeTitle"
+  },
+  "colorVisionHomeSubtitle": "Playful screening",
+  "@colorVisionHomeSubtitle": {
+    "description": "l10n: colorVisionHomeSubtitle"
+  },
+  "colorVisionIntroDisclaimer": "Dotted pictures like gentle puzzles help explore how you see colors. This is not a medical test. Ask an eye doctor if you have concerns.",
+  "@colorVisionIntroDisclaimer": {
+    "description": "l10n: colorVisionIntroDisclaimer"
+  },
+  "colorVisionStart": "Let's play",
+  "@colorVisionStart": {
+    "description": "l10n: colorVisionStart"
+  },
+  "colorVisionQuestion": "Which shape do you see in the dots?",
+  "@colorVisionQuestion": {
+    "description": "l10n: colorVisionQuestion"
+  },
+  "colorVisionOptionCircle": "Circle",
+  "@colorVisionOptionCircle": {
+    "description": "l10n: colorVisionOptionCircle"
+  },
+  "colorVisionOptionSquare": "Square",
+  "@colorVisionOptionSquare": {
+    "description": "l10n: colorVisionOptionSquare"
+  },
+  "colorVisionOptionTriangle": "Triangle",
+  "@colorVisionOptionTriangle": {
+    "description": "l10n: colorVisionOptionTriangle"
+  },
+  "colorVisionOptionNothing": "No shape",
+  "@colorVisionOptionNothing": {
+    "description": "l10n: colorVisionOptionNothing"
+  },
+  "colorVisionProgress": "Plate {current} of {total}",
+  "@colorVisionProgress": {
+    "description": "l10n: colorVisionProgress",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "colorVisionScoreLine": "{correct} of {total} matched",
+  "@colorVisionScoreLine": {
+    "description": "l10n: colorVisionScoreLine",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "4"
+      },
+      "total": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "colorVisionResultsTitle": "Round complete!",
+  "@colorVisionResultsTitle": {
+    "description": "l10n: colorVisionResultsTitle"
+  },
+  "colorVisionResultsGood": "You spotted most shapes — nice!",
+  "@colorVisionResultsGood": {
+    "description": "l10n: colorVisionResultsGood"
+  },
+  "colorVisionResultsMixed": "Some plates were tricky. That happens to many kids.",
+  "@colorVisionResultsMixed": {
+    "description": "l10n: colorVisionResultsMixed"
+  },
+  "colorVisionResultsLow": "Many shapes were hard to see. This game cannot diagnose color vision. A specialist can help if you are worried.",
+  "@colorVisionResultsLow": {
+    "description": "l10n: colorVisionResultsLow"
+  },
+  "colorVisionResultsMedicalNote": "For learning and curiosity only. It does not replace professional eye care.",
+  "@colorVisionResultsMedicalNote": {
+    "description": "l10n: colorVisionResultsMedicalNote"
+  },
+  "colorVisionPlayAgain": "Play again",
+  "@colorVisionPlayAgain": {
+    "description": "l10n: colorVisionPlayAgain"
+  },
+  "colorVisionIntroTitle": "Hidden shapes",
+  "@colorVisionIntroTitle": {
+    "description": "l10n: colorVisionIntroTitle"
+  },
+  "colorVisionPlateBadgeRg": "Red · green mix",
+  "@colorVisionPlateBadgeRg": {
+    "description": "l10n: colorVisionPlateBadgeRg"
+  },
+  "colorVisionPlateBadgeBy": "Blue · yellow mix",
+  "@colorVisionPlateBadgeBy": {
+    "description": "l10n: colorVisionPlateBadgeBy"
+  },
+  "colorVisionOptionDiamond": "Diamond",
+  "@colorVisionOptionDiamond": {
+    "description": "l10n: colorVisionOptionDiamond"
+  },
+  "colorVisionResultHintTitle": "Playful summary",
+  "@colorVisionResultHintTitle": {
+    "description": "l10n: colorVisionResultHintTitle"
+  },
+  "colorVisionProfileTypical": "On these plates your answers look similar to typical color vision for kids.",
+  "@colorVisionProfileTypical": {
+    "description": "l10n: colorVisionProfileTypical"
+  },
+  "colorVisionProfileRedGreenAxis": "You missed more red–green style plates. That pattern is often discussed with red–green color blindness (protanopia or deuteranopia family). This app cannot separate those types.",
+  "@colorVisionProfileRedGreenAxis": {
+    "description": "l10n: colorVisionProfileRedGreenAxis"
+  },
+  "colorVisionProfileBlueYellowAxis": "You missed more blue–yellow style plates. That can sometimes relate to blue–yellow (tritan-type) difficulty — only an eye specialist can say for sure.",
+  "@colorVisionProfileBlueYellowAxis": {
+    "description": "l10n: colorVisionProfileBlueYellowAxis"
+  },
+  "colorVisionProfileMixed": "Both plate styles were difficult. Screen brightness, night mode, or tired eyes can change scores. Try again in good light.",
+  "@colorVisionProfileMixed": {
+    "description": "l10n: colorVisionProfileMixed"
+  },
+  "colorVisionProfileInconclusive": "No clear pattern — try again on a bright screen at arm’s length.",
+  "@colorVisionProfileInconclusive": {
+    "description": "l10n: colorVisionProfileInconclusive"
+  },
+  "colorVisionScoreRgLine": "Red–green style: {correct} / {total}",
+  "@colorVisionScoreRgLine": {
+    "description": "l10n: colorVisionScoreRgLine",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "4"
+      },
+      "total": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+  "colorVisionScoreByLine": "Blue–yellow style: {correct} / {total}",
+  "@colorVisionScoreByLine": {
+    "description": "l10n: colorVisionScoreByLine",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  }
+}

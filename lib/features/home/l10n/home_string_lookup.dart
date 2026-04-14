@@ -119,6 +119,10 @@ String homeBadgeLine(HomeLocalizations l, String key) {
       return l.badgeShapeMasterDesc;
     case 'badgeShapeMasterName':
       return l.badgeShapeMasterName;
+    case 'badgeColorMasterDesc':
+      return l.badgeColorMasterDesc;
+    case 'badgeColorMasterName':
+      return l.badgeColorMasterName;
     case 'badgeSilverArtistDesc':
       return l.badgeSilverArtistDesc;
     case 'badgeSilverArtistName':

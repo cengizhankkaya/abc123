@@ -201,6 +201,9 @@ class HomeLocalizationsFr extends HomeLocalizations {
   String get loadingQuests => 'Chargement des quêtes...';
 
   @override
+  String get questsRefreshedMessage => 'Tes quêtes ont été mises à jour.';
+
+  @override
   String get dailyQuest => 'QUÊTE QUOTIDIENNE';
 
   @override
@@ -301,6 +304,15 @@ class HomeLocalizationsFr extends HomeLocalizations {
 
   @override
   String get shapesTitle => 'Apprendre les formes';
+
+  @override
+  String get colorsTitle => 'Apprendre les couleurs';
+
+  @override
+  String get badgeColorMasterName => 'Expert des couleurs';
+
+  @override
+  String get badgeColorMasterDesc => 'Tu as terminé 50 manches couleurs !';
 
   @override
   String get noBadgesFound => 'No badges found';
