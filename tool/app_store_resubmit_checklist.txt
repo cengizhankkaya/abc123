@@ -1,0 +1,61 @@
+App Store yeniden gönderim — kontrol listesi (build 2.0.2+15)
+============================================================
+
+1) IPA / ARCHIVE (bu makinede)
+------------------------------
+- pubspec: version 2.0.2+15 (CFBundleVersion 15).
+- flutter build ipa: Archive başarılı; App Store IPA export bazen
+  "requires a provisioning profile" verir (App Store dağıtım profili).
+
+  Archive yolu:
+    build/ios/archive/Runner.xcarchive
+
+  Xcode ile yükleme:
+    open build/ios/archive/Runner.xcarchive
+  Organizer’da: Distribute App → App Store Connect → Upload
+  (Apple Distribution sertifikası + App Store provisioning profile gerekir.)
+
+  Alternatif: Xcode’da Product → Archive (Runner, Any iOS Device arm64).
+
+2) Transporter (IPA oluşursa)
+------------------------------
+- Mac App Store: Transporter
+- Oluşan .ipa dosyasını sürükleyip Deliver
+
+3) iPad — ekran kaydı (Apple isteği)
+-----------------------------------
+a) Ayarlar → Gizlilik ve Güvenlik → Takip: uygulamayı kapat veya uygulamayı sil.
+b) Ayarlar → Kontrol Merkezi: Ekran Kaydı ekle.
+c) Kontrol Merkezi → Ekran Kaydı başlat (3 sn bekle).
+d) Uygulamayı aç → ATT diyaloğunu göster → Allow veya Don’t Allow seç.
+e) Mağaza sekmesi → REKLAM İZLE PUAN KAZAN → reklam veya SnackBar mesajı.
+f) Kaydı durdur (Kontrol Merkezi kırmızı kayıt).
+g) Video: Fotoğraflar → Mac’e AirDrop / iCloud.
+
+4) App Store Connect
+--------------------
+- App Store sekmesi → sürüm → Build: yeni build seç (Processing bitene kadar bekle).
+- App Review Information → Notes: aşağıdaki metni yapıştır, VIDEO_LINK yerine
+  liste dışı YouTube veya iCloud paylaşım linki koy.
+- Save → Submit for Review.
+
+--- Notes (İngilizce, kopyala-yapıştır) ---
+
+We resubmitted build 15 (marketing version 2.0.2) addressing App Review feedback.
+
+ATT: The App Tracking Transparency prompt is requested on first UI frame on iOS,
+before initializing the Google Mobile Ads SDK, so it appears after a fresh install
+or after resetting tracking permission (Settings → Privacy & Security → Tracking).
+
+Rewarded ads: The “Watch ad to earn points” action in the shop now shows visible
+feedback when the rewarded ad is not ready yet, and load retries are reset on tap.
+
+Screen recording (physical iPad): VIDEO_LINK
+The video shows: fresh open after reset → ATT prompt → Shop tab → rewarded ad flow.
+
+---
+
+5) Resolution Center (varsa reddedilen mesaja cevap)
+----------------------------------------------------
+Aynı İngilizce özeti kısaltarak Reply içine de ekleyebilirsin; videonun linkini
+Notes ile aynı tut.

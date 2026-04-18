@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:abc123/core/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/feature_flags/feature_flag.dart';
 import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
+import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/presentation/providers/counter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -16,38 +19,62 @@ mixin RewardedAdHelper<T extends StatefulWidget> on State<T> {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
-    RewardedAd.load(
-      adUnitId: AdmobRewardedIds.current,
-      request: AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          setState(() {
-            _rewardedAd = ad;
-            _isRewardedAdLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (error) {
-          setState(() {
-            _isRewardedAdLoaded = false;
-          });
-        },
-      ),
+    unawaited(
+      MobileAdsGate.whenReady.then((_) {
+        if (!mounted) {
+          return Future<void>.value();
+        }
+        return RewardedAd.load(
+          adUnitId: AdmobRewardedIds.current,
+          request: const AdRequest(),
+          rewardedAdLoadCallback: RewardedAdLoadCallback(
+            onAdLoaded: (ad) {
+              if (!mounted) {
+                return;
+              }
+              setState(() {
+                _rewardedAd = ad;
+                _isRewardedAdLoaded = true;
+              });
+            },
+            onAdFailedToLoad: (error) {
+              if (!mounted) {
+                return;
+              }
+              setState(() {
+                _isRewardedAdLoaded = false;
+              });
+            },
+          ),
+        );
+      }),
     );
   }
 
-  void showRewardedAd(BuildContext context) async {
+  void showRewardedAd(BuildContext context) {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
     if (_isRewardedAdLoaded && _rewardedAd != null) {
-      _rewardedAd!.show(
-        onUserEarnedReward: (ad, reward) async {
-          await Provider.of<CounterProvider>(context, listen: false).increment(1);
-          final msg = AppLocalizations.of(context)!.adRewardPointEarned;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(msg)),
-          );
-        },
+      unawaited(
+        _rewardedAd!.show(
+          onUserEarnedReward: (ad, reward) {
+            if (!context.mounted) {
+              return;
+            }
+            unawaited(
+              Provider.of<CounterProvider>(context, listen: false).increment().then((_) {
+                if (!context.mounted) {
+                  return;
+                }
+                final msg = AppLocalizations.of(context)!.adRewardPointEarned;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(msg)),
+                );
+              }),
+            );
+          },
+        ),
       );
       _rewardedAd = null;
       _isRewardedAdLoaded = false;

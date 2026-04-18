@@ -1,17 +1,20 @@
+import 'dart:async';
+
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/core/feature_flags/feature_flag.dart';
 import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
 import 'package:abc123/core/infrastructure/ads/ad_service.dart';
+import 'package:abc123/core/l10n/generated/app_localizations.dart';
+import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
+import 'package:abc123/features/home/l10n/home_string_lookup.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/widgets/avatar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:abc123/features/home/l10n/home_string_lookup.dart';
-import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 class AvatarShopScreen extends StatefulWidget {
   const AvatarShopScreen({super.key});
@@ -203,17 +206,26 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> with SingleTickerPr
               padding: const EdgeInsets.only(bottom: 110.0),
               child: FloatingActionButton.extended(
                 onPressed: () {
-                  AdService().showRewardedAd(onReward: (amount) {
-                    context.read<GamificationProvider>().addPoints(amount);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          context.homeL10n!.rewardEarned(amount),
+                  AdService().showRewardedAd(
+                    onReward: (amount) {
+                      unawaited(context.read<GamificationProvider>().addPoints(amount));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            context.homeL10n!.rewardEarned(amount),
+                          ),
+                          backgroundColor: Colors.green,
                         ),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  });
+                      );
+                    },
+                    onAdNotReady: () {
+                      final msg = AppLocalizations.of(context)?.adLoadFailedRetry ??
+                          'Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.';
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(msg)),
+                      );
+                    },
+                  );
                 },
                 label: Text(h.freePointsBtn),
                 icon: const Icon(Icons.video_library),

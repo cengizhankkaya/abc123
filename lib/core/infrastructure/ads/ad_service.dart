@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:abc123/core/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/feature_flags/feature_flag.dart';
 import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -36,78 +38,92 @@ class AdService {
     if (!Platform.isAndroid && !Platform.isIOS) {
       return;
     }
-    MobileAds.instance.initialize();
-    loadRewardedAd();
+    unawaited(
+      MobileAdsGate.whenReady.then((_) {
+        loadRewardedAd();
+      }),
+    );
   }
 
   void loadRewardedAd() {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
-    RewardedAd.load(
-      adUnitId: _rewardedAdUnitId,
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (RewardedAd ad) {
-          _log.debug('RewardedAd loaded', tag: 'AdService');
-          _rewardedAd = ad;
-          _numRewardedLoadAttempts = 0;
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          _log.warning(
-            'RewardedAd failed to load',
-            tag: 'AdService',
-            data: {'code': error.code, 'message': error.message},
-          );
-          _rewardedAd = null;
-          _numRewardedLoadAttempts += 1;
-          if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-            loadRewardedAd();
-          }
-        },
-      ),
+    unawaited(
+      MobileAdsGate.whenReady.then((_) {
+        return RewardedAd.load(
+          adUnitId: _rewardedAdUnitId,
+          request: const AdRequest(),
+          rewardedAdLoadCallback: RewardedAdLoadCallback(
+            onAdLoaded: (ad) {
+              _log.debug('RewardedAd loaded', tag: 'AdService');
+              _rewardedAd = ad;
+              _numRewardedLoadAttempts = 0;
+            },
+            onAdFailedToLoad: (error) {
+              _log.warning(
+                'RewardedAd failed to load',
+                tag: 'AdService',
+                data: {'code': error.code, 'message': error.message},
+              );
+              _rewardedAd = null;
+              _numRewardedLoadAttempts += 1;
+              if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
+                loadRewardedAd();
+              }
+            },
+          ),
+        );
+      }),
     );
   }
 
-  void showRewardedAd({required void Function(int rewardAmount) onReward}) {
+  void showRewardedAd({
+    required void Function(int rewardAmount) onReward,
+    void Function()? onAdNotReady,
+  }) {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
     if (_rewardedAd == null) {
       _log.debug('RewardedAd show skipped (not loaded)', tag: 'AdService');
-      loadRewardedAd(); // Try loading again for next time
+      _numRewardedLoadAttempts = 0;
+      loadRewardedAd();
+      onAdNotReady?.call();
       return;
     }
 
     _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (RewardedAd ad) =>
+      onAdShowedFullScreenContent: (ad) =>
           _log.debug('RewardedAd showed full screen', tag: 'AdService'),
-      onAdDismissedFullScreenContent: (RewardedAd ad) {
+      onAdDismissedFullScreenContent: (ad) {
         _log.debug('RewardedAd dismissed', tag: 'AdService');
-        ad.dispose();
-        loadRewardedAd(); // Load the next one
+        unawaited(ad.dispose());
+        loadRewardedAd();
       },
-      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+      onAdFailedToShowFullScreenContent: (ad, error) {
         _log.warning(
           'RewardedAd failed to show',
           tag: 'AdService',
           data: {'code': error.code, 'message': error.message},
         );
-        ad.dispose();
+        unawaited(ad.dispose());
         loadRewardedAd();
       },
     );
 
-    _rewardedAd!.setImmersiveMode(true);
-    _rewardedAd!.show(
-      onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
-        _log.info(
-          'User earned reward',
-          tag: 'AdService',
-          data: {'amount': reward.amount, 'type': reward.type},
-        );
-        onReward(reward.amount.toInt());
-      },
+    unawaited(_rewardedAd!.setImmersiveMode(true));
+    unawaited(
+      _rewardedAd!.show(
+        onUserEarnedReward: (ad, reward) {
+          _log.info(
+            'User earned reward',
+            tag: 'AdService',
+            data: {'amount': reward.amount, 'type': reward.type},
+          );
+          onReward(reward.amount.toInt());
+        },
+      ),
     );
     _rewardedAd = null;
   }

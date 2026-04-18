@@ -1,5 +1,6 @@
 import 'package:abc123/app/app.dart';
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/presentation/providers/counter_provider.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
@@ -27,6 +28,8 @@ List<SingleChildWidget> defaultTestNotifierProviders() {
 ///
 /// Önkoşul: [configureDependencies] ve gerekirse SharedPreferences mock’u.
 Widget wrapWithDefaultAppProviders({Widget? child}) {
+  // Widget testleri `bootstrap()` çalıştırmaz; reklam kapısı sonsuza kadar beklemesin.
+  MobileAdsGate.markReady();
   return MultiProvider(
     providers: defaultTestNotifierProviders(),
     child: child ?? const MyApp(),

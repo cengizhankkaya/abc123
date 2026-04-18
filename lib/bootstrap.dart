@@ -1,26 +1,30 @@
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 /// Uygulama genelinde paylaşılan async başlatma (docs: `bootstrap.dart`).
+///
+/// iOS’ta ATT diyaloğu aktif pencere gerektirir; Google Mobile Ads başlatması ve
+/// `MobileAdsGate.markReady` çağrısı `MyApp` ilk kare sonrasında yapılır.
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
-  if (defaultTargetPlatform == TargetPlatform.iOS) {
+  if (kIsWeb) {
+    MobileAdsGate.markReady();
+  } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+    // ATT + MobileAds: `app.dart` içinde ilk frame sonrası.
+  } else {
     try {
-      final status = await AppTrackingTransparency.trackingAuthorizationStatus;
-      if (status == TrackingStatus.notDetermined) {
-        await AppTrackingTransparency.requestTrackingAuthorization();
-      }
+      await MobileAds.instance.initialize();
     } on Object catch (_) {
-      // Simülatör veya nadir platform hatalarında reklam başlatmayı engelleme.
+      // Masaüstü / desteklenmeyen hedeflerde reklam SDK’sı başarısız olabilir.
     }
+    MobileAdsGate.markReady();
   }
-  await MobileAds.instance.initialize();
   await AudioService().init();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:abc123/core/config/admob_banner_ids.dart';
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -25,33 +28,42 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
   @override
   void initState() {
     super.initState();
-    _bannerAd = BannerAd(
-      adUnitId: AdmobBannerIds.current,
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (_) {
-          if (mounted) {
-            setState(() {
-              _isLoaded = true;
-            });
-          }
-        },
-        onAdFailedToLoad: (ad, error) {
-          getIt<AppLogger>().warning(
-            'Banner ad failed to load',
-            tag: 'AdMobBanner',
-            data: {'code': error.code, 'message': error.message},
-          );
-          ad.dispose();
-          if (mounted) {
-            setState(() {
-              _bannerAd = null;
-            });
-          }
-        },
-      ),
-    )..load();
+    unawaited(
+      MobileAdsGate.whenReady.then((_) {
+        if (!mounted) {
+          return Future<void>.value();
+        }
+        final ad = BannerAd(
+          adUnitId: AdmobBannerIds.current,
+          size: AdSize.banner,
+          request: const AdRequest(),
+          listener: BannerAdListener(
+            onAdLoaded: (_) {
+              if (mounted) {
+                setState(() {
+                  _isLoaded = true;
+                });
+              }
+            },
+            onAdFailedToLoad: (ad, error) {
+              getIt<AppLogger>().warning(
+                'Banner ad failed to load',
+                tag: 'AdMobBanner',
+                data: {'code': error.code, 'message': error.message},
+              );
+              unawaited(ad.dispose());
+              if (mounted) {
+                setState(() {
+                  _bannerAd = null;
+                });
+              }
+            },
+          ),
+        );
+        _bannerAd = ad;
+        return ad.load();
+      }),
+    );
   }
 
   @override
@@ -111,7 +123,10 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
+    final ad = _bannerAd;
+    if (ad != null) {
+      unawaited(ad.dispose());
+    }
     super.dispose();
   }
 }

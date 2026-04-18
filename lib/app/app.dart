@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/l10n/app_locale.dart';
 import 'package:abc123/core/l10n/app_localizations_setup.dart';
@@ -6,7 +9,10 @@ import 'package:abc123/core/navigation/app_router.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
 import 'package:abc123/core/theme/app_theme.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatefulWidget {
@@ -21,6 +27,30 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        unawaited(_requestAttThenInitializeMobileAds());
+      });
+    }
+  }
+
+  /// ATT, aktif UI penceresi varken gösterilmeli; ardından reklam SDK’sı.
+  Future<void> _requestAttThenInitializeMobileAds() async {
+    try {
+      final status = await AppTrackingTransparency.trackingAuthorizationStatus;
+      if (status == TrackingStatus.notDetermined) {
+        await AppTrackingTransparency.requestTrackingAuthorization();
+      }
+    } on Object catch (_) {
+      // İnceleme cihazı / simülatör edge-case: yine de SDK başlatmayı dene.
+    }
+    try {
+      await MobileAds.instance.initialize();
+    } on Object catch (_) {
+      // SDK başarısız olsa bile UI’ı kilitleme.
+    } finally {
+      MobileAdsGate.markReady();
+    }
   }
 
   @override
@@ -34,7 +64,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      AudioService().stopBackground();
+      unawaited(AudioService().stopBackground());
     }
   }
 
