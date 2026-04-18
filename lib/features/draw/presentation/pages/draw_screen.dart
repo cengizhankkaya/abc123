@@ -1,21 +1,23 @@
+import 'dart:async';
 import 'dart:ui' as ui;
+
 import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
+import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/core/presentation/orientation_helper.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
-import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
-import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
 import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
-import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/presentation/providers/language_provider.dart';
-import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class DrawScreen extends StatefulWidget {
@@ -35,10 +37,7 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
     // Ekranı yatay (landscape) moduna zorunlu kılma
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -65,10 +64,7 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
     AudioService().stopBackground();
     _animationController.dispose();
     // Ekran yönünü normale döndürme (dikey mod)
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    unawaited(OrientationHelper.setPortrait());
     super.dispose();
   }
 

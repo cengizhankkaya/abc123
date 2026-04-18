@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
+import 'dart:async';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:provider/provider.dart';
 
 import 'package:abc123/core/constants/app_sizes.dart';
@@ -15,10 +17,7 @@ import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 // Ana uygulamanın main.dart dosyasında uygulamayı başlatırken bu kodu çağırın
 void enforceInfoScreenOrientation() {
   // InfoScreen için yatay modu zorunlu kıl
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
+  unawaited(OrientationHelper.setLandscape());
 }
 
 // InfoScreen artık bir sayfa olarak çalışacak ve çizimi gösterecek
@@ -37,29 +36,20 @@ class _InfoScreenState extends State<InfoScreen> {
   void initState() {
     super.initState();
     // Widget başlatıldığında ekranı yatay modda tut
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
   }
 
   @override
   void dispose() {
     // Widget dispose olduğunda ekranı yine de yatay modda tut
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // Yatay modu zorla
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
 
     final screenSize = MediaQuery.of(context).size;
     context.watch<LanguageProvider>();

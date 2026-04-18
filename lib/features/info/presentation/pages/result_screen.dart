@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
+import 'dart:async';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/features/info/l10n/l10n_extensions.dart';
@@ -43,10 +45,7 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
   void initState() {
     super.initState();
     // Ekranı yatay modda tut
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
 
     // Konfeti animasyonu için controller
     _confettiController = AnimationController(

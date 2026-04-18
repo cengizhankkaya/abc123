@@ -1,3 +1,4 @@
+import 'dart:async';
 // ignore_for_file: deprecated_member_use
 
 import 'package:abc123/core/constants/app_sizes.dart';
@@ -16,6 +17,7 @@ import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.d
 import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:provider/provider.dart';
 
 import 'package:abc123/core/navigation/route_paths.dart';
@@ -40,10 +42,7 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen> with SingleTickerPr
     super.initState();
 
     // Ekranı yatay modda tut
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
@@ -64,10 +63,7 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen> with SingleTickerPr
     AudioService().stopBackground();
 
     // Dikey moda geri dön
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    unawaited(OrientationHelper.setPortrait());
 
     super.dispose();
   }

@@ -6,7 +6,10 @@ import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:flutter/services.dart';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:provider/provider.dart';
 
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
@@ -36,10 +39,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
   void initState() {
     super.initState();
     // Ekranı yatay (landscape) moduna zorunlu kılma
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    unawaited(OrientationHelper.setLandscape());
 
     // Animasyon controller'ı
     _animationController = AnimationController(
@@ -65,10 +65,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
   void dispose() {
     _animationController.dispose();
     // Ekran yönünü normale döndürme (dikey mod)
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    unawaited(OrientationHelper.setPortrait());
     AudioService().stopBackground();
     super.dispose();
   }

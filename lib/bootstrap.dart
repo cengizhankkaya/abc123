@@ -26,8 +26,12 @@ Future<void> bootstrap() async {
     MobileAdsGate.markReady();
   }
   await AudioService().init();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  try {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  } on Object catch (_) {
+    // iPadOS Split View / Slide Over: orientation lock desteklenmiyor.
+  }
 }
