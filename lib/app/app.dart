@@ -35,7 +35,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   /// ATT, aktif UI penceresi varken gösterilmeli; ardından reklam SDK’sı.
+  ///
+  /// iPadOS 16+ scene-based lifecycle’da window fully active olmadan
+  /// diyalog suskunca başarısız olabiliyor. Apple’ın önerisi doğrultusunda
+  /// kısa bir delay ekleyerek scene’in tamamen hazır olması beklenir.
   Future<void> _requestAttThenInitializeMobileAds() async {
+    // Scene/window’un fully active olmasını bekle (iPadOS scene lifecycle).
+    await Future<void>.delayed(const Duration(milliseconds: 200));
     try {
       final status = await AppTrackingTransparency.trackingAuthorizationStatus;
       if (status == TrackingStatus.notDetermined) {
