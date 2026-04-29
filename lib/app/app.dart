@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
     }
   }
-
+//
   /// ATT, aktif UI penceresi varken gösterilmeli; ardından reklam SDK’sı.
   ///
   /// iPadOS 16+ scene-based lifecycle’da window fully active olmadan
