@@ -1,0 +1,6 @@
+arb-dir: lib/features/numbers_advanced/l10n
+template-arb-file: numbers_advanced_en.arb
+output-localization-file: numbers_advanced_localizations.dart
+output-class: NumbersAdvancedLocalizations
+output-dir: lib/features/numbers_advanced/l10n/generated
+nullable-getter: false

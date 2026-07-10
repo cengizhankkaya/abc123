@@ -2,6 +2,7 @@ import 'package:abc123/features/home/l10n/generated/home_localizations.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
+import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,9 @@ class ParentPanelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final h = context.homeL10n!;
-    final provider = context.watch<GamificationProvider>();
-    final snapshot = _ParentPanelSnapshot.from(provider);
+    final gamificationProvider = context.watch<GamificationProvider>();
+    final mathProvider = context.watch<MathProgressProvider>();
+    final snapshot = _ParentPanelSnapshot.from(gamificationProvider, mathProvider);
 
     return ColoredBox(
       color: HomeDesignTokens.background,
@@ -90,19 +92,45 @@ final class _ParentPanelSnapshot {
     required this.strugglingNumber,
     required this.showLetterInsight,
     required this.showNumberInsight,
+    required this.showMathInsight,
+    required this.strugglingMathCode,
   });
 
-  factory _ParentPanelSnapshot.from(GamificationProvider provider) {
+  factory _ParentPanelSnapshot.from(GamificationProvider provider, MathProgressProvider mathProvider) {
+    final mathCompleted = mathProvider.additionsCompleted +
+        mathProvider.subtractionsCompleted +
+        mathProvider.tensCompleted +
+        mathProvider.visualCompleted +
+        mathProvider.freeCompleted;
+
     final completed = provider.numberDrawings +
         provider.letterDrawings +
         provider.shapeDrawings +
         provider.colorRounds +
-        provider.wordsCompleted;
+        provider.wordsCompleted +
+        mathCompleted;
 
     final durationMinutes = (completed * 2).clamp(0, 999);
     final accuracyPercent = completed == 0
         ? 0
         : (72 + provider.streak * 2 + (completed ~/ 5)).clamp(60, 95);
+
+    int strugglingMathCode = -1;
+    final maxWrong = [
+      mathProvider.wrongAdditionsCount,
+      mathProvider.wrongSubtractionsCount,
+      mathProvider.wrongTensCount,
+    ].reduce((a, b) => a > b ? a : b);
+
+    if (maxWrong > 0) {
+      if (maxWrong == mathProvider.wrongAdditionsCount) {
+        strugglingMathCode = 0;
+      } else if (maxWrong == mathProvider.wrongSubtractionsCount) {
+        strugglingMathCode = 1;
+      } else if (maxWrong == mathProvider.wrongTensCount) {
+        strugglingMathCode = 2;
+      }
+    }
 
     return _ParentPanelSnapshot(
       childName: provider.childName,
@@ -114,6 +142,8 @@ final class _ParentPanelSnapshot {
       strugglingNumber: provider.numberDrawings % 10,
       showLetterInsight: provider.letterDrawings >= 2,
       showNumberInsight: provider.numberDrawings > 0,
+      showMathInsight: mathProvider.unlockedLevels.length > 1 || mathCompleted > 0,
+      strugglingMathCode: strugglingMathCode,
     );
   }
 
@@ -126,9 +156,38 @@ final class _ParentPanelSnapshot {
   final int strugglingNumber;
   final bool showLetterInsight;
   final bool showNumberInsight;
+  final bool showMathInsight;
+  final int strugglingMathCode;
 
   List<_InsightData> insights(HomeLocalizations h) {
     final items = <_InsightData>[];
+    if (strugglingMathCode != -1) {
+      String text = h.parentPanelInsightMath;
+      if (strugglingMathCode == 0) {
+        text = h.parentPanelMathStrugglingAddition;
+      } else if (strugglingMathCode == 1) {
+        text = h.parentPanelMathStrugglingSubtraction;
+      } else if (strugglingMathCode == 2) {
+        text = h.parentPanelMathStrugglingTens;
+      }
+      items.add(
+        _InsightData(
+          icon: Icons.warning_amber_rounded,
+          iconColor: Colors.orangeAccent,
+          text: text,
+          when: h.parentPanelToday,
+        ),
+      );
+    } else if (showMathInsight) {
+      items.add(
+        _InsightData(
+          icon: Icons.calculate_rounded,
+          iconColor: const Color(0xFF6C63FF),
+          text: h.parentPanelInsightMath,
+          when: h.parentPanelToday,
+        ),
+      );
+    }
     if (showLetterInsight) {
       items.add(
         _InsightData(

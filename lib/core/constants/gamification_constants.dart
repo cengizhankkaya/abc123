@@ -28,8 +28,15 @@ class GamificationConstants {
   // Meta Badges (Score & Collection)
   static const String badgeHighScorer = 'badge_high_scorer'; // 1000 points
   static const String badgeScoreLegend = 'badge_score_legend'; // 5000 points
-  static const String badgeBadgeCollector = 'badge_badge_collector'; // 5 badges
-  static const String badgeBadgeMaster = 'badge_badge_master'; // 15 badges
+  static const String badgeBadgeCollector = 'badge_badge_collector';
+  static const String badgeBadgeMaster = 'badge_badge_master';
+
+  // --- Matematik Rozetleri ---
+  static const String badgeMathFirstAddition = 'badge_math_first_addition';
+  static const String badgeTensHero = 'badge_tens_hero';
+  static const String badgeSubtractionMaster = 'badge_subtraction_master';
+
+  // List of all available badges
 
   // Storage Keys
   static const String keyPoints = 'user_points';
@@ -56,6 +63,6 @@ class GamificationConstants {
   static const String keyLastActivityTotal = 'last_activity_total';
 }
 
-enum DrawingType { number, letter, shape, any }
+enum DrawingType { number, letter, shape, color, word, any }
 
 enum LastActivityMode { number, letter, shape, word, color, colorVision }

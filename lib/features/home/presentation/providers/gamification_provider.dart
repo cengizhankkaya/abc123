@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/logging/app_logger.dart';
@@ -382,16 +383,35 @@ final class GamificationProvider extends ChangeNotifier {
       descriptionKey: 'badgeBadgeCollectorDesc',
       iconKey: 'collections_bookmark',
     ),
-    BadgeModel(
-      id: GamificationConstants.badgeBadgeMaster,
-      nameKey: 'badgeBadgeMasterName',
-      descriptionKey: 'badgeBadgeMasterDesc',
-      iconKey: 'workspace_premium',
-    ),
-  ];
+      BadgeModel(
+        id: GamificationConstants.badgeBadgeMaster,
+        nameKey: 'badgeBadgeMasterName',
+        descriptionKey: 'badgeBadgeMasterDesc',
+        iconKey: 'workspace_premium',
+      ),
+      BadgeModel(
+        id: GamificationConstants.badgeMathFirstAddition,
+        nameKey: 'badgeMathFirstAdditionName',
+        descriptionKey: 'badgeMathFirstAdditionDesc',
+        iconKey: 'calculate',
+      ),
+      BadgeModel(
+        id: GamificationConstants.badgeTensHero,
+        nameKey: 'badgeTensHeroName',
+        descriptionKey: 'badgeTensHeroDesc',
+        iconKey: 'exposure_plus_1',
+      ),
+      BadgeModel(
+        id: GamificationConstants.badgeSubtractionMaster,
+        nameKey: 'badgeSubtractionMasterName',
+        descriptionKey: 'badgeSubtractionMasterDesc',
+        iconKey: 'remove',
+      ),
+    ];
 
   int get points => _points;
   int get streak => _streak;
+  int get totalDrawings => _totalDrawings;
   int get numberDrawings => _numberDrawings;
   int get letterDrawings => _letterDrawings;
   int get shapeDrawings => _shapeDrawings;
@@ -629,6 +649,19 @@ final class GamificationProvider extends ChangeNotifier {
 
   Future<void> incrementTotalDrawings({DrawingType type = DrawingType.any, String? label}) async {
     _totalDrawings++;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final now = DateTime.now();
+      final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+      final jsonStr = prefs.getString('parent_daily_activities_count_json');
+      Map<String, int> countMap = {};
+      if (jsonStr != null) {
+        final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
+        decoded.forEach((k, v) => countMap[k] = (v as num).toInt());
+      }
+      countMap[todayStr] = (countMap[todayStr] ?? 0) + 1;
+      await prefs.setString('parent_daily_activities_count_json', jsonEncode(countMap));
+    } catch (_) {}
 
     if (type == DrawingType.number) {
       _numberDrawings++;
@@ -708,7 +741,17 @@ final class GamificationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Renk oyununda doğru tur — çizim sayacından ayrı; puan ve `any` görevleri ilerler.
+  Future<void> recordMathSuccess(String mathType) async {
+    // Basic point award for math (badge unlock is handled inside MathProgressProvider)
+    await addPoints(GamificationConstants.pointsPerCorrectDraw);
+  }
+
+  /// Matematik rozetlerini açmak için özel metot
+  Future<void> unlockMathBadge(String badgeId) async {
+    await _unlockBadge(badgeId);
+  }
+
+  /// Belirli bir tip için (sayı, harf, vb.) çizim sayısını artırır; puan ve `any` görevleri ilerler.
   Future<void> recordColorRoundSuccess() async {
     _colorRounds++;
     await _persistLastActivity(
@@ -741,7 +784,7 @@ final class GamificationProvider extends ChangeNotifier {
     );
 
     await _addPoints(GamificationConstants.pointsPerCorrectDraw);
-    await checkQuestProgress(DrawingType.any, null);
+    await checkQuestProgress(DrawingType.color, null);
     notifyListeners();
   }
 
@@ -778,7 +821,7 @@ final class GamificationProvider extends ChangeNotifier {
     );
 
     await _addPoints(GamificationConstants.pointsPerCorrectDraw);
-    await checkQuestProgress(DrawingType.any, wordKey);
+    await checkQuestProgress(DrawingType.word, wordKey);
     notifyListeners();
   }
 
@@ -805,6 +848,8 @@ final class GamificationProvider extends ChangeNotifier {
     _quests = _quests.map((quest) {
       if (quest.isCompleted) return quest;
 
+      // `any` tipi görevler tüm aktivitelerden ilerleme alır.
+      // Görevin tipi, gelen aktivite tipine eşit olmalı VEYA görev `any` tipinde olmalı.
       final typeMatches = quest.targetType == type || quest.targetType == DrawingType.any;
       if (!typeMatches) return quest;
 

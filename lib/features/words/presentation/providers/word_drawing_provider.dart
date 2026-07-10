@@ -12,7 +12,9 @@ import 'package:abc123/features/words/domain/word_drawing_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-final class WordDrawingProvider with ChangeNotifier {
+import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+
+final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
   List<DrawingPoint?> points = [];
   bool eraseMode = false;
   Color selectedColor = Colors.black;
@@ -135,7 +137,11 @@ final class WordDrawingProvider with ChangeNotifier {
   /// Sonuç ekranı sonrası: tryAgain → aynı harf; continue → ilerlet.
   ///
   /// Geri dönüş: `wordCompletedNow`.
+  /// Sonuç ekranı sonrası: tryAgain → aynı harf; continue → ilerlet.
+  ///
+  /// Geri dönüş: `wordCompletedNow`.
   bool onResultAction({required bool isCorrect, required bool tryAgain}) {
+    _recordProgressAttempt(isCorrect);
     if (tryAgain) {
       clearDrawing();
       return false;
@@ -199,6 +205,44 @@ final class WordDrawingProvider with ChangeNotifier {
     volume = value;
     AudioService().setVolume(value);
     notifyListeners();
+  }
+
+  // ─────────────────── ProgressSource İmplementasyonu ───────────────────
+
+  DateTime? _lastActivityDate;
+  final Map<String, int> _strugglingItemsMap = {};
+
+  void _recordProgressAttempt(bool isCorrect) {
+    _lastActivityDate = DateTime.now();
+    if (!isCorrect && hasSession) {
+      final key = session.currentWord.displayKey;
+      _strugglingItemsMap[key] = (_strugglingItemsMap[key] ?? 0) + 1;
+    }
+  }
+
+  @override
+  String get moduleName => 'words';
+
+  @override
+  double get completionPercentage {
+    if (!hasSession) return 0.0;
+    return (session.completedWords / 10.0 * 100.0).clamp(0.0, 100.0);
+  }
+
+  @override
+  double get accuracyRate {
+    if (!hasSession || session.totalAttempts == 0) return 100.0;
+    return (session.correctLetters / session.totalAttempts * 100.0).clamp(0.0, 100.0);
+  }
+
+  @override
+  DateTime? get lastActivityDate => _lastActivityDate;
+
+  @override
+  List<String> get strugglingItems {
+    final entries = _strugglingItemsMap.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    return entries.map((e) => e.key).toList();
   }
 }
 

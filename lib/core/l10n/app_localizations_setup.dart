@@ -3,6 +3,7 @@ import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
 import 'package:abc123/features/home/l10n/generated/home_localizations.dart';
 import 'package:abc123/features/info/l10n/generated/info_localizations.dart';
 import 'package:abc123/features/colors/l10n/generated/colors_localizations.dart';
+import 'package:abc123/features/numbers_advanced/l10n/generated/numbers_advanced_localizations.dart';
 import 'package:abc123/features/shapes/l10n/generated/shapes_localizations.dart';
 import 'package:abc123/features/words/l10n/generated/words_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,6 +17,7 @@ const List<LocalizationsDelegate<dynamic>> kAppLocalizationDelegates = [
   ShapesLocalizations.delegate,
   ColorsLocalizations.delegate,
   InfoLocalizations.delegate,
+  NumbersAdvancedLocalizations.delegate,
   WordsLocalizations.delegate,
   GlobalMaterialLocalizations.delegate,
   GlobalWidgetsLocalizations.delegate,

@@ -188,10 +188,6 @@
   "@shopTitle": {
     "description": "l10n: shopTitle"
   },
-  "shopScreenSubtitle": "Avatarını özelleştir!",
-  "@shopScreenSubtitle": {
-    "description": "l10n: shopScreenSubtitle"
-  },
   "tabHat": "Şapka",
   "@tabHat": {
     "description": "l10n: tabHat"
@@ -211,42 +207,6 @@
   "equipped": "Giydin",
   "@equipped": {
     "description": "l10n: equipped"
-  },
-  "shopSlotNone": "Çıkar",
-  "@shopSlotNone": {
-    "description": "l10n: shopSlotNone"
-  },
-  "itemEquipped": "{item} giyildi!",
-  "@itemEquipped": {
-    "description": "l10n: itemEquipped",
-    "placeholders": {
-      "item": {
-        "type": "String",
-        "example": "item"
-      }
-    }
-  },
-  "itemUnequipped": "{slot} çıkarıldı",
-  "@itemUnequipped": {
-    "description": "l10n: itemUnequipped",
-    "placeholders": {
-      "slot": {
-        "type": "String",
-        "example": "slot"
-      }
-    }
-  },
-  "slotHat": "Şapka",
-  "@slotHat": {
-    "description": "l10n: slotHat"
-  },
-  "slotGlasses": "Gözlük",
-  "@slotGlasses": {
-    "description": "l10n: slotGlasses"
-  },
-  "slotOutfit": "Kıyafet",
-  "@slotOutfit": {
-    "description": "l10n: slotOutfit"
   },
   "insufficientPoints": "Yeterli puanın yok! 😢",
   "@insufficientPoints": {
@@ -301,18 +261,6 @@
   "myQuestsTitle": "GÖREVLERİM",
   "@myQuestsTitle": {
     "description": "l10n: myQuestsTitle"
-  },
-  "questsScreenSubtitle": "Görevleri tamamla, puan kazan!",
-  "@questsScreenSubtitle": {
-    "description": "l10n: questsScreenSubtitle"
-  },
-  "questsDailySection": "Günlük Görevler",
-  "@questsDailySection": {
-    "description": "l10n: questsDailySection"
-  },
-  "questsWeeklySection": "Haftalık Görevler",
-  "@questsWeeklySection": {
-    "description": "l10n: questsWeeklySection"
   },
   "loadingQuests": "Görevler yükleniyor...",
   "@loadingQuests": {
@@ -686,7 +634,7 @@
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Elif"
+        "example": "name"
       }
     }
   },
@@ -712,7 +660,7 @@
     "placeholders": {
       "minutes": {
         "type": "int",
-        "example": "42"
+        "example": "1"
       }
     }
   },
@@ -722,7 +670,7 @@
     "placeholders": {
       "percent": {
         "type": "int",
-        "example": "89"
+        "example": "1"
       }
     }
   },
@@ -736,7 +684,7 @@
     "placeholders": {
       "range": {
         "type": "String",
-        "example": "B-D"
+        "example": "range"
       }
     }
   },
@@ -746,13 +694,29 @@
     "placeholders": {
       "number": {
         "type": "int",
-        "example": "7"
+        "example": "1"
       }
     }
   },
   "parentPanelInsightGettingStarted": "Öğrenme yolculuğu yeni başlıyor",
   "@parentPanelInsightGettingStarted": {
     "description": "l10n: parentPanelInsightGettingStarted"
+  },
+  "parentPanelInsightMath": "Gelişmiş matematik işlemleri çalışıyor!",
+  "@parentPanelInsightMath": {
+    "description": "l10n: parentPanelInsightMath"
+  },
+  "parentPanelMathStrugglingAddition": "En çok Toplama işleminde hata yapıldı. Öneri: Görsel & Sembolik Toplama tekrarı.",
+  "@parentPanelMathStrugglingAddition": {
+    "description": "l10n: parentPanelMathStrugglingAddition"
+  },
+  "parentPanelMathStrugglingSubtraction": "En çok Çıkarma işleminde hata yapıldı. Öneri: Seviye A/B Çıkarma tekrarı.",
+  "@parentPanelMathStrugglingSubtraction": {
+    "description": "l10n: parentPanelMathStrugglingSubtraction"
+  },
+  "parentPanelMathStrugglingTens": "En çok Onluk Sayılarda (10-100) hata yapıldı. Öneri: Onluk kartları tekrarı.",
+  "@parentPanelMathStrugglingTens": {
+    "description": "l10n: parentPanelMathStrugglingTens"
   },
   "parentPanelToday": "Bugün",
   "@parentPanelToday": {
@@ -769,5 +733,105 @@
   "settingsParentPanelSubtitle": "İlerleme ve içgörüler",
   "@settingsParentPanelSubtitle": {
     "description": "l10n: settingsParentPanelSubtitle"
+  },
+  "settingsSectionChild": "Benim Ayarlarım",
+  "@settingsSectionChild": {
+    "description": "l10n: settingsSectionChild"
+  },
+  "settingsSectionParent": "Ebeveyn Alanı",
+  "@settingsSectionParent": {
+    "description": "l10n: settingsSectionParent"
+  },
+  "settingsSectionParentWarning": "Ebeveynlere özel kontroller ve raporlar",
+  "@settingsSectionParentWarning": {
+    "description": "l10n: settingsSectionParentWarning"
+  },
+  "settingsThemeLight": "Açık",
+  "@settingsThemeLight": {
+    "description": "l10n: settingsThemeLight"
+  },
+  "settingsThemeDark": "Koyu",
+  "@settingsThemeDark": {
+    "description": "l10n: settingsThemeDark"
+  },
+  "settingsThemeSystem": "Sistem",
+  "@settingsThemeSystem": {
+    "description": "l10n: settingsThemeSystem"
+  },
+  "settingsChooseLanguage": "Dil Seçimi",
+  "@settingsChooseLanguage": {
+    "description": "l10n: settingsChooseLanguage"
+  },
+  "settingsChooseTheme": "Tema Seçimi",
+  "@settingsChooseTheme": {
+    "description": "l10n: settingsChooseTheme"
+  },
+  "settingsNameSavedShort": "Kaydedildi",
+  "@settingsNameSavedShort": {
+    "description": "l10n: settingsNameSavedShort"
+  },
+  "settingsEmptyNameError": "İsim boş olamaz",
+  "@settingsEmptyNameError": {
+    "description": "l10n: settingsEmptyNameError"
+  },
+  "shopScreenSubtitle": "Avatarını özelleştir!",
+  "@shopScreenSubtitle": {
+    "description": "l10n: shopScreenSubtitle"
+  },
+  "shopSlotNone": "Çıkar",
+  "@shopSlotNone": {
+    "description": "l10n: shopSlotNone"
+  },
+  "itemEquipped": "{item} giyildi!",
+  "@itemEquipped": {
+    "description": "l10n: itemEquipped",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "itemUnequipped": "{slot} çıkarıldı",
+  "@itemUnequipped": {
+    "description": "l10n: itemUnequipped",
+    "placeholders": {
+      "slot": {
+        "type": "String",
+        "example": "slot"
+      }
+    }
+  },
+  "slotHat": "Şapka",
+  "@slotHat": {
+    "description": "l10n: slotHat"
+  },
+  "slotGlasses": "Gözlük",
+  "@slotGlasses": {
+    "description": "l10n: slotGlasses"
+  },
+  "slotOutfit": "Kıyafet",
+  "@slotOutfit": {
+    "description": "l10n: slotOutfit"
+  },
+  "questsScreenSubtitle": "Görevleri tamamla, puan kazan!",
+  "@questsScreenSubtitle": {
+    "description": "l10n: questsScreenSubtitle"
+  },
+  "questsDailySection": "Günlük Görevler",
+  "@questsDailySection": {
+    "description": "l10n: questsDailySection"
+  },
+  "questsWeeklySection": "Haftalık Görevler",
+  "@questsWeeklySection": {
+    "description": "l10n: questsWeeklySection"
+  },
+  "mathAdvancedTitle": "Gelişmiş Matematik",
+  "@mathAdvancedTitle": {
+    "description": "l10n: mathAdvancedTitle"
+  },
+  "mathAdvancedSubtitle": "Karmaşık işlemleri pratik yap",
+  "@mathAdvancedSubtitle": {
+    "description": "l10n: mathAdvancedSubtitle"
   }
 }

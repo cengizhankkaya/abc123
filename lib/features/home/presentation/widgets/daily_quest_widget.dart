@@ -137,6 +137,8 @@ class DailyQuestWidget extends StatelessWidget {
       DrawingType.number => HomeDesignTokens.numbersCard,
       DrawingType.letter => HomeDesignTokens.lettersCard,
       DrawingType.shape => HomeDesignTokens.shapesCard,
+      DrawingType.color => HomeDesignTokens.colorsCard,
+      DrawingType.word => HomeDesignTokens.wordsCard,
       DrawingType.any => HomeDesignTokens.wordsCard,
     };
   }
@@ -150,6 +152,18 @@ class DailyQuestWidget extends StatelessWidget {
         _ => Icons.category_outlined,
       };
       return Icon(icon, size: 28, color: accent);
+    }
+
+    if (quest.targetType == DrawingType.color) {
+      return Icon(Icons.palette_outlined, size: 28, color: accent);
+    }
+
+    if (quest.targetType == DrawingType.word) {
+      return Icon(Icons.spellcheck_rounded, size: 28, color: accent);
+    }
+
+    if (quest.targetType == DrawingType.any) {
+      return Icon(Icons.auto_awesome_rounded, size: 28, color: accent);
     }
 
     return Text(

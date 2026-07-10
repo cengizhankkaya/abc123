@@ -1,174 +1,521 @@
+import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
+import 'package:abc123/core/theme/app_theme_mode.dart';
+import 'package:abc123/features/home/l10n/generated/home_localizations.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
-import 'package:abc123/features/home/presentation/widgets/language_selector.dart';
-import 'package:abc123/features/home/presentation/widgets/theme_mode_selector.dart';
+import 'package:abc123/features/home/presentation/widgets/animated_choice_card.dart';
+import 'package:abc123/features/home/presentation/widgets/child_name_editor.dart';
+import 'package:abc123/features/home/presentation/widgets/settings_choice_bottom_sheet.dart';
+import 'package:abc123/features/home/presentation/widgets/settings_section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class SettingsScreen extends StatefulWidget {
+/// Hem çocuk hem ebeveyn için yeniden tasarlanmış, iki ana bölümlü,
+/// oyunlaştırılmış mikro-etkileşimli ve tam erişilebilir Ayarlar ekranı.
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  late final TextEditingController _nameController;
-  bool _initialized = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_initialized) {
-      final name = context.read<GamificationProvider>().childName;
-      _nameController = TextEditingController(text: name);
-      _initialized = true;
-    }
-  }
-
-  @override
-  void dispose() {
-    if (_initialized) {
-      _nameController.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     final h = context.homeL10n!;
+    final appL10n = AppLocalizations.of(context);
 
     return ColoredBox(
       color: HomeDesignTokens.background,
       child: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
-          children: [
-            Text(
-              h.settingsTitle,
-              style: HomeDesignTokens.headingSection(),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              h.settingsChildName,
-              style: HomeDesignTokens.cardSubtitle(color: HomeDesignTokens.mutedText),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _nameController,
-              textCapitalization: TextCapitalization.words,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: h.settingsChildNameHint,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 680),
+                child: ListView(
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
+                  children: [
+                    _buildTopHeader(h.settingsTitle),
+                    const SizedBox(height: 24),
+
+                    // BÖLÜM 1: BENİM AYARLARIM (Çocuk Odaklı)
+                    SettingsSectionHeader(
+                      title: h.settingsSectionChild ?? 'Benim Ayarlarım',
+                      icon: Icons.child_care_rounded,
+                      iconColor: HomeDesignTokens.headerBlue,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: HomeDesignTokens.settingsSectionChild,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: HomeDesignTokens.settingsCardBorder,
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.02),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            h.settingsChildName,
+                            style: HomeDesignTokens.cardSubtitle(
+                              color: HomeDesignTokens.mutedText,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Selector<GamificationProvider, String>(
+                            selector: (_, provider) => provider.childName,
+                            builder: (context, childName, _) {
+                              return ChildNameEditor(
+                                initialName: childName,
+                                onSave: (name) => context
+                                    .read<GamificationProvider>()
+                                    .setChildName(name),
+                                hintText: h.settingsChildNameHint,
+                                saveText: h.settingsSaveName,
+                                savedText: h.settingsNameSavedShort ??
+                                    h.settingsNameSaved,
+                                emptyErrorText: h.settingsEmptyNameError ??
+                                    'İsim boş olamaz',
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                          Divider(
+                            color: HomeDesignTokens.settingsCardBorder,
+                            height: 1,
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Tema Seçimi (Segmented Choice Cards)
+                          Text(
+                            h.settingsAppearance,
+                            style: HomeDesignTokens.cardSubtitle(
+                              color: HomeDesignTokens.mutedText,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildThemeSegmentedControl(context, h, appL10n),
+                          const SizedBox(height: 20),
+                          Divider(
+                            color: HomeDesignTokens.settingsCardBorder,
+                            height: 1,
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Dil Seçimi (Modal Bottom Sheet tetikleyici kart)
+                          Text(
+                            h.settingsLanguage,
+                            style: HomeDesignTokens.cardSubtitle(
+                              color: HomeDesignTokens.mutedText,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          _buildLanguageChoiceCard(context, h),
+                        ],
+                      ),
+                    ),
+
+                    // GÖRSEL AYRAÇ & BOŞLUK
+                    const SizedBox(height: 32),
+                    _buildVisualSeparator(),
+                    const SizedBox(height: 32),
+
+                    // BÖLÜM 2: EBEVEYN ALANI (Güven Veren, Sade Blok)
+                    SettingsSectionHeader(
+                      title: h.settingsSectionParent ?? 'Ebeveyn Alanı',
+                      subtitle: h.settingsSectionParentWarning ??
+                          'Ebeveynlere özel kontroller ve raporlar',
+                      icon: Icons.security_rounded,
+                      iconColor: HomeDesignTokens.parentPanelAccent,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: HomeDesignTokens.settingsSectionParent,
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(
+                          color: HomeDesignTokens.settingsParentCardBorder,
+                          width: 1.5,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: HomeDesignTokens.parentPanelAccent
+                                .withValues(alpha: 0.04),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          _ParentActionTile(
+                            icon: Icons.family_restroom_rounded,
+                            iconColor: HomeDesignTokens.parentPanelAccent,
+                            title: h.settingsParentPanel,
+                            subtitle: h.settingsParentPanelSubtitle,
+                            onTap: () => context.push(AppRoutes.parentPanel),
+                          ),
+                          const SizedBox(height: 12),
+                          _ParentActionTile(
+                            icon: Icons.play_circle_fill_rounded,
+                            iconColor: HomeDesignTokens.parentPanelChart,
+                            title: h.tutorial,
+                            subtitle: h.seeTutorial,
+                            onTap: () => context.push(AppRoutes.tutorial),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              onSubmitted: (value) {
-                context.read<GamificationProvider>().setChildName(value);
-              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopHeader(String title) {
+    return Semantics(
+      header: true,
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: HomeDesignTokens.headerBlue.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(16),
             ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  context.read<GamificationProvider>().setChildName(_nameController.text);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(h.settingsNameSaved)),
-                  );
-                },
-                child: Text(h.settingsSaveName),
+            child: const Icon(
+              Icons.settings_rounded,
+              color: HomeDesignTokens.headerBlue,
+              size: 28,
+            ),
+          ),
+          const SizedBox(width: 14),
+          Text(
+            title,
+            style: HomeDesignTokens.headingLarge(
+              color: HomeDesignTokens.darkText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThemeSegmentedControl(
+    BuildContext context,
+    HomeLocalizations h,
+    AppLocalizations? appL10n,
+  ) {
+    final mode = context.watch<ThemeModeProvider>().appThemeMode;
+
+    return Row(
+      children: [
+        Expanded(
+          child: AnimatedChoiceCard(
+            title: h.settingsThemeLight ?? appL10n?.themeModeLight ?? 'Açık',
+            leading: const Text('☀️', style: TextStyle(fontSize: 20)),
+            isSelected: mode == AppThemeMode.light,
+            showCheckmark: false,
+            minHeight: 52,
+            onTap: () => context
+                .read<ThemeModeProvider>()
+                .setAppThemeMode(AppThemeMode.light),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: AnimatedChoiceCard(
+            title: h.settingsThemeDark ?? appL10n?.themeModeDark ?? 'Koyu',
+            leading: const Text('🌙', style: TextStyle(fontSize: 20)),
+            isSelected: mode == AppThemeMode.dark,
+            showCheckmark: false,
+            minHeight: 52,
+            onTap: () => context
+                .read<ThemeModeProvider>()
+                .setAppThemeMode(AppThemeMode.dark),
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: AnimatedChoiceCard(
+            title: h.settingsThemeSystem ?? appL10n?.themeModeSystem ?? 'Sistem',
+            leading: const Text('⚙️', style: TextStyle(fontSize: 20)),
+            isSelected: mode == AppThemeMode.system,
+            showCheckmark: false,
+            minHeight: 52,
+            onTap: () => context
+                .read<ThemeModeProvider>()
+                .setAppThemeMode(AppThemeMode.system),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLanguageChoiceCard(BuildContext context, HomeLocalizations h) {
+    final currentLang = context.watch<LanguageProvider>().language;
+    final currentOption = supportedLanguages.firstWhere(
+      (l) => l.value == currentLang,
+      orElse: () => supportedLanguages.first,
+    );
+
+    return _InteractiveChoiceTile(
+      leading: Text(currentOption.flag, style: const TextStyle(fontSize: 28)),
+      title: currentOption.label,
+      subtitle: currentOption.code,
+      onTap: () => showLanguageSelectionBottomSheet(context),
+    );
+  }
+
+  Widget _buildVisualSeparator() {
+    return Semantics(
+      excludeSemantics: true,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 16,
+            height: 6,
+            decoration: BoxDecoration(
+              color: HomeDesignTokens.headerBlue.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            width: 32,
+            height: 6,
+            decoration: BoxDecoration(
+              color: HomeDesignTokens.lettersCard.withValues(alpha: 0.4),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Container(
+            width: 16,
+            height: 6,
+            decoration: BoxDecoration(
+              color: HomeDesignTokens.parentPanelAccent.withValues(alpha: 0.3),
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InteractiveChoiceTile extends StatefulWidget {
+  const _InteractiveChoiceTile({
+    required this.leading,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final Widget leading;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  State<_InteractiveChoiceTile> createState() => _InteractiveChoiceTileState();
+}
+
+class _InteractiveChoiceTileState extends State<_InteractiveChoiceTile> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: '${widget.title}, ${widget.subtitle}',
+      child: GestureDetector(
+        onTapDown: (_) => setState(() => _isPressed = true),
+        onTapUp: (_) => setState(() => _isPressed = false),
+        onTapCancel: () => setState(() => _isPressed = false),
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _isPressed ? 0.97 : 1.0,
+          duration: const Duration(milliseconds: 120),
+          curve: Curves.easeInOut,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 56, minWidth: 48),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: HomeDesignTokens.settingsChoiceInactiveBorder,
+                width: 1.5,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.03),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            _SettingsTile(
-              icon: Icons.brightness_6_outlined,
-              title: h.settingsAppearance,
-              trailing: const ThemeModeSelector(),
+            child: Row(
+              children: [
+                widget.leading,
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: HomeDesignTokens.cardTitle(
+                          color: HomeDesignTokens.darkText,
+                        ).copyWith(fontSize: 16),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        widget.subtitle,
+                        style: HomeDesignTokens.cardSubtitle(
+                          color: HomeDesignTokens.mutedText,
+                        ).copyWith(fontSize: 13),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: HomeDesignTokens.background,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.chevron_right_rounded,
+                    color: HomeDesignTokens.darkText,
+                    size: 22,
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            _SettingsTile(
-              icon: Icons.language_outlined,
-              title: h.settingsLanguage,
-              trailing: const LanguageSelector(),
-            ),
-            const SizedBox(height: 12),
-            _SettingsTile(
-              icon: Icons.family_restroom_rounded,
-              title: h.settingsParentPanel,
-              subtitle: h.settingsParentPanelSubtitle,
-              onTap: () => context.push(AppRoutes.parentPanel),
-            ),
-            const SizedBox(height: 12),
-            _SettingsTile(
-              icon: Icons.play_circle_outline,
-              title: h.tutorial,
-              onTap: () => context.push(AppRoutes.tutorial),
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _SettingsTile extends StatelessWidget {
-  const _SettingsTile({
+class _ParentActionTile extends StatefulWidget {
+  const _ParentActionTile({
     required this.icon,
+    required this.iconColor,
     required this.title,
     this.subtitle,
-    this.trailing,
-    this.onTap,
+    required this.onTap,
   });
 
   final IconData icon;
+  final Color iconColor;
   final String title;
   final String? subtitle;
-  final Widget? trailing;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
+
+  @override
+  State<_ParentActionTile> createState() => _ParentActionTileState();
+}
+
+class _ParentActionTileState extends State<_ParentActionTile> {
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Icon(icon, color: HomeDesignTokens.headerBlue),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: HomeDesignTokens.cardTitle(color: HomeDesignTokens.darkText),
-                    ),
-                    if (subtitle != null) ...[
-                      const SizedBox(height: 2),
-                      Text(
-                        subtitle!,
-                        style: HomeDesignTokens.cardSubtitle(color: HomeDesignTokens.mutedText),
-                      ),
-                    ],
-                  ],
-                ),
+    return Semantics(
+      button: true,
+      label: '${widget.title}${widget.subtitle != null ? ', ${widget.subtitle}' : ''}',
+      child: GestureDetector(
+        onTapDown: (_) => setState(() => _isPressed = true),
+        onTapUp: (_) => setState(() => _isPressed = false),
+        onTapCancel: () => setState(() => _isPressed = false),
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _isPressed ? 0.97 : 1.0,
+          duration: const Duration(milliseconds: 120),
+          curve: Curves.easeInOut,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 64, minWidth: 48),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: widget.iconColor.withValues(alpha: 0.25),
+                width: 1.5,
               ),
-              if (trailing != null) trailing!,
-              if (onTap != null)
-                const Icon(Icons.chevron_right, color: HomeDesignTokens.mutedText),
-            ],
+              boxShadow: [
+                BoxShadow(
+                  color: widget.iconColor.withValues(alpha: 0.05),
+                  blurRadius: 8,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: widget.iconColor.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(widget.icon, color: widget.iconColor, size: 26),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: HomeDesignTokens.cardTitle(
+                          color: HomeDesignTokens.parentPanelHeader,
+                        ).copyWith(fontSize: 16),
+                      ),
+                      if (widget.subtitle != null) ...[
+                        const SizedBox(height: 3),
+                        Text(
+                          widget.subtitle!,
+                          style: HomeDesignTokens.cardSubtitle(
+                            color: HomeDesignTokens.mutedText,
+                          ).copyWith(fontSize: 13),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Icon(
+                  Icons.chevron_right_rounded,
+                  color: HomeDesignTokens.mutedText,
+                  size: 24,
+                ),
+              ],
+            ),
           ),
         ),
       ),

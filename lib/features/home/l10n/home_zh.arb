@@ -188,10 +188,6 @@
   "@shopTitle": {
     "description": "l10n: shopTitle"
   },
-  "shopScreenSubtitle": "Customize your avatar!",
-  "@shopScreenSubtitle": {
-    "description": "l10n: shopScreenSubtitle"
-  },
   "tabHat": "帽子",
   "@tabHat": {
     "description": "l10n: tabHat"
@@ -211,42 +207,6 @@
   "equipped": "已装备",
   "@equipped": {
     "description": "l10n: equipped"
-  },
-  "shopSlotNone": "移除",
-  "@shopSlotNone": {
-    "description": "l10n: shopSlotNone"
-  },
-  "itemEquipped": "已装备{item}！",
-  "@itemEquipped": {
-    "description": "l10n: itemEquipped",
-    "placeholders": {
-      "item": {
-        "type": "String",
-        "example": "item"
-      }
-    }
-  },
-  "itemUnequipped": "已移除{slot}",
-  "@itemUnequipped": {
-    "description": "l10n: itemUnequipped",
-    "placeholders": {
-      "slot": {
-        "type": "String",
-        "example": "slot"
-      }
-    }
-  },
-  "slotHat": "帽子",
-  "@slotHat": {
-    "description": "l10n: slotHat"
-  },
-  "slotGlasses": "眼镜",
-  "@slotGlasses": {
-    "description": "l10n: slotGlasses"
-  },
-  "slotOutfit": "服装",
-  "@slotOutfit": {
-    "description": "l10n: slotOutfit"
   },
   "insufficientPoints": "积分不足！😢",
   "@insufficientPoints": {
@@ -301,18 +261,6 @@
   "myQuestsTitle": "我的任务",
   "@myQuestsTitle": {
     "description": "l10n: myQuestsTitle"
-  },
-  "questsScreenSubtitle": "Complete quests and earn points!",
-  "@questsScreenSubtitle": {
-    "description": "l10n: questsScreenSubtitle"
-  },
-  "questsDailySection": "Daily Quests",
-  "@questsDailySection": {
-    "description": "l10n: questsDailySection"
-  },
-  "questsWeeklySection": "Weekly Quests",
-  "@questsWeeklySection": {
-    "description": "l10n: questsWeeklySection"
   },
   "loadingQuests": "加载任务中...",
   "@loadingQuests": {
@@ -680,17 +628,17 @@
   "@parentPanelTitle": {
     "description": "l10n: parentPanelTitle"
   },
-  "parentPanelWeeklyProgress": "{name}'s progress this week",
+  "parentPanelWeeklyProgress": "{name}'s weekly progress",
   "@parentPanelWeeklyProgress": {
     "description": "l10n: parentPanelWeeklyProgress",
     "placeholders": {
       "name": {
         "type": "String",
-        "example": "Elif"
+        "example": "name"
       }
     }
   },
-  "parentPanelWeeklyProgressNoName": "Progress this week",
+  "parentPanelWeeklyProgressNoName": "Weekly progress",
   "@parentPanelWeeklyProgressNoName": {
     "description": "l10n: parentPanelWeeklyProgressNoName"
   },
@@ -706,13 +654,13 @@
   "@parentPanelStatAccuracy": {
     "description": "l10n: parentPanelStatAccuracy"
   },
-  "parentPanelDurationMinutes": "{minutes}min",
+  "parentPanelDurationMinutes": "{minutes}m",
   "@parentPanelDurationMinutes": {
     "description": "l10n: parentPanelDurationMinutes",
     "placeholders": {
       "minutes": {
         "type": "int",
-        "example": "42"
+        "example": "1"
       }
     }
   },
@@ -722,7 +670,7 @@
     "placeholders": {
       "percent": {
         "type": "int",
-        "example": "89"
+        "example": "1"
       }
     }
   },
@@ -736,7 +684,7 @@
     "placeholders": {
       "range": {
         "type": "String",
-        "example": "B-D"
+        "example": "range"
       }
     }
   },
@@ -746,13 +694,29 @@
     "placeholders": {
       "number": {
         "type": "int",
-        "example": "7"
+        "example": "1"
       }
     }
   },
-  "parentPanelInsightGettingStarted": "Learning journey is just starting",
+  "parentPanelInsightGettingStarted": "Learning journey is just getting started",
   "@parentPanelInsightGettingStarted": {
     "description": "l10n: parentPanelInsightGettingStarted"
+  },
+  "parentPanelInsightMath": "Working on advanced math operations!",
+  "@parentPanelInsightMath": {
+    "description": "l10n: parentPanelInsightMath"
+  },
+  "parentPanelMathStrugglingAddition": "Most errors made in Addition. Suggestion: Review Visual & Symbolic Addition.",
+  "@parentPanelMathStrugglingAddition": {
+    "description": "l10n: parentPanelMathStrugglingAddition"
+  },
+  "parentPanelMathStrugglingSubtraction": "Most errors made in Subtraction. Suggestion: Review Level A/B Subtraction.",
+  "@parentPanelMathStrugglingSubtraction": {
+    "description": "l10n: parentPanelMathStrugglingSubtraction"
+  },
+  "parentPanelMathStrugglingTens": "Most errors made in Tens (10-100). Suggestion: Review Tens cards.",
+  "@parentPanelMathStrugglingTens": {
+    "description": "l10n: parentPanelMathStrugglingTens"
   },
   "parentPanelToday": "Today",
   "@parentPanelToday": {
@@ -769,5 +733,105 @@
   "settingsParentPanelSubtitle": "Progress & insights",
   "@settingsParentPanelSubtitle": {
     "description": "l10n: settingsParentPanelSubtitle"
+  },
+  "settingsSectionChild": "My Settings",
+  "@settingsSectionChild": {
+    "description": "l10n: settingsSectionChild"
+  },
+  "settingsSectionParent": "Parent Area",
+  "@settingsSectionParent": {
+    "description": "l10n: settingsSectionParent"
+  },
+  "settingsSectionParentWarning": "Controls and reports for parents",
+  "@settingsSectionParentWarning": {
+    "description": "l10n: settingsSectionParentWarning"
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "l10n: settingsThemeLight"
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "l10n: settingsThemeDark"
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "l10n: settingsThemeSystem"
+  },
+  "settingsChooseLanguage": "Choose Language",
+  "@settingsChooseLanguage": {
+    "description": "l10n: settingsChooseLanguage"
+  },
+  "settingsChooseTheme": "Choose Theme",
+  "@settingsChooseTheme": {
+    "description": "l10n: settingsChooseTheme"
+  },
+  "settingsNameSavedShort": "Saved",
+  "@settingsNameSavedShort": {
+    "description": "l10n: settingsNameSavedShort"
+  },
+  "settingsEmptyNameError": "Name cannot be empty",
+  "@settingsEmptyNameError": {
+    "description": "l10n: settingsEmptyNameError"
+  },
+  "shopScreenSubtitle": "Customize your avatar!",
+  "@shopScreenSubtitle": {
+    "description": "l10n: shopScreenSubtitle"
+  },
+  "shopSlotNone": "Remove",
+  "@shopSlotNone": {
+    "description": "l10n: shopSlotNone"
+  },
+  "itemEquipped": "{item} equipped!",
+  "@itemEquipped": {
+    "description": "l10n: itemEquipped",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "itemUnequipped": "{slot} removed",
+  "@itemUnequipped": {
+    "description": "l10n: itemUnequipped",
+    "placeholders": {
+      "slot": {
+        "type": "String",
+        "example": "slot"
+      }
+    }
+  },
+  "slotHat": "Hat",
+  "@slotHat": {
+    "description": "l10n: slotHat"
+  },
+  "slotGlasses": "Glasses",
+  "@slotGlasses": {
+    "description": "l10n: slotGlasses"
+  },
+  "slotOutfit": "Outfit",
+  "@slotOutfit": {
+    "description": "l10n: slotOutfit"
+  },
+  "questsScreenSubtitle": "Complete quests and earn points!",
+  "@questsScreenSubtitle": {
+    "description": "l10n: questsScreenSubtitle"
+  },
+  "questsDailySection": "Daily Quests",
+  "@questsDailySection": {
+    "description": "l10n: questsDailySection"
+  },
+  "questsWeeklySection": "Weekly Quests",
+  "@questsWeeklySection": {
+    "description": "l10n: questsWeeklySection"
+  },
+  "mathAdvancedTitle": "Advanced Math",
+  "@mathAdvancedTitle": {
+    "description": "l10n: mathAdvancedTitle"
+  },
+  "mathAdvancedSubtitle": "Practicing complex operations",
+  "@mathAdvancedSubtitle": {
+    "description": "l10n: mathAdvancedSubtitle"
   }
 }

@@ -1,0 +1,158 @@
+{
+  "@@locale": "tr",
+
+  "mathHubTitle": "Matematik Macerası",
+  "@mathHubTitle": { "description": "l10n: mathHubTitle" },
+
+  "mathHubSubtitle": "Pratik yapmak için bir konu seç",
+  "@mathHubSubtitle": { "description": "l10n: mathHubSubtitle" },
+
+  "mathHubTensTitle": "Onluklar",
+  "@mathHubTensTitle": { "description": "l10n: mathHubTensTitle" },
+
+  "mathHubTensSubtitle": "10, 20, 30 … 100",
+  "@mathHubTensSubtitle": { "description": "l10n: mathHubTensSubtitle" },
+
+  "mathHubFreeTitle": "Serbest Pratik",
+  "@mathHubFreeTitle": { "description": "l10n: mathHubFreeTitle" },
+
+  "mathHubFreeSubtitle": "2 basamaklı sayılar",
+  "@mathHubFreeSubtitle": { "description": "l10n: mathHubFreeSubtitle" },
+
+  "mathHubVisualTitle": "Görsel Toplama",
+  "@mathHubVisualTitle": { "description": "l10n: mathHubVisualTitle" },
+
+  "mathHubVisualSubtitle": "Say ve yaz",
+  "@mathHubVisualSubtitle": { "description": "l10n: mathHubVisualSubtitle" },
+
+  "mathHubSymbolicTitle": "Toplama-Çıkarma",
+  "@mathHubSymbolicTitle": { "description": "l10n: mathHubSymbolicTitle" },
+
+  "mathHubSymbolicSubtitle": "A, B, C seviyeleri",
+  "@mathHubSymbolicSubtitle": { "description": "l10n: mathHubSymbolicSubtitle" },
+
+  "mathSelectTensTitle": "Bir Onluk Sayı Seç",
+  "@mathSelectTensTitle": { "description": "l10n: mathSelectTensTitle" },
+
+  "mathDrawTensInstruction": "Kutulara {number} sayısını çiz",
+  "@mathDrawTensInstruction": {
+    "description": "l10n: mathDrawTensInstruction",
+    "placeholders": {
+      "number": { "type": "int", "example": "30" }
+    }
+  },
+
+  "mathFreePracticeInstruction": "{number} sayısını çizin",
+  "@mathFreePracticeInstruction": {
+    "description": "l10n: mathFreePracticeInstruction",
+    "placeholders": {
+      "number": { "type": "int", "example": "47" }
+    }
+  },
+
+  "mathVisualInstruction": "Nesneleri say ve toplamı yaz",
+  "@mathVisualInstruction": { "description": "l10n: mathVisualInstruction" },
+
+  "mathSymbolicInstruction": "Sonucu hesapla ve yaz",
+  "@mathSymbolicInstruction": { "description": "l10n: mathSymbolicInstruction" },
+
+  "mathTensBox": "Onlar",
+  "@mathTensBox": { "description": "l10n: mathTensBox" },
+
+  "mathUnitsBox": "Birler",
+  "@mathUnitsBox": { "description": "l10n: mathUnitsBox" },
+
+  "mathCheckButton": "Kontrol Et",
+  "@mathCheckButton": { "description": "l10n: mathCheckButton" },
+
+  "mathNextButton": "İleri",
+  "@mathNextButton": { "description": "l10n: mathNextButton" },
+
+  "mathCorrect": "Doğru! 🎉",
+  "@mathCorrect": { "description": "l10n: mathCorrect" },
+
+  "mathWrong": "Tekrar Dene!",
+  "@mathWrong": { "description": "l10n: mathWrong" },
+
+  "mathHintVisible": "İpucu Açık",
+  "@mathHintVisible": { "description": "l10n: mathHintVisible" },
+
+  "mathHintHidden": "İpucu Kapalı",
+  "@mathHintHidden": { "description": "l10n: mathHintHidden" },
+
+  "mathLevelLocked": "Önceki seviyeyi %80 tamamlayın",
+  "@mathLevelLocked": { "description": "l10n: mathLevelLocked" },
+
+  "mathLevelProgress": "{total} soruda {correct} doğru (%{percent})",
+  "@mathLevelProgress": {
+    "description": "l10n: mathLevelProgress",
+    "placeholders": {
+      "correct": { "type": "int", "example": "8" },
+      "total": { "type": "int", "example": "10" },
+      "percent": { "type": "int", "example": "80" }
+    }
+  },
+
+  "mathLevelA": "Seviye A",
+  "@mathLevelA": { "description": "l10n: mathLevelA" },
+
+  "mathLevelB": "Seviye B",
+  "@mathLevelB": { "description": "l10n: mathLevelB" },
+
+  "mathLevelC": "Seviye C",
+  "@mathLevelC": { "description": "l10n: mathLevelC" },
+
+  "mathLevelADesc": "Sonuç ≤ 10",
+  "@mathLevelADesc": { "description": "l10n: mathLevelADesc" },
+
+  "mathLevelBDesc": "Sonuç ≤ 20",
+  "@mathLevelBDesc": { "description": "l10n: mathLevelBDesc" },
+
+  "mathLevelCDesc": "İki basamaklı, taşımasız",
+  "@mathLevelCDesc": { "description": "l10n: mathLevelCDesc" },
+
+  "mathClearButton": "Temizle",
+  "@mathClearButton": { "description": "l10n: mathClearButton" },
+
+  "mathEmptyDrawingWarning": "Önce kutuya bir şeyler çizin",
+  "@mathEmptyDrawingWarning": { "description": "l10n: mathEmptyDrawingWarning" },
+
+  "mathParentSectionTitle": "Matematik İlerlemesi",
+  "@mathParentSectionTitle": { "description": "l10n: mathParentSectionTitle" },
+
+  "mathParentAdditions": "Çözülen toplama",
+  "@mathParentAdditions": { "description": "l10n: mathParentAdditions" },
+
+  "mathParentSubtractions": "Çözülen çıkarma",
+  "@mathParentSubtractions": { "description": "l10n: mathParentSubtractions" },
+
+  "mathParentTens": "Uygulanan onluk",
+  "@mathParentTens": { "description": "l10n: mathParentTens" },
+
+  "mathParentSuggest": "Çıkarma pratiğine devam edin!",
+  "@mathParentSuggest": { "description": "l10n: mathParentSuggest" },
+
+  "badgeMathFirstAdditionName": "İlk Toplama!",
+  "@badgeMathFirstAdditionName": { "description": "l10n: badgeMathFirstAdditionName" },
+
+  "badgeMathFirstAdditionDesc": "İlk toplamayı çözdün!",
+  "@badgeMathFirstAdditionDesc": { "description": "l10n: badgeMathFirstAdditionDesc" },
+
+  "badgeTensHeroName": "Onluklar Kahramanı",
+  "@badgeTensHeroName": { "description": "l10n: badgeTensHeroName" },
+
+  "badgeTensHeroDesc": "Tüm onluk sayıları egzersiz yaptın!",
+  "@badgeTensHeroDesc": { "description": "l10n: badgeTensHeroDesc" },
+
+  "badgeSubtractionMasterName": "Çıkarma Ustası",
+  "@badgeSubtractionMasterName": { "description": "l10n: badgeSubtractionMasterName" },
+
+  "badgeSubtractionMasterDesc": "20 çıkarma işlemi çözdün!",
+  "@badgeSubtractionMasterDesc": { "description": "l10n: badgeSubtractionMasterDesc" },
+
+  "mathAdvancedHomeTitle": "Toplama-Çıkarma",
+  "@mathAdvancedHomeTitle": { "description": "l10n: mathAdvancedHomeTitle" },
+
+  "mathAdvancedHomeSubtitle": "Matematik macerası",
+  "@mathAdvancedHomeSubtitle": { "description": "l10n: mathAdvancedHomeSubtitle" }
+}

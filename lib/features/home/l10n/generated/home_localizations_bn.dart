@@ -150,9 +150,6 @@ class HomeLocalizationsBn extends HomeLocalizations {
   String get shopTitle => 'দোকান';
 
   @override
-  String get shopScreenSubtitle => 'Customize your avatar!';
-
-  @override
   String get tabHat => 'টুপি';
 
   @override
@@ -166,28 +163,6 @@ class HomeLocalizationsBn extends HomeLocalizations {
 
   @override
   String get equipped => 'সজ্জিত';
-
-  @override
-  String get shopSlotNone => 'সরান';
-
-  @override
-  String itemEquipped(String item) {
-    return '$item পরিধান!';
-  }
-
-  @override
-  String itemUnequipped(String slot) {
-    return '$slot সরানো হয়েছে';
-  }
-
-  @override
-  String get slotHat => 'টুপি';
-
-  @override
-  String get slotGlasses => 'চশমা';
-
-  @override
-  String get slotOutfit => 'পোশাক';
 
   @override
   String get insufficientPoints => 'পর্যাপ্ত পয়েন্ট নেই! 😢';
@@ -221,15 +196,6 @@ class HomeLocalizationsBn extends HomeLocalizations {
 
   @override
   String get myQuestsTitle => 'আমার অনুসন্ধান';
-
-  @override
-  String get questsScreenSubtitle => 'Complete quests and earn points!';
-
-  @override
-  String get questsDailySection => 'Daily Quests';
-
-  @override
-  String get questsWeeklySection => 'Weekly Quests';
 
   @override
   String get loadingQuests => 'অনুসন্ধান লোড হচ্ছে...';
@@ -482,11 +448,11 @@ class HomeLocalizationsBn extends HomeLocalizations {
 
   @override
   String parentPanelWeeklyProgress(String name) {
-    return '$name\'s progress this week';
+    return '$name\'s weekly progress';
   }
 
   @override
-  String get parentPanelWeeklyProgressNoName => 'Progress this week';
+  String get parentPanelWeeklyProgressNoName => 'Weekly progress';
 
   @override
   String get parentPanelStatDuration => 'TIME';
@@ -499,7 +465,7 @@ class HomeLocalizationsBn extends HomeLocalizations {
 
   @override
   String parentPanelDurationMinutes(int minutes) {
-    return '${minutes}min';
+    return '${minutes}m';
   }
 
   @override
@@ -521,7 +487,22 @@ class HomeLocalizationsBn extends HomeLocalizations {
   }
 
   @override
-  String get parentPanelInsightGettingStarted => 'Learning journey is just starting';
+  String get parentPanelInsightGettingStarted => 'Learning journey is just getting started';
+
+  @override
+  String get parentPanelInsightMath => 'Working on advanced math operations!';
+
+  @override
+  String get parentPanelMathStrugglingAddition =>
+      'Most errors made in Addition. Suggestion: Review Visual & Symbolic Addition.';
+
+  @override
+  String get parentPanelMathStrugglingSubtraction =>
+      'Most errors made in Subtraction. Suggestion: Review Level A/B Subtraction.';
+
+  @override
+  String get parentPanelMathStrugglingTens =>
+      'Most errors made in Tens (10-100). Suggestion: Review Tens cards.';
 
   @override
   String get parentPanelToday => 'Today';
@@ -534,4 +515,74 @@ class HomeLocalizationsBn extends HomeLocalizations {
 
   @override
   String get settingsParentPanelSubtitle => 'Progress & insights';
+
+  @override
+  String get settingsSectionChild => 'My Settings';
+
+  @override
+  String get settingsSectionParent => 'Parent Area';
+
+  @override
+  String get settingsSectionParentWarning => 'Controls and reports for parents';
+
+  @override
+  String get settingsThemeLight => 'Light';
+
+  @override
+  String get settingsThemeDark => 'Dark';
+
+  @override
+  String get settingsThemeSystem => 'System';
+
+  @override
+  String get settingsChooseLanguage => 'Choose Language';
+
+  @override
+  String get settingsChooseTheme => 'Choose Theme';
+
+  @override
+  String get settingsNameSavedShort => 'Saved';
+
+  @override
+  String get settingsEmptyNameError => 'Name cannot be empty';
+
+  @override
+  String get shopScreenSubtitle => 'Customize your avatar!';
+
+  @override
+  String get shopSlotNone => 'Remove';
+
+  @override
+  String itemEquipped(String item) {
+    return '$item equipped!';
+  }
+
+  @override
+  String itemUnequipped(String slot) {
+    return '$slot removed';
+  }
+
+  @override
+  String get slotHat => 'Hat';
+
+  @override
+  String get slotGlasses => 'Glasses';
+
+  @override
+  String get slotOutfit => 'Outfit';
+
+  @override
+  String get questsScreenSubtitle => 'Complete quests and earn points!';
+
+  @override
+  String get questsDailySection => 'Daily Quests';
+
+  @override
+  String get questsWeeklySection => 'Weekly Quests';
+
+  @override
+  String get mathAdvancedTitle => 'Advanced Math';
+
+  @override
+  String get mathAdvancedSubtitle => 'Practicing complex operations';
 }

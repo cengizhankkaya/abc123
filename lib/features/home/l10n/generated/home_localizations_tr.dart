@@ -150,9 +150,6 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get shopTitle => 'MAĞAZA';
 
   @override
-  String get shopScreenSubtitle => 'Avatarını özelleştir!';
-
-  @override
   String get tabHat => 'Şapka';
 
   @override
@@ -166,28 +163,6 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get equipped => 'Giydin';
-
-  @override
-  String get shopSlotNone => 'Çıkar';
-
-  @override
-  String itemEquipped(String item) {
-    return '$item giyildi!';
-  }
-
-  @override
-  String itemUnequipped(String slot) {
-    return '$slot çıkarıldı';
-  }
-
-  @override
-  String get slotHat => 'Şapka';
-
-  @override
-  String get slotGlasses => 'Gözlük';
-
-  @override
-  String get slotOutfit => 'Kıyafet';
 
   @override
   String get insufficientPoints => 'Yeterli puanın yok! 😢';
@@ -221,15 +196,6 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get myQuestsTitle => 'GÖREVLERİM';
-
-  @override
-  String get questsScreenSubtitle => 'Görevleri tamamla, puan kazan!';
-
-  @override
-  String get questsDailySection => 'Günlük Görevler';
-
-  @override
-  String get questsWeeklySection => 'Haftalık Görevler';
 
   @override
   String get loadingQuests => 'Görevler yükleniyor...';
@@ -524,6 +490,21 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get parentPanelInsightGettingStarted => 'Öğrenme yolculuğu yeni başlıyor';
 
   @override
+  String get parentPanelInsightMath => 'Gelişmiş matematik işlemleri çalışıyor!';
+
+  @override
+  String get parentPanelMathStrugglingAddition =>
+      'En çok Toplama işleminde hata yapıldı. Öneri: Görsel & Sembolik Toplama tekrarı.';
+
+  @override
+  String get parentPanelMathStrugglingSubtraction =>
+      'En çok Çıkarma işleminde hata yapıldı. Öneri: Seviye A/B Çıkarma tekrarı.';
+
+  @override
+  String get parentPanelMathStrugglingTens =>
+      'En çok Onluk Sayılarda (10-100) hata yapıldı. Öneri: Onluk kartları tekrarı.';
+
+  @override
   String get parentPanelToday => 'Bugün';
 
   @override
@@ -534,4 +515,74 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get settingsParentPanelSubtitle => 'İlerleme ve içgörüler';
+
+  @override
+  String get settingsSectionChild => 'Benim Ayarlarım';
+
+  @override
+  String get settingsSectionParent => 'Ebeveyn Alanı';
+
+  @override
+  String get settingsSectionParentWarning => 'Ebeveynlere özel kontroller ve raporlar';
+
+  @override
+  String get settingsThemeLight => 'Açık';
+
+  @override
+  String get settingsThemeDark => 'Koyu';
+
+  @override
+  String get settingsThemeSystem => 'Sistem';
+
+  @override
+  String get settingsChooseLanguage => 'Dil Seçimi';
+
+  @override
+  String get settingsChooseTheme => 'Tema Seçimi';
+
+  @override
+  String get settingsNameSavedShort => 'Kaydedildi';
+
+  @override
+  String get settingsEmptyNameError => 'İsim boş olamaz';
+
+  @override
+  String get shopScreenSubtitle => 'Avatarını özelleştir!';
+
+  @override
+  String get shopSlotNone => 'Çıkar';
+
+  @override
+  String itemEquipped(String item) {
+    return '$item giyildi!';
+  }
+
+  @override
+  String itemUnequipped(String slot) {
+    return '$slot çıkarıldı';
+  }
+
+  @override
+  String get slotHat => 'Şapka';
+
+  @override
+  String get slotGlasses => 'Gözlük';
+
+  @override
+  String get slotOutfit => 'Kıyafet';
+
+  @override
+  String get questsScreenSubtitle => 'Görevleri tamamla, puan kazan!';
+
+  @override
+  String get questsDailySection => 'Günlük Görevler';
+
+  @override
+  String get questsWeeklySection => 'Haftalık Görevler';
+
+  @override
+  String get mathAdvancedTitle => 'Gelişmiş Matematik';
+
+  @override
+  String get mathAdvancedSubtitle => 'Karmaşık işlemleri pratik yap';
 }

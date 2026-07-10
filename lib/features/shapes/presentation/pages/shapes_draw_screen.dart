@@ -70,8 +70,8 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ShapesDrawingProvider>(
-      create: (_) => ShapesDrawingProvider(),
+    return ChangeNotifierProvider<ShapesDrawingProvider>.value(
+      value: context.read<ShapesDrawingProvider>(),
       child: Consumer<ShapesDrawingProvider>(
         builder: (context, provider, _) {
           final responsive = ResponsiveSize(context);

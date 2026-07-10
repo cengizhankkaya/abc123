@@ -9,14 +9,25 @@ import 'package:abc123/features/home/presentation/pages/avatar_shop_screen.dart'
 import 'package:abc123/features/home/presentation/pages/badges_screen.dart';
 import 'package:abc123/features/home/presentation/pages/daily_quest_screen.dart';
 import 'package:abc123/features/home/presentation/pages/parent_panel_screen.dart';
+import 'package:abc123/features/parent_panel/presentation/screens/parent_dashboard_screen.dart';
+import 'package:abc123/features/parent_panel/presentation/screens/parental_gate_screen.dart';
+import 'package:abc123/features/parent_panel/presentation/screens/screen_time_settings_screen.dart';
+import 'package:abc123/features/parent_panel/presentation/widgets/screen_time_middleware.dart';
 import 'package:abc123/features/home/presentation/pages/settings_screen.dart';
 import 'package:abc123/features/home/presentation/tutorial/tutorial_screen.dart';
 import 'package:abc123/features/home/presentation/widgets/home_tab.dart';
 import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
 import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
 import 'package:abc123/features/info/presentation/pages/info_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/pages/math_hub_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/pages/multi_digit_draw_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/pages/symbolic_math_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/pages/tens_selection_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/pages/visual_addition_screen.dart';
 import 'package:abc123/features/info/presentation/pages/result_screen.dart';
 import 'package:abc123/features/letters/presentation/pages/letter_draw_screen.dart';
+import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:abc123/features/shapes/presentation/pages/shapes_draw_screen.dart';
 import 'package:abc123/features/words/presentation/pages/word_draw_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -37,7 +48,9 @@ final GoRouter appRouter = GoRouter(
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return MainShellScaffold(navigationShell: navigationShell);
+        return ScreenTimeMiddleware(
+          child: MainShellScaffold(navigationShell: navigationShell),
+        );
       },
       branches: [
         StatefulShellBranch(
@@ -84,52 +97,93 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.parentPanel,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ParentPanelScreen(),
+      builder: (context, state) => const ParentalGateScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.parentGate,
+      builder: (context, state) => const ParentalGateScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.parentDashboard,
+      builder: (context, state) => const ParentDashboardScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.parentScreenTime,
+      builder: (context, state) => const ScreenTimeSettingsScreen(),
     ),
     GoRoute(
       path: AppRoutes.draw,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const DrawScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: DrawScreen()),
     ),
     GoRoute(
       path: AppRoutes.letters,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const LetterDrawScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: LetterDrawScreen()),
     ),
     GoRoute(
       path: AppRoutes.shapes,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ShapesDrawScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: ShapesDrawScreen()),
     ),
     GoRoute(
       path: AppRoutes.words,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const WordDrawScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: WordDrawScreen()),
     ),
     GoRoute(
       path: AppRoutes.colorGame,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ColorGameScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: ColorGameScreen()),
     ),
     GoRoute(
       path: AppRoutes.colorVisionGame,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const ColorVisionGameScreen(),
+      builder: (context, state) => const ScreenTimeMiddleware(child: ColorVisionGameScreen()),
     ),
     GoRoute(
       path: AppRoutes.tutorial,
-      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => YoutubeVideoScreen(),
     ),
     GoRoute(
+      path: AppRoutes.mathAdvanced,
+      builder: (context, state) => const ScreenTimeMiddleware(child: MathHubScreen()),
+    ),
+    GoRoute(
+      path: AppRoutes.mathTens,
+      builder: (context, state) => const ScreenTimeMiddleware(child: TensSelectionScreen()),
+    ),
+    GoRoute(
+      path: AppRoutes.mathFree,
+      builder: (context, state) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.read<MathProgressProvider>().startFreePractice();
+        });
+        return const ScreenTimeMiddleware(child: MultiDigitDrawScreen(isFreePractice: true));
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.mathDrawMultiDigit,
+      builder: (context, state) => const ScreenTimeMiddleware(child: MultiDigitDrawScreen(isFreePractice: false)),
+    ),
+    GoRoute(
+      path: AppRoutes.mathVisual,
+      builder: (context, state) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.read<MathProgressProvider>().startVisualAddition();
+        });
+        return const ScreenTimeMiddleware(child: VisualAdditionScreen());
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.mathSymbolic,
+      builder: (context, state) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.read<MathProgressProvider>().startSymbolicOperation(isAddition: true);
+        });
+        return const ScreenTimeMiddleware(child: SymbolicMathScreen());
+      },
+    ),
+    GoRoute(
       path: AppRoutes.badgesFull,
-      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const BadgesScreen(),
     ),
     GoRoute(
       path: AppRoutes.result,
-      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
         final extra = state.extra;
         if (extra is! ResultScreenData) {
@@ -153,7 +207,6 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.infoDraw,
-      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
         final extra = state.extra;
         if (extra is! InfoDrawExtra) {

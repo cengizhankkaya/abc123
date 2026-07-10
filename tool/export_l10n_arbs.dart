@@ -49,7 +49,10 @@ Map<String, dynamic>? _metaForValue(String key, String value) {
         n == 'count' ||
         n == 'price' ||
         n == 'correct' ||
-        n == 'total';
+        n == 'total' ||
+        n == 'minutes' ||
+        n == 'percent' ||
+        (key == 'parentPanelInsightNumberStruggling' && n == 'number');
     ph[n] = isInt
         ? {'type': 'int', 'example': '1'}
         : {'type': 'String', 'example': n};
@@ -171,6 +174,90 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   out['badgesStreakDayCount'] = t(en: '{count} days', tr: '{count} gün');
   out['badgesStreakSubtitle'] =
       t(en: 'Drawing streak', tr: 'Üst üste çizim serisi');
+
+  out['parentPanelTitle'] = t(en: 'Parent Panel', tr: 'Ebeveyn Paneli');
+  out['parentPanelWeeklyProgress'] = t(
+    en: "{name}'s weekly progress",
+    tr: "{name}'in bu haftaki ilerlemesi",
+  );
+  out['parentPanelWeeklyProgressNoName'] =
+      t(en: 'Weekly progress', tr: 'Bu haftaki ilerleme');
+  out['parentPanelStatDuration'] = t(en: 'TIME', tr: 'SÜRE');
+  out['parentPanelStatCompleted'] = t(en: 'COMPLETED', tr: 'TAMAMLANAN');
+  out['parentPanelStatAccuracy'] = t(en: 'AVG. ACCURACY', tr: 'ORT. DOĞRULUK');
+  out['parentPanelDurationMinutes'] = t(en: '{minutes}m', tr: '{minutes}dk');
+  out['parentPanelAccuracyPercent'] = t(en: '{percent}%', tr: '%{percent}');
+  out['parentPanelChartTitle'] =
+      t(en: 'Daily drawing time', tr: 'Günlük çizim süresi');
+  out['parentPanelInsightLettersLearned'] =
+      t(en: 'Letters {range} learned', tr: 'Harf {range} öğrenildi');
+  out['parentPanelInsightNumberStruggling'] = t(
+    en: 'Struggling with number {number}',
+    tr: 'Rakam {number} zorlanıyor',
+  );
+  out['parentPanelInsightGettingStarted'] = t(
+    en: 'Learning journey is just getting started',
+    tr: 'Öğrenme yolculuğu yeni başlıyor',
+  );
+  out['parentPanelInsightMath'] = t(
+    en: 'Working on advanced math operations!',
+    tr: 'Gelişmiş matematik işlemleri çalışıyor!',
+  );
+  out['parentPanelMathStrugglingAddition'] = t(
+    en: 'Most errors made in Addition. Suggestion: Review Visual & Symbolic Addition.',
+    tr: 'En çok Toplama işleminde hata yapıldı. Öneri: Görsel & Sembolik Toplama tekrarı.',
+  );
+  out['parentPanelMathStrugglingSubtraction'] = t(
+    en: 'Most errors made in Subtraction. Suggestion: Review Level A/B Subtraction.',
+    tr: 'En çok Çıkarma işleminde hata yapıldı. Öneri: Seviye A/B Çıkarma tekrarı.',
+  );
+  out['parentPanelMathStrugglingTens'] = t(
+    en: 'Most errors made in Tens (10-100). Suggestion: Review Tens cards.',
+    tr: 'En çok Onluk Sayılarda (10-100) hata yapıldı. Öneri: Onluk kartları tekrarı.',
+  );
+  out['parentPanelToday'] = t(en: 'Today', tr: 'Bugün');
+  out['parentPanelYesterday'] = t(en: 'Yesterday', tr: 'Dün');
+  out['settingsParentPanel'] = t(en: 'Parent Panel', tr: 'Ebeveyn Paneli');
+  out['settingsParentPanelSubtitle'] =
+      t(en: 'Progress & insights', tr: 'İlerleme ve içgörüler');
+
+  // New settings redesign l10n keys
+  out['settingsSectionChild'] = t(en: 'My Settings', tr: 'Benim Ayarlarım');
+  out['settingsSectionParent'] = t(en: 'Parent Area', tr: 'Ebeveyn Alanı');
+  out['settingsSectionParentWarning'] = t(
+    en: 'Controls and reports for parents',
+    tr: 'Ebeveynlere özel kontroller ve raporlar',
+  );
+  out['settingsThemeLight'] = t(en: 'Light', tr: 'Açık');
+  out['settingsThemeDark'] = t(en: 'Dark', tr: 'Koyu');
+  out['settingsThemeSystem'] = t(en: 'System', tr: 'Sistem');
+  out['settingsChooseLanguage'] = t(en: 'Choose Language', tr: 'Dil Seçimi');
+  out['settingsChooseTheme'] = t(en: 'Choose Theme', tr: 'Tema Seçimi');
+  out['settingsNameSavedShort'] = t(en: 'Saved', tr: 'Kaydedildi');
+  out['settingsEmptyNameError'] =
+      t(en: 'Name cannot be empty', tr: 'İsim boş olamaz');
+
+  // Restored shop, quests, and math localization keys
+  out['shopScreenSubtitle'] =
+      t(en: 'Customize your avatar!', tr: 'Avatarını özelleştir!');
+  out['shopSlotNone'] = t(en: 'Remove', tr: 'Çıkar');
+  out['itemEquipped'] = t(en: '{item} equipped!', tr: '{item} giyildi!');
+  out['itemUnequipped'] = t(en: '{slot} removed', tr: '{slot} çıkarıldı');
+  out['slotHat'] = t(en: 'Hat', tr: 'Şapka');
+  out['slotGlasses'] = t(en: 'Glasses', tr: 'Gözlük');
+  out['slotOutfit'] = t(en: 'Outfit', tr: 'Kıyafet');
+  out['questsScreenSubtitle'] = t(
+    en: 'Complete quests and earn points!',
+    tr: 'Görevleri tamamla, puan kazan!',
+  );
+  out['questsDailySection'] = t(en: 'Daily Quests', tr: 'Günlük Görevler');
+  out['questsWeeklySection'] = t(en: 'Weekly Quests', tr: 'Haftalık Görevler');
+  out['mathAdvancedTitle'] =
+      t(en: 'Advanced Math', tr: 'Gelişmiş Matematik');
+  out['mathAdvancedSubtitle'] = t(
+    en: 'Practicing complex operations',
+    tr: 'Karmaşık işlemleri pratik yap',
+  );
 
   return out;
 }

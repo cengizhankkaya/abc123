@@ -18,6 +18,7 @@ abstract final class HomeDesignTokens {
   static const Color wordsCard = Color(0xFF9B59B6);
   static const Color colorsCard = Color(0xFFFFB74D);
   static const Color colorVisionCard = Color(0xFF7E6BCE);
+  static const Color mathCard = Color(0xFF6C63FF);
 
   static const double headerBottomRadius = 32;
   static const double cardRadius = 20;
@@ -27,6 +28,17 @@ abstract final class HomeDesignTokens {
   static const Color parentPanelHeader = Color(0xFF2D2051);
   static const Color parentPanelAccent = Color(0xFF6C5CE7);
   static const Color parentPanelChart = Color(0xFF74B9FF);
+
+  // Settings Screen Semantic Tokens
+  static const Color settingsSectionChild = Color(0xFFFFF9F2);
+  static const Color settingsSectionParent = Color(0xFFF4F1FE);
+  static const Color settingsCardBorder = Color(0xFFE9ECEF);
+  static const Color settingsParentCardBorder = Color(0xFFD6C8FF);
+  static const Color settingsChoiceActiveBg = Color(0xFFEBF8FF);
+  static const Color settingsChoiceActiveBorder = Color(0xFF5B9FD4);
+  static const Color settingsChoiceInactiveBorder = Color(0xFFE2E8F0);
+  static const Color checkmarkGreen = Color(0xFF6BCB77);
+  static const Color settingsTileHover = Color(0xFFF8F9FA);
 
   static TextStyle headingLarge({Color color = Colors.white}) {
     return GoogleFonts.nunito(

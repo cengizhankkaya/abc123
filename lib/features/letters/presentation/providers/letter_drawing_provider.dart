@@ -12,8 +12,9 @@ import 'package:flutter/services.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
+import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
-class LetterDrawingProvider with ChangeNotifier {
+class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   List<DrawingPoint?> points = [];
   bool eraseMode = false;
   Color selectedColor = Colors.black;
@@ -179,6 +180,7 @@ class LetterDrawingProvider with ChangeNotifier {
 
   // Sıralı mod sonuç ekranı mantığı (ekran açma UI'da kalacak, burada sadece state güncelleme)
   void handleResult(bool isCorrect) {
+    _recordProgressAttempt(isCorrect);
     sequentialManager.moveToNextLetter(isCorrect);
     activeGuide = sequentialManager.getCurrentGuide();
     clearDrawing();
@@ -199,6 +201,7 @@ class LetterDrawingProvider with ChangeNotifier {
 
   /// Sonuç ekranı sonrası yapılacak işlemler (tekrar dene veya devam)
   void onResultScreenAction(bool isCorrect, {required bool tryAgain}) {
+    _recordProgressAttempt(isCorrect);
     if (tryAgain) {
       clearDrawing();
     } else {
@@ -212,5 +215,38 @@ class LetterDrawingProvider with ChangeNotifier {
     volume = value;
     AudioService().setVolume(value);
     notifyListeners();
+  }
+
+  // ─────────────────── ProgressSource İmplementasyonu ───────────────────
+
+  DateTime? _lastActivityDate;
+  final Map<String, int> _strugglingItemsMap = {};
+
+  void _recordProgressAttempt(bool isCorrect) {
+    _lastActivityDate = DateTime.now();
+    if (!isCorrect) {
+      final key = sequentialManager.currentTargetLetter;
+      _strugglingItemsMap[key] = (_strugglingItemsMap[key] ?? 0) + 1;
+    }
+  }
+
+  @override
+  String get moduleName => 'letters';
+
+  @override
+  double get completionPercentage =>
+      (sequentialManager.correctlyDrawnCount / 26.0 * 100.0).clamp(0.0, 100.0);
+
+  @override
+  double get accuracyRate => sequentialManager.getSuccessRate().clamp(0.0, 100.0);
+
+  @override
+  DateTime? get lastActivityDate => _lastActivityDate;
+
+  @override
+  List<String> get strugglingItems {
+    final entries = _strugglingItemsMap.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    return entries.map((e) => e.key).toList();
   }
 }

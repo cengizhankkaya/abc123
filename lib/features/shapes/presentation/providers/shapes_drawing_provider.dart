@@ -10,6 +10,7 @@ import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
+import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
 /// Şekiller için sıralı çizim durum yöneticisi
 class ShapesSequentialDrawingManager {
@@ -76,7 +77,7 @@ class ShapesSequentialDrawingManager {
   }
 }
 
-class ShapesDrawingProvider extends ChangeNotifier {
+class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim verisi
@@ -404,6 +405,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
 
   /// Sonuç ekranı kapatıldıktan sonra sıralı mod ilerlemesini günceller
   void handleSequentialResult(bool isCorrect) {
+    _recordProgressAttempt(isCorrect);
     if (!isSequentialModeActive) return;
     sequentialManager.moveToNextShape(isCorrect);
     _updateTanima();
@@ -412,6 +414,7 @@ class ShapesDrawingProvider extends ChangeNotifier {
 
   /// Sonuç ekranı sonrası yapılacak işlemler (tekrar dene veya devam)
   void onResultScreenAction(bool isCorrect, {required bool tryAgain}) {
+    _recordProgressAttempt(isCorrect);
     if (tryAgain) {
       // Aynı şekli tekrar dene
       clear();
@@ -421,5 +424,38 @@ class ShapesDrawingProvider extends ChangeNotifier {
       clear();
     }
     notifyListeners();
+  }
+
+  // ─────────────────── ProgressSource İmplementasyonu ───────────────────
+
+  DateTime? _lastActivityDate;
+  final Map<String, int> _strugglingItemsMap = {};
+
+  void _recordProgressAttempt(bool isCorrect) {
+    _lastActivityDate = DateTime.now();
+    if (!isCorrect) {
+      final key = currentTargetShape;
+      _strugglingItemsMap[key] = (_strugglingItemsMap[key] ?? 0) + 1;
+    }
+  }
+
+  @override
+  String get moduleName => 'shapes';
+
+  @override
+  double get completionPercentage =>
+      (sequentialManager.correctlyDrawnCount / 3.0 * 100.0).clamp(0.0, 100.0);
+
+  @override
+  double get accuracyRate => sequentialManager.getSuccessRate().clamp(0.0, 100.0);
+
+  @override
+  DateTime? get lastActivityDate => _lastActivityDate;
+
+  @override
+  List<String> get strugglingItems {
+    final entries = _strugglingItemsMap.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    return entries.map((e) => e.key).toList();
   }
 }

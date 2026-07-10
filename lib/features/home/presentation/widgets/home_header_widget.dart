@@ -2,6 +2,7 @@ import 'package:abc123/core/presentation/performance/gamification_layout_signatu
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
+import 'package:abc123/features/home/presentation/widgets/stat_pill.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,16 +64,19 @@ class HomeHeaderWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.22),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          '🔥 ${h.homeStreakDays(provider.streak)}',
-                          style: HomeDesignTokens.bodyMedium(),
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          StatPill(
+                            emoji: '🔥',
+                            label: h.homeStreakDays(provider.streak),
+                          ),
+                          const SizedBox(width: 10),
+                          StatPill(
+                            emoji: '⭐',
+                            label: '${provider.points}',
+                          ),
+                        ],
                       ),
                     ],
                   ),

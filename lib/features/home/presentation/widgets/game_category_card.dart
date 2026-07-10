@@ -70,7 +70,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
         child: ScaleTransition(
           scale: _scaleAnimation,
           child: Container(
-            height: 140, // Fixed height for consistency
+            constraints: const BoxConstraints(minHeight: 140),
             margin: const EdgeInsets.symmetric(vertical: 8),
             child: Stack(
               children: [

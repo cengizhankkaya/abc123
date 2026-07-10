@@ -12,8 +12,9 @@ import 'package:image/image.dart' as img;
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart' show AudioService;
+import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
-class DrawScreenProvider extends ChangeNotifier {
+class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim kontrolleri
@@ -162,6 +163,9 @@ class DrawScreenProvider extends ChangeNotifier {
       if (sequentialManager.isSequentialModeActive) {
         final bool isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
         showResultScreen(isCorrect);
+        if (!isCorrect) {
+          _recordProgressAttempt(false);
+        }
         if (isCorrect) {
           updateAfterContinue(true);
         }
@@ -312,6 +316,7 @@ class DrawScreenProvider extends ChangeNotifier {
   }
 
   void updateAfterContinue(bool isCorrect) {
+    _recordProgressAttempt(isCorrect);
     sequentialManager.isLetterMode = false;
     sequentialManager.moveToNextNumber(isCorrect);
     activeGuide = sequentialManager.getCurrentGuide();
@@ -328,5 +333,38 @@ class DrawScreenProvider extends ChangeNotifier {
   void setLanguage(AppLanguage lang) {
     language = lang;
     notifyListeners();
+  }
+
+  // ─────────────────── ProgressSource İmplementasyonu ───────────────────
+
+  DateTime? _lastActivityDate;
+  final Map<String, int> _strugglingItemsMap = {};
+
+  void _recordProgressAttempt(bool isCorrect) {
+    _lastActivityDate = DateTime.now();
+    if (!isCorrect) {
+      final key = '${sequentialManager.currentTargetNumber}';
+      _strugglingItemsMap[key] = (_strugglingItemsMap[key] ?? 0) + 1;
+    }
+  }
+
+  @override
+  String get moduleName => 'numbers';
+
+  @override
+  double get completionPercentage =>
+      (sequentialManager.correctlyDrawnCount / 10.0 * 100.0).clamp(0.0, 100.0);
+
+  @override
+  double get accuracyRate => sequentialManager.getSuccessRate().clamp(0.0, 100.0);
+
+  @override
+  DateTime? get lastActivityDate => _lastActivityDate;
+
+  @override
+  List<String> get strugglingItems {
+    final entries = _strugglingItemsMap.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    return entries.map((e) => e.key).toList();
   }
 }

@@ -93,7 +93,8 @@ abstract class HomeLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -399,12 +400,6 @@ abstract class HomeLocalizations {
   /// **'SHOP'**
   String get shopTitle;
 
-  /// l10n: shopScreenSubtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Customize your avatar!'**
-  String get shopScreenSubtitle;
-
   /// l10n: tabHat
   ///
   /// In en, this message translates to:
@@ -434,42 +429,6 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Equipped'**
   String get equipped;
-
-  /// l10n: shopSlotNone
-  ///
-  /// In en, this message translates to:
-  /// **'Remove'**
-  String get shopSlotNone;
-
-  /// l10n: itemEquipped
-  ///
-  /// In en, this message translates to:
-  /// **'{item} equipped!'**
-  String itemEquipped(String item);
-
-  /// l10n: itemUnequipped
-  ///
-  /// In en, this message translates to:
-  /// **'{slot} removed'**
-  String itemUnequipped(String slot);
-
-  /// l10n: slotHat
-  ///
-  /// In en, this message translates to:
-  /// **'Hat'**
-  String get slotHat;
-
-  /// l10n: slotGlasses
-  ///
-  /// In en, this message translates to:
-  /// **'Glasses'**
-  String get slotGlasses;
-
-  /// l10n: slotOutfit
-  ///
-  /// In en, this message translates to:
-  /// **'Outfit'**
-  String get slotOutfit;
 
   /// l10n: insufficientPoints
   ///
@@ -524,24 +483,6 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'MY QUESTS'**
   String get myQuestsTitle;
-
-  /// l10n: questsScreenSubtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Complete quests and earn points!'**
-  String get questsScreenSubtitle;
-
-  /// l10n: questsDailySection
-  ///
-  /// In en, this message translates to:
-  /// **'Daily Quests'**
-  String get questsDailySection;
-
-  /// l10n: questsWeeklySection
-  ///
-  /// In en, this message translates to:
-  /// **'Weekly Quests'**
-  String get questsWeeklySection;
 
   /// l10n: loadingQuests
   ///
@@ -1008,13 +949,13 @@ abstract class HomeLocalizations {
   /// l10n: parentPanelWeeklyProgress
   ///
   /// In en, this message translates to:
-  /// **'{name}\'s progress this week'**
+  /// **'{name}\'s weekly progress'**
   String parentPanelWeeklyProgress(String name);
 
   /// l10n: parentPanelWeeklyProgressNoName
   ///
   /// In en, this message translates to:
-  /// **'Progress this week'**
+  /// **'Weekly progress'**
   String get parentPanelWeeklyProgressNoName;
 
   /// l10n: parentPanelStatDuration
@@ -1038,7 +979,7 @@ abstract class HomeLocalizations {
   /// l10n: parentPanelDurationMinutes
   ///
   /// In en, this message translates to:
-  /// **'{minutes}min'**
+  /// **'{minutes}m'**
   String parentPanelDurationMinutes(int minutes);
 
   /// l10n: parentPanelAccuracyPercent
@@ -1068,8 +1009,32 @@ abstract class HomeLocalizations {
   /// l10n: parentPanelInsightGettingStarted
   ///
   /// In en, this message translates to:
-  /// **'Learning journey is just starting'**
+  /// **'Learning journey is just getting started'**
   String get parentPanelInsightGettingStarted;
+
+  /// l10n: parentPanelInsightMath
+  ///
+  /// In en, this message translates to:
+  /// **'Working on advanced math operations!'**
+  String get parentPanelInsightMath;
+
+  /// l10n: parentPanelMathStrugglingAddition
+  ///
+  /// In en, this message translates to:
+  /// **'Most errors made in Addition. Suggestion: Review Visual & Symbolic Addition.'**
+  String get parentPanelMathStrugglingAddition;
+
+  /// l10n: parentPanelMathStrugglingSubtraction
+  ///
+  /// In en, this message translates to:
+  /// **'Most errors made in Subtraction. Suggestion: Review Level A/B Subtraction.'**
+  String get parentPanelMathStrugglingSubtraction;
+
+  /// l10n: parentPanelMathStrugglingTens
+  ///
+  /// In en, this message translates to:
+  /// **'Most errors made in Tens (10-100). Suggestion: Review Tens cards.'**
+  String get parentPanelMathStrugglingTens;
 
   /// l10n: parentPanelToday
   ///
@@ -1094,6 +1059,138 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Progress & insights'**
   String get settingsParentPanelSubtitle;
+
+  /// l10n: settingsSectionChild
+  ///
+  /// In en, this message translates to:
+  /// **'My Settings'**
+  String get settingsSectionChild;
+
+  /// l10n: settingsSectionParent
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Area'**
+  String get settingsSectionParent;
+
+  /// l10n: settingsSectionParentWarning
+  ///
+  /// In en, this message translates to:
+  /// **'Controls and reports for parents'**
+  String get settingsSectionParentWarning;
+
+  /// l10n: settingsThemeLight
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settingsThemeLight;
+
+  /// l10n: settingsThemeDark
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settingsThemeDark;
+
+  /// l10n: settingsThemeSystem
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get settingsThemeSystem;
+
+  /// l10n: settingsChooseLanguage
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Language'**
+  String get settingsChooseLanguage;
+
+  /// l10n: settingsChooseTheme
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Theme'**
+  String get settingsChooseTheme;
+
+  /// l10n: settingsNameSavedShort
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get settingsNameSavedShort;
+
+  /// l10n: settingsEmptyNameError
+  ///
+  /// In en, this message translates to:
+  /// **'Name cannot be empty'**
+  String get settingsEmptyNameError;
+
+  /// l10n: shopScreenSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize your avatar!'**
+  String get shopScreenSubtitle;
+
+  /// l10n: shopSlotNone
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get shopSlotNone;
+
+  /// l10n: itemEquipped
+  ///
+  /// In en, this message translates to:
+  /// **'{item} equipped!'**
+  String itemEquipped(String item);
+
+  /// l10n: itemUnequipped
+  ///
+  /// In en, this message translates to:
+  /// **'{slot} removed'**
+  String itemUnequipped(String slot);
+
+  /// l10n: slotHat
+  ///
+  /// In en, this message translates to:
+  /// **'Hat'**
+  String get slotHat;
+
+  /// l10n: slotGlasses
+  ///
+  /// In en, this message translates to:
+  /// **'Glasses'**
+  String get slotGlasses;
+
+  /// l10n: slotOutfit
+  ///
+  /// In en, this message translates to:
+  /// **'Outfit'**
+  String get slotOutfit;
+
+  /// l10n: questsScreenSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Complete quests and earn points!'**
+  String get questsScreenSubtitle;
+
+  /// l10n: questsDailySection
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Quests'**
+  String get questsDailySection;
+
+  /// l10n: questsWeeklySection
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Quests'**
+  String get questsWeeklySection;
+
+  /// l10n: mathAdvancedTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced Math'**
+  String get mathAdvancedTitle;
+
+  /// l10n: mathAdvancedSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Practicing complex operations'**
+  String get mathAdvancedSubtitle;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {
@@ -1105,36 +1202,60 @@ class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'az', 'bn', 'de', 'en', 'es', 'fr', 'hi', 'pt', 'ru', 'tr', 'ur', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'az',
+        'bn',
+        'de',
+        'en',
+        'es',
+        'fr',
+        'hi',
+        'pt',
+        'ru',
+        'tr',
+        'ur',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_HomeLocalizationsDelegate old) => false;
 }
 
 HomeLocalizations lookupHomeLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar': return HomeLocalizationsAr();
-    case 'az': return HomeLocalizationsAz();
-    case 'bn': return HomeLocalizationsBn();
-    case 'de': return HomeLocalizationsDe();
-    case 'en': return HomeLocalizationsEn();
-    case 'es': return HomeLocalizationsEs();
-    case 'fr': return HomeLocalizationsFr();
-    case 'hi': return HomeLocalizationsHi();
-    case 'pt': return HomeLocalizationsPt();
-    case 'ru': return HomeLocalizationsRu();
-    case 'tr': return HomeLocalizationsTr();
-    case 'ur': return HomeLocalizationsUr();
-    case 'zh': return HomeLocalizationsZh();
+    case 'ar':
+      return HomeLocalizationsAr();
+    case 'az':
+      return HomeLocalizationsAz();
+    case 'bn':
+      return HomeLocalizationsBn();
+    case 'de':
+      return HomeLocalizationsDe();
+    case 'en':
+      return HomeLocalizationsEn();
+    case 'es':
+      return HomeLocalizationsEs();
+    case 'fr':
+      return HomeLocalizationsFr();
+    case 'hi':
+      return HomeLocalizationsHi();
+    case 'pt':
+      return HomeLocalizationsPt();
+    case 'ru':
+      return HomeLocalizationsRu();
+    case 'tr':
+      return HomeLocalizationsTr();
+    case 'ur':
+      return HomeLocalizationsUr();
+    case 'zh':
+      return HomeLocalizationsZh();
   }
 
   throw FlutterError(
-    'HomeLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'HomeLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }
