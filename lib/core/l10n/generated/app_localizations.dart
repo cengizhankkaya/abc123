@@ -148,6 +148,12 @@ abstract class AppLocalizations {
   /// **'Badges'**
   String get navBadges;
 
+  /// Main shell navigation: settings tab
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get navSettings;
+
   /// App bar title on the YouTube tutorial redirect screen
   ///
   /// In en, this message translates to:

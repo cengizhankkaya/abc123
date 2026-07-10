@@ -8,15 +8,13 @@ import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
-import 'package:abc123/features/home/presentation/widgets/game_category_card.dart';
-import 'package:abc123/features/home/presentation/widgets/home_badges_widget.dart';
+import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
+import 'package:abc123/features/home/presentation/widgets/home_continue_card.dart';
 import 'package:abc123/features/home/presentation/widgets/home_header_widget.dart';
+import 'package:abc123/features/home/presentation/widgets/home_learning_mode_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
-import 'package:abc123/features/home/presentation/widgets/language_selector.dart';
-import 'package:abc123/features/home/presentation/widgets/theme_mode_selector.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -26,6 +24,9 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
+  /// [CustomBottomNavigationBar] alt navigasyon çubuğu için alt boşluk.
+  static const double _bottomNavClearance = 100;
+
   @override
   void initState() {
     super.initState();
@@ -35,201 +36,142 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
   @override
   Widget build(BuildContext context) {
     final h = context.homeL10n!;
+    final cv = context.colorsL10n;
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.blue.shade50,
-            Colors.white,
-          ],
-        ),
-      ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            // HEADER (Top Bar)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ColoredBox(
+      color: HomeDesignTokens.background,
+      child: Column(
+        children: [
+          const HomeHeaderWidget(),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, _bottomNavClearance),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.abc, size: 40, color: const Color(0xFF6C5CE7)),
-                      const SizedBox(width: 4),
-                      const Text(
-                        "123",
-                        style: TextStyle(
-                          fontFamily: 'Roboto', // Using default font but ensuring clean look
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0xFF6C5CE7),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    h.homeLearningModes,
+                    style: HomeDesignTokens.headingSection(),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      ThemeModeSelector(),
-                      SizedBox(width: 4),
-                      LanguageSelector(),
-                    ],
+                  const SizedBox(height: 16),
+                  Selector<GamificationProvider, int>(
+                    selector: (_, p) => homeCategoryProgressSignature(p),
+                    builder: (context, _, __) {
+                      return GridView.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        childAspectRatio: 1.05,
+                        children: [
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 100),
+                            child: HomeLearningModeCard(
+                              title: h.numbersTitleShort,
+                              subtitle: h.numbersSubtitle,
+                              baseColor: HomeDesignTokens.numbersCard,
+                              image: ImageManager.getImage(
+                                ImageConstants.numberImage,
+                                fit: BoxFit.cover,
+                              ),
+                              onTap: () => context.push(AppRoutes.draw),
+                            ),
+                          ),
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 150),
+                            child: HomeLearningModeCard(
+                              title: h.lettersTitleShort,
+                              subtitle: h.lettersSubtitle,
+                              baseColor: HomeDesignTokens.lettersCard,
+                              image: ImageManager.getImage(
+                                ImageConstants.abcImage,
+                                fit: BoxFit.cover,
+                              ),
+                              onTap: () => context.push(AppRoutes.letters),
+                            ),
+                          ),
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 200),
+                            child: HomeLearningModeCard(
+                              title: h.shapesTitleShort,
+                              subtitle: h.shapesSubtitle,
+                              baseColor: HomeDesignTokens.shapesCard,
+                              image: ImageManager.getImage(
+                                ImageConstants.shapesImage,
+                                fit: BoxFit.cover,
+                              ),
+                              useDarkText: true,
+                              onTap: () => context.push(AppRoutes.shapes),
+                            ),
+                          ),
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 250),
+                            child: HomeLearningModeCard(
+                              title: h.wordsTitleShort,
+                              subtitle: h.wordsSubtitle,
+                              baseColor: HomeDesignTokens.wordsCard,
+                              image: Center(
+                                child: Icon(
+                                  Icons.spellcheck,
+                                  color: Colors.white.withValues(alpha: 0.38),
+                                  size: 88,
+                                ),
+                              ),
+                              onTap: () => context.push(AppRoutes.words),
+                            ),
+                          ),
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 300),
+                            child: HomeLearningModeCard(
+                              title: h.colorsTitleShort,
+                              subtitle: h.colorsSubtitle,
+                              baseColor: HomeDesignTokens.colorsCard,
+                              image: Center(
+                                child: Icon(
+                                  Icons.palette,
+                                  color: Colors.white.withValues(alpha: 0.38),
+                                  size: 88,
+                                ),
+                              ),
+                              onTap: () => context.push(AppRoutes.colorGame),
+                            ),
+                          ),
+                          FadeInSlide(
+                            delay: const Duration(milliseconds: 350),
+                            child: HomeLearningModeCard(
+                              title: cv.colorVisionHomeTitle,
+                              subtitle: cv.colorVisionHomeSubtitle,
+                              baseColor: HomeDesignTokens.colorVisionCard,
+                              image: Center(
+                                child: Icon(
+                                  Icons.visibility,
+                                  color: Colors.white.withValues(alpha: 0.38),
+                                  size: 88,
+                                ),
+                              ),
+                              onTap: () => context.push(AppRoutes.colorVisionGame),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  const FadeInSlide(
+                    delay: Duration(milliseconds: 380),
+                    child: AdmobBannerWidget(),
+                  ),
+                  const SizedBox(height: 20),
+                  const FadeInSlide(
+                    delay: Duration(milliseconds: 400),
+                    child: HomeContinueCard(),
                   ),
                 ],
               ),
             ),
-
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(
-                    16.0, 0, 16.0, 100.0), // Extra padding at bottom for navbar
-                child: Column(
-                  children: [
-                    // DASHBOARD HEADER (Greeting + Stats)
-                    const FadeInSlide(
-                      delay: Duration(milliseconds: 100),
-                      child: HomeHeaderWidget(),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    // BADGES SHELF
-                    const SizedBox(height: 16),
-
-                    // BADGES SHELF
-                    const FadeInSlide(
-                      delay: Duration(milliseconds: 300),
-                      child: HomeBadgesWidget(),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    // GAME CATEGORIES
-                    Selector<GamificationProvider, int>(
-                      selector: (_, p) => homeCategoryProgressSignature(p),
-                      builder: (context, _, __) {
-                        final provider = context.read<GamificationProvider>();
-                        final cv = context.colorsL10n;
-                        return Column(
-                          children: [
-                            FadeInSlide(
-                              delay: const Duration(milliseconds: 400),
-                              child: GameCategoryCard(
-                                title: h.numbersTitle,
-                                progressLabel: "${provider.numberDrawings} / 50",
-                                progress: provider.numberDrawings / 50,
-                                image: ImageManager.getImage(ImageConstants.numberImage,
-                                    fit: BoxFit.cover),
-                                baseColor: const Color(0xFFFF7675), // Soft Red
-                                onTap: () => context.push(AppRoutes.draw),
-                              ),
-                            ),
-                            FadeInSlide(
-                              delay: const Duration(milliseconds: 400),
-                              child: GameCategoryCard(
-                                title: h.lettersTitle,
-                                progressLabel: "${provider.letterDrawings} / 50",
-                                progress: provider.letterDrawings / 50,
-                                image: ImageManager.getImage(ImageConstants.abcImage,
-                                    fit: BoxFit.cover),
-                                baseColor: const Color(0xFF74B9FF), // Soft Blue
-                                onTap: () => context.push(AppRoutes.letters),
-                              ),
-                            ),
-                            FadeInSlide(
-                              delay: const Duration(milliseconds: 500),
-                              child: GameCategoryCard(
-                                title: h.shapesTitle,
-                                progressLabel: "${provider.shapeDrawings} / 50",
-                                progress: provider.shapeDrawings / 50,
-                                image: ImageManager.getImage(ImageConstants.shapesImage,
-                                    fit: BoxFit.cover),
-                                baseColor: const Color(0xFF55EFC4), // Soft Mint
-                                onTap: () => context.push(AppRoutes.shapes),
-                              ),
-                            ),
-                            FadeInSlide(
-                              delay: const Duration(milliseconds: 550),
-                              child: GameCategoryCard(
-                                title: h.colorsTitle,
-                                progressLabel: "${provider.colorRounds} / 50",
-                                progress: provider.colorRounds / 50,
-                                image: const FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: Icon(Icons.palette, color: Colors.white, size: 56),
-                                ),
-                                baseColor: const Color(0xFFFFB74D),
-                                onTap: () => context.push(AppRoutes.colorGame),
-                              ),
-                            ),
-                            FadeInSlide(
-                              delay: const Duration(milliseconds: 600),
-                              child: GameCategoryCard(
-                                title: cv.colorVisionHomeTitle,
-                                progressLabel: cv.colorVisionHomeSubtitle,
-                                progress: 0,
-                                image: const FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: Icon(Icons.visibility, color: Colors.white, size: 56),
-                                ),
-                                baseColor: const Color(0xFF9B59B6),
-                                onTap: () => context.push(AppRoutes.colorVisionGame),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 24),
-
-                    // TUTORIAL LINK
-                    GestureDetector(
-                      onTap: () => context.push(AppRoutes.tutorial),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.grey.shade200),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.play_circle_fill, color: Colors.redAccent, size: 32),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                h.tutorial,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                            ),
-                            const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // Banner Ad in ScrollView
-                    const AdmobBannerWidget(),
-                    // No bottom space here needed as padding is on ScrollView
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

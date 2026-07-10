@@ -2,12 +2,11 @@ import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/infrastructure/letter_recognition_service.dart';
 
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:image/image.dart' as img;
-import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:flutter/services.dart';
 
 import 'package:abc123/features/draw/domain/drawing_content.dart';
@@ -24,40 +23,10 @@ class LetterDrawingProvider with ChangeNotifier {
   bool isLoading = false;
   bool showResult = false;
   String recognitionResult = "";
-  Interpreter? interpreter;
   ui.Image? drawingImage;
 
   final SequentialDrawingManager sequentialManager = SequentialDrawingManager();
   late DrawingGuide activeGuide;
-
-  final List<String> letterLabels = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z'
-  ];
 
   double volume = 1.0;
 
@@ -65,20 +34,7 @@ class LetterDrawingProvider with ChangeNotifier {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = true;
-    _loadModel();
     activeGuide = DrawingContentProvider.activeLetterGuide;
-  }
-
-  Future<void> _loadModel() async {
-    try {
-      final loadedInterpreter =
-          await Interpreter.fromAsset('assets/models/final_combined_model-2.tflite');
-      interpreter = loadedInterpreter;
-      notifyListeners();
-    } catch (e) {
-      tanima = 'Model yüklenemedi: $e';
-      notifyListeners();
-    }
   }
 
   Future<void> tanimlaHarf(BuildContext context) async {
@@ -108,17 +64,7 @@ class LetterDrawingProvider with ChangeNotifier {
         return;
       }
       final Uint8List pngBytes = byteData.buffer.asUint8List();
-      final decodedImage = img.decodeImage(pngBytes);
-      if (decodedImage == null) {
-        tanima = 'Görüntü işlenemedi';
-        isLoading = false;
-        notifyListeners();
-        return;
-      }
-      final resizedImage = img.copyResize(decodedImage,
-          width: 28, height: 28, interpolation: img.Interpolation.average);
-      final Uint8List processedData = preprocessImage(resizedImage);
-      final result = await runInference(processedData);
+      final result = await LetterRecognitionService.instance.recognizePngBytes(pngBytes);
       // Önceki resmi manuel dispose etme, ResultScreen hâlâ kullanıyor olabilir.
       // GC'ye bırakmak daha güvenli.
       drawingImage = image;
@@ -154,64 +100,6 @@ class LetterDrawingProvider with ChangeNotifier {
         stackTrace: st,
       );
       return null;
-    }
-  }
-
-  Uint8List preprocessImage(img.Image resizedImage) {
-    final buffer = Float32List(28 * 28);
-    int pixelIndex = 0;
-    for (int y = 0; y < 28; y++) {
-      for (int x = 0; x < 28; x++) {
-        if (pixelIndex < buffer.length) {
-          final pixel = resizedImage.getPixel(x, y);
-          double grayValue = img.getLuminance(pixel) / 255.0;
-          grayValue = 1.0 - grayValue;
-          buffer[pixelIndex++] = grayValue;
-        }
-      }
-    }
-    return buffer.buffer.asUint8List();
-  }
-
-  Future<String> runInference(Uint8List imageData) async {
-    if (interpreter == null) {
-      throw Exception('Interpreter yüklenmedi');
-    }
-    try {
-      var inputBuffer = Float32List.view(imageData.buffer);
-      var inputData = List.generate(
-        1,
-        (i) => List.generate(
-          28,
-          (y) => List.generate(
-            28,
-            (x) {
-              final index = y * 28 + x;
-              return [inputBuffer[index]];
-            },
-          ),
-        ),
-      );
-      var output = [List<double>.filled(26, 0)];
-      interpreter!.run(inputData, output);
-      List<double> probabilities = output[0];
-      int maxIndex = 0;
-      double maxValue = probabilities[0];
-      for (int i = 1; i < probabilities.length; i++) {
-        if (probabilities[i] > maxValue) {
-          maxValue = probabilities[i];
-          maxIndex = i;
-        }
-      }
-      return letterLabels[maxIndex];
-    } catch (e, st) {
-      getIt<AppLogger>().error(
-        'Inference failed',
-        tag: 'LetterDraw',
-        error: e,
-        stackTrace: st,
-      );
-      throw Exception('Tahmin hatası: $e');
     }
   }
 

@@ -24,6 +24,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get navBadges => 'Badges';
 
   @override
+  String get navSettings => 'Settings';
+
+  @override
   String get tutorialScreenTitle => 'Tutorial';
 
   @override

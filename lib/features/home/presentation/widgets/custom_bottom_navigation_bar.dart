@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
+import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -15,31 +14,31 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
-      margin: const EdgeInsets.only(left: 24, right: 24, bottom: 32),
-      height: 70,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.8),
-        borderRadius: BorderRadius.circular(35),
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Colors.grey.shade200)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(35),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(context, Icons.home_rounded, 0),
-              _buildNavItem(context, Icons.rocket_launch_rounded, 1),
-              _buildNavItem(context, Icons.store_rounded, 2),
-              _buildNavItem(context, Icons.emoji_events_rounded, 3),
+              _buildNavItem(context, Icons.home_rounded, l10n.navHome, 0),
+              _buildNavItem(context, Icons.emoji_events_rounded, l10n.navBadges, 1),
+              _buildNavItem(context, Icons.rocket_launch_rounded, l10n.navQuests, 2),
+              _buildNavItem(context, Icons.store_rounded, l10n.navShop, 3),
+              _buildNavItem(context, Icons.settings_rounded, l10n.navSettings, 4),
             ],
           ),
         ),
@@ -47,52 +46,44 @@ class CustomBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  String _navLabel(BuildContext context, int index) {
-    final l10n = AppLocalizations.of(context)!;
-    return switch (index) {
-      0 => l10n.navHome,
-      1 => l10n.navQuests,
-      2 => l10n.navShop,
-      _ => l10n.navBadges,
-    };
-  }
-
-  Widget _buildNavItem(BuildContext context, IconData icon, int index) {
+  Widget _buildNavItem(BuildContext context, IconData icon, String label, int index) {
     final isSelected = currentIndex == index;
-    return Semantics(
-      button: true,
-      selected: isSelected,
-      label: _navLabel(context, index),
-      child: GestureDetector(
-        onTap: () => onTap(index),
-        behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFF6C5CE7).withOpacity(0.1) : Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                icon,
-                size: 28,
-                color: isSelected ? const Color(0xFF6C5CE7) : Colors.grey.shade400,
-              ),
-              if (isSelected)
+    final color = isSelected ? HomeDesignTokens.navActive : HomeDesignTokens.navInactive;
+
+    return Expanded(
+      child: Semantics(
+        button: true,
+        selected: isSelected,
+        label: label,
+        child: InkWell(
+          onTap: () => onTap(index),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 4),
-                  width: 4,
-                  height: 4,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF6C5CE7),
-                    shape: BoxShape.circle,
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? HomeDesignTokens.navActive.withValues(alpha: 0.12)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(icon, size: 22, color: color),
+                ),
+                const SizedBox(height: 2),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: HomeDesignTokens.navLabel(color: color),
                   ),
                 ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

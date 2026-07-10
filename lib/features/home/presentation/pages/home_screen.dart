@@ -204,9 +204,11 @@ class _HomeScreenState extends State<HomeScreen> with RewardedAdHelper<HomeScree
                         ),
                       ),
                       const SizedBox(height: 30),
-                      // Banner Ad in ScrollView
-                      const AdmobBannerWidget(),
-                      const SizedBox(height: 80), // Extra padding for safe scrolling
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: AdmobBannerWidget(),
+                      ),
+                      const SizedBox(height: 16),
                     ],
                   ),
                 ),

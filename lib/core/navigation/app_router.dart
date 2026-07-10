@@ -8,6 +8,8 @@ import 'package:abc123/features/draw/presentation/pages/draw_screen.dart';
 import 'package:abc123/features/home/presentation/pages/avatar_shop_screen.dart';
 import 'package:abc123/features/home/presentation/pages/badges_screen.dart';
 import 'package:abc123/features/home/presentation/pages/daily_quest_screen.dart';
+import 'package:abc123/features/home/presentation/pages/parent_panel_screen.dart';
+import 'package:abc123/features/home/presentation/pages/settings_screen.dart';
 import 'package:abc123/features/home/presentation/tutorial/tutorial_screen.dart';
 import 'package:abc123/features/home/presentation/widgets/home_tab.dart';
 import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
@@ -16,6 +18,7 @@ import 'package:abc123/features/info/presentation/pages/info_screen.dart';
 import 'package:abc123/features/info/presentation/pages/result_screen.dart';
 import 'package:abc123/features/letters/presentation/pages/letter_draw_screen.dart';
 import 'package:abc123/features/shapes/presentation/pages/shapes_draw_screen.dart';
+import 'package:abc123/features/words/presentation/pages/word_draw_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -48,6 +51,14 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
+              path: AppRoutes.badgesTab,
+              builder: (context, state) => const BadgesScreen(isTab: true),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
               path: AppRoutes.quests,
               builder: (context, state) => const DailyQuestScreen(),
             ),
@@ -64,12 +75,17 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: AppRoutes.badgesTab,
-              builder: (context, state) => const BadgesScreen(isTab: true),
+              path: AppRoutes.settings,
+              builder: (context, state) => const SettingsScreen(),
             ),
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: AppRoutes.parentPanel,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const ParentPanelScreen(),
     ),
     GoRoute(
       path: AppRoutes.draw,
@@ -85,6 +101,11 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.shapes,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const ShapesDrawScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.words,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) => const WordDrawScreen(),
     ),
     GoRoute(
       path: AppRoutes.colorGame,

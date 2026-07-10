@@ -20,6 +20,7 @@ class ActionToolbarWidget extends StatelessWidget {
   final void Function(bool) onSequentialModeChanged;
   final int correctlyDrawnCount;
   final int totalAttempts;
+  final bool showSequentialControls;
   final Color? panelColor;
 
   const ActionToolbarWidget({
@@ -36,6 +37,7 @@ class ActionToolbarWidget extends StatelessWidget {
     required this.onSequentialModeChanged,
     required this.correctlyDrawnCount,
     required this.totalAttempts,
+    this.showSequentialControls = true,
     this.panelColor,
   });
 
@@ -140,84 +142,131 @@ class ActionToolbarWidget extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Sıralı mod ve sayaç
-              Flexible(
-                flex: 2,
-                child: Row(
-                  children: [
-                    Text(
-                      d.drawSequentialMode,
-                      style: TextStyle(
-                        fontSize: _optimizedFontSize(responsive),
-                        fontWeight: FontWeight.bold,
+              if (showSequentialControls)
+                Flexible(
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      Text(
+                        d.drawSequentialMode,
+                        style: TextStyle(
+                          fontSize: _optimizedFontSize(responsive),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    SizedBox(width: buttonSpacing),
-                    Transform.scale(
-                      scale: 0.7,
-                      child: Switch(
-                        value: isSequentialModeActive,
-                        onChanged: onSequentialModeChanged,
-                        activeColor: Colors.green,
-                      ),
-                    ),
-                    if (isSequentialModeActive)
-                      Padding(
-                        padding: EdgeInsets.only(left: buttonSpacing),
-                        child: Text(
-                          d.drawCorrectTotal(correctlyDrawnCount, totalAttempts),
-                          style: TextStyle(
-                            fontSize: _optimizedFontSize(responsive) * 0.95,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurple,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                      SizedBox(width: buttonSpacing),
+                      Transform.scale(
+                        scale: 0.7,
+                        child: Switch(
+                          value: isSequentialModeActive,
+                          onChanged: onSequentialModeChanged,
+                          activeColor: Colors.green,
                         ),
                       ),
-                    Spacer(),
-                    _buildActionButton(
-                      '',
-                      Icons.delete_outline,
-                      Colors.grey.shade300,
-                      onClear,
-                      context,
-                      false,
-                      d.drawClear,
-                    ),
-                    SizedBox(width: buttonSpacing),
-                    _buildActionButton(
-                      '',
-                      Icons.edit,
-                      Colors.black,
-                      onPenMode,
-                      context,
-                      !eraseMode && selectedColor == Colors.black,
-                      d.drawPen,
-                    ),
-                    SizedBox(width: buttonSpacing),
-                    _buildActionButton(
-                      '',
-                      Icons.cleaning_services_outlined,
-                      Colors.yellow.shade200,
-                      onEraseMode,
-                      context,
-                      eraseMode,
-                      d.drawEraser,
-                    ),
-                    SizedBox(width: buttonSpacing),
-                    _buildActionButton(
-                      '',
-                      Icons.arrow_forward_ios,
-                      AppColors.secondaryColor,
-                      onRecognize,
-                      context,
-                      false,
-                      d.drawRecognize,
-                    ),
-                  ],
+                      if (isSequentialModeActive)
+                        Padding(
+                          padding: EdgeInsets.only(left: buttonSpacing),
+                          child: Text(
+                            d.drawCorrectTotal(correctlyDrawnCount, totalAttempts),
+                            style: TextStyle(
+                              fontSize: _optimizedFontSize(responsive) * 0.95,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurple,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      Spacer(),
+                      _buildActionButton(
+                        '',
+                        Icons.delete_outline,
+                        Colors.grey.shade300,
+                        onClear,
+                        context,
+                        false,
+                        d.drawClear,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.edit,
+                        Colors.black,
+                        onPenMode,
+                        context,
+                        !eraseMode && selectedColor == Colors.black,
+                        d.drawPen,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.cleaning_services_outlined,
+                        Colors.yellow.shade200,
+                        onEraseMode,
+                        context,
+                        eraseMode,
+                        d.drawEraser,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.arrow_forward_ios,
+                        AppColors.secondaryColor,
+                        onRecognize,
+                        context,
+                        false,
+                        d.drawRecognize,
+                      ),
+                    ],
+                  ),
+                )
+              else
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildActionButton(
+                        '',
+                        Icons.delete_outline,
+                        Colors.grey.shade300,
+                        onClear,
+                        context,
+                        false,
+                        d.drawClear,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.edit,
+                        Colors.black,
+                        onPenMode,
+                        context,
+                        !eraseMode && selectedColor == Colors.black,
+                        d.drawPen,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.cleaning_services_outlined,
+                        Colors.yellow.shade200,
+                        onEraseMode,
+                        context,
+                        eraseMode,
+                        d.drawEraser,
+                      ),
+                      SizedBox(width: buttonSpacing),
+                      _buildActionButton(
+                        '',
+                        Icons.arrow_forward_ios,
+                        AppColors.secondaryColor,
+                        onRecognize,
+                        context,
+                        false,
+                        d.drawRecognize,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
               // Butonlar (Wrap ile responsive)
             ],
           ),

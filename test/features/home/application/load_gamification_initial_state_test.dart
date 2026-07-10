@@ -41,6 +41,8 @@ void main() {
           .thenAnswer((_) async => d.shapeDrawings);
       when(() => mockPersistence.getInt(GamificationConstants.keyColorRounds))
           .thenAnswer((_) async => d.colorRounds);
+      when(() => mockPersistence.getInt(GamificationConstants.keyWordsCompleted))
+          .thenAnswer((_) async => d.wordsCompleted);
       when(() => mockPersistence
               .getStringList(GamificationConstants.keyUnlockedBadges))
           .thenAnswer((_) async => d.unlockedBadgeIds);
@@ -61,6 +63,7 @@ void main() {
       expect(state.totalDrawings, d.totalDrawings);
       expect(state.unlockedBadgeIds, d.unlockedBadgeIds);
       expect(state.colorRounds, d.colorRounds);
+      expect(state.wordsCompleted, d.wordsCompleted);
       expect(state.equippedItemsJson, d.equippedItemsJson);
       expect(state.questsLedgerJson, d.questsLedgerJson);
     });

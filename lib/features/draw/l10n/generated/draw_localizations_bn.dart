@@ -52,6 +52,9 @@ class DrawLocalizationsBn extends DrawLocalizations {
   String get drawShapeSectionTitle => 'আকৃতি শিখুন';
 
   @override
+  String get drawWordSectionTitle => 'Build Words';
+
+  @override
   String get drawLetterPuzzlePreparing => 'Preparing puzzle…';
 
   @override

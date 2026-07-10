@@ -14,6 +14,7 @@ abstract final class GamificationTestData {
     letterDrawings: 3,
     shapeDrawings: 3,
     colorRounds: 2,
+    wordsCompleted: 6,
     unlockedBadgeIds: ['badge_first_login'],
     ownedItemIds: ['hat_blue_cap'],
     equippedItemsJson: '{"ShopItemType.hat":"hat_blue_cap"}',
@@ -27,6 +28,7 @@ abstract final class GamificationTestData {
     letterDrawings: 7,
     shapeDrawings: 5,
     colorRounds: 1,
+    wordsCompleted: 3,
   );
 
   static QuestModel sampleQuest({

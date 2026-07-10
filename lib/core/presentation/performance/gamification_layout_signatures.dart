@@ -10,9 +10,17 @@ int homeCategoryProgressSignature(GamificationProvider p) => Object.hash(
       p.letterDrawings,
       p.shapeDrawings,
       p.colorRounds,
+      p.wordsCompleted,
     );
 
-int headerPointsStreakSignature(GamificationProvider p) => Object.hash(p.points, p.streak);
+int headerPointsStreakSignature(GamificationProvider p) =>
+    Object.hash(p.points, p.streak, p.childName);
+
+int homeContinueSignature(GamificationProvider p) => Object.hash(
+      p.lastActivityMode,
+      p.lastActivityIndex,
+      p.lastActivityTotal,
+    );
 
 int questListLayoutSignature(List<QuestModel> quests) {
   var h = quests.length;

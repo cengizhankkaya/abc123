@@ -71,6 +71,10 @@ String homeBadgeLine(HomeLocalizations l, String key) {
       return l.badgeBronzeArtistDesc;
     case 'badgeBronzeArtistName':
       return l.badgeBronzeArtistName;
+    case 'badgeColorMasterDesc':
+      return l.badgeColorMasterDesc;
+    case 'badgeColorMasterName':
+      return l.badgeColorMasterName;
     case 'badgeDiamondArtistDesc':
       return l.badgeDiamondArtistDesc;
     case 'badgeDiamondArtistName':
@@ -119,10 +123,6 @@ String homeBadgeLine(HomeLocalizations l, String key) {
       return l.badgeShapeMasterDesc;
     case 'badgeShapeMasterName':
       return l.badgeShapeMasterName;
-    case 'badgeColorMasterDesc':
-      return l.badgeColorMasterDesc;
-    case 'badgeColorMasterName':
-      return l.badgeColorMasterName;
     case 'badgeSilverArtistDesc':
       return l.badgeSilverArtistDesc;
     case 'badgeSilverArtistName':
@@ -143,6 +143,10 @@ String homeBadgeLine(HomeLocalizations l, String key) {
       return l.badgeWeekendWarriorDesc;
     case 'badgeWeekendWarriorName':
       return l.badgeWeekendWarriorName;
+    case 'badgeWordMasterDesc':
+      return l.badgeWordMasterDesc;
+    case 'badgeWordMasterName':
+      return l.badgeWordMasterName;
     default:
       return key;
   }

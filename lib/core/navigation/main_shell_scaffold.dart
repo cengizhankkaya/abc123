@@ -46,7 +46,6 @@ class _CompactShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       body: Stack(
         children: [
           navigationShell,
@@ -161,6 +160,11 @@ List<NavigationRailDestination> _shellRailDestinations(BuildContext context) {
       label: Text(l10n.navHome),
     ),
     NavigationRailDestination(
+      icon: const Icon(Icons.emoji_events_outlined),
+      selectedIcon: const Icon(Icons.emoji_events_rounded),
+      label: Text(l10n.navBadges),
+    ),
+    NavigationRailDestination(
       icon: const Icon(Icons.rocket_launch_outlined),
       selectedIcon: const Icon(Icons.rocket_launch_rounded),
       label: Text(l10n.navQuests),
@@ -171,9 +175,9 @@ List<NavigationRailDestination> _shellRailDestinations(BuildContext context) {
       label: Text(l10n.navShop),
     ),
     NavigationRailDestination(
-      icon: const Icon(Icons.emoji_events_outlined),
-      selectedIcon: const Icon(Icons.emoji_events_rounded),
-      label: Text(l10n.navBadges),
+      icon: const Icon(Icons.settings_outlined),
+      selectedIcon: const Icon(Icons.settings_rounded),
+      label: Text(l10n.navSettings),
     ),
   ];
 }
@@ -200,6 +204,11 @@ class _AppNavigationDrawer extends StatelessWidget {
           label: Text(l10n.navHome),
         ),
         NavigationDrawerDestination(
+          icon: const Icon(Icons.emoji_events_outlined),
+          selectedIcon: const Icon(Icons.emoji_events_rounded),
+          label: Text(l10n.navBadges),
+        ),
+        NavigationDrawerDestination(
           icon: const Icon(Icons.rocket_launch_outlined),
           selectedIcon: const Icon(Icons.rocket_launch_rounded),
           label: Text(l10n.navQuests),
@@ -210,9 +219,9 @@ class _AppNavigationDrawer extends StatelessWidget {
           label: Text(l10n.navShop),
         ),
         NavigationDrawerDestination(
-          icon: const Icon(Icons.emoji_events_outlined),
-          selectedIcon: const Icon(Icons.emoji_events_rounded),
-          label: Text(l10n.navBadges),
+          icon: const Icon(Icons.settings_outlined),
+          selectedIcon: const Icon(Icons.settings_rounded),
+          label: Text(l10n.navSettings),
         ),
       ],
     );

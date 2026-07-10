@@ -98,12 +98,80 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   }
   final tool = localizedToolControlPanelTexts[lang] ??
       localizedToolControlPanelTexts[AppLanguage.english]!;
-  out['numbersTitle'] = tool['numberTitle']! as String;
-  out['lettersTitle'] = tool['letterTitle']! as String;
-  out['shapesTitle'] = tool['shapeTitle']! as String;
+  out['numbersTitle'] = tool['numberTitle']!;
+  out['lettersTitle'] = tool['letterTitle']!;
+  out['shapesTitle'] = tool['shapeTitle']!;
+  out['colorsTitle'] =
+      lang == AppLanguage.turkish ? 'Renk Öğrenme' : 'Learn Colors';
+  out['wordsTitle'] =
+      lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
+
+  out['badgeColorMasterName'] =
+      lang == AppLanguage.turkish ? 'Renk Ustası' : 'Color Expert';
+  out['badgeColorMasterDesc'] = lang == AppLanguage.turkish
+      ? '50 renk turunu tamamladın!'
+      : 'You completed 50 color rounds!';
+
+  out['badgeWordMasterName'] =
+      lang == AppLanguage.turkish ? 'Kelime Ustası' : 'Word Builder';
+  out['badgeWordMasterDesc'] = lang == AppLanguage.turkish
+      ? '50 kelime tamamladın!'
+      : 'You completed 50 words!';
+
+  out['questsRefreshedMessage'] = lang == AppLanguage.turkish
+      ? 'Görevler yenilendi.'
+      : 'Quests have been refreshed.';
   out['noBadgesFound'] = lang == AppLanguage.turkish
       ? 'Rozet bulunamadı'
       : 'No badges found';
+
+  final isTr = lang == AppLanguage.turkish;
+  String t({required String en, required String tr}) => isTr ? tr : en;
+
+  out['homeGreetingWithName'] = t(en: 'Hello, {name}!', tr: 'Merhaba, {name}!');
+  out['homeSloganToday'] =
+      t(en: 'What shall we learn today?', tr: 'Bugün ne öğrenelim?');
+  out['homeStreakDays'] = t(en: '{count}-day streak', tr: '{count} günlük seri');
+  out['homeLearningModes'] = t(en: 'Learning Modes', tr: 'Öğrenme Modları');
+  out['numbersTitleShort'] = t(en: 'Numbers', tr: 'Rakamlar');
+  out['lettersTitleShort'] = t(en: 'Letters', tr: 'Harfler');
+  out['shapesTitleShort'] = t(en: 'Shapes', tr: 'Şekiller');
+  out['wordsTitleShort'] = t(en: 'Words', tr: 'Kelimeler');
+  out['colorsTitleShort'] = t(en: 'Colors', tr: 'Renkler');
+  out['numbersSubtitle'] = t(en: 'Draw 0–9', tr: '0–9 çiz');
+  out['lettersSubtitle'] = t(en: 'Draw A–Z', tr: 'A–Z çiz');
+  out['shapesSubtitle'] = t(en: 'New!', tr: 'Yeni!');
+  out['wordsSubtitle'] = t(en: 'Draw words', tr: 'Kelime çiz');
+  out['colorsSubtitle'] = t(en: 'Play & learn', tr: 'Oyna ve öğren');
+  out['homeWhereYouLeft'] =
+      t(en: 'Where you left off: {label}', tr: 'Kaldığın yer: {label}');
+  out['homeStepsRemaining'] =
+      t(en: '{count} steps left', tr: '{count} adım kaldı');
+  out['homeContinueNumber'] = t(en: 'Number {number}', tr: 'Rakam {number}');
+  out['homeContinueLetter'] = t(en: 'Letter {letter}', tr: 'Harf {letter}');
+  out['homeContinueShape'] = t(en: 'Shape {number}', tr: 'Şekil {number}');
+  out['homeContinueWord'] = t(en: 'Words', tr: 'Kelimeler');
+  out['homeContinueColor'] = t(en: 'Colors', tr: 'Renkler');
+  out['homeContinueColorVision'] =
+      t(en: 'Color Vision', tr: 'Renk Görüşü');
+  out['settingsTitle'] = t(en: 'Settings', tr: 'Ayarlar');
+  out['settingsChildName'] = t(en: 'Name', tr: 'İsim');
+  out['settingsChildNameHint'] =
+      t(en: 'Enter your name', tr: 'Adını yaz');
+  out['settingsSaveName'] = t(en: 'Save', tr: 'Kaydet');
+  out['settingsNameSaved'] = t(en: 'Name saved', tr: 'İsim kaydedildi');
+  out['settingsAppearance'] = t(en: 'Appearance', tr: 'Görünüm');
+  out['settingsLanguage'] = t(en: 'Language', tr: 'Dil');
+
+  out['badgesScreenTitle'] = t(en: 'My Badges', tr: 'Rozetlerim');
+  out['badgesEarnedOfTotal'] = t(
+    en: '{count} / {total} badges earned',
+    tr: '{count} / {total} rozet kazanıldı',
+  );
+  out['badgesStreakDayCount'] = t(en: '{count} days', tr: '{count} gün');
+  out['badgesStreakSubtitle'] =
+      t(en: 'Drawing streak', tr: 'Üst üste çizim serisi');
+
   return out;
 }
 
@@ -120,7 +188,7 @@ Map<String, String> _drawForLang(AppLanguage lang) {
       localizedActionToolbarTexts[AppLanguage.english]!;
   out['drawSequentialMode'] = action['sequentialMode']! as String;
   out['drawCorrectTotal'] =
-      _templateFromTwoIntFn(action['correctTotal'] as Object?);
+      _templateFromTwoIntFn(action['correctTotal']);
   out['drawClear'] = action['clear']! as String;
   out['drawPen'] = action['pen']! as String;
   out['drawEraser'] = action['eraser']! as String;
@@ -128,10 +196,12 @@ Map<String, String> _drawForLang(AppLanguage lang) {
 
   final tool = localizedToolControlPanelTexts[lang] ??
       localizedToolControlPanelTexts[AppLanguage.english]!;
-  out['drawPenColor'] = tool['penColor']! as String;
-  out['drawNumberSectionTitle'] = tool['numberTitle']! as String;
-  out['drawLetterSectionTitle'] = tool['letterTitle']! as String;
-  out['drawShapeSectionTitle'] = tool['shapeTitle']! as String;
+  out['drawPenColor'] = tool['penColor']!;
+  out['drawNumberSectionTitle'] = tool['numberTitle']!;
+  out['drawLetterSectionTitle'] = tool['letterTitle']!;
+  out['drawShapeSectionTitle'] = tool['shapeTitle']!;
+  out['drawWordSectionTitle'] =
+      lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
 
   // Migrated from core app ARB (balloon + letter puzzle)
   const letterEn = 'Preparing puzzle…';
@@ -198,7 +268,8 @@ Map<String, String> _infoMergedForLang(AppLanguage lang) {
   final info = localizedInfoScreenTexts[lang] ??
       localizedInfoScreenTexts[AppLanguage.english]!;
   for (final e in info.entries) {
-    out['info${e.key[0].toUpperCase()}${e.key.substring(1)}'] = e.value as String;
+    out['info${e.key[0].toUpperCase()}${e.key.substring(1)}'] =
+        e.value.toString();
   }
   final res = localizedResultScreenTexts[lang] ??
       localizedResultScreenTexts[AppLanguage.english]!;
@@ -207,7 +278,7 @@ Map<String, String> _infoMergedForLang(AppLanguage lang) {
       out['resultProgress'] = _templateFromTwoIntFn(e.value);
     } else {
       out['result${e.key[0].toUpperCase()}${e.key.substring(1)}'] =
-          e.value as String;
+          e.value.toString();
     }
   }
   return out;

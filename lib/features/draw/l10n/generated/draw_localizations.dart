@@ -196,6 +196,12 @@ abstract class DrawLocalizations {
   /// **'Learn Shapes'**
   String get drawShapeSectionTitle;
 
+  /// l10n: drawWordSectionTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Build Words'**
+  String get drawWordSectionTitle;
+
   /// l10n: drawLetterPuzzlePreparing
   ///
   /// In en, this message translates to:

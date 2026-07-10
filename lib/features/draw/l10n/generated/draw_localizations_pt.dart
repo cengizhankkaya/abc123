@@ -52,6 +52,9 @@ class DrawLocalizationsPt extends DrawLocalizations {
   String get drawShapeSectionTitle => 'Aprender formas';
 
   @override
+  String get drawWordSectionTitle => 'Build Words';
+
+  @override
   String get drawLetterPuzzlePreparing => 'Preparing puzzle…';
 
   @override

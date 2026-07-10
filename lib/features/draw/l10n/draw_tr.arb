@@ -68,6 +68,10 @@
   "@drawShapeSectionTitle": {
     "description": "l10n: drawShapeSectionTitle"
   },
+  "drawWordSectionTitle": "Kelime Oluşturma",
+  "@drawWordSectionTitle": {
+    "description": "l10n: drawWordSectionTitle"
+  },
   "drawLetterPuzzlePreparing": "Puzzle hazırlanıyor…",
   "@drawLetterPuzzlePreparing": {
     "description": "l10n: drawLetterPuzzlePreparing"

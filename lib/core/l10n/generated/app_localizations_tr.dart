@@ -24,6 +24,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get navBadges => 'Rozetler';
 
   @override
+  String get navSettings => 'Ayarlar';
+
+  @override
   String get tutorialScreenTitle => 'Abc123 Eğitim';
 
   @override

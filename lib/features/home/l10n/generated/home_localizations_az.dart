@@ -150,6 +150,9 @@ class HomeLocalizationsAz extends HomeLocalizations {
   String get shopTitle => 'MAĞAZA';
 
   @override
+  String get shopScreenSubtitle => 'Customize your avatar!';
+
+  @override
   String get tabHat => 'Şapka';
 
   @override
@@ -163,6 +166,28 @@ class HomeLocalizationsAz extends HomeLocalizations {
 
   @override
   String get equipped => 'Geyinilib';
+
+  @override
+  String get shopSlotNone => 'Çıxar';
+
+  @override
+  String itemEquipped(String item) {
+    return '$item geyildi!';
+  }
+
+  @override
+  String itemUnequipped(String slot) {
+    return '$slot çıxarıldı';
+  }
+
+  @override
+  String get slotHat => 'Papaq';
+
+  @override
+  String get slotGlasses => 'Eynək';
+
+  @override
+  String get slotOutfit => 'Geyim';
 
   @override
   String get insufficientPoints => 'Kifayət qədər xalın yoxdur! 😢';
@@ -198,10 +223,16 @@ class HomeLocalizationsAz extends HomeLocalizations {
   String get myQuestsTitle => 'GÖREVLERİM';
 
   @override
-  String get loadingQuests => 'Tapşırıqlar yüklənir...';
+  String get questsScreenSubtitle => 'Complete quests and earn points!';
 
   @override
-  String get questsRefreshedMessage => 'Tapşırıqlarınız yeniləndi.';
+  String get questsDailySection => 'Daily Quests';
+
+  @override
+  String get questsWeeklySection => 'Weekly Quests';
+
+  @override
+  String get loadingQuests => 'Tapşırıqlar yüklənir...';
 
   @override
   String get dailyQuest => 'GÜNLÜK TAPŞIRIQ';
@@ -306,14 +337,201 @@ class HomeLocalizationsAz extends HomeLocalizations {
   String get shapesTitle => 'Fiqurları öyrən';
 
   @override
-  String get colorsTitle => 'Rəngləri öyrən';
+  String get colorsTitle => 'Learn Colors';
 
   @override
-  String get badgeColorMasterName => 'Rəng ustası';
+  String get wordsTitle => 'Build Words';
 
   @override
-  String get badgeColorMasterDesc => '50 rəng turunu tamamladın!';
+  String get badgeColorMasterName => 'Color Expert';
+
+  @override
+  String get badgeColorMasterDesc => 'You completed 50 color rounds!';
+
+  @override
+  String get badgeWordMasterName => 'Word Builder';
+
+  @override
+  String get badgeWordMasterDesc => 'You completed 50 words!';
+
+  @override
+  String get questsRefreshedMessage => 'Quests have been refreshed.';
 
   @override
   String get noBadgesFound => 'No badges found';
+
+  @override
+  String homeGreetingWithName(String name) {
+    return 'Hello, $name!';
+  }
+
+  @override
+  String get homeSloganToday => 'What shall we learn today?';
+
+  @override
+  String homeStreakDays(int count) {
+    return '$count-day streak';
+  }
+
+  @override
+  String get homeLearningModes => 'Learning Modes';
+
+  @override
+  String get numbersTitleShort => 'Numbers';
+
+  @override
+  String get lettersTitleShort => 'Letters';
+
+  @override
+  String get shapesTitleShort => 'Shapes';
+
+  @override
+  String get wordsTitleShort => 'Words';
+
+  @override
+  String get colorsTitleShort => 'Colors';
+
+  @override
+  String get numbersSubtitle => 'Draw 0–9';
+
+  @override
+  String get lettersSubtitle => 'Draw A–Z';
+
+  @override
+  String get shapesSubtitle => 'New!';
+
+  @override
+  String get wordsSubtitle => 'Draw words';
+
+  @override
+  String get colorsSubtitle => 'Play & learn';
+
+  @override
+  String homeWhereYouLeft(String label) {
+    return 'Where you left off: $label';
+  }
+
+  @override
+  String homeStepsRemaining(int count) {
+    return '$count steps left';
+  }
+
+  @override
+  String homeContinueNumber(String number) {
+    return 'Number $number';
+  }
+
+  @override
+  String homeContinueLetter(String letter) {
+    return 'Letter $letter';
+  }
+
+  @override
+  String homeContinueShape(String number) {
+    return 'Shape $number';
+  }
+
+  @override
+  String get homeContinueWord => 'Words';
+
+  @override
+  String get homeContinueColor => 'Colors';
+
+  @override
+  String get homeContinueColorVision => 'Color Vision';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsChildName => 'Name';
+
+  @override
+  String get settingsChildNameHint => 'Enter your name';
+
+  @override
+  String get settingsSaveName => 'Save';
+
+  @override
+  String get settingsNameSaved => 'Name saved';
+
+  @override
+  String get settingsAppearance => 'Appearance';
+
+  @override
+  String get settingsLanguage => 'Language';
+
+  @override
+  String get badgesScreenTitle => 'My Badges';
+
+  @override
+  String badgesEarnedOfTotal(int count, int total) {
+    return '$count / $total badges earned';
+  }
+
+  @override
+  String badgesStreakDayCount(int count) {
+    return '$count days';
+  }
+
+  @override
+  String get badgesStreakSubtitle => 'Drawing streak';
+
+  @override
+  String get parentPanelTitle => 'Parent Panel';
+
+  @override
+  String parentPanelWeeklyProgress(String name) {
+    return '$name\'s progress this week';
+  }
+
+  @override
+  String get parentPanelWeeklyProgressNoName => 'Progress this week';
+
+  @override
+  String get parentPanelStatDuration => 'TIME';
+
+  @override
+  String get parentPanelStatCompleted => 'COMPLETED';
+
+  @override
+  String get parentPanelStatAccuracy => 'AVG. ACCURACY';
+
+  @override
+  String parentPanelDurationMinutes(int minutes) {
+    return '${minutes}min';
+  }
+
+  @override
+  String parentPanelAccuracyPercent(int percent) {
+    return '$percent%';
+  }
+
+  @override
+  String get parentPanelChartTitle => 'Daily drawing time';
+
+  @override
+  String parentPanelInsightLettersLearned(String range) {
+    return 'Letters $range learned';
+  }
+
+  @override
+  String parentPanelInsightNumberStruggling(int number) {
+    return 'Struggling with number $number';
+  }
+
+  @override
+  String get parentPanelInsightGettingStarted => 'Learning journey is just starting';
+
+  @override
+  String get parentPanelToday => 'Today';
+
+  @override
+  String get parentPanelYesterday => 'Yesterday';
+
+  @override
+  String get settingsParentPanel => 'Parent Panel';
+
+  @override
+  String get settingsParentPanelSubtitle => 'Progress & insights';
 }

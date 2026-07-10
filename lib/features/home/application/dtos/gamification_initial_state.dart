@@ -7,6 +7,7 @@ class GamificationInitialState {
   final int letterDrawings;
   final int shapeDrawings;
   final int colorRounds;
+  final int wordsCompleted;
   final List<String> unlockedBadgeIds;
   final List<String> ownedItemIds;
   final String? equippedItemsJson;
@@ -20,6 +21,7 @@ class GamificationInitialState {
     required this.letterDrawings,
     required this.shapeDrawings,
     required this.colorRounds,
+    required this.wordsCompleted,
     required this.unlockedBadgeIds,
     required this.ownedItemIds,
     this.equippedItemsJson,

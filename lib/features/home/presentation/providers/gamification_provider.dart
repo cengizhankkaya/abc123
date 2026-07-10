@@ -33,6 +33,11 @@ final class GamificationProvider extends ChangeNotifier {
   int _letterDrawings = 0;
   int _shapeDrawings = 0;
   int _colorRounds = 0;
+  int _wordsCompleted = 0;
+  String _childName = '';
+  LastActivityMode? _lastActivityMode;
+  int _lastActivityIndex = 0;
+  int _lastActivityTotal = 0;
   List<String> _unlockedBadgeIds = [];
   List<QuestModel> _quests = [];
   QuestLedger? _questLedger;
@@ -43,10 +48,12 @@ final class GamificationProvider extends ChangeNotifier {
 
   // Shop State
   List<String> _ownedItemIds = [];
+  List<String> _ownedAvatarItems = [];
   Map<String, String> _equippedItems = {}; // { 'hat': 'item_id', 'glasses': 'item_id' }
 
   List<QuestModel> get quests => _quests;
   List<String> get ownedItemIds => _ownedItemIds;
+  List<String> get ownedAvatarItems => _ownedAvatarItems;
   Map<String, String> get equippedItems => _equippedItems;
 
   // Shop Items Catalog (ikon/renk sunumda `gamification_icon_catalog` + ARGB)
@@ -352,6 +359,12 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'palette',
     ),
     BadgeModel(
+      id: GamificationConstants.badgeWordMaster,
+      nameKey: 'badgeWordMasterName',
+      descriptionKey: 'badgeWordMasterDesc',
+      iconKey: 'spellcheck',
+    ),
+    BadgeModel(
       id: GamificationConstants.badgeHighScorer,
       nameKey: 'badgeHighScorerName',
       descriptionKey: 'badgeHighScorerDesc',
@@ -383,6 +396,14 @@ final class GamificationProvider extends ChangeNotifier {
   int get letterDrawings => _letterDrawings;
   int get shapeDrawings => _shapeDrawings;
   int get colorRounds => _colorRounds;
+  int get wordsCompleted => _wordsCompleted;
+  String get childName => _childName;
+  LastActivityMode? get lastActivityMode => _lastActivityMode;
+  int get lastActivityIndex => _lastActivityIndex;
+  int get lastActivityTotal => _lastActivityTotal;
+  int get lastActivityRemaining =>
+      _lastActivityTotal > 0 ? (_lastActivityTotal - _lastActivityIndex).clamp(0, _lastActivityTotal) : 0;
+  bool get hasLastActivity => _lastActivityMode != null && _lastActivityTotal > 0;
   List<BadgeModel> get badges {
     return _badges.map((badge) {
       return badge.copyWith(isLocked: !_unlockedBadgeIds.contains(badge.id));
@@ -428,6 +449,7 @@ final class GamificationProvider extends ChangeNotifier {
         _letterDrawings = s.letterDrawings;
         _shapeDrawings = s.shapeDrawings;
         _colorRounds = s.colorRounds;
+        _wordsCompleted = s.wordsCompleted;
         _unlockedBadgeIds = List<String>.from(s.unlockedBadgeIds);
         _ownedItemIds = List<String>.from(s.ownedItemIds);
         if (s.equippedItemsJson != null) {
@@ -446,7 +468,13 @@ final class GamificationProvider extends ChangeNotifier {
       },
     );
 
+    final loadedAvatarItems = await _persistence.getStringList('owned_avatar_items');
+    if (loadedAvatarItems != null) {
+      _ownedAvatarItems = List<String>.from(loadedAvatarItems);
+    }
+
     await _checkStreak();
+    await _loadProfileAndLastActivity();
 
     final decoded = QuestLedger.tryDecode(loaded?.questsLedgerJson);
     final resolved = _questRolloverResolver.resolve(
@@ -489,6 +517,41 @@ final class GamificationProvider extends ChangeNotifier {
       ),
       (_) {},
     );
+  }
+
+  Future<void> _loadProfileAndLastActivity() async {
+    _childName = await _persistence.getString(GamificationConstants.keyChildName) ?? '';
+    final modeName = await _persistence.getString(GamificationConstants.keyLastActivityMode);
+    _lastActivityIndex = await _persistence.getInt(GamificationConstants.keyLastActivityIndex) ?? 0;
+    _lastActivityTotal = await _persistence.getInt(GamificationConstants.keyLastActivityTotal) ?? 0;
+    _lastActivityMode = switch (modeName) {
+      'number' => LastActivityMode.number,
+      'letter' => LastActivityMode.letter,
+      'shape' => LastActivityMode.shape,
+      'word' => LastActivityMode.word,
+      'color' => LastActivityMode.color,
+      'colorVision' => LastActivityMode.colorVision,
+      _ => null,
+    };
+  }
+
+  Future<void> _persistLastActivity(
+    LastActivityMode mode,
+    int index,
+    int total,
+  ) async {
+    _lastActivityMode = mode;
+    _lastActivityIndex = index;
+    _lastActivityTotal = total;
+    await _persistence.setString(GamificationConstants.keyLastActivityMode, mode.name);
+    await _persistence.setInt(GamificationConstants.keyLastActivityIndex, index);
+    await _persistence.setInt(GamificationConstants.keyLastActivityTotal, total);
+  }
+
+  Future<void> setChildName(String name) async {
+    _childName = name.trim();
+    await _persistence.setString(GamificationConstants.keyChildName, _childName);
+    notifyListeners();
   }
 
   Future<void> _checkStreak() async {
@@ -569,16 +632,31 @@ final class GamificationProvider extends ChangeNotifier {
 
     if (type == DrawingType.number) {
       _numberDrawings++;
+      await _persistLastActivity(
+        LastActivityMode.number,
+        _numberDrawings % 10,
+        10,
+      );
       if (_numberDrawings >= 50) {
         await _unlockBadge(GamificationConstants.badgeNumberMaster);
       }
     } else if (type == DrawingType.letter) {
       _letterDrawings++;
+      await _persistLastActivity(
+        LastActivityMode.letter,
+        _letterDrawings % 26,
+        26,
+      );
       if (_letterDrawings >= 50) {
         await _unlockBadge(GamificationConstants.badgeLetterMaster);
       }
     } else if (type == DrawingType.shape) {
       _shapeDrawings++;
+      await _persistLastActivity(
+        LastActivityMode.shape,
+        _shapeDrawings % 12,
+        12,
+      );
       if (_shapeDrawings >= 50) {
         await _unlockBadge(GamificationConstants.badgeShapeMaster);
       }
@@ -591,6 +669,7 @@ final class GamificationProvider extends ChangeNotifier {
         letterDrawings: _letterDrawings,
         shapeDrawings: _shapeDrawings,
         colorRounds: _colorRounds,
+        wordsCompleted: _wordsCompleted,
       ),
     );
     persistResult.fold(
@@ -632,6 +711,11 @@ final class GamificationProvider extends ChangeNotifier {
   /// Renk oyununda doğru tur — çizim sayacından ayrı; puan ve `any` görevleri ilerler.
   Future<void> recordColorRoundSuccess() async {
     _colorRounds++;
+    await _persistLastActivity(
+      LastActivityMode.color,
+      _colorRounds % 50,
+      50,
+    );
     if (_colorRounds >= 50) {
       await _unlockBadge(GamificationConstants.badgeColorMaster);
     }
@@ -643,6 +727,7 @@ final class GamificationProvider extends ChangeNotifier {
         letterDrawings: _letterDrawings,
         shapeDrawings: _shapeDrawings,
         colorRounds: _colorRounds,
+        wordsCompleted: _wordsCompleted,
       ),
     );
     persistResult.fold(
@@ -657,6 +742,43 @@ final class GamificationProvider extends ChangeNotifier {
 
     await _addPoints(GamificationConstants.pointsPerCorrectDraw);
     await checkQuestProgress(DrawingType.any, null);
+    notifyListeners();
+  }
+
+  /// Kelime oyununda tamamlanan kelime.
+  Future<void> recordWordCompleted({String? wordKey}) async {
+    _wordsCompleted++;
+    await _persistLastActivity(
+      LastActivityMode.word,
+      _wordsCompleted % 50,
+      50,
+    );
+    if (_wordsCompleted >= 50) {
+      await _unlockBadge(GamificationConstants.badgeWordMaster);
+    }
+
+    final persistResult = await _persistDrawingCounters.call(
+      DrawingCountersWrite(
+        totalDrawings: _totalDrawings,
+        numberDrawings: _numberDrawings,
+        letterDrawings: _letterDrawings,
+        shapeDrawings: _shapeDrawings,
+        colorRounds: _colorRounds,
+        wordsCompleted: _wordsCompleted,
+      ),
+    );
+    persistResult.fold(
+      (failure) => _logger.error(
+        'Persist drawing counters failed',
+        tag: 'Gamification',
+        error: failure,
+        data: {'failure': failure.toString()},
+      ),
+      (_) {},
+    );
+
+    await _addPoints(GamificationConstants.pointsPerCorrectDraw);
+    await checkQuestProgress(DrawingType.any, wordKey);
     notifyListeners();
   }
 
@@ -717,6 +839,36 @@ final class GamificationProvider extends ChangeNotifier {
     }
   }
 
+  bool isAvatarItemOwned(String attributeKey, int index) {
+    if (index == 0) return true; // İlk seçenekler (Default/Nothing) her zaman bedavadır
+    final itemKey = '${attributeKey}_$index';
+    return _ownedAvatarItems.contains(itemKey);
+  }
+
+  int getAvatarItemPrice(String attributeKey, int index) {
+    if (index == 0) return 0;
+    if (index >= 11) return 100; // Efsanevi (Süper Kahramanlar, Gür Sakallar vb.)
+    if (index >= 6) return 50;  // Nadir
+    return 25;                  // Standart
+  }
+
+  Future<bool> buyAvatarItem(String attributeKey, int index) async {
+    if (index == 0) return true;
+    final itemKey = '${attributeKey}_$index';
+    if (_ownedAvatarItems.contains(itemKey)) return true;
+
+    final price = getAvatarItemPrice(attributeKey, index);
+    if (_points >= price) {
+      _points -= price;
+      _ownedAvatarItems.add(itemKey);
+      await _persistence.setInt(GamificationConstants.keyPoints, _points);
+      await _persistence.setStringList('owned_avatar_items', _ownedAvatarItems);
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
   Future<void> buyItem(ShopItemModel item) async {
     if (_points >= item.price && !_ownedItemIds.contains(item.id)) {
       _points -= item.price;
@@ -725,22 +877,24 @@ final class GamificationProvider extends ChangeNotifier {
       await _persistence.setInt(GamificationConstants.keyPoints, _points);
       await _persistence.setStringList(GamificationConstants.keyOwnedItems, _ownedItemIds);
 
+      await _equipItemSilent(item);
       notifyListeners();
     }
   }
 
   Future<void> equipItem(ShopItemModel item) async {
     if (_ownedItemIds.contains(item.id)) {
-      // Toggle or set
-      // If already equipped, unequip? Or just set.
-      // Let's set.
-      _equippedItems[item.type.toString()] = item.id;
-
-      await _persistence.setString(
-          GamificationConstants.keyEquippedItems, json.encode(_equippedItems));
-
+      await _equipItemSilent(item);
       notifyListeners();
     }
+  }
+
+  Future<void> _equipItemSilent(ShopItemModel item) async {
+    _equippedItems[item.type.toString()] = item.id;
+    await _persistence.setString(
+      GamificationConstants.keyEquippedItems,
+      json.encode(_equippedItems),
+    );
   }
 
   Future<void> unequipItem(ShopItemType type) async {

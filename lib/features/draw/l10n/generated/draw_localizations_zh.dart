@@ -52,6 +52,9 @@ class DrawLocalizationsZh extends DrawLocalizations {
   String get drawShapeSectionTitle => '学习形状';
 
   @override
+  String get drawWordSectionTitle => 'Build Words';
+
+  @override
   String get drawLetterPuzzlePreparing => 'Preparing puzzle…';
 
   @override

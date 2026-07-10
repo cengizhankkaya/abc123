@@ -188,6 +188,10 @@
   "@shopTitle": {
     "description": "l10n: shopTitle"
   },
+  "shopScreenSubtitle": "Avatarını özelleştir!",
+  "@shopScreenSubtitle": {
+    "description": "l10n: shopScreenSubtitle"
+  },
   "tabHat": "Şapka",
   "@tabHat": {
     "description": "l10n: tabHat"
@@ -207,6 +211,42 @@
   "equipped": "Giydin",
   "@equipped": {
     "description": "l10n: equipped"
+  },
+  "shopSlotNone": "Çıkar",
+  "@shopSlotNone": {
+    "description": "l10n: shopSlotNone"
+  },
+  "itemEquipped": "{item} giyildi!",
+  "@itemEquipped": {
+    "description": "l10n: itemEquipped",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "itemUnequipped": "{slot} çıkarıldı",
+  "@itemUnequipped": {
+    "description": "l10n: itemUnequipped",
+    "placeholders": {
+      "slot": {
+        "type": "String",
+        "example": "slot"
+      }
+    }
+  },
+  "slotHat": "Şapka",
+  "@slotHat": {
+    "description": "l10n: slotHat"
+  },
+  "slotGlasses": "Gözlük",
+  "@slotGlasses": {
+    "description": "l10n: slotGlasses"
+  },
+  "slotOutfit": "Kıyafet",
+  "@slotOutfit": {
+    "description": "l10n: slotOutfit"
   },
   "insufficientPoints": "Yeterli puanın yok! 😢",
   "@insufficientPoints": {
@@ -262,13 +302,21 @@
   "@myQuestsTitle": {
     "description": "l10n: myQuestsTitle"
   },
+  "questsScreenSubtitle": "Görevleri tamamla, puan kazan!",
+  "@questsScreenSubtitle": {
+    "description": "l10n: questsScreenSubtitle"
+  },
+  "questsDailySection": "Günlük Görevler",
+  "@questsDailySection": {
+    "description": "l10n: questsDailySection"
+  },
+  "questsWeeklySection": "Haftalık Görevler",
+  "@questsWeeklySection": {
+    "description": "l10n: questsWeeklySection"
+  },
   "loadingQuests": "Görevler yükleniyor...",
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
-  },
-  "questsRefreshedMessage": "Görevlerin güncellendi.",
-  "@questsRefreshedMessage": {
-    "description": "l10n: questsRefreshedMessage"
   },
   "dailyQuest": "GÜNLÜK GÖREV",
   "@dailyQuest": {
@@ -410,6 +458,10 @@
   "@colorsTitle": {
     "description": "l10n: colorsTitle"
   },
+  "wordsTitle": "Kelime Oluşturma",
+  "@wordsTitle": {
+    "description": "l10n: wordsTitle"
+  },
   "badgeColorMasterName": "Renk Ustası",
   "@badgeColorMasterName": {
     "description": "l10n: badgeColorMasterName"
@@ -418,8 +470,304 @@
   "@badgeColorMasterDesc": {
     "description": "l10n: badgeColorMasterDesc"
   },
+  "badgeWordMasterName": "Kelime Ustası",
+  "@badgeWordMasterName": {
+    "description": "l10n: badgeWordMasterName"
+  },
+  "badgeWordMasterDesc": "50 kelime tamamladın!",
+  "@badgeWordMasterDesc": {
+    "description": "l10n: badgeWordMasterDesc"
+  },
+  "questsRefreshedMessage": "Görevler yenilendi.",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
+  },
   "noBadgesFound": "Rozet bulunamadı",
   "@noBadgesFound": {
     "description": "l10n: noBadgesFound"
+  },
+  "homeGreetingWithName": "Merhaba, {name}!",
+  "@homeGreetingWithName": {
+    "description": "l10n: homeGreetingWithName",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "name"
+      }
+    }
+  },
+  "homeSloganToday": "Bugün ne öğrenelim?",
+  "@homeSloganToday": {
+    "description": "l10n: homeSloganToday"
+  },
+  "homeStreakDays": "{count} günlük seri",
+  "@homeStreakDays": {
+    "description": "l10n: homeStreakDays",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "homeLearningModes": "Öğrenme Modları",
+  "@homeLearningModes": {
+    "description": "l10n: homeLearningModes"
+  },
+  "numbersTitleShort": "Rakamlar",
+  "@numbersTitleShort": {
+    "description": "l10n: numbersTitleShort"
+  },
+  "lettersTitleShort": "Harfler",
+  "@lettersTitleShort": {
+    "description": "l10n: lettersTitleShort"
+  },
+  "shapesTitleShort": "Şekiller",
+  "@shapesTitleShort": {
+    "description": "l10n: shapesTitleShort"
+  },
+  "wordsTitleShort": "Kelimeler",
+  "@wordsTitleShort": {
+    "description": "l10n: wordsTitleShort"
+  },
+  "colorsTitleShort": "Renkler",
+  "@colorsTitleShort": {
+    "description": "l10n: colorsTitleShort"
+  },
+  "numbersSubtitle": "0–9 çiz",
+  "@numbersSubtitle": {
+    "description": "l10n: numbersSubtitle"
+  },
+  "lettersSubtitle": "A–Z çiz",
+  "@lettersSubtitle": {
+    "description": "l10n: lettersSubtitle"
+  },
+  "shapesSubtitle": "Yeni!",
+  "@shapesSubtitle": {
+    "description": "l10n: shapesSubtitle"
+  },
+  "wordsSubtitle": "Kelime çiz",
+  "@wordsSubtitle": {
+    "description": "l10n: wordsSubtitle"
+  },
+  "colorsSubtitle": "Oyna ve öğren",
+  "@colorsSubtitle": {
+    "description": "l10n: colorsSubtitle"
+  },
+  "homeWhereYouLeft": "Kaldığın yer: {label}",
+  "@homeWhereYouLeft": {
+    "description": "l10n: homeWhereYouLeft",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "label"
+      }
+    }
+  },
+  "homeStepsRemaining": "{count} adım kaldı",
+  "@homeStepsRemaining": {
+    "description": "l10n: homeStepsRemaining",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "homeContinueNumber": "Rakam {number}",
+  "@homeContinueNumber": {
+    "description": "l10n: homeContinueNumber",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "homeContinueLetter": "Harf {letter}",
+  "@homeContinueLetter": {
+    "description": "l10n: homeContinueLetter",
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "letter"
+      }
+    }
+  },
+  "homeContinueShape": "Şekil {number}",
+  "@homeContinueShape": {
+    "description": "l10n: homeContinueShape",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "homeContinueWord": "Kelimeler",
+  "@homeContinueWord": {
+    "description": "l10n: homeContinueWord"
+  },
+  "homeContinueColor": "Renkler",
+  "@homeContinueColor": {
+    "description": "l10n: homeContinueColor"
+  },
+  "homeContinueColorVision": "Renk Görüşü",
+  "@homeContinueColorVision": {
+    "description": "l10n: homeContinueColorVision"
+  },
+  "settingsTitle": "Ayarlar",
+  "@settingsTitle": {
+    "description": "l10n: settingsTitle"
+  },
+  "settingsChildName": "İsim",
+  "@settingsChildName": {
+    "description": "l10n: settingsChildName"
+  },
+  "settingsChildNameHint": "Adını yaz",
+  "@settingsChildNameHint": {
+    "description": "l10n: settingsChildNameHint"
+  },
+  "settingsSaveName": "Kaydet",
+  "@settingsSaveName": {
+    "description": "l10n: settingsSaveName"
+  },
+  "settingsNameSaved": "İsim kaydedildi",
+  "@settingsNameSaved": {
+    "description": "l10n: settingsNameSaved"
+  },
+  "settingsAppearance": "Görünüm",
+  "@settingsAppearance": {
+    "description": "l10n: settingsAppearance"
+  },
+  "settingsLanguage": "Dil",
+  "@settingsLanguage": {
+    "description": "l10n: settingsLanguage"
+  },
+  "badgesScreenTitle": "Rozetlerim",
+  "@badgesScreenTitle": {
+    "description": "l10n: badgesScreenTitle"
+  },
+  "badgesEarnedOfTotal": "{count} / {total} rozet kazanıldı",
+  "@badgesEarnedOfTotal": {
+    "description": "l10n: badgesEarnedOfTotal",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "badgesStreakDayCount": "{count} gün",
+  "@badgesStreakDayCount": {
+    "description": "l10n: badgesStreakDayCount",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "badgesStreakSubtitle": "Üst üste çizim serisi",
+  "@badgesStreakSubtitle": {
+    "description": "l10n: badgesStreakSubtitle"
+  },
+  "parentPanelTitle": "Ebeveyn Paneli",
+  "@parentPanelTitle": {
+    "description": "l10n: parentPanelTitle"
+  },
+  "parentPanelWeeklyProgress": "{name}'in bu haftaki ilerlemesi",
+  "@parentPanelWeeklyProgress": {
+    "description": "l10n: parentPanelWeeklyProgress",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Elif"
+      }
+    }
+  },
+  "parentPanelWeeklyProgressNoName": "Bu haftaki ilerleme",
+  "@parentPanelWeeklyProgressNoName": {
+    "description": "l10n: parentPanelWeeklyProgressNoName"
+  },
+  "parentPanelStatDuration": "SÜRE",
+  "@parentPanelStatDuration": {
+    "description": "l10n: parentPanelStatDuration"
+  },
+  "parentPanelStatCompleted": "TAMAMLANAN",
+  "@parentPanelStatCompleted": {
+    "description": "l10n: parentPanelStatCompleted"
+  },
+  "parentPanelStatAccuracy": "ORT. DOĞRULUK",
+  "@parentPanelStatAccuracy": {
+    "description": "l10n: parentPanelStatAccuracy"
+  },
+  "parentPanelDurationMinutes": "{minutes}dk",
+  "@parentPanelDurationMinutes": {
+    "description": "l10n: parentPanelDurationMinutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "42"
+      }
+    }
+  },
+  "parentPanelAccuracyPercent": "%{percent}",
+  "@parentPanelAccuracyPercent": {
+    "description": "l10n: parentPanelAccuracyPercent",
+    "placeholders": {
+      "percent": {
+        "type": "int",
+        "example": "89"
+      }
+    }
+  },
+  "parentPanelChartTitle": "Günlük çizim süresi",
+  "@parentPanelChartTitle": {
+    "description": "l10n: parentPanelChartTitle"
+  },
+  "parentPanelInsightLettersLearned": "Harf {range} öğrenildi",
+  "@parentPanelInsightLettersLearned": {
+    "description": "l10n: parentPanelInsightLettersLearned",
+    "placeholders": {
+      "range": {
+        "type": "String",
+        "example": "B-D"
+      }
+    }
+  },
+  "parentPanelInsightNumberStruggling": "Rakam {number} zorlanıyor",
+  "@parentPanelInsightNumberStruggling": {
+    "description": "l10n: parentPanelInsightNumberStruggling",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "parentPanelInsightGettingStarted": "Öğrenme yolculuğu yeni başlıyor",
+  "@parentPanelInsightGettingStarted": {
+    "description": "l10n: parentPanelInsightGettingStarted"
+  },
+  "parentPanelToday": "Bugün",
+  "@parentPanelToday": {
+    "description": "l10n: parentPanelToday"
+  },
+  "parentPanelYesterday": "Dün",
+  "@parentPanelYesterday": {
+    "description": "l10n: parentPanelYesterday"
+  },
+  "settingsParentPanel": "Ebeveyn Paneli",
+  "@settingsParentPanel": {
+    "description": "l10n: settingsParentPanel"
+  },
+  "settingsParentPanelSubtitle": "İlerleme ve içgörüler",
+  "@settingsParentPanelSubtitle": {
+    "description": "l10n: settingsParentPanelSubtitle"
   }
 }

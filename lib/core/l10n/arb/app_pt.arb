@@ -20,6 +20,10 @@
   "@navBadges": {
     "description": "Main shell navigation: badges tab"
   },
+  "navSettings": "Settings",
+  "@navSettings": {
+    "description": "Main shell navigation: settings tab"
+  },
   "tutorialScreenTitle": "Tutorial",
   "@tutorialScreenTitle": {
     "description": "App bar title on the YouTube tutorial redirect screen"

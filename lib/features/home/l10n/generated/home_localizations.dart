@@ -77,8 +77,8 @@ abstract class HomeLocalizations {
 
   final String localeName;
 
-  static HomeLocalizations of(BuildContext context) {
-    return Localizations.of<HomeLocalizations>(context, HomeLocalizations)!;
+  static HomeLocalizations? of(BuildContext context) {
+    return Localizations.of<HomeLocalizations>(context, HomeLocalizations);
   }
 
   static const LocalizationsDelegate<HomeLocalizations> delegate = _HomeLocalizationsDelegate();
@@ -93,8 +93,7 @@ abstract class HomeLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -400,6 +399,12 @@ abstract class HomeLocalizations {
   /// **'SHOP'**
   String get shopTitle;
 
+  /// l10n: shopScreenSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Customize your avatar!'**
+  String get shopScreenSubtitle;
+
   /// l10n: tabHat
   ///
   /// In en, this message translates to:
@@ -429,6 +434,42 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Equipped'**
   String get equipped;
+
+  /// l10n: shopSlotNone
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get shopSlotNone;
+
+  /// l10n: itemEquipped
+  ///
+  /// In en, this message translates to:
+  /// **'{item} equipped!'**
+  String itemEquipped(String item);
+
+  /// l10n: itemUnequipped
+  ///
+  /// In en, this message translates to:
+  /// **'{slot} removed'**
+  String itemUnequipped(String slot);
+
+  /// l10n: slotHat
+  ///
+  /// In en, this message translates to:
+  /// **'Hat'**
+  String get slotHat;
+
+  /// l10n: slotGlasses
+  ///
+  /// In en, this message translates to:
+  /// **'Glasses'**
+  String get slotGlasses;
+
+  /// l10n: slotOutfit
+  ///
+  /// In en, this message translates to:
+  /// **'Outfit'**
+  String get slotOutfit;
 
   /// l10n: insufficientPoints
   ///
@@ -484,17 +525,29 @@ abstract class HomeLocalizations {
   /// **'MY QUESTS'**
   String get myQuestsTitle;
 
+  /// l10n: questsScreenSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Complete quests and earn points!'**
+  String get questsScreenSubtitle;
+
+  /// l10n: questsDailySection
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Quests'**
+  String get questsDailySection;
+
+  /// l10n: questsWeeklySection
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Quests'**
+  String get questsWeeklySection;
+
   /// l10n: loadingQuests
   ///
   /// In en, this message translates to:
   /// **'Loading quests...'**
   String get loadingQuests;
-
-  /// l10n: questsRefreshedMessage
-  ///
-  /// In en, this message translates to:
-  /// **'Your quests were updated.'**
-  String get questsRefreshedMessage;
 
   /// l10n: dailyQuest
   ///
@@ -706,6 +759,12 @@ abstract class HomeLocalizations {
   /// **'Learn Colors'**
   String get colorsTitle;
 
+  /// l10n: wordsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Build Words'**
+  String get wordsTitle;
+
   /// l10n: badgeColorMasterName
   ///
   /// In en, this message translates to:
@@ -718,11 +777,323 @@ abstract class HomeLocalizations {
   /// **'You completed 50 color rounds!'**
   String get badgeColorMasterDesc;
 
+  /// l10n: badgeWordMasterName
+  ///
+  /// In en, this message translates to:
+  /// **'Word Builder'**
+  String get badgeWordMasterName;
+
+  /// l10n: badgeWordMasterDesc
+  ///
+  /// In en, this message translates to:
+  /// **'You completed 50 words!'**
+  String get badgeWordMasterDesc;
+
+  /// l10n: questsRefreshedMessage
+  ///
+  /// In en, this message translates to:
+  /// **'Quests have been refreshed.'**
+  String get questsRefreshedMessage;
+
   /// l10n: noBadgesFound
   ///
   /// In en, this message translates to:
   /// **'No badges found'**
   String get noBadgesFound;
+
+  /// l10n: homeGreetingWithName
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}!'**
+  String homeGreetingWithName(String name);
+
+  /// l10n: homeSloganToday
+  ///
+  /// In en, this message translates to:
+  /// **'What shall we learn today?'**
+  String get homeSloganToday;
+
+  /// l10n: homeStreakDays
+  ///
+  /// In en, this message translates to:
+  /// **'{count}-day streak'**
+  String homeStreakDays(int count);
+
+  /// l10n: homeLearningModes
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Modes'**
+  String get homeLearningModes;
+
+  /// l10n: numbersTitleShort
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers'**
+  String get numbersTitleShort;
+
+  /// l10n: lettersTitleShort
+  ///
+  /// In en, this message translates to:
+  /// **'Letters'**
+  String get lettersTitleShort;
+
+  /// l10n: shapesTitleShort
+  ///
+  /// In en, this message translates to:
+  /// **'Shapes'**
+  String get shapesTitleShort;
+
+  /// l10n: wordsTitleShort
+  ///
+  /// In en, this message translates to:
+  /// **'Words'**
+  String get wordsTitleShort;
+
+  /// l10n: colorsTitleShort
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get colorsTitleShort;
+
+  /// l10n: numbersSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Draw 0–9'**
+  String get numbersSubtitle;
+
+  /// l10n: lettersSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Draw A–Z'**
+  String get lettersSubtitle;
+
+  /// l10n: shapesSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'New!'**
+  String get shapesSubtitle;
+
+  /// l10n: wordsSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Draw words'**
+  String get wordsSubtitle;
+
+  /// l10n: colorsSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Play & learn'**
+  String get colorsSubtitle;
+
+  /// l10n: homeWhereYouLeft
+  ///
+  /// In en, this message translates to:
+  /// **'Where you left off: {label}'**
+  String homeWhereYouLeft(String label);
+
+  /// l10n: homeStepsRemaining
+  ///
+  /// In en, this message translates to:
+  /// **'{count} steps left'**
+  String homeStepsRemaining(int count);
+
+  /// l10n: homeContinueNumber
+  ///
+  /// In en, this message translates to:
+  /// **'Number {number}'**
+  String homeContinueNumber(String number);
+
+  /// l10n: homeContinueLetter
+  ///
+  /// In en, this message translates to:
+  /// **'Letter {letter}'**
+  String homeContinueLetter(String letter);
+
+  /// l10n: homeContinueShape
+  ///
+  /// In en, this message translates to:
+  /// **'Shape {number}'**
+  String homeContinueShape(String number);
+
+  /// l10n: homeContinueWord
+  ///
+  /// In en, this message translates to:
+  /// **'Words'**
+  String get homeContinueWord;
+
+  /// l10n: homeContinueColor
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get homeContinueColor;
+
+  /// l10n: homeContinueColorVision
+  ///
+  /// In en, this message translates to:
+  /// **'Color Vision'**
+  String get homeContinueColorVision;
+
+  /// l10n: settingsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// l10n: settingsChildName
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get settingsChildName;
+
+  /// l10n: settingsChildNameHint
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get settingsChildNameHint;
+
+  /// l10n: settingsSaveName
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get settingsSaveName;
+
+  /// l10n: settingsNameSaved
+  ///
+  /// In en, this message translates to:
+  /// **'Name saved'**
+  String get settingsNameSaved;
+
+  /// l10n: settingsAppearance
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get settingsAppearance;
+
+  /// l10n: settingsLanguage
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settingsLanguage;
+
+  /// l10n: badgesScreenTitle
+  ///
+  /// In en, this message translates to:
+  /// **'My Badges'**
+  String get badgesScreenTitle;
+
+  /// l10n: badgesEarnedOfTotal
+  ///
+  /// In en, this message translates to:
+  /// **'{count} / {total} badges earned'**
+  String badgesEarnedOfTotal(int count, int total);
+
+  /// l10n: badgesStreakDayCount
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days'**
+  String badgesStreakDayCount(int count);
+
+  /// l10n: badgesStreakSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Drawing streak'**
+  String get badgesStreakSubtitle;
+
+  /// l10n: parentPanelTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Panel'**
+  String get parentPanelTitle;
+
+  /// l10n: parentPanelWeeklyProgress
+  ///
+  /// In en, this message translates to:
+  /// **'{name}\'s progress this week'**
+  String parentPanelWeeklyProgress(String name);
+
+  /// l10n: parentPanelWeeklyProgressNoName
+  ///
+  /// In en, this message translates to:
+  /// **'Progress this week'**
+  String get parentPanelWeeklyProgressNoName;
+
+  /// l10n: parentPanelStatDuration
+  ///
+  /// In en, this message translates to:
+  /// **'TIME'**
+  String get parentPanelStatDuration;
+
+  /// l10n: parentPanelStatCompleted
+  ///
+  /// In en, this message translates to:
+  /// **'COMPLETED'**
+  String get parentPanelStatCompleted;
+
+  /// l10n: parentPanelStatAccuracy
+  ///
+  /// In en, this message translates to:
+  /// **'AVG. ACCURACY'**
+  String get parentPanelStatAccuracy;
+
+  /// l10n: parentPanelDurationMinutes
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}min'**
+  String parentPanelDurationMinutes(int minutes);
+
+  /// l10n: parentPanelAccuracyPercent
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}%'**
+  String parentPanelAccuracyPercent(int percent);
+
+  /// l10n: parentPanelChartTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Daily drawing time'**
+  String get parentPanelChartTitle;
+
+  /// l10n: parentPanelInsightLettersLearned
+  ///
+  /// In en, this message translates to:
+  /// **'Letters {range} learned'**
+  String parentPanelInsightLettersLearned(String range);
+
+  /// l10n: parentPanelInsightNumberStruggling
+  ///
+  /// In en, this message translates to:
+  /// **'Struggling with number {number}'**
+  String parentPanelInsightNumberStruggling(int number);
+
+  /// l10n: parentPanelInsightGettingStarted
+  ///
+  /// In en, this message translates to:
+  /// **'Learning journey is just starting'**
+  String get parentPanelInsightGettingStarted;
+
+  /// l10n: parentPanelToday
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get parentPanelToday;
+
+  /// l10n: parentPanelYesterday
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get parentPanelYesterday;
+
+  /// l10n: settingsParentPanel
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Panel'**
+  String get settingsParentPanel;
+
+  /// l10n: settingsParentPanelSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Progress & insights'**
+  String get settingsParentPanelSubtitle;
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {
@@ -734,60 +1105,36 @@ class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-        'ar',
-        'az',
-        'bn',
-        'de',
-        'en',
-        'es',
-        'fr',
-        'hi',
-        'pt',
-        'ru',
-        'tr',
-        'ur',
-        'zh'
-      ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'az', 'bn', 'de', 'en', 'es', 'fr', 'hi', 'pt', 'ru', 'tr', 'ur', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_HomeLocalizationsDelegate old) => false;
 }
 
 HomeLocalizations lookupHomeLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return HomeLocalizationsAr();
-    case 'az':
-      return HomeLocalizationsAz();
-    case 'bn':
-      return HomeLocalizationsBn();
-    case 'de':
-      return HomeLocalizationsDe();
-    case 'en':
-      return HomeLocalizationsEn();
-    case 'es':
-      return HomeLocalizationsEs();
-    case 'fr':
-      return HomeLocalizationsFr();
-    case 'hi':
-      return HomeLocalizationsHi();
-    case 'pt':
-      return HomeLocalizationsPt();
-    case 'ru':
-      return HomeLocalizationsRu();
-    case 'tr':
-      return HomeLocalizationsTr();
-    case 'ur':
-      return HomeLocalizationsUr();
-    case 'zh':
-      return HomeLocalizationsZh();
+    case 'ar': return HomeLocalizationsAr();
+    case 'az': return HomeLocalizationsAz();
+    case 'bn': return HomeLocalizationsBn();
+    case 'de': return HomeLocalizationsDe();
+    case 'en': return HomeLocalizationsEn();
+    case 'es': return HomeLocalizationsEs();
+    case 'fr': return HomeLocalizationsFr();
+    case 'hi': return HomeLocalizationsHi();
+    case 'pt': return HomeLocalizationsPt();
+    case 'ru': return HomeLocalizationsRu();
+    case 'tr': return HomeLocalizationsTr();
+    case 'ur': return HomeLocalizationsUr();
+    case 'zh': return HomeLocalizationsZh();
   }
 
   throw FlutterError(
-      'HomeLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'HomeLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

@@ -26,6 +26,8 @@ final class LoadGamificationInitialState
           await _persistence.getInt(GamificationConstants.keyLetterDrawings) ?? 0;
       final shapeDrawings = await _persistence.getInt(GamificationConstants.keyShapeDrawings) ?? 0;
       final colorRounds = await _persistence.getInt(GamificationConstants.keyColorRounds) ?? 0;
+      final wordsCompleted =
+          await _persistence.getInt(GamificationConstants.keyWordsCompleted) ?? 0;
       final unlockedBadgeIds =
           await _persistence.getStringList(GamificationConstants.keyUnlockedBadges) ?? [];
       final ownedItemIds =
@@ -43,6 +45,7 @@ final class LoadGamificationInitialState
         letterDrawings: letterDrawings,
         shapeDrawings: shapeDrawings,
         colorRounds: colorRounds,
+        wordsCompleted: wordsCompleted,
         unlockedBadgeIds: unlockedBadgeIds,
         ownedItemIds: ownedItemIds,
         equippedItemsJson: equippedItemsJson,

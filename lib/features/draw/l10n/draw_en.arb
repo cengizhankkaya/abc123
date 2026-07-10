@@ -68,6 +68,10 @@
   "@drawShapeSectionTitle": {
     "description": "l10n: drawShapeSectionTitle"
   },
+  "drawWordSectionTitle": "Build Words",
+  "@drawWordSectionTitle": {
+    "description": "l10n: drawWordSectionTitle"
+  },
   "drawLetterPuzzlePreparing": "Preparing puzzle…",
   "@drawLetterPuzzlePreparing": {
     "description": "l10n: drawLetterPuzzlePreparing"

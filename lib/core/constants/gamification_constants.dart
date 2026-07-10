@@ -23,6 +23,7 @@ class GamificationConstants {
   static const String badgeLetterMaster = 'badge_letter_master'; // 50 letters
   static const String badgeShapeMaster = 'badge_shape_master'; // 50 shapes
   static const String badgeColorMaster = 'badge_color_master'; // 50 color rounds
+  static const String badgeWordMaster = 'badge_word_master'; // 50 words
 
   // Meta Badges (Score & Collection)
   static const String badgeHighScorer = 'badge_high_scorer'; // 1000 points
@@ -40,6 +41,7 @@ class GamificationConstants {
   static const String keyLetterDrawings = 'letter_drawings';
   static const String keyShapeDrawings = 'shape_drawings';
   static const String keyColorRounds = 'color_rounds';
+  static const String keyWordsCompleted = 'words_completed';
 
   // Shop Keys
   static const String keyOwnedItems = 'owned_items';
@@ -47,6 +49,13 @@ class GamificationConstants {
 
   /// Serileştirilmiş görev defteri (JSON — `QuestLedger`).
   static const String keyQuestsLedger = 'quests_ledger';
+
+  static const String keyChildName = 'child_name';
+  static const String keyLastActivityMode = 'last_activity_mode';
+  static const String keyLastActivityIndex = 'last_activity_index';
+  static const String keyLastActivityTotal = 'last_activity_total';
 }
 
 enum DrawingType { number, letter, shape, any }
+
+enum LastActivityMode { number, letter, shape, word, color, colorVision }

@@ -52,6 +52,9 @@ class DrawLocalizationsAz extends DrawLocalizations {
   String get drawShapeSectionTitle => 'Fiqurları öyrən';
 
   @override
+  String get drawWordSectionTitle => 'Build Words';
+
+  @override
   String get drawLetterPuzzlePreparing => 'Preparing puzzle…';
 
   @override

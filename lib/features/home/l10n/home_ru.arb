@@ -188,6 +188,10 @@
   "@shopTitle": {
     "description": "l10n: shopTitle"
   },
+  "shopScreenSubtitle": "Customize your avatar!",
+  "@shopScreenSubtitle": {
+    "description": "l10n: shopScreenSubtitle"
+  },
   "tabHat": "Шляпа",
   "@tabHat": {
     "description": "l10n: tabHat"
@@ -207,6 +211,42 @@
   "equipped": "Надето",
   "@equipped": {
     "description": "l10n: equipped"
+  },
+  "shopSlotNone": "Снять",
+  "@shopSlotNone": {
+    "description": "l10n: shopSlotNone"
+  },
+  "itemEquipped": "{item} надето!",
+  "@itemEquipped": {
+    "description": "l10n: itemEquipped",
+    "placeholders": {
+      "item": {
+        "type": "String",
+        "example": "item"
+      }
+    }
+  },
+  "itemUnequipped": "{slot} снято",
+  "@itemUnequipped": {
+    "description": "l10n: itemUnequipped",
+    "placeholders": {
+      "slot": {
+        "type": "String",
+        "example": "slot"
+      }
+    }
+  },
+  "slotHat": "Шляпа",
+  "@slotHat": {
+    "description": "l10n: slotHat"
+  },
+  "slotGlasses": "Очки",
+  "@slotGlasses": {
+    "description": "l10n: slotGlasses"
+  },
+  "slotOutfit": "Наряд",
+  "@slotOutfit": {
+    "description": "l10n: slotOutfit"
   },
   "insufficientPoints": "Недостаточно очков! 😢",
   "@insufficientPoints": {
@@ -262,13 +302,21 @@
   "@myQuestsTitle": {
     "description": "l10n: myQuestsTitle"
   },
+  "questsScreenSubtitle": "Complete quests and earn points!",
+  "@questsScreenSubtitle": {
+    "description": "l10n: questsScreenSubtitle"
+  },
+  "questsDailySection": "Daily Quests",
+  "@questsDailySection": {
+    "description": "l10n: questsDailySection"
+  },
+  "questsWeeklySection": "Weekly Quests",
+  "@questsWeeklySection": {
+    "description": "l10n: questsWeeklySection"
+  },
   "loadingQuests": "Загрузка заданий...",
   "@loadingQuests": {
     "description": "l10n: loadingQuests"
-  },
-  "questsRefreshedMessage": "Задания обновлены.",
-  "@questsRefreshedMessage": {
-    "description": "l10n: questsRefreshedMessage"
   },
   "dailyQuest": "ЕЖЕДНЕВНОЕ ЗАДАНИЕ",
   "@dailyQuest": {
@@ -406,20 +454,320 @@
   "@shapesTitle": {
     "description": "l10n: shapesTitle"
   },
-  "colorsTitle": "Изучать цвета",
+  "colorsTitle": "Learn Colors",
   "@colorsTitle": {
     "description": "l10n: colorsTitle"
   },
-  "badgeColorMasterName": "Мастер цвета",
+  "wordsTitle": "Build Words",
+  "@wordsTitle": {
+    "description": "l10n: wordsTitle"
+  },
+  "badgeColorMasterName": "Color Expert",
   "@badgeColorMasterName": {
     "description": "l10n: badgeColorMasterName"
   },
-  "badgeColorMasterDesc": "Ты прошёл 50 цветовых раундов!",
+  "badgeColorMasterDesc": "You completed 50 color rounds!",
   "@badgeColorMasterDesc": {
     "description": "l10n: badgeColorMasterDesc"
+  },
+  "badgeWordMasterName": "Word Builder",
+  "@badgeWordMasterName": {
+    "description": "l10n: badgeWordMasterName"
+  },
+  "badgeWordMasterDesc": "You completed 50 words!",
+  "@badgeWordMasterDesc": {
+    "description": "l10n: badgeWordMasterDesc"
+  },
+  "questsRefreshedMessage": "Quests have been refreshed.",
+  "@questsRefreshedMessage": {
+    "description": "l10n: questsRefreshedMessage"
   },
   "noBadgesFound": "No badges found",
   "@noBadgesFound": {
     "description": "l10n: noBadgesFound"
+  },
+  "homeGreetingWithName": "Hello, {name}!",
+  "@homeGreetingWithName": {
+    "description": "l10n: homeGreetingWithName",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "name"
+      }
+    }
+  },
+  "homeSloganToday": "What shall we learn today?",
+  "@homeSloganToday": {
+    "description": "l10n: homeSloganToday"
+  },
+  "homeStreakDays": "{count}-day streak",
+  "@homeStreakDays": {
+    "description": "l10n: homeStreakDays",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "homeLearningModes": "Learning Modes",
+  "@homeLearningModes": {
+    "description": "l10n: homeLearningModes"
+  },
+  "numbersTitleShort": "Numbers",
+  "@numbersTitleShort": {
+    "description": "l10n: numbersTitleShort"
+  },
+  "lettersTitleShort": "Letters",
+  "@lettersTitleShort": {
+    "description": "l10n: lettersTitleShort"
+  },
+  "shapesTitleShort": "Shapes",
+  "@shapesTitleShort": {
+    "description": "l10n: shapesTitleShort"
+  },
+  "wordsTitleShort": "Words",
+  "@wordsTitleShort": {
+    "description": "l10n: wordsTitleShort"
+  },
+  "colorsTitleShort": "Colors",
+  "@colorsTitleShort": {
+    "description": "l10n: colorsTitleShort"
+  },
+  "numbersSubtitle": "Draw 0–9",
+  "@numbersSubtitle": {
+    "description": "l10n: numbersSubtitle"
+  },
+  "lettersSubtitle": "Draw A–Z",
+  "@lettersSubtitle": {
+    "description": "l10n: lettersSubtitle"
+  },
+  "shapesSubtitle": "New!",
+  "@shapesSubtitle": {
+    "description": "l10n: shapesSubtitle"
+  },
+  "wordsSubtitle": "Draw words",
+  "@wordsSubtitle": {
+    "description": "l10n: wordsSubtitle"
+  },
+  "colorsSubtitle": "Play & learn",
+  "@colorsSubtitle": {
+    "description": "l10n: colorsSubtitle"
+  },
+  "homeWhereYouLeft": "Where you left off: {label}",
+  "@homeWhereYouLeft": {
+    "description": "l10n: homeWhereYouLeft",
+    "placeholders": {
+      "label": {
+        "type": "String",
+        "example": "label"
+      }
+    }
+  },
+  "homeStepsRemaining": "{count} steps left",
+  "@homeStepsRemaining": {
+    "description": "l10n: homeStepsRemaining",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "homeContinueNumber": "Number {number}",
+  "@homeContinueNumber": {
+    "description": "l10n: homeContinueNumber",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "homeContinueLetter": "Letter {letter}",
+  "@homeContinueLetter": {
+    "description": "l10n: homeContinueLetter",
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "letter"
+      }
+    }
+  },
+  "homeContinueShape": "Shape {number}",
+  "@homeContinueShape": {
+    "description": "l10n: homeContinueShape",
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "number"
+      }
+    }
+  },
+  "homeContinueWord": "Words",
+  "@homeContinueWord": {
+    "description": "l10n: homeContinueWord"
+  },
+  "homeContinueColor": "Colors",
+  "@homeContinueColor": {
+    "description": "l10n: homeContinueColor"
+  },
+  "homeContinueColorVision": "Color Vision",
+  "@homeContinueColorVision": {
+    "description": "l10n: homeContinueColorVision"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "l10n: settingsTitle"
+  },
+  "settingsChildName": "Name",
+  "@settingsChildName": {
+    "description": "l10n: settingsChildName"
+  },
+  "settingsChildNameHint": "Enter your name",
+  "@settingsChildNameHint": {
+    "description": "l10n: settingsChildNameHint"
+  },
+  "settingsSaveName": "Save",
+  "@settingsSaveName": {
+    "description": "l10n: settingsSaveName"
+  },
+  "settingsNameSaved": "Name saved",
+  "@settingsNameSaved": {
+    "description": "l10n: settingsNameSaved"
+  },
+  "settingsAppearance": "Appearance",
+  "@settingsAppearance": {
+    "description": "l10n: settingsAppearance"
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "l10n: settingsLanguage"
+  },
+  "badgesScreenTitle": "My Badges",
+  "@badgesScreenTitle": {
+    "description": "l10n: badgesScreenTitle"
+  },
+  "badgesEarnedOfTotal": "{count} / {total} badges earned",
+  "@badgesEarnedOfTotal": {
+    "description": "l10n: badgesEarnedOfTotal",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "badgesStreakDayCount": "{count} days",
+  "@badgesStreakDayCount": {
+    "description": "l10n: badgesStreakDayCount",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "badgesStreakSubtitle": "Drawing streak",
+  "@badgesStreakSubtitle": {
+    "description": "l10n: badgesStreakSubtitle"
+  },
+  "parentPanelTitle": "Parent Panel",
+  "@parentPanelTitle": {
+    "description": "l10n: parentPanelTitle"
+  },
+  "parentPanelWeeklyProgress": "{name}'s progress this week",
+  "@parentPanelWeeklyProgress": {
+    "description": "l10n: parentPanelWeeklyProgress",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Elif"
+      }
+    }
+  },
+  "parentPanelWeeklyProgressNoName": "Progress this week",
+  "@parentPanelWeeklyProgressNoName": {
+    "description": "l10n: parentPanelWeeklyProgressNoName"
+  },
+  "parentPanelStatDuration": "TIME",
+  "@parentPanelStatDuration": {
+    "description": "l10n: parentPanelStatDuration"
+  },
+  "parentPanelStatCompleted": "COMPLETED",
+  "@parentPanelStatCompleted": {
+    "description": "l10n: parentPanelStatCompleted"
+  },
+  "parentPanelStatAccuracy": "AVG. ACCURACY",
+  "@parentPanelStatAccuracy": {
+    "description": "l10n: parentPanelStatAccuracy"
+  },
+  "parentPanelDurationMinutes": "{minutes}min",
+  "@parentPanelDurationMinutes": {
+    "description": "l10n: parentPanelDurationMinutes",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "42"
+      }
+    }
+  },
+  "parentPanelAccuracyPercent": "{percent}%",
+  "@parentPanelAccuracyPercent": {
+    "description": "l10n: parentPanelAccuracyPercent",
+    "placeholders": {
+      "percent": {
+        "type": "int",
+        "example": "89"
+      }
+    }
+  },
+  "parentPanelChartTitle": "Daily drawing time",
+  "@parentPanelChartTitle": {
+    "description": "l10n: parentPanelChartTitle"
+  },
+  "parentPanelInsightLettersLearned": "Letters {range} learned",
+  "@parentPanelInsightLettersLearned": {
+    "description": "l10n: parentPanelInsightLettersLearned",
+    "placeholders": {
+      "range": {
+        "type": "String",
+        "example": "B-D"
+      }
+    }
+  },
+  "parentPanelInsightNumberStruggling": "Struggling with number {number}",
+  "@parentPanelInsightNumberStruggling": {
+    "description": "l10n: parentPanelInsightNumberStruggling",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "parentPanelInsightGettingStarted": "Learning journey is just starting",
+  "@parentPanelInsightGettingStarted": {
+    "description": "l10n: parentPanelInsightGettingStarted"
+  },
+  "parentPanelToday": "Today",
+  "@parentPanelToday": {
+    "description": "l10n: parentPanelToday"
+  },
+  "parentPanelYesterday": "Yesterday",
+  "@parentPanelYesterday": {
+    "description": "l10n: parentPanelYesterday"
+  },
+  "settingsParentPanel": "Parent Panel",
+  "@settingsParentPanel": {
+    "description": "l10n: settingsParentPanel"
+  },
+  "settingsParentPanelSubtitle": "Progress & insights",
+  "@settingsParentPanelSubtitle": {
+    "description": "l10n: settingsParentPanelSubtitle"
   }
 }

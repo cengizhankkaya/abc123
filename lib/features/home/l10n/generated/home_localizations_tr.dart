@@ -150,6 +150,9 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get shopTitle => 'MAĞAZA';
 
   @override
+  String get shopScreenSubtitle => 'Avatarını özelleştir!';
+
+  @override
   String get tabHat => 'Şapka';
 
   @override
@@ -163,6 +166,28 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get equipped => 'Giydin';
+
+  @override
+  String get shopSlotNone => 'Çıkar';
+
+  @override
+  String itemEquipped(String item) {
+    return '$item giyildi!';
+  }
+
+  @override
+  String itemUnequipped(String slot) {
+    return '$slot çıkarıldı';
+  }
+
+  @override
+  String get slotHat => 'Şapka';
+
+  @override
+  String get slotGlasses => 'Gözlük';
+
+  @override
+  String get slotOutfit => 'Kıyafet';
 
   @override
   String get insufficientPoints => 'Yeterli puanın yok! 😢';
@@ -198,10 +223,16 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get myQuestsTitle => 'GÖREVLERİM';
 
   @override
-  String get loadingQuests => 'Görevler yükleniyor...';
+  String get questsScreenSubtitle => 'Görevleri tamamla, puan kazan!';
 
   @override
-  String get questsRefreshedMessage => 'Görevlerin güncellendi.';
+  String get questsDailySection => 'Günlük Görevler';
+
+  @override
+  String get questsWeeklySection => 'Haftalık Görevler';
+
+  @override
+  String get loadingQuests => 'Görevler yükleniyor...';
 
   @override
   String get dailyQuest => 'GÜNLÜK GÖREV';
@@ -309,11 +340,198 @@ class HomeLocalizationsTr extends HomeLocalizations {
   String get colorsTitle => 'Renk Öğrenme';
 
   @override
+  String get wordsTitle => 'Kelime Oluşturma';
+
+  @override
   String get badgeColorMasterName => 'Renk Ustası';
 
   @override
   String get badgeColorMasterDesc => '50 renk turunu tamamladın!';
 
   @override
+  String get badgeWordMasterName => 'Kelime Ustası';
+
+  @override
+  String get badgeWordMasterDesc => '50 kelime tamamladın!';
+
+  @override
+  String get questsRefreshedMessage => 'Görevler yenilendi.';
+
+  @override
   String get noBadgesFound => 'Rozet bulunamadı';
+
+  @override
+  String homeGreetingWithName(String name) {
+    return 'Merhaba, $name!';
+  }
+
+  @override
+  String get homeSloganToday => 'Bugün ne öğrenelim?';
+
+  @override
+  String homeStreakDays(int count) {
+    return '$count günlük seri';
+  }
+
+  @override
+  String get homeLearningModes => 'Öğrenme Modları';
+
+  @override
+  String get numbersTitleShort => 'Rakamlar';
+
+  @override
+  String get lettersTitleShort => 'Harfler';
+
+  @override
+  String get shapesTitleShort => 'Şekiller';
+
+  @override
+  String get wordsTitleShort => 'Kelimeler';
+
+  @override
+  String get colorsTitleShort => 'Renkler';
+
+  @override
+  String get numbersSubtitle => '0–9 çiz';
+
+  @override
+  String get lettersSubtitle => 'A–Z çiz';
+
+  @override
+  String get shapesSubtitle => 'Yeni!';
+
+  @override
+  String get wordsSubtitle => 'Kelime çiz';
+
+  @override
+  String get colorsSubtitle => 'Oyna ve öğren';
+
+  @override
+  String homeWhereYouLeft(String label) {
+    return 'Kaldığın yer: $label';
+  }
+
+  @override
+  String homeStepsRemaining(int count) {
+    return '$count adım kaldı';
+  }
+
+  @override
+  String homeContinueNumber(String number) {
+    return 'Rakam $number';
+  }
+
+  @override
+  String homeContinueLetter(String letter) {
+    return 'Harf $letter';
+  }
+
+  @override
+  String homeContinueShape(String number) {
+    return 'Şekil $number';
+  }
+
+  @override
+  String get homeContinueWord => 'Kelimeler';
+
+  @override
+  String get homeContinueColor => 'Renkler';
+
+  @override
+  String get homeContinueColorVision => 'Renk Görüşü';
+
+  @override
+  String get settingsTitle => 'Ayarlar';
+
+  @override
+  String get settingsChildName => 'İsim';
+
+  @override
+  String get settingsChildNameHint => 'Adını yaz';
+
+  @override
+  String get settingsSaveName => 'Kaydet';
+
+  @override
+  String get settingsNameSaved => 'İsim kaydedildi';
+
+  @override
+  String get settingsAppearance => 'Görünüm';
+
+  @override
+  String get settingsLanguage => 'Dil';
+
+  @override
+  String get badgesScreenTitle => 'Rozetlerim';
+
+  @override
+  String badgesEarnedOfTotal(int count, int total) {
+    return '$count / $total rozet kazanıldı';
+  }
+
+  @override
+  String badgesStreakDayCount(int count) {
+    return '$count gün';
+  }
+
+  @override
+  String get badgesStreakSubtitle => 'Üst üste çizim serisi';
+
+  @override
+  String get parentPanelTitle => 'Ebeveyn Paneli';
+
+  @override
+  String parentPanelWeeklyProgress(String name) {
+    return '$name\'in bu haftaki ilerlemesi';
+  }
+
+  @override
+  String get parentPanelWeeklyProgressNoName => 'Bu haftaki ilerleme';
+
+  @override
+  String get parentPanelStatDuration => 'SÜRE';
+
+  @override
+  String get parentPanelStatCompleted => 'TAMAMLANAN';
+
+  @override
+  String get parentPanelStatAccuracy => 'ORT. DOĞRULUK';
+
+  @override
+  String parentPanelDurationMinutes(int minutes) {
+    return '${minutes}dk';
+  }
+
+  @override
+  String parentPanelAccuracyPercent(int percent) {
+    return '%$percent';
+  }
+
+  @override
+  String get parentPanelChartTitle => 'Günlük çizim süresi';
+
+  @override
+  String parentPanelInsightLettersLearned(String range) {
+    return 'Harf $range öğrenildi';
+  }
+
+  @override
+  String parentPanelInsightNumberStruggling(int number) {
+    return 'Rakam $number zorlanıyor';
+  }
+
+  @override
+  String get parentPanelInsightGettingStarted => 'Öğrenme yolculuğu yeni başlıyor';
+
+  @override
+  String get parentPanelToday => 'Bugün';
+
+  @override
+  String get parentPanelYesterday => 'Dün';
+
+  @override
+  String get settingsParentPanel => 'Ebeveyn Paneli';
+
+  @override
+  String get settingsParentPanelSubtitle => 'İlerleme ve içgörüler';
 }

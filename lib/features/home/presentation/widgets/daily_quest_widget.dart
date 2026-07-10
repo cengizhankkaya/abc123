@@ -1,200 +1,222 @@
 import 'package:abc123/core/constants/gamification_constants.dart';
+import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
 import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 class DailyQuestWidget extends StatelessWidget {
-  final QuestModel quest;
-
   const DailyQuestWidget({
     required this.quest,
+    this.animationDelay = Duration.zero,
     super.key,
   });
+
+  final QuestModel quest;
+  final Duration animationDelay;
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<GamificationProvider>();
     final h = context.homeL10n!;
+    final accent = _questColor(quest.targetType);
+    final isWeekly = quest.id.contains('weekly');
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    return FadeInSlide(
+      delay: animationDelay,
       child: Container(
-        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: Colors.black, width: 2),
-          boxShadow: const [
+          borderRadius: BorderRadius.circular(HomeDesignTokens.cardRadius),
+          boxShadow: [
             BoxShadow(
-              color: Colors.black12,
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            )
+              color: accent.withValues(alpha: 0.12),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
           ],
         ),
-        child: Row(
-          children: [
-            // Target Visual
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: _getQuestColor(quest.targetType).withOpacity(0.2),
-                shape: BoxShape.circle,
-                border: Border.all(color: _getQuestColor(quest.targetType), width: 4),
-              ),
-              child: Center(
-                child: _buildTargetVisual(quest),
-              ),
-            ),
-            const SizedBox(width: 16),
-
-            // Progress
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    quest.id.contains('weekly') ? h.weeklyQuest : h.dailyQuest,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                      letterSpacing: 1.2,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  _buildProgressIndicator(quest),
-                ],
-              ),
-            ),
-
-            // Reward / Action
-            GestureDetector(
-              onTap: () {
-                if (quest.isCompleted && !quest.isClaimed) {
-                  provider.claimQuestReward(quest.id);
-                }
-              },
-              child: Container(
-                padding: const EdgeInsets.all(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
                 decoration: BoxDecoration(
-                  color: quest.isClaimed
-                      ? Colors.green.shade100
-                      : (quest.isCompleted ? const Color(0xFFFFD32A) : Colors.grey.shade100),
+                  color: accent.withValues(alpha: 0.14),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: quest.isCompleted ? Colors.black : Colors.grey.shade300,
-                    width: quest.isCompleted ? 2 : 1,
-                  ),
                 ),
-                child: quest.isClaimed
-                    ? const Icon(Icons.check_rounded, color: Colors.green, size: 32)
-                    : (quest.isCompleted
-                        ? const Icon(Icons.card_giftcard_rounded, color: Colors.black, size: 32)
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.stars_rounded, color: Colors.amber, size: 24),
-                              Text(
-                                "+${quest.rewardPoints}",
-                                style: const TextStyle(fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          )),
+                alignment: Alignment.center,
+                child: _buildTargetVisual(quest, accent),
               ),
-            ),
-          ],
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: accent.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        isWeekly ? h.weeklyQuest : h.dailyQuest,
+                        style: HomeDesignTokens.cardSubtitle(color: accent).copyWith(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    _buildProgressIndicator(quest, accent),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              _RewardButton(
+                quest: quest,
+                accent: accent,
+                onClaim: quest.isCompleted && !quest.isClaimed
+                    ? () => provider.claimQuestReward(quest.id)
+                    : null,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildProgressIndicator(QuestModel quest) {
+  Widget _buildProgressIndicator(QuestModel quest, Color accent) {
     if (quest.targetCount <= 5) {
       return Row(
-        mainAxisSize: MainAxisSize.min,
         children: List.generate(quest.targetCount, (index) {
           final isDone = index < quest.currentCount;
           return Padding(
-            padding: const EdgeInsets.only(right: 2.0),
+            padding: const EdgeInsets.only(right: 4),
             child: Icon(
-              isDone ? Icons.star_rounded : Icons.star_outline_rounded,
-              color: isDone ? const Color(0xFFFFD32A) : Colors.grey.shade300,
-              size: 24,
+              isDone ? Icons.check_circle_rounded : Icons.radio_button_unchecked,
+              color: isDone ? accent : HomeDesignTokens.mutedText.withValues(alpha: 0.35),
+              size: 22,
             ),
           );
         }),
       );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "${quest.currentCount} / ${quest.targetCount}",
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-              fontSize: 16,
-            ),
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${quest.currentCount} / ${quest.targetCount}',
+          style: HomeDesignTokens.cardTitle(color: HomeDesignTokens.darkText).copyWith(
+            fontSize: 15,
           ),
-          const SizedBox(height: 4),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: quest.progress,
-              backgroundColor: Colors.grey.shade200,
-              color: _getQuestColor(quest.targetType),
-              minHeight: 8,
-            ),
+        ),
+        const SizedBox(height: 6),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: LinearProgressIndicator(
+            value: quest.progress,
+            backgroundColor: accent.withValues(alpha: 0.12),
+            color: accent,
+            minHeight: 8,
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Color _questColor(DrawingType type) {
+    return switch (type) {
+      DrawingType.number => HomeDesignTokens.numbersCard,
+      DrawingType.letter => HomeDesignTokens.lettersCard,
+      DrawingType.shape => HomeDesignTokens.shapesCard,
+      DrawingType.any => HomeDesignTokens.wordsCard,
+    };
+  }
+
+  Widget _buildTargetVisual(QuestModel quest, Color accent) {
+    if (quest.targetType == DrawingType.shape) {
+      final icon = switch (quest.targetLabel) {
+        'DAIRE' => Icons.circle_outlined,
+        'KARE' => Icons.crop_square_rounded,
+        'UCGEN' || 'ÜÇGEN' => Icons.change_history_rounded,
+        _ => Icons.category_outlined,
+      };
+      return Icon(icon, size: 28, color: accent);
+    }
+
+    return Text(
+      quest.targetLabel ?? '?',
+      style: HomeDesignTokens.continueBadgeText(color: accent).copyWith(fontSize: 26),
+    );
+  }
+}
+
+class _RewardButton extends StatelessWidget {
+  const _RewardButton({
+    required this.quest,
+    required this.accent,
+    required this.onClaim,
+  });
+
+  final QuestModel quest;
+  final Color accent;
+  final VoidCallback? onClaim;
+
+  @override
+  Widget build(BuildContext context) {
+    if (quest.isClaimed) {
+      return Container(
+        width: 52,
+        height: 52,
+        decoration: BoxDecoration(
+          color: HomeDesignTokens.lettersCard.withValues(alpha: 0.14),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: const Icon(Icons.check_rounded, color: HomeDesignTokens.lettersCard, size: 28),
       );
     }
-  }
 
-  Color _getQuestColor(DrawingType type) {
-    switch (type) {
-      case DrawingType.number:
-        return const Color(0xFFFF7675);
-      case DrawingType.letter:
-        return const Color(0xFF74B9FF);
-      case DrawingType.shape:
-        return const Color(0xFF55EFC4);
-      default:
-        return Colors.purple;
-    }
-  }
-
-  Widget _buildTargetVisual(QuestModel quest) {
-    if (quest.targetType == DrawingType.shape) {
-      IconData icon;
-      switch (quest.targetLabel) {
-        case 'DAIRE':
-          icon = Icons.circle_outlined;
-          break;
-        case 'KARE':
-          icon = Icons.crop_square_rounded;
-          break;
-        case 'UCGEN':
-        case 'ÜÇGEN':
-          icon = Icons.change_history_rounded; // Triangle-ish
-          break;
-        default:
-          icon = Icons.shape_line;
-      }
-      return Icon(icon, size: 40, color: _getQuestColor(quest.targetType));
-    } else {
-      return Text(
-        quest.targetLabel ?? '?',
-        style: TextStyle(
-          fontSize: 40,
-          fontWeight: FontWeight.w900,
-          color: _getQuestColor(quest.targetType),
+    if (quest.isCompleted) {
+      return Material(
+        color: HomeDesignTokens.shapesCard,
+        borderRadius: BorderRadius.circular(14),
+        child: InkWell(
+          onTap: onClaim,
+          borderRadius: BorderRadius.circular(14),
+          child: const SizedBox(
+            width: 52,
+            height: 52,
+            child: Icon(Icons.card_giftcard_rounded, color: HomeDesignTokens.darkText, size: 26),
+          ),
         ),
       );
     }
+
+    return Container(
+      width: 52,
+      height: 52,
+      decoration: BoxDecoration(
+        color: accent.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.stars_rounded, color: accent, size: 20),
+          Text(
+            '+${quest.rewardPoints}',
+            style: HomeDesignTokens.cardSubtitle(color: accent).copyWith(fontSize: 11),
+          ),
+        ],
+      ),
+    );
   }
 }

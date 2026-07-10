@@ -5,6 +5,7 @@ class DrawingCountersWrite {
   final int letterDrawings;
   final int shapeDrawings;
   final int colorRounds;
+  final int wordsCompleted;
 
   const DrawingCountersWrite({
     required this.totalDrawings,
@@ -12,5 +13,6 @@ class DrawingCountersWrite {
     required this.letterDrawings,
     required this.shapeDrawings,
     required this.colorRounds,
+    required this.wordsCompleted,
   });
 }

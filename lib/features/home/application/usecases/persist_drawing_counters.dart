@@ -37,6 +37,10 @@ final class PersistDrawingCounters implements AsyncCommandResult<DrawingCounters
         GamificationConstants.keyColorRounds,
         input.colorRounds,
       );
+      await _persistence.setInt(
+        GamificationConstants.keyWordsCompleted,
+        input.wordsCompleted,
+      );
       return unit;
     });
   }

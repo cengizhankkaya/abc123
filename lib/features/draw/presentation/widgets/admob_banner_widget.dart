@@ -17,6 +17,9 @@ class AdmobBannerWidget extends StatefulWidget {
     this.isTitleSide = false,
   });
 
+  /// Dikey banner + "Reklam" etiketi için sabit yükseklik.
+  static const double verticalSlotHeight = 74;
+
   @override
   State<AdmobBannerWidget> createState() => _AdmobBannerWidgetState();
 }
@@ -68,58 +71,80 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (_bannerAd == null || !_isLoaded) {
-      return const SizedBox(height: 50);
-    }
-
-    Widget adLabel = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-      decoration: BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: const Text(
-        'Reklam',
-        style: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-      ),
-    );
-
-    Widget adContent = Container(
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.grey.shade300), color: Colors.white),
-      width: _bannerAd!.size.width.toDouble(),
-      height: _bannerAd!.size.height.toDouble(),
-      child: AdWidget(ad: _bannerAd!),
-    );
-
     if (widget.isTitleSide) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (widget.showTitle) ...[
-            RotatedBox(quarterTurns: 3, child: adLabel),
-            const SizedBox(width: 4),
-          ],
-          adContent,
-        ],
-      );
+      return _buildSideLayout();
     }
 
+    // AdWidget bir native platform view olduğundan FittedBox/ClipRect gibi
+    // dönüşümler iOS'ta reklamın yanlış konumda çizilmesine yol açabiliyor;
+    // bu yüzden sabit boyutlu, dönüşümsüz bir slot kullanılır.
+    return SizedBox(
+      height: AdmobBannerWidget.verticalSlotHeight,
+      width: double.infinity,
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: _bannerAd != null && _isLoaded
+            ? _buildVerticalContent()
+            : const SizedBox.shrink(),
+      ),
+    );
+  }
+
+  Widget _buildVerticalContent() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.showTitle) ...[
-          adLabel,
+          _adLabel,
           const SizedBox(height: 4),
         ],
-        adContent,
+        _adContent,
       ],
     );
   }
+
+  Widget _buildSideLayout() {
+    if (_bannerAd == null || !_isLoaded) {
+      return const SizedBox(width: 320, height: 50);
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (widget.showTitle) ...[
+          RotatedBox(quarterTurns: 3, child: _adLabel),
+          const SizedBox(width: 4),
+        ],
+        _adContent,
+      ],
+    );
+  }
+
+  Widget get _adLabel => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: const Text(
+          'Reklam',
+          style: TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+      );
+
+  Widget get _adContent => Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300),
+          color: Colors.white,
+        ),
+        width: _bannerAd!.size.width.toDouble(),
+        height: _bannerAd!.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd!),
+      );
 
   @override
   void dispose() {
