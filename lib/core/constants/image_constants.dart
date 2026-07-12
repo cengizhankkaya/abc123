@@ -7,6 +7,9 @@ class ImageConstants {
   static const String abcImage = '$_imagePath/abc.png';
   static const String tutorialImage = '$_imagePath/tutorial.png';
   static const String shapesImage = '$_imagePath/shapes.jpg';
+  static const String colorsImage = '$_imagePath/colors.png';
+  static const String wordsImage = '$_imagePath/words.png';
+  static const String calculateImage = '$_imagePath/calculate.png';
 
   // Şekil öğrenme için sıralı mod görselleri
   static const String shapeCircleImage = '$_imagePath/shapes/daire.jpg';

@@ -1,4 +1,4 @@
-import 'package:abc123/features/parent_panel/data/models/module_progress.dart';
+import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:flutter/material.dart';
 
 /// Ebeveyn Paneli: Tekil Modül İlerleme ve Detay Kartı.

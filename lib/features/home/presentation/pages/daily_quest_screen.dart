@@ -1,4 +1,4 @@
-import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';

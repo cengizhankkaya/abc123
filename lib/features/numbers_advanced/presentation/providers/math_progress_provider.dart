@@ -9,7 +9,7 @@ import 'package:abc123/features/numbers_advanced/application/math_problem_genera
 import 'package:abc123/features/numbers_advanced/domain/math_difficulty.dart';
 import 'package:abc123/features/numbers_advanced/domain/math_operation.dart';
 import 'package:abc123/features/numbers_advanced/domain/number_lesson.dart';
-import 'package:abc123/features/numbers_advanced/infrastructure/multi_digit_recognition_service.dart';
+import 'package:abc123/features/numbers_advanced/application/usecases/recognize_multi_digit_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,12 +33,15 @@ enum DigitBoxState { empty, drawing, done }
 class MathProgressProvider extends ChangeNotifier implements ProgressSource {
   MathProgressProvider({
     required GamificationProvider gamification,
-  }) : _gamification = gamification {
+    required RecognizeMultiDigitUseCase recognizeMultiDigitUseCase,
+  }) : _gamification = gamification,
+       _recognizeMultiDigitUseCase = recognizeMultiDigitUseCase {
     _generator = MathProblemGenerator();
     _loadProgress();
   }
 
   final GamificationProvider _gamification;
+  final RecognizeMultiDigitUseCase _recognizeMultiDigitUseCase;
   late final MathProblemGenerator _generator;
 
   // ─────────────────── İlerleme (SharedPreferences) ───────────────────
@@ -261,10 +264,18 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
         notifyListeners();
         return;
       }
-      final recognized =
-          await MultiDigitRecognitionService.instance.recognizeDigit(pngBytes);
-      final isCorrect = recognized == expectedResult;
-      await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
+      final recognizedResult =
+          await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
+      recognizedResult.fold(
+        (failure) {
+          _isLoading = false;
+          notifyListeners();
+        },
+        (recognized) async {
+          final isCorrect = recognized == expectedResult;
+          await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
+        },
+      );
     } catch (_) {
       _isLoading = false;
       notifyListeners();
@@ -290,7 +301,6 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
     notifyListeners();
 
     try {
-      int recognized;
       if (singleBox) {
         // Tek basamak bekleniyor (birler hanesi)
         final pngBytes =
@@ -300,8 +310,15 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           notifyListeners();
           return;
         }
-        recognized =
-            await MultiDigitRecognitionService.instance.recognizeDigit(pngBytes);
+        final result =
+            await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
+        result.fold(
+          (failure) {},
+          (recognized) async {
+            final isCorrect = recognized == expectedResult;
+            await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
+          },
+        );
       } else if (hundredsKey != null) {
         // Üç basamak bekleniyor (ör: 100)
         final hundredsBytes =
@@ -315,10 +332,17 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           notifyListeners();
           return;
         }
-        recognized = await MultiDigitRecognitionService.instance.recognizeTripleDigit(
+        final result = await _recognizeMultiDigitUseCase.recognizeTripleDigit(
           hundredsBytes: hundredsBytes,
           tensBytes: tensBytes,
           unitsBytes: unitsBytes,
+        );
+        result.fold(
+          (failure) {},
+          (recognized) async {
+            final isCorrect = recognized == expectedResult;
+            await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
+          },
         );
       } else {
         final tensBytes =
@@ -330,12 +354,16 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           notifyListeners();
           return;
         }
-        recognized = await MultiDigitRecognitionService.instance
+        final result = await _recognizeMultiDigitUseCase
             .recognizeMultiDigit(tensBytes: tensBytes, unitsBytes: unitsBytes);
+        result.fold(
+          (failure) {},
+          (recognized) async {
+            final isCorrect = recognized == expectedResult;
+            await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
+          },
+        );
       }
-
-      final isCorrect = recognized == expectedResult;
-      await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
     } catch (_) {
       _isLoading = false;
       notifyListeners();

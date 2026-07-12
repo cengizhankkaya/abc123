@@ -4,7 +4,7 @@ import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/infrastructure/ads/rewarded_ad_helper.dart';
 import 'package:abc123/core/infrastructure/images/image_manager.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
 import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
@@ -182,9 +182,9 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                                   title: h.wordsTitleShort,
                                   subtitle: h.wordsSubtitle,
                                   baseColor: HomeDesignTokens.wordsCard,
-                                  image: _richIcon(
-                                    icon: Icons.spellcheck,
-                                    secondaryIcon: Icons.text_fields,
+                                  image: ImageManager.getImage(
+                                    ImageConstants.wordsImage,
+                                    fit: BoxFit.cover,
                                   ),
                                   onTap: () => context.push(AppRoutes.words),
                                 ),
@@ -195,9 +195,9 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                                   title: h.colorsTitleShort,
                                   subtitle: h.colorsSubtitle,
                                   baseColor: HomeDesignTokens.colorsCard,
-                                  image: _richIcon(
-                                    icon: Icons.palette,
-                                    secondaryIcon: Icons.color_lens,
+                                  image: ImageManager.getImage(
+                                    ImageConstants.colorsImage,
+                                    fit: BoxFit.cover,
                                   ),
                                   onTap: () => context.push(AppRoutes.colorGame),
                                 ),
@@ -221,9 +221,9 @@ class _HomeTabState extends State<HomeTab> with RewardedAdHelper<HomeTab> {
                                   title: h.mathAdvancedTitle,
                                   subtitle: h.mathAdvancedSubtitle,
                                   baseColor: HomeDesignTokens.mathCard,
-                                  image: _richIcon(
-                                    icon: Icons.calculate,
-                                    secondaryIcon: Icons.functions,
+                                  image: ImageManager.getImage(
+                                    ImageConstants.calculateImage,
+                                    fit: BoxFit.cover,
                                   ),
                                   onTap: () => context.push(AppRoutes.mathAdvanced),
                                 ),

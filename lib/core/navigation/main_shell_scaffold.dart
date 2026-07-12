@@ -1,7 +1,7 @@
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/presentation/responsive/adaptive_layout_builder.dart';
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
-import 'package:abc123/features/home/presentation/widgets/custom_bottom_navigation_bar.dart';
+import 'package:abc123/core/presentation/widgets/custom_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,7 +48,15 @@ class _CompactShell extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          navigationShell,
+          // İçerik alanı: floating nav bar'ın üstünde kalması için alt padding
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 104,
+            child: navigationShell,
+          ),
+          // Floating animated bottom nav bar
           Align(
             alignment: Alignment.bottomCenter,
             child: CustomBottomNavigationBar(

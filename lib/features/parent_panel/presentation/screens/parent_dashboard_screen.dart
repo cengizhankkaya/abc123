@@ -1,6 +1,7 @@
 import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/features/parent_panel/data/services/progress_aggregator_service.dart';
-import 'package:abc123/features/parent_panel/data/services/recommendation_engine.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary_use_case.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_recommendations_use_case.dart';
+import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/premium_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/module_progress_card.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/recommendation_tile.dart';
@@ -18,15 +19,16 @@ class ParentDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final aggregator = context.watch<ProgressAggregatorService>();
+    final getProgressSummary = context.watch<GetProgressSummaryUseCase>();
     final premium = context.watch<PremiumProvider>();
 
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
 
-    final allModuleProgress = aggregator.getAllModuleProgress();
-    final recommendations = RecommendationEngine.generateRecommendations(
+    final allModuleProgress = getProgressSummary.getAllModuleProgress();
+    final getRecommendationsUseCase = getIt<GetRecommendationsUseCase>();
+    final recommendations = getRecommendationsUseCase(
       progressList: allModuleProgress,
       isTurkish: isTr,
     );

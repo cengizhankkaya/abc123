@@ -2,7 +2,7 @@ import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
-import 'package:abc123/features/draw/infrastructure/letter_recognition_service.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_letter_use_case.dart';
 
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
@@ -31,7 +31,10 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
 
   double volume = 1.0;
 
-  LetterDrawingProvider() {
+  final RecognizeLetterUseCase _recognizeLetterUseCase;
+
+  LetterDrawingProvider() :
+    _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = true;
@@ -65,7 +68,12 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
         return;
       }
       final Uint8List pngBytes = byteData.buffer.asUint8List();
-      final result = await LetterRecognitionService.instance.recognizePngBytes(pngBytes);
+      // ─── Use Case üzerinden tanıma (infrastructure'a direkt erişim yok) ───
+      final resultEither = await _recognizeLetterUseCase(pngBytes);
+      final result = resultEither.fold(
+        (_) => '?',
+        (letter) => letter,
+      );
       // Önceki resmi manuel dispose etme, ResultScreen hâlâ kullanıyor olabilir.
       // GC'ye bırakmak daha güvenli.
       drawingImage = image;

@@ -1,5 +1,5 @@
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
-import 'package:abc123/features/parent_panel/data/services/progress_aggregator_service.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ class SummaryOverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gamification = context.watch<GamificationProvider>();
-    final aggregator = context.watch<ProgressAggregatorService>();
+    final aggregator = context.watch<GetProgressSummaryUseCase>();
 
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
     final isDark = Theme.of(context).brightness == Brightness.dark;

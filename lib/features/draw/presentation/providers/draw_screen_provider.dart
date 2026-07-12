@@ -3,18 +3,23 @@ import 'dart:ui' as ui;
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_number_use_case.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image/image.dart' as img;
-import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart' show AudioService;
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
+/// Çizim ekranı state yöneticisi.
+///
+/// Refactor (Hexagonal Architecture): TFLite model yükleme ve inference kodu
+/// `NumberRecognitionRepositoryImpl` (infrastructure) ve `RecognizeNumberUseCase`
+/// (application) katmanlarına taşındı. Bu Provider yalnızca UI state yönetir.
 class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
+  final RecognizeNumberUseCase _recognizeNumberUseCase;
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim kontrolleri
@@ -37,8 +42,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
   String tanima = 'Bir rakam çizin';
   bool isLoading = false;
   bool showResult = false;
-  String recognitionResult = "";
-  Interpreter? interpreter;
+  String recognitionResult = '';
   ui.Image? drawingImage;
 
   // Sıralı çizim yöneticisi
@@ -57,12 +61,14 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
 
   AppLanguage language = AppLanguage.turkish;
 
-  DrawScreenProvider({this.context, this.language = AppLanguage.turkish}) {
-    // AudioService içindeki kaydedilmiş ses seviyesini başlat
+  DrawScreenProvider({
+    required RecognizeNumberUseCase recognizeNumberUseCase,
+    this.context,
+    this.language = AppLanguage.turkish,
+  }) : _recognizeNumberUseCase = recognizeNumberUseCase {
     volume = AudioService().currentVolume;
     sequentialManager.isLetterMode = false;
-    sequentialManager.toggleSequentialMode(true); // Sıralı mod otomatik aktif
-    _loadModel();
+    sequentialManager.toggleSequentialMode(true);
     activeGuide = DrawingContentProvider.activeGuide;
     strokeWidth = 25.0;
   }
@@ -73,17 +79,6 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       parent: controller,
       curve: Curves.easeInOut,
     );
-  }
-
-  Future<void> _loadModel() async {
-    try {
-      final loadedInterpreter = await Interpreter.fromAsset('assets/models/rakam_model.tflite');
-      interpreter = loadedInterpreter;
-      notifyListeners();
-    } catch (e) {
-      tanima = 'Model yüklenemedi: $e';
-      notifyListeners();
-    }
   }
 
   void toggleSequentialMode(bool enabled) {
@@ -115,7 +110,10 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     notifyListeners();
   }
 
-  Future<void> tanimlaRakam(Function showResultScreen, Function goToInfoScreen) async {
+  Future<void> tanimlaRakam(
+    Function showResultScreen,
+    Function goToInfoScreen,
+  ) async {
     if (sequentialManager.isLetterMode) {
       sequentialManager.isLetterMode = false;
     }
@@ -135,7 +133,8 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
         notifyListeners();
         return;
       }
-      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
         isLoading = false;
@@ -143,25 +142,32 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
         return;
       }
       final Uint8List pngBytes = byteData.buffer.asUint8List();
-      final decodedImage = img.decodeImage(pngBytes);
-      if (decodedImage == null) {
-        tanima = 'Görüntü işlenemedi';
+
+      // ─── Use Case üzerinden tanıma (infrastructure'a direkt erişim yok) ───
+      final resultEither = await _recognizeNumberUseCase(pngBytes);
+      final int recognizedNumber = resultEither.fold(
+        (_) {
+          tanima = 'Tanıma başarısız';
+          return -1;
+        },
+        (number) => number,
+      );
+
+      if (recognizedNumber == -1) {
         isLoading = false;
         notifyListeners();
         return;
       }
-      final resizedImage = img.copyResize(decodedImage,
-          width: 28, height: 28, interpolation: img.Interpolation.average);
-      final Uint8List processedData = _preprocessImage(resizedImage);
-      final result = await _runInference(processedData);
-      // Önceki resmi manuel dispose etmiyoruz, sonuç ekranı veya başka widget'lar kullanıyor olabilir.
+
       drawingImage = image;
       animationController?.forward();
-      recognitionResult = result.toString();
+      recognitionResult = recognizedNumber.toString();
       isLoading = false;
       notifyListeners();
+
       if (sequentialManager.isSequentialModeActive) {
-        final bool isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
+        final bool isCorrect =
+            sequentialManager.evaluateRecognitionResult(recognitionResult);
         showResultScreen(isCorrect);
         if (!isCorrect) {
           _recordProgressAttempt(false);
@@ -170,18 +176,13 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
           updateAfterContinue(true);
         }
       } else {
-        goToInfoScreen(drawingImage, result.toString());
+        goToInfoScreen(drawingImage, recognizedNumber.toString());
       }
     } catch (e) {
       tanima = 'Hata oluştu: $e';
       isLoading = false;
       notifyListeners();
     }
-  }
-
-  void showResultScreenFn(bool isCorrect, Function onTryAgain, Function onContinue) {
-    // Bu fonksiyon, ekranda ResultScreen açmak için kullanılacak
-    // Ekran widget'ında context ile çağrılacak
   }
 
   Future<ui.Image?> _renderToImage() async {
@@ -196,7 +197,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       canvas.drawRect(rect, Paint()..color = Colors.white);
       canvas.scale(scaleRatio, scaleRatio);
       final painter = DrawingPainter(pointsList: points);
-      painter.paint(canvas, Size(280, 280));
+      painter.paint(canvas, const Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
     } catch (e, st) {
@@ -210,71 +211,6 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     }
   }
 
-  Uint8List _preprocessImage(img.Image resizedImage) {
-    final buffer = Float32List(28 * 28);
-    int pixelIndex = 0;
-    final double threshold = 0.3;
-    for (int y = 0; y < 28; y++) {
-      for (int x = 0; x < 28; x++) {
-        if (pixelIndex < buffer.length) {
-          final pixel = resizedImage.getPixel(x, y);
-          double grayValue = img.getLuminance(pixel) / 255.0;
-          if (grayValue < threshold) {
-            grayValue = 0.0;
-          }
-          buffer[pixelIndex++] = grayValue;
-        }
-      }
-    }
-    return buffer.buffer.asUint8List();
-  }
-
-  Future<int> _runInference(Uint8List imageData) async {
-    if (interpreter == null) {
-      throw Exception('Interpreter yüklenmedi');
-    }
-    try {
-      List<List<List<List<double>>>> inputData = List.generate(
-        1,
-        (i) => List.generate(
-          28,
-          (y) => List.generate(
-            28,
-            (x) => List.generate(
-              1,
-              (c) {
-                final index = y * 28 + x;
-                if (index < imageData.length / 4) {
-                  return index < imageData.length / 4 ? imageData[index * 4] / 255.0 : 0.0;
-                }
-                return 0.0;
-              },
-            ),
-          ),
-        ),
-      );
-      var output = [List<double>.filled(10, 0)];
-      interpreter!.run(inputData, output);
-      int maxIndex = 0;
-      double maxValue = output[0][0];
-      for (int i = 1; i < 10; i++) {
-        if (output[0][i] > maxValue) {
-          maxValue = output[0][i];
-          maxIndex = i;
-        }
-      }
-      return maxIndex;
-    } catch (e, st) {
-      getIt<AppLogger>().error(
-        'Inference failed',
-        tag: 'DrawScreen',
-        error: e,
-        stackTrace: st,
-      );
-      throw Exception('Tahmin hatası: $e');
-    }
-  }
-
   void clearDrawing() {
     points.clear();
     showResult = false;
@@ -283,7 +219,6 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     } else {
       tanima = 'Lütfen bir rakam çizin';
     }
-    // drawingImage'i manuel dispose etmiyoruz, GC'ye bırakıyoruz.
     drawingImage = null;
     animationController?.reset();
     animationController?.forward().then((_) => animationController?.reverse());
@@ -356,7 +291,8 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       (sequentialManager.correctlyDrawnCount / 10.0 * 100.0).clamp(0.0, 100.0);
 
   @override
-  double get accuracyRate => sequentialManager.getSuccessRate().clamp(0.0, 100.0);
+  double get accuracyRate =>
+      sequentialManager.getSuccessRate().clamp(0.0, 100.0);
 
   @override
   DateTime? get lastActivityDate => _lastActivityDate;

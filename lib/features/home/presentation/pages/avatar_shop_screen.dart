@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/feature_flags/feature_flag.dart';
-import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
+import 'package:abc123/core/domain/types/feature_flag.dart';
+import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
 import 'package:abc123/core/infrastructure/ads/ad_service.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';

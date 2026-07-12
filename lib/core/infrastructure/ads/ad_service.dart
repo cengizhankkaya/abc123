@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:abc123/core/config/admob_rewarded_ids.dart';
+import 'package:abc123/app/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/feature_flags/feature_flag.dart';
-import 'package:abc123/core/feature_flags/i_feature_flag_service.dart';
+import 'package:abc123/core/domain/types/feature_flag.dart';
+import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/foundation.dart';

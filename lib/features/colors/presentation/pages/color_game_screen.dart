@@ -5,6 +5,8 @@ import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/features/colors/domain/color_game_stage.dart';
 import 'package:abc123/features/colors/domain/game_palette_color.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/features/colors/application/usecases/get_color_palettes_use_case.dart';
 import 'package:abc123/features/colors/l10n/generated/colors_localizations.dart';
 import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
@@ -167,9 +169,9 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
 
   void _newRound() {
     final stage = _stage;
-    final pool = List<GamePaletteColor>.from(
-      GamePaletteColor.values.take(stage.poolSize),
-    )..shuffle(_rng);
+    final getPalettesUseCase = getIt<GetColorPalettesUseCase>();
+    final pool = List<GamePaletteColor>.from(getPalettesUseCase(stage.poolSize))
+      ..shuffle(_rng);
     _target = pool.first;
     final distractors = pool.where((c) => c != _target).take(stage.choices - 1).toList();
     _options = [_target, ...distractors]..shuffle(_rng);

@@ -4,10 +4,10 @@ import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_letter_use_case.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
-import 'package:abc123/features/draw/infrastructure/letter_recognition_service.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
-import 'package:abc123/features/words/domain/word_catalog.dart';
+import 'package:abc123/features/words/application/usecases/get_word_list_use_case.dart';
 import 'package:abc123/features/words/domain/word_drawing_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +31,12 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
   late DrawingGuide _activeGuide;
   Locale? _locale;
 
-  WordDrawingProvider() {
+  final RecognizeLetterUseCase _recognizeLetterUseCase;
+  final GetWordListUseCase _getWordListUseCase;
+
+  WordDrawingProvider() :
+    _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>(),
+    _getWordListUseCase = getIt<GetWordListUseCase>() {
     volume = AudioService().currentVolume;
     _activeGuide = DrawingContentProvider.activeLetterGuide;
   }
@@ -46,7 +51,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
       return;
     }
     _locale = locale;
-    _session = WordDrawingSession(words: WordCatalog.wordsForLocale(locale));
+    _session = WordDrawingSession(words: _getWordListUseCase(locale));
     _syncGuideToTargetLetter();
     _resetDrawingState();
   }
@@ -94,7 +99,11 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
       }
 
       final pngBytes = byteData.buffer.asUint8List();
-      final result = await LetterRecognitionService.instance.recognizePngBytes(pngBytes);
+      final resultEither = await _recognizeLetterUseCase(pngBytes);
+      final result = resultEither.fold(
+        (_) => '?',
+        (letter) => letter,
+      );
 
       drawingImage = image;
       recognitionResult = result;

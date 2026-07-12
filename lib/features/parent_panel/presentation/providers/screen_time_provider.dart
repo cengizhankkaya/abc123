@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:abc123/features/parent_panel/data/models/daily_activity.dart';
+import 'package:abc123/features/parent_panel/domain/entities/daily_activity.dart';
 
 /// Ebeveyn Paneli: Günlük Ekran Süresi Kontrolü yöneticisi.
 class ScreenTimeProvider extends ChangeNotifier {

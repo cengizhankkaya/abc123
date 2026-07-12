@@ -1,5 +1,5 @@
 import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/core/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';

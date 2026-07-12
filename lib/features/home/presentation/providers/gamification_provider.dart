@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/logging/app_logger.dart';
@@ -650,17 +649,16 @@ final class GamificationProvider extends ChangeNotifier {
   Future<void> incrementTotalDrawings({DrawingType type = DrawingType.any, String? label}) async {
     _totalDrawings++;
     try {
-      final prefs = await SharedPreferences.getInstance();
       final now = DateTime.now();
       final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-      final jsonStr = prefs.getString('parent_daily_activities_count_json');
+      final jsonStr = await _persistence.getString('parent_daily_activities_count_json');
       Map<String, int> countMap = {};
       if (jsonStr != null) {
         final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
         decoded.forEach((k, v) => countMap[k] = (v as num).toInt());
       }
       countMap[todayStr] = (countMap[todayStr] ?? 0) + 1;
-      await prefs.setString('parent_daily_activities_count_json', jsonEncode(countMap));
+      await _persistence.setString('parent_daily_activities_count_json', jsonEncode(countMap));
     } catch (_) {}
 
     if (type == DrawingType.number) {

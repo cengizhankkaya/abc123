@@ -1,4 +1,4 @@
-import 'package:abc123/features/parent_panel/data/models/recommendation.dart';
+import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

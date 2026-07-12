@@ -1,5 +1,5 @@
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
-import 'package:abc123/core/security/url_launch_guard.dart';
+import 'package:abc123/core/infrastructure/security/url_launch_guard.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

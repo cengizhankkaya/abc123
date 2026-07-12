@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 /// Widget testlerinde kullanılan varsayılan [Provider] listesi.
 List<SingleChildWidget> defaultTestNotifierProviders() {
   return [
-    ChangeNotifierProvider(create: (_) => DrawScreenProvider()),
+    ChangeNotifierProvider(create: (_) => DrawScreenProvider(recognizeNumberUseCase: getIt())),
     ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
     ChangeNotifierProvider(create: (_) => LanguageProvider()),
     ChangeNotifierProvider(create: (_) => ThemeModeProvider()),

@@ -4,7 +4,7 @@ import 'package:abc123/features/draw/presentation/providers/draw_screen_provider
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
 import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
-import 'package:abc123/features/parent_panel/data/services/progress_aggregator_service.dart';
+import 'package:abc123/features/parent_panel/infrastructure/repositories/progress_aggregator_repository_impl.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/premium_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/screens/parent_dashboard_screen.dart';
@@ -35,18 +35,24 @@ void main() {
         ChangeNotifierProvider<GamificationProvider>.value(
           value: getIt<GamificationProvider>(),
         ),
-        ChangeNotifierProvider(create: (_) => DrawScreenProvider()),
+        ChangeNotifierProvider(create: (_) => DrawScreenProvider(recognizeNumberUseCase: getIt())),
         ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
         ChangeNotifierProvider(create: (_) => ShapesDrawingProvider()),
         ChangeNotifierProvider(create: (_) => WordDrawingProvider()),
         ChangeNotifierProvider(create: (_) => PremiumProvider()),
         ChangeNotifierProvider(create: (_) => ScreenTimeProvider()),
         ChangeNotifierProxyProvider<GamificationProvider, MathProgressProvider>(
-          create: (ctx) => MathProgressProvider(gamification: ctx.read<GamificationProvider>()),
-          update: (ctx, gam, prev) => prev ?? MathProgressProvider(gamification: gam),
+          create: (ctx) => MathProgressProvider(
+            gamification: ctx.read<GamificationProvider>(),
+            recognizeMultiDigitUseCase: getIt(),
+          ),
+          update: (ctx, gam, prev) => prev ?? MathProgressProvider(
+            gamification: gam,
+            recognizeMultiDigitUseCase: getIt(),
+          ),
         ),
-        ProxyProvider0<ProgressAggregatorService>(
-          update: (context, _) => ProgressAggregatorService([
+        ProxyProvider0<ProgressAggregatorRepositoryImpl>(
+          update: (context, _) => ProgressAggregatorRepositoryImpl([
             context.read<DrawScreenProvider>(),
             context.read<LetterDrawingProvider>(),
             context.read<ShapesDrawingProvider>(),

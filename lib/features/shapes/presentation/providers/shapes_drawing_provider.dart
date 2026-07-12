@@ -2,8 +2,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img;
-import 'package:tflite_flutter/tflite_flutter.dart';
+
+import 'package:abc123/features/shapes/application/usecases/recognize_shape_use_case.dart';
 
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/di/injection.dart';
@@ -109,17 +109,17 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   double volume = 1.0;
 
   ui.Image? drawingImage;
-  Interpreter? interpreter;
 
   // Ses için harici servis kullanılacak (AudioService) – burada sadece state var
 
-  ShapesDrawingProvider() {
+  final RecognizeShapeUseCase _recognizeShapeUseCase;
+
+  ShapesDrawingProvider() : _recognizeShapeUseCase = getIt<RecognizeShapeUseCase>() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = AudioService().currentVolume;
     // Başlangıçta sıralı çizim modunu açık başlat
     sequentialManager.toggleSequentialMode(true);
     _updateTanima();
-    _loadModel();
   }
 
   void _updateTanima() {
@@ -130,29 +130,10 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
     }
   }
 
-  Future<void> _loadModel() async {
-    try {
-      final loadedInterpreter =
-          await Interpreter.fromAsset('assets/models/geometric_shapes_model.tflite');
-      interpreter = loadedInterpreter;
-      notifyListeners();
-    } catch (e) {
-      recognitionResult = 'Model yüklenemedi: $e';
-      notifyListeners();
-    }
-  }
-
   Future<void> recognizeShape(BuildContext context) async {
     if (points.isEmpty) {
       // Boş çizim uyarısı
       recognitionResult = 'Lütfen bir şekil çizin';
-      showResult = true;
-      notifyListeners();
-      return;
-    }
-
-    if (interpreter == null) {
-      recognitionResult = 'Model hazır değil';
       showResult = true;
       notifyListeners();
       return;
@@ -182,25 +163,12 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
       }
 
       final Uint8List pngBytes = byteData.buffer.asUint8List();
-      final decodedImage = img.decodeImage(pngBytes);
-      if (decodedImage == null) {
-        recognitionResult = 'Görüntü işlenemedi';
-        isLoading = false;
-        showResult = true;
-        notifyListeners();
-        return;
-      }
 
-      // Model girişi: (1, 128, 128, 3) - 0..1 aralığında float32
-      final resizedImage = img.copyResize(
-        decodedImage,
-        width: 128,
-        height: 128,
-        interpolation: img.Interpolation.average,
+      final resultEither = await _recognizeShapeUseCase(pngBytes);
+      final String resultLabel = resultEither.fold(
+        (failure) => 'Hata oluştu',
+        (shape) => shape,
       );
-
-      final Float32List inputBuffer = _preprocessImage(resizedImage);
-      final String resultLabel = await _runInference(inputBuffer);
 
       // Önceki resmi manuel dispose etmiyoruz, sonuç ekranı kullanıyor olabilir.
       drawingImage = image;
@@ -249,106 +217,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
     }
   }
 
-  /// 128x128 RGB görüntüyü (1, 128, 128, 3) girişine uygun düz Float32 listeye çevir
-  Float32List _preprocessImage(img.Image resizedImage) {
-    final buffer = Float32List(128 * 128 * 3);
-    int i = 0;
 
-    for (int y = 0; y < 128; y++) {
-      for (int x = 0; x < 128; x++) {
-        final pixel = resizedImage.getPixel(x, y);
-        final r = pixel.r / 255.0;
-        final g = pixel.g / 255.0;
-        final b = pixel.b / 255.0;
-        buffer[i++] = r;
-        buffer[i++] = g;
-        buffer[i++] = b;
-      }
-    }
-
-    return buffer;
-  }
-
-  Future<String> _runInference(Float32List inputBuffer) async {
-    if (interpreter == null) {
-      throw Exception('Interpreter yüklenmedi');
-    }
-
-    try {
-      // Girdi tensörü: [1, 128, 128, 3]
-      final inputData = List.generate(
-        1,
-        (_) => List.generate(
-          128,
-          (y) => List.generate(
-            128,
-            (x) {
-              final base = (y * 128 + x) * 3;
-              return [
-                inputBuffer[base],
-                inputBuffer[base + 1],
-                inputBuffer[base + 2],
-              ];
-            },
-          ),
-        ),
-      );
-
-      // Çıkış tensörü: [1, N] -> N sınıf olasılığı (bazı modellerde N=4 olabilir)
-      final outputShape = interpreter!.getOutputTensor(0).shape;
-      final numClasses = outputShape.isNotEmpty ? outputShape.last : 3;
-      final output = [List<double>.filled(numClasses, 0)];
-      interpreter!.run(inputData, output);
-      final probabilities = output[0];
-      int maxIndex = 0;
-      double maxValue = probabilities[0];
-
-      for (int i = 1; i < probabilities.length; i++) {
-        if (probabilities[i] > maxValue) {
-          maxValue = probabilities[i];
-          maxIndex = i;
-        }
-      }
-
-      // Temel sınıf adları; model daha fazla çıktı veriyorsa kalanları generic adlandır
-      const baseClassNames = ['Circle', 'Square', 'Triangle'];
-      final classNames = List<String>.generate(
-        numClasses,
-        (index) => index < baseClassNames.length ? baseClassNames[index] : 'Class $index',
-      );
-      if (maxIndex < 0 || maxIndex >= classNames.length) {
-        return 'Bilinmeyen şekil';
-      }
-
-      final predictedLabelEn = classNames[maxIndex];
-      final predictedLabelTr = _localizeShapeLabel(predictedLabelEn);
-
-      // Overlay içinde büyük ve net görünsün diye sadece şekil adını dön
-      return predictedLabelTr.toUpperCase();
-    } catch (e, st) {
-      getIt<AppLogger>().error(
-        'Shape inference failed',
-        tag: 'ShapesDraw',
-        error: e,
-        stackTrace: st,
-      );
-      throw Exception('Tahmin hatası: $e');
-    }
-  }
-
-  /// İngilizce sınıf adını Türkçe kullanıcı dostu etikete çevir
-  String _localizeShapeLabel(String label) {
-    switch (label) {
-      case 'Circle':
-        return 'Daire';
-      case 'Square':
-        return 'Kare';
-      case 'Triangle':
-        return 'Üçgen';
-      default:
-        return label;
-    }
-  }
 
   void addPoint(DrawingPoint? point) {
     points.add(point);

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:abc123/core/config/admob_banner_ids.dart';
+import 'package:abc123/app/config/admob_banner_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';

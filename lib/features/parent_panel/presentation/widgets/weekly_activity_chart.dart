@@ -1,4 +1,4 @@
-import 'package:abc123/features/parent_panel/data/models/daily_activity.dart';
+import 'package:abc123/features/parent_panel/domain/entities/daily_activity.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

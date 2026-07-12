@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_number_use_case.dart';
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/constants/language_constants.dart';
@@ -50,7 +52,11 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
     super.didChangeDependencies();
     final lang = context.watch<LanguageProvider>().language;
     if (_provider == null) {
-      _provider = DrawScreenProvider(context: context, language: lang);
+      _provider = DrawScreenProvider(
+        recognizeNumberUseCase: getIt<RecognizeNumberUseCase>(),
+        context: context,
+        language: lang,
+      );
       _provider!.setAnimationController(_animationController);
       _lastLang = lang;
     } else if (_lastLang != lang) {
