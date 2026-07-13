@@ -1,3 +1,4 @@
+import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:abc123/features/parent_panel/domain/repositories/i_recommendation_repository.dart';
@@ -9,11 +10,11 @@ class GetRecommendationsUseCase {
 
   GetRecommendationsUseCase(this._repository);
 
-  List<Recommendation> call({
+  FutureResult<List<Recommendation>> call({
     required List<ModuleProgress> progressList,
     required bool isTurkish,
-  }) {
-    return _repository.generateRecommendations(
+  }) async {
+    return await _repository.generateRecommendations(
       progressList: progressList,
       isTurkish: isTurkish,
     );

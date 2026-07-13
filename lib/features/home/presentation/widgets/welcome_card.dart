@@ -1,7 +1,7 @@
 import 'package:abc123/core/constants/app_font_sizes.dart';
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
-import 'package:abc123/core/infrastructure/images/image_manager.dart';
+import 'package:abc123/core/presentation/services/image_service.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 

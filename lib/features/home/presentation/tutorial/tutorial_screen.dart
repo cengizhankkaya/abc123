@@ -1,14 +1,15 @@
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_url_launcher.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
-import 'package:abc123/core/infrastructure/security/url_launch_guard.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class YoutubeVideoScreen extends StatelessWidget {
   final String youtubeUrl = 'https://www.youtube.com/watch?v=Dzg3JjjoeX8';
 
   Future<void> _launchYoutube(BuildContext context) async {
     final url = Uri.parse(youtubeUrl);
-    if (!isAllowedExternalLaunchUri(url)) {
+    final launcher = getIt<IUrlLauncher>();
+    if (!launcher.isAllowed(url)) {
       if (context.mounted) {
         final msg = AppLocalizations.of(context)!.tutorialHttpsOnlyMessage;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -17,9 +18,8 @@ class YoutubeVideoScreen extends StatelessWidget {
       }
       return;
     }
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
-    } else if (context.mounted) {
+    final success = await launcher.launch(url);
+    if (!success && context.mounted) {
       final msg = AppLocalizations.of(context)!.tutorialOpenFailedMessage;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(msg)),

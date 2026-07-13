@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 
 /// Görev şablonları — yeni görev eklemek için çoğunlukla burası güncellenir.
 abstract final class QuestTemplateCatalog {
-  static QuestModel buildDaily(String dayKey, Random random) {
+  static Quest buildDaily(String dayKey, Random random) {
     final typeIndex = random.nextInt(3);
     final count = random.nextInt(3) + 3; // 3–5
     late final DrawingType type;
@@ -24,7 +24,7 @@ abstract final class QuestTemplateCatalog {
       targetLabel = shapes[random.nextInt(shapes.length)];
     }
 
-    return QuestModel(
+    return Quest(
       id: 'daily_$dayKey',
       titleKey: 'daily_quest',
       targetType: type,
@@ -35,7 +35,7 @@ abstract final class QuestTemplateCatalog {
   }
 
   /// Günlük renk görevi — 3 renk turunu doğru tamamla.
-  static QuestModel buildDailyColor(String dayKey) => QuestModel(
+  static Quest buildDailyColor(String dayKey) => Quest(
         id: 'daily_color_$dayKey',
         titleKey: 'daily_color_quest',
         targetType: DrawingType.color,
@@ -44,7 +44,7 @@ abstract final class QuestTemplateCatalog {
       );
 
   /// Günlük kelime görevi — 2 kelime tamamla.
-  static QuestModel buildDailyWord(String dayKey) => QuestModel(
+  static Quest buildDailyWord(String dayKey) => Quest(
         id: 'daily_word_$dayKey',
         titleKey: 'daily_word_quest',
         targetType: DrawingType.word,
@@ -52,7 +52,7 @@ abstract final class QuestTemplateCatalog {
         rewardPoints: 15,
       );
 
-  static QuestModel weeklyNumbers(String weekKey) => QuestModel(
+  static Quest weeklyNumbers(String weekKey) => Quest(
         id: 'weekly_numbers_$weekKey',
         titleKey: 'weekly_number_quest',
         targetType: DrawingType.number,
@@ -61,7 +61,7 @@ abstract final class QuestTemplateCatalog {
       );
 
   /// Haftalık harf görevi — 10 harf çiz.
-  static QuestModel weeklyLetters(String weekKey) => QuestModel(
+  static Quest weeklyLetters(String weekKey) => Quest(
         id: 'weekly_letters_$weekKey',
         titleKey: 'weekly_letter_quest',
         targetType: DrawingType.letter,
@@ -70,7 +70,7 @@ abstract final class QuestTemplateCatalog {
       );
 
   /// Haftalık şekil görevi — 8 şekil çiz.
-  static QuestModel weeklyShapes(String weekKey) => QuestModel(
+  static Quest weeklyShapes(String weekKey) => Quest(
         id: 'weekly_shapes_$weekKey',
         titleKey: 'weekly_shape_quest',
         targetType: DrawingType.shape,
@@ -78,7 +78,7 @@ abstract final class QuestTemplateCatalog {
         rewardPoints: 50,
       );
 
-  static QuestModel weeklyGeneric(String weekKey) => QuestModel(
+  static Quest weeklyGeneric(String weekKey) => Quest(
         id: 'weekly_generic_$weekKey',
         titleKey: 'weekly_generic_quest',
         targetType: DrawingType.any,

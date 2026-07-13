@@ -1,7 +1,8 @@
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
+import 'package:abc123/core/types/result.dart';
 
 abstract interface class IProgressAggregatorRepository {
-  List<ModuleProgress> getAllModuleProgress();
-  double getOverallAccuracyRate();
-  double getOverallCompletionPercentage();
+  FutureResult<List<ModuleProgress>> getAllModuleProgress();
+  FutureResult<double> getOverallAccuracyRate();
+  FutureResult<double> getOverallCompletionPercentage();
 }

@@ -1,3 +1,4 @@
+import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/colors/domain/game_palette_color.dart';
 import 'package:abc123/features/colors/domain/repositories/i_color_game_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -8,7 +9,7 @@ class GetColorPalettesUseCase {
 
   const GetColorPalettesUseCase(this._repository);
 
-  List<GamePaletteColor> call(int poolSize) {
+  FutureResult<List<GamePaletteColor>> call(int poolSize) async {
     return _repository.getPalette(poolSize);
   }
 }

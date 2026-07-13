@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/types/feature_flag.dart';
 import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
+import 'package:abc123/core/domain/ports/i_ad_service.dart';
 import 'package:abc123/core/infrastructure/ads/ad_service.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
@@ -29,7 +30,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
   void initState() {
     super.initState();
     if (getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
-      AdService().initialize();
+      getIt<IAdService>().initialize();
     }
   }
 
@@ -106,7 +107,8 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
         unawaited(context.read<GamificationProvider>().addPoints(earned));
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text("🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)"),
+            content: Text(
+                "🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)"),
             backgroundColor: HomeDesignTokens.lettersCard,
           ),
         );
@@ -200,14 +202,17 @@ class _AvatarDashboardCard extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.play_circle_fill_rounded, color: HomeDesignTokens.darkText, size: 16),
+                                  const Icon(Icons.play_circle_fill_rounded,
+                                      color: HomeDesignTokens.darkText, size: 16),
                                   const SizedBox(width: 4),
                                   Flexible(
                                     child: Text(
                                       h.freePointsBtn,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: HomeDesignTokens.cardTitle(color: HomeDesignTokens.darkText).copyWith(
+                                      style: HomeDesignTokens.cardTitle(
+                                              color: HomeDesignTokens.darkText)
+                                          .copyWith(
                                         fontSize: 11,
                                       ),
                                     ),

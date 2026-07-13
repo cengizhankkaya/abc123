@@ -2,13 +2,14 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/colors/domain/color_game_stage.dart';
 import 'package:abc123/features/colors/domain/game_palette_color.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/features/colors/application/usecases/get_color_palettes_use_case.dart';
 import 'package:abc123/features/colors/l10n/generated/colors_localizations.dart';
 import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
+import 'package:abc123/features/colors/presentation/extensions/game_palette_color_extension.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,8 +34,8 @@ class ColorGameScreen extends StatefulWidget {
 
 class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderStateMixin {
   final Random _rng = Random();
-  late GamePaletteColor _target;
-  late List<GamePaletteColor> _options;
+  GamePaletteColor? _target;
+  List<GamePaletteColor> _options = [];
   bool _busy = false;
   bool _starsVisible = false;
   bool _sessionComplete = false;
@@ -76,7 +77,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       CurvedAnimation(parent: _popController, curve: Curves.easeOutBack),
     );
 
-    _newRound();
+    unawaited(_newRound());
   }
 
   @override
@@ -129,7 +130,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
     setState(() => _busy = true);
     try {
       await HapticFeedback.heavyImpact();
-      await AudioService().playEffect(AppAudios.fail);
+      await getIt<IAudioService>().playEffect(AppAudios.fail);
       if (!mounted) return;
       unawaited(_runShake());
       final l = context.colorsL10n;
@@ -161,22 +162,34 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       );
       await Future<void>.delayed(const Duration(milliseconds: 400));
       if (!mounted) return;
-      _newRound();
+      unawaited(_newRound());
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
 
-  void _newRound() {
+  Future<void> _newRound() async {
+    setState(() => _busy = true);
     final stage = _stage;
     final getPalettesUseCase = getIt<GetColorPalettesUseCase>();
-    final pool = List<GamePaletteColor>.from(getPalettesUseCase(stage.poolSize))
-      ..shuffle(_rng);
-    _target = pool.first;
-    final distractors = pool.where((c) => c != _target).take(stage.choices - 1).toList();
-    _options = [_target, ...distractors]..shuffle(_rng);
-    _restartTimer();
-    setState(() {});
+    final result = await getPalettesUseCase(stage.poolSize);
+    
+    if (!mounted) return;
+    
+    result.fold(
+      (failure) {
+        // Fallback or error state
+        if (mounted) setState(() => _busy = false);
+      },
+      (palette) {
+        final pool = List<GamePaletteColor>.from(palette)..shuffle(_rng);
+        _target = pool.first;
+        final distractors = pool.where((c) => c != _target).take(stage.choices - 1).toList();
+        _options = [_target!, ...distractors]..shuffle(_rng);
+        _restartTimer();
+        if (mounted) setState(() => _busy = false);
+      }
+    );
   }
 
   Future<void> _runShake() async {
@@ -233,7 +246,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       _cancelTimer();
       try {
         await HapticFeedback.mediumImpact();
-        await AudioService().playEffect(AppAudios.success);
+        await getIt<IAudioService>().playEffect(AppAudios.success);
         if (!mounted) return;
         setState(() => _starsVisible = true);
         await _popController.forward(from: 0);
@@ -280,7 +293,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       }
     } else {
       await HapticFeedback.selectionClick();
-      await AudioService().playEffect(AppAudios.fail);
+      await getIt<IAudioService>().playEffect(AppAudios.fail);
       if (!mounted) return;
       unawaited(_runShake());
       ScaffoldMessenger.of(context).clearSnackBars();
@@ -338,6 +351,14 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
 
     final size = MediaQuery.sizeOf(context);
     final targetDiameter = size.shortestSide * 0.42;
+    if (_target == null || _options.isEmpty) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    final t = _target!;
     final r = targetDiameter / 2;
     final need = _stage.requiredCorrect;
     final levelInfo = _level;
@@ -458,11 +479,11 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
                               child: ScaleTransition(
                                 scale: _popScale,
                                 child: Semantics(
-                                  label: _target.localizedName(l),
+                                  label: t.localizedName(l),
                                   hint: l.colorGameInstruction,
                                   container: true,
                                   child: _TargetWordCard(
-                                    word: _target.localizedName(l),
+                                    word: t.localizedName(l),
                                     maxWidth: size.shortestSide * 0.86,
                                   ),
                                 ),
@@ -916,7 +937,7 @@ class _ColorChoiceButton extends StatelessWidget {
       label: label,
       child: Material(
         elevation: onTap == null ? 2 : 8,
-        shadowColor: color.color.withValues(alpha: 0.55),
+        shadowColor: Color(color.value).withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(26),
         color: Colors.transparent,
         child: InkWell(
@@ -930,9 +951,9 @@ class _ColorChoiceButton extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color.lerp(Colors.white, color.color, 0.25)!,
-                  color.color,
-                  Color.lerp(color.color, Colors.black, 0.08)!,
+                  Color.lerp(Colors.white, Color(color.value), 0.25)!,
+                  Color(color.value),
+                  Color.lerp(Color(color.value), Colors.black, 0.08)!,
                 ],
               ),
               border: Border.all(color: Colors.white, width: 4),

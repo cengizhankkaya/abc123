@@ -13,6 +13,8 @@ class RecommendationTile extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
+    
+    final accentColor = Color(recommendation.accentColorArgb);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -28,7 +30,7 @@ class RecommendationTile extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: recommendation.accentColor.withOpacity(0.3),
+          color: accentColor.withOpacity(0.3),
           width: 1.5,
         ),
       ),
@@ -38,10 +40,10 @@ class RecommendationTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: recommendation.accentColor.withOpacity(0.15),
+              color: accentColor.withOpacity(0.15),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Icon(recommendation.icon, color: recommendation.accentColor, size: 28),
+            child: Icon(_getIcon(recommendation.iconCode), color: accentColor, size: 28),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -53,7 +55,7 @@ class RecommendationTile extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: recommendation.accentColor.withOpacity(0.12),
+                        color: accentColor.withOpacity(0.12),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
@@ -62,7 +64,7 @@ class RecommendationTile extends StatelessWidget {
                           fontSize: 10,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 0.8,
-                          color: recommendation.accentColor,
+                          color: accentColor,
                         ),
                       ),
                     ),
@@ -93,7 +95,7 @@ class RecommendationTile extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                     decoration: BoxDecoration(
-                      color: recommendation.accentColor,
+                      color: accentColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -119,5 +121,17 @@ class RecommendationTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  IconData _getIcon(String code) {
+    switch (code) {
+      case 'numbers_rounded': return Icons.numbers_rounded;
+      case 'abc_rounded': return Icons.abc_rounded;
+      case 'category_rounded': return Icons.category_rounded;
+      case 'calculate_rounded': return Icons.calculate_rounded;
+      case 'spellcheck_rounded': return Icons.spellcheck_rounded;
+      case 'auto_awesome_rounded': return Icons.auto_awesome_rounded;
+      default: return Icons.star_rounded;
+    }
   }
 }

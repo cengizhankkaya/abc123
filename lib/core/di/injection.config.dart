@@ -74,9 +74,15 @@ import '../../features/words/infrastructure/repositories/word_repository_impl.da
     as _i239;
 import '../api/app_api_service.dart' as _i22;
 import '../api/network_error_handler.dart' as _i578;
+import '../domain/ports/i_ad_service.dart' as _i301;
+import '../domain/ports/i_audio_service.dart' as _i302;
 import '../domain/ports/i_feature_flag_service.dart' as _i624;
 import '../domain/ports/i_token_storage.dart' as _i449;
+import '../domain/ports/i_url_launcher.dart' as _i303;
+import '../infrastructure/ads/ad_service.dart' as _i304;
+import '../infrastructure/audio/audio_service.dart' as _i305;
 import '../infrastructure/feature_flags/feature_flag_service.dart' as _i600;
+import '../infrastructure/security/url_launch_guard.dart' as _i306;
 import '../infrastructure/storage/token_storage.dart' as _i1006;
 import '../logging/app_logger.dart' as _i354;
 import 'modules/logging_module.dart' as _i767;
@@ -100,6 +106,9 @@ Future<_i174.GetIt> init(
   gh.factory<_i1018.QuestRolloverResolver>(
       () => _i1018.QuestRolloverResolver());
   gh.lazySingleton<_i354.AppLogger>(() => loggingModule.appLogger());
+  gh.lazySingleton<_i302.IAudioService>(() => _i305.AudioService());
+  gh.lazySingleton<_i301.IAdService>(() => _i304.AdService());
+  gh.lazySingleton<_i303.IUrlLauncher>(() => const _i306.UrlLaunchGuardImpl());
   gh.lazySingleton<_i409.Lock>(() => networkModule.apiRefreshLock());
   await gh.lazySingletonAsync<_i460.SharedPreferences>(
     () => storageModule.sharedPreferences(),

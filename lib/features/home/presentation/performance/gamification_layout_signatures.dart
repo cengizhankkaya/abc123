@@ -1,6 +1,6 @@
-import 'package:abc123/features/home/domain/entities/badge_model.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
-import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
+import 'package:abc123/features/home/domain/entities/badge.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
+import 'package:abc123/features/home/domain/entities/shop_item.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 
 /// [Selector] / [context.select] için hafif imzalar (`16_performance.md` — gereksiz rebuild azaltma).
@@ -22,7 +22,7 @@ int homeContinueSignature(GamificationProvider p) => Object.hash(
       p.lastActivityTotal,
     );
 
-int questListLayoutSignature(List<QuestModel> quests) {
+int questListLayoutSignature(List<Quest> quests) {
   var h = quests.length;
   for (final q in quests) {
     h = Object.hash(h, q.id, q.currentCount, q.isCompleted, q.isClaimed);
@@ -30,7 +30,7 @@ int questListLayoutSignature(List<QuestModel> quests) {
   return h;
 }
 
-int unlockedBadgeListSignature(List<BadgeModel> badges) {
+int unlockedBadgeListSignature(List<Badge> badges) {
   var h = badges.length;
   for (final b in badges) {
     h = Object.hash(h, b.id);

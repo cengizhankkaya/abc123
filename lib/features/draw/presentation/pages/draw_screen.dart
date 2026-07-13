@@ -6,7 +6,7 @@ import 'package:abc123/features/draw/application/usecases/recognize_number_use_c
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
@@ -44,7 +44,7 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    AudioService().playBackground(AppAudios.happyKids);
+    getIt<IAudioService>().playBackground(AppAudios.happyKids);
   }
 
   @override
@@ -67,7 +67,7 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
 
   @override
   void dispose() {
-    AudioService().stopBackground();
+    getIt<IAudioService>().stopBackground();
     _animationController.dispose();
     // Ekran yönünü normale döndürme (dikey mod)
     unawaited(OrientationHelper.setPortrait());
@@ -162,13 +162,13 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
                             (bool isCorrect) {
                               // Doğruysa success, yanlışsa fail sesi çal
                               if (isCorrect) {
-                                AudioService().playEffectAndResumeBackground(
+                                getIt<IAudioService>().playEffectAndResumeBackground(
                                     AppAudios.success, AppAudios.happyKids);
                                 // Gamification: Puan ekle ve çizim sayısını artır
                                 context.read<GamificationProvider>().incrementTotalDrawings(
                                     type: DrawingType.number, label: provider.recognitionResult);
                               } else {
-                                AudioService().playEffectAndResumeBackground(
+                                getIt<IAudioService>().playEffectAndResumeBackground(
                                     AppAudios.fail, AppAudios.happyKids);
                               }
                               // Sıralı mod sonucu

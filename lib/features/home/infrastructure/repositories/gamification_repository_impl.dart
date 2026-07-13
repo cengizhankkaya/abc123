@@ -1,3 +1,7 @@
+import 'package:fpdart/fpdart.dart';
+import 'package:abc123/core/types/types.dart';
+import 'package:abc123/core/error/failures/failure.dart';
+class StorageFailure extends Failure {}
 import 'package:abc123/features/home/domain/repositories/i_gamification_persistence.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,32 +13,32 @@ class GamificationRepositoryImpl implements IGamificationPersistence {
   GamificationRepositoryImpl(this._prefs);
 
   @override
-  Future<int?> getInt(String key) async {
-    return _prefs.getInt(key);
+  FutureResult<int?> getInt(String key) async {
+    try { return Right(_prefs.getInt(key)); } catch (_) { return Left(StorageFailure()); }
   }
 
   @override
-  Future<void> setInt(String key, int value) async {
-    await _prefs.setInt(key, value);
+  FutureResult<Unit> setInt(String key, int value) async {
+    try { await _prefs.setInt(key, value); return const Right(unit); } catch (_) { return Left(StorageFailure()); }
   }
 
   @override
-  Future<String?> getString(String key) async {
-    return _prefs.getString(key);
+  FutureResult<String?> getString(String key) async {
+    try { return Right(_prefs.getString(key)); } catch (_) { return Left(StorageFailure()); }
   }
 
   @override
-  Future<void> setString(String key, String value) async {
-    await _prefs.setString(key, value);
+  FutureResult<Unit> setString(String key, String value) async {
+    try { await _prefs.setString(key, value); return const Right(unit); } catch (_) { return Left(StorageFailure()); }
   }
 
   @override
-  Future<List<String>?> getStringList(String key) async {
-    return _prefs.getStringList(key);
+  FutureResult<List<String>?> getStringList(String key) async {
+    try { return Right(_prefs.getStringList(key)); } catch (_) { return Left(StorageFailure()); }
   }
 
   @override
-  Future<void> setStringList(String key, List<String> value) async {
-    await _prefs.setStringList(key, value);
+  FutureResult<Unit> setStringList(String key, List<String> value) async {
+    try { await _prefs.setStringList(key, value); return const Right(unit); } catch (_) { return Left(StorageFailure()); }
   }
 }

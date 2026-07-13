@@ -3,7 +3,8 @@ import 'dart:ui' as ui;
 
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/numbers_advanced/application/math_problem_generator.dart';
 import 'package:abc123/features/numbers_advanced/domain/math_difficulty.dart';
@@ -383,7 +384,7 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
 
     if (isCorrect) {
       // Ses geri bildirimi
-      AudioService().playEffect(AppAudios.success);
+      getIt<IAudioService>().playEffect(AppAudios.success);
 
       // Puan
       await _gamification.addPoints(GamificationConstants.pointsPerCorrectDraw);
@@ -419,7 +420,7 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
       await _saveProgress();
     } else {
       // Yanlış cevap
-      AudioService().playEffect(AppAudios.fail);
+      getIt<IAudioService>().playEffect(AppAudios.fail);
       _levelStats[level]!.addWrong();
       hintEnabled = true;
 

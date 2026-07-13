@@ -3,7 +3,7 @@
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -52,7 +52,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
       curve: Curves.easeInOut,
     );
 
-    AudioService().playBackground(AppAudios.happyKids);
+    getIt<IAudioService>().playBackground(AppAudios.happyKids);
 
     // Tek seferlik bir ölçeklendirme yap
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -66,7 +66,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
     _animationController.dispose();
     // Ekran yönünü normale döndürme (dikey mod)
     unawaited(OrientationHelper.setPortrait());
-    AudioService().stopBackground();
+    getIt<IAudioService>().stopBackground();
     super.dispose();
   }
 
@@ -80,9 +80,9 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
 
     try {
       if (data.isCorrect) {
-        AudioService().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
+        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
       } else {
-        AudioService().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
+        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
       }
       context.push(
         AppRoutes.result,

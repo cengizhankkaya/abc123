@@ -8,6 +8,6 @@ import 'package:injectable/injectable.dart';
 class WordRepositoryImpl implements IWordRepository {
   @override
   List<WordEntry> getWordsForLocale(Locale locale) {
-    return WordCatalog.wordsForLocale(locale);
+    return WordCatalog.wordsForLocale(locale.languageCode);
   }
 }

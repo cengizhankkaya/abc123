@@ -1,8 +1,9 @@
 import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:abc123/features/parent_panel/domain/repositories/i_recommendation_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 /// Ebeveyn Paneli için kural tabanlı akıllı öneri motoru.
@@ -10,10 +11,10 @@ import 'package:injectable/injectable.dart';
 class RecommendationRepositoryImpl implements IRecommendationRepository {
   /// Modül verilerini analiz ederek ebeveyn için eylem odaklı öneriler üretir.
   @override
-  List<Recommendation> generateRecommendations({
+  FutureResult<List<Recommendation>> generateRecommendations({
     required List<ModuleProgress> progressList,
     required bool isTurkish,
-  }) {
+  }) async {
     final List<Recommendation> recommendations = [];
 
     for (final module in progressList) {
@@ -32,8 +33,8 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
                   : 'Your child is struggling with ($itemsText). Regular practice is recommended.',
               targetModule: 'numbers',
               routePath: AppRoutes.draw,
-              icon: Icons.numbers_rounded,
-              accentColor: const Color(0xFF6C63FF),
+              iconCode: 'numbers_rounded',
+              accentColorArgb: 0xFF6C63FF,
             ),
           );
         }
@@ -52,8 +53,8 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
                   : 'Recent attempts show difficulties in letters ($itemsText). Practice in Letters module.',
               targetModule: 'letters',
               routePath: AppRoutes.letters,
-              icon: Icons.abc_rounded,
-              accentColor: const Color(0xFF2196F3),
+              iconCode: 'abc_rounded',
+              accentColorArgb: 0xFF2196F3,
             ),
           );
         }
@@ -69,8 +70,8 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
                   : 'Open the Shapes module to improve drawing accuracy for Circle, Square, and Triangle.',
               targetModule: 'shapes',
               routePath: AppRoutes.shapes,
-              icon: Icons.category_rounded,
-              accentColor: const Color(0xFFFF9800),
+              iconCode: 'category_rounded',
+              accentColorArgb: 0xFFFF9800,
             ),
           );
         }
@@ -89,8 +90,8 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
                   : 'More practice needed specifically in ($itemsText). Try Visual & Symbolic operations.',
               targetModule: 'math_advanced',
               routePath: AppRoutes.mathAdvanced,
-              icon: Icons.calculate_rounded,
-              accentColor: const Color(0xFFE91E63),
+              iconCode: 'calculate_rounded',
+              accentColorArgb: 0xFFE91E63,
             ),
           );
         }
@@ -106,8 +107,8 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
                   : 'Letter recognition has improved! Try combining letters to build words now.',
               targetModule: 'words',
               routePath: AppRoutes.words,
-              icon: Icons.spellcheck_rounded,
-              accentColor: const Color(0xFF00B0FF),
+              iconCode: 'spellcheck_rounded',
+              accentColorArgb: 0xFF00B0FF,
             ),
           );
         }
@@ -126,12 +127,12 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
               : 'Accuracy and progress rates are very high across all modules. Keep practicing with daily quests.',
           targetModule: 'home',
           routePath: AppRoutes.quests,
-          icon: Icons.auto_awesome_rounded,
-          accentColor: const Color(0xFF00C853),
+          iconCode: 'auto_awesome_rounded',
+          accentColorArgb: 0xFF00C853,
         ),
       );
     }
 
-    return recommendations;
+    return right(recommendations);
   }
 }

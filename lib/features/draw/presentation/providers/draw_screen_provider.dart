@@ -10,7 +10,7 @@ import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart' show AudioService;
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
 /// Çizim ekranı state yöneticisi.
@@ -66,7 +66,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     this.context,
     this.language = AppLanguage.turkish,
   }) : _recognizeNumberUseCase = recognizeNumberUseCase {
-    volume = AudioService().currentVolume;
+    volume = getIt<IAudioService>().currentVolume;
     sequentialManager.isLetterMode = false;
     sequentialManager.toggleSequentialMode(true);
     activeGuide = DrawingContentProvider.activeGuide;
@@ -261,7 +261,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    AudioService().setVolume(value);
+    getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }
 

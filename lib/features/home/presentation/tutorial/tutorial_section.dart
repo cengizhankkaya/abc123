@@ -1,5 +1,5 @@
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/core/infrastructure/images/image_manager.dart';
+import 'package:abc123/core/presentation/services/image_service.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';

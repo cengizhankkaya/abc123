@@ -15,7 +15,13 @@ class SummaryOverviewCard extends StatelessWidget {
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final accuracy = aggregator.getOverallAccuracyRate().round();
+    return FutureBuilder<double>(
+      future: () async {
+        final res = await aggregator.getOverallAccuracyRate();
+        return res.fold((l) => 0.0, (r) => r);
+      }(),
+      builder: (context, snapshot) {
+        final accuracy = (snapshot.data ?? 0.0).round();
     final streak = gamification.streak;
     final unlockedBadges = gamification.unlockedBadges.length;
     final totalBadges = gamification.badges.length;
@@ -124,6 +130,8 @@ class SummaryOverviewCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+      },
     );
   }
 

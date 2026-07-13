@@ -1,3 +1,4 @@
+import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:abc123/features/parent_panel/domain/repositories/i_progress_aggregator_repository.dart';
 class GetProgressSummaryUseCase {
@@ -5,15 +6,15 @@ class GetProgressSummaryUseCase {
 
   GetProgressSummaryUseCase(this._repository);
 
-  List<ModuleProgress> getAllModuleProgress() {
-    return _repository.getAllModuleProgress();
+  FutureResult<List<ModuleProgress>> getAllModuleProgress() async {
+    return await _repository.getAllModuleProgress();
   }
 
-  double getOverallAccuracyRate() {
-    return _repository.getOverallAccuracyRate();
+  FutureResult<double> getOverallAccuracyRate() async {
+    return await _repository.getOverallAccuracyRate();
   }
 
-  double getOverallCompletionPercentage() {
-    return _repository.getOverallCompletionPercentage();
+  FutureResult<double> getOverallCompletionPercentage() async {
+    return await _repository.getOverallCompletionPercentage();
   }
 }

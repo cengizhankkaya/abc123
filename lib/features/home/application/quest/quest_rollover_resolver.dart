@@ -4,7 +4,7 @@ import 'package:abc123/features/home/application/dtos/quest_ledger.dart';
 import 'package:abc123/features/home/application/quest/quest_period_keys.dart';
 import 'package:abc123/features/home/application/quest/quest_resolve_result.dart';
 import 'package:abc123/features/home/application/quest/quest_template_catalog.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -34,9 +34,9 @@ final class QuestRolloverResolver {
     final weekChanged = saved.weekKey != weekKey;
 
     // --- Günlük görevler ---
-    final QuestModel daily;
-    final QuestModel dailyColor;
-    final QuestModel dailyWord;
+    final Quest daily;
+    final Quest dailyColor;
+    final Quest dailyWord;
     if (dayChanged) {
       daily = QuestTemplateCatalog.buildDaily(dayKey, Random(dayKey.hashCode));
       dailyColor = QuestTemplateCatalog.buildDailyColor(dayKey);
@@ -51,10 +51,10 @@ final class QuestRolloverResolver {
     }
 
     // --- Haftalık görevler ---
-    final QuestModel weeklyNums;
-    final QuestModel weeklyLetters;
-    final QuestModel weeklyShapes;
-    final QuestModel weeklyGen;
+    final Quest weeklyNums;
+    final Quest weeklyLetters;
+    final Quest weeklyShapes;
+    final Quest weeklyGen;
     if (weekChanged) {
       weeklyNums = QuestTemplateCatalog.weeklyNumbers(weekKey);
       weeklyLetters = QuestTemplateCatalog.weeklyLetters(weekKey);
@@ -75,7 +75,7 @@ final class QuestRolloverResolver {
       schemaVersion: QuestLedger.currentSchemaVersion,
       dayKey: dayKey,
       weekKey: weekKey,
-      quests: <QuestModel>[
+      quests: <Quest>[
         daily,
         dailyColor,
         dailyWord,
@@ -94,7 +94,7 @@ final class QuestRolloverResolver {
       schemaVersion: QuestLedger.currentSchemaVersion,
       dayKey: dayKey,
       weekKey: weekKey,
-      quests: <QuestModel>[
+      quests: <Quest>[
         QuestTemplateCatalog.buildDaily(dayKey, rng),
         QuestTemplateCatalog.buildDailyColor(dayKey),
         QuestTemplateCatalog.buildDailyWord(dayKey),
@@ -106,7 +106,7 @@ final class QuestRolloverResolver {
     );
   }
 
-  static QuestModel? _firstWithIdPrefix(List<QuestModel> list, String prefix) {
+  static Quest? _firstWithIdPrefix(List<Quest> list, String prefix) {
     for (final q in list) {
       if (q.id.startsWith(prefix)) return q;
     }

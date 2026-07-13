@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:abc123/core/infrastructure/ads/ad_service.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_ad_service.dart';
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_controller.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
@@ -150,7 +151,7 @@ class _WatchAdButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
-        AdService().showRewardedAd(
+        getIt<IAdService>().showRewardedAd(
           onReward: (amount) async {
             const earned = 5;
             unawaited(context.read<GamificationProvider>().addPoints(earned));

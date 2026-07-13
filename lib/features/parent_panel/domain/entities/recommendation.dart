@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 /// Ebeveyn Paneli'nde gösterilecek akıllı öneri modeli.
 class Recommendation {
@@ -6,15 +6,15 @@ class Recommendation {
   final String description;
   final String targetModule;
   final String routePath;
-  final IconData icon;
-  final Color accentColor;
+  final String iconCode;
+  final int accentColorArgb;
 
   const Recommendation({
     required this.title,
     required this.description,
     required this.targetModule,
     required this.routePath,
-    required this.icon,
-    required this.accentColor,
+    required this.iconCode,
+    required this.accentColorArgb,
   });
 }

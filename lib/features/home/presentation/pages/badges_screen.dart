@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
-import 'package:abc123/features/home/domain/entities/badge_model.dart';
+import 'package:abc123/features/home/domain/entities/badge.dart';
 import 'package:abc123/features/home/l10n/home_string_lookup.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
@@ -228,7 +228,7 @@ class _WeeklyTracker extends StatelessWidget {
 class _BadgeCard extends StatelessWidget {
   const _BadgeCard({required this.badge});
 
-  final BadgeModel badge;
+  final Badge badge;
 
   @override
   Widget build(BuildContext context) {

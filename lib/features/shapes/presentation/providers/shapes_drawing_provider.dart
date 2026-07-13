@@ -1,16 +1,14 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart';
-
-import 'package:abc123/features/shapes/application/usecases/recognize_shape_use_case.dart';
-
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+import 'package:abc123/features/shapes/application/usecases/recognize_shape_use_case.dart';
+import 'package:flutter/material.dart';
 
 /// Şekiller için sıralı çizim durum yöneticisi
 class ShapesSequentialDrawingManager {
@@ -116,7 +114,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
 
   ShapesDrawingProvider() : _recognizeShapeUseCase = getIt<RecognizeShapeUseCase>() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
-    volume = AudioService().currentVolume;
+    volume = getIt<IAudioService>().currentVolume;
     // Başlangıçta sıralı çizim modunu açık başlat
     sequentialManager.toggleSequentialMode(true);
     _updateTanima();
@@ -217,8 +215,6 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
     }
   }
 
-
-
   void addPoint(DrawingPoint? point) {
     points.add(point);
     notifyListeners();
@@ -255,7 +251,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    AudioService().setVolume(value);
+    getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }
 

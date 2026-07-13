@@ -1,27 +1,26 @@
 import 'package:abc123/features/words/domain/word_entry.dart';
 import 'package:abc123/features/words/domain/word_story.dart';
-import 'package:flutter/widgets.dart';
 
 abstract final class WordCatalog {
   static const int targetWordCount = 50;
 
-  static List<WordEntry> wordsForLocale(Locale locale) {
-    final raw = switch (locale.languageCode) {
+  static List<WordEntry> wordsForLocale(String languageCode) {
+    final raw = switch (languageCode) {
       'tr' => _trWords,
       _ => _enWords,
     };
     return WordStory.sortedByLength(raw);
   }
 
-  static List<WordChapterConfig> chaptersForLocale(Locale locale) {
-    final raw = switch (locale.languageCode) {
+  static List<WordChapterConfig> chaptersForLocale(String languageCode) {
+    final raw = switch (languageCode) {
       'tr' => _trWords,
       _ => _enWords,
     };
     return WordStory.chaptersForWords(raw);
   }
 
-  static int wordCountForLocale(Locale locale) => wordsForLocale(locale).length;
+  static int wordCountForLocale(String languageCode) => wordsForLocale(languageCode).length;
 
   // --- 2 harf ---
   static const _enLen2 = [

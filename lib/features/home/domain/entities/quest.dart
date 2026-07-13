@@ -2,7 +2,7 @@ import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/domain/base/entity.dart';
 
 /// Görev tanımı — alanlar değişmez; güncelleme `copyWith` ile (`11_data_modeling.md`).
-class QuestModel extends Entity {
+class Quest extends Entity {
   final String id;
   final String titleKey;
   final DrawingType targetType;
@@ -16,7 +16,7 @@ class QuestModel extends Entity {
   @override
   Object get entityId => id;
 
-  QuestModel({
+  Quest({
     required this.id,
     required this.titleKey,
     required this.targetType,
@@ -43,13 +43,13 @@ class QuestModel extends Entity {
         'rewardPoints': rewardPoints,
       };
 
-  factory QuestModel.fromJson(Map<String, dynamic> json) {
+  factory Quest.fromJson(Map<String, dynamic> json) {
     final typeName = json['targetType'] as String?;
     final type = DrawingType.values.firstWhere(
       (e) => e.name == typeName,
       orElse: () => DrawingType.any,
     );
-    return QuestModel(
+    return Quest(
       id: json['id']! as String,
       titleKey: json['titleKey']! as String,
       targetType: type,
@@ -62,7 +62,7 @@ class QuestModel extends Entity {
     );
   }
 
-  QuestModel copyWith({
+  Quest copyWith({
     String? id,
     String? titleKey,
     DrawingType? targetType,
@@ -73,7 +73,7 @@ class QuestModel extends Entity {
     bool? isClaimed,
     int? rewardPoints,
   }) {
-    return QuestModel(
+    return Quest(
       id: id ?? this.id,
       titleKey: titleKey ?? this.titleKey,
       targetType: targetType ?? this.targetType,

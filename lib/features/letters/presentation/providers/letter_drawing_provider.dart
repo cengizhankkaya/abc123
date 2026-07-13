@@ -1,4 +1,4 @@
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -36,7 +36,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   LetterDrawingProvider() :
     _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
-    volume = AudioService().currentVolume;
+    volume = getIt<IAudioService>().currentVolume;
     sequentialManager.isLetterMode = true;
     activeGuide = DrawingContentProvider.activeLetterGuide;
   }
@@ -221,7 +221,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    AudioService().setVolume(value);
+    getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }
 

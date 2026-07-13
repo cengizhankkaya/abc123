@@ -26,12 +26,29 @@ class ParentDashboardScreen extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
 
-    final allModuleProgress = getProgressSummary.getAllModuleProgress();
-    final getRecommendationsUseCase = getIt<GetRecommendationsUseCase>();
-    final recommendations = getRecommendationsUseCase(
-      progressList: allModuleProgress,
-      isTurkish: isTr,
-    );
+    return FutureBuilder<Map<String, dynamic>>(
+      future: () async {
+        final progressRes = await getProgressSummary.getAllModuleProgress();
+        final progressList = progressRes.fold((l) => <ModuleProgress>[], (r) => r);
+        final getRecommendationsUseCase = getIt<GetRecommendationsUseCase>();
+        final recRes = await getRecommendationsUseCase(
+          progressList: progressList,
+          isTurkish: isTr,
+        );
+        final recommendations = recRes.fold((l) => <Recommendation>[], (r) => r);
+        return {
+          'progress': progressList,
+          'recommendations': recommendations,
+        };
+      }(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+        
+        final data = snapshot.data ?? {'progress': <ModuleProgress>[], 'recommendations': <Recommendation>[]};
+        final allModuleProgress = data['progress'] as List<ModuleProgress>;
+        final recommendations = data['recommendations'] as List<Recommendation>;
 
     return Scaffold(
       backgroundColor: isDark ? const Color(0xFF121218) : const Color(0xFFF4F6F9),
@@ -152,6 +169,8 @@ class ParentDashboardScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+    },
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:abc123/core/domain/base/entity.dart';
 
 /// Rozet domain varlığı; değişmez, kilit durumu `copyWith` ile güncellenir (`11_data_modeling.md`).
-class BadgeModel extends Entity {
+class Badge extends Entity {
   final String id;
   final String nameKey;
   final String descriptionKey;
@@ -13,7 +13,7 @@ class BadgeModel extends Entity {
 
   bool get isUnlocked => !isLocked;
 
-  BadgeModel({
+  Badge({
     required this.id,
     required this.nameKey,
     required this.descriptionKey,
@@ -25,8 +25,8 @@ class BadgeModel extends Entity {
   @override
   Object get entityId => id;
 
-  BadgeModel copyWith({bool? isLocked}) {
-    return BadgeModel(
+  Badge copyWith({bool? isLocked}) {
+    return Badge(
       id: id,
       nameKey: nameKey,
       descriptionKey: descriptionKey,

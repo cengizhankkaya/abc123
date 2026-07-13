@@ -10,9 +10,9 @@ import 'package:abc123/features/home/application/quest/quest_rollover_resolver.d
 import 'package:abc123/features/home/application/usecases/load_gamification_initial_state.dart';
 import 'package:abc123/features/home/application/usecases/persist_drawing_counters.dart';
 import 'package:abc123/features/home/application/usecases/persist_quest_ledger.dart';
-import 'package:abc123/features/home/domain/entities/badge_model.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
-import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
+import 'package:abc123/features/home/domain/entities/badge.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
+import 'package:abc123/features/home/domain/entities/shop_item.dart';
 import 'package:abc123/features/home/domain/repositories/i_gamification_persistence.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -39,7 +39,7 @@ final class GamificationProvider extends ChangeNotifier {
   int _lastActivityIndex = 0;
   int _lastActivityTotal = 0;
   List<String> _unlockedBadgeIds = [];
-  List<QuestModel> _quests = [];
+  List<Quest> _quests = [];
   QuestLedger? _questLedger;
   int _questRolloverGeneration = 0;
 
@@ -51,14 +51,14 @@ final class GamificationProvider extends ChangeNotifier {
   List<String> _ownedAvatarItems = [];
   Map<String, String> _equippedItems = {}; // { 'hat': 'item_id', 'glasses': 'item_id' }
 
-  List<QuestModel> get quests => _quests;
+  List<Quest> get quests => _quests;
   List<String> get ownedItemIds => _ownedItemIds;
   List<String> get ownedAvatarItems => _ownedAvatarItems;
   Map<String, String> get equippedItems => _equippedItems;
 
   // Shop Items Catalog (ikon/renk sunumda `gamification_icon_catalog` + ARGB)
-  final List<ShopItemModel> _shopItems = [
-    ShopItemModel(
+  final List<ShopItem> _shopItems = [
+    ShopItem(
       id: 'hat_blue_cap',
       name: 'hat_blue_cap',
       type: ShopItemType.hat,
@@ -66,7 +66,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'school',
       colorArgb: 0xFF2196F3,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'hat_crown',
       name: 'hat_crown',
       type: ShopItemType.hat,
@@ -74,7 +74,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'emoji_events',
       colorArgb: 0xFFFFC107,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'hat_wizard',
       name: 'hat_wizard',
       type: ShopItemType.hat,
@@ -82,7 +82,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'auto_fix_high',
       colorArgb: 0xFF9C27B0,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'hat_flower',
       name: 'hat_flower',
       type: ShopItemType.hat,
@@ -90,7 +90,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'local_florist',
       colorArgb: 0xFFE91E63,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'hat_pirate',
       name: 'hat_pirate',
       type: ShopItemType.hat,
@@ -98,7 +98,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'explore',
       colorArgb: 0xFF000000,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'hat_chef',
       name: 'hat_chef',
       type: ShopItemType.hat,
@@ -106,7 +106,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'restaurant_menu',
       colorArgb: 0xFFFFFFFF,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_sun',
       name: 'glasses_sun',
       type: ShopItemType.glasses,
@@ -114,7 +114,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'visibility',
       colorArgb: 0xFF000000,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_nerd',
       name: 'glasses_nerd',
       type: ShopItemType.glasses,
@@ -122,7 +122,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'remove_red_eye',
       colorArgb: 0xFF795548,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_heart',
       name: 'glasses_heart',
       type: ShopItemType.glasses,
@@ -130,7 +130,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'favorite',
       colorArgb: 0xFFFF5252,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_3d',
       name: 'glasses_3d',
       type: ShopItemType.glasses,
@@ -138,7 +138,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'videogame_asset',
       colorArgb: 0xFF00BCD4,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_vr',
       name: 'glasses_vr',
       type: ShopItemType.glasses,
@@ -146,7 +146,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'vrpano',
       colorArgb: 0xFF9E9E9E,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_ski',
       name: 'glasses_ski',
       type: ShopItemType.glasses,
@@ -154,7 +154,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'downhill_skiing',
       colorArgb: 0xFFFFFFFF,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_mask',
       name: 'glasses_mask',
       type: ShopItemType.glasses,
@@ -162,7 +162,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'masks',
       colorArgb: 0xFF9C27B0,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'glasses_reading',
       name: 'glasses_reading',
       type: ShopItemType.glasses,
@@ -170,7 +170,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'menu_book',
       colorArgb: 0xFF009688,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_red',
       name: 'outfit_red',
       type: ShopItemType.outfit,
@@ -178,7 +178,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'checkroom',
       colorArgb: 0xFFF44336,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_super',
       name: 'outfit_super',
       type: ShopItemType.outfit,
@@ -186,7 +186,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'shield',
       colorArgb: 0xFF448AFF,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_green',
       name: 'outfit_green',
       type: ShopItemType.outfit,
@@ -194,7 +194,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'forest',
       colorArgb: 0xFF4CAF50,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_doctor',
       name: 'outfit_doctor',
       type: ShopItemType.outfit,
@@ -202,7 +202,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'medical_services',
       colorArgb: 0xFFFFFFFF,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_space',
       name: 'outfit_space',
       type: ShopItemType.outfit,
@@ -210,7 +210,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'rocket_launch',
       colorArgb: 0xFFFF9800,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_sports',
       name: 'outfit_sports',
       type: ShopItemType.outfit,
@@ -218,7 +218,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'sports_soccer',
       colorArgb: 0xFFFF5252,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_police',
       name: 'outfit_police',
       type: ShopItemType.outfit,
@@ -226,7 +226,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'local_police',
       colorArgb: 0xFF2196F3,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_chef',
       name: 'outfit_chef',
       type: ShopItemType.outfit,
@@ -234,7 +234,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'restaurant',
       colorArgb: 0xFFFFFFFF,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_winter',
       name: 'outfit_winter',
       type: ShopItemType.outfit,
@@ -242,7 +242,7 @@ final class GamificationProvider extends ChangeNotifier {
       iconKey: 'ac_unit',
       colorArgb: 0xFF03A9F4,
     ),
-    ShopItemModel(
+    ShopItem(
       id: 'outfit_tuxedo',
       name: 'outfit_tuxedo',
       type: ShopItemType.outfit,
@@ -252,155 +252,155 @@ final class GamificationProvider extends ChangeNotifier {
     ),
   ];
 
-  List<ShopItemModel> get shopItems => _shopItems;
+  List<ShopItem> get shopItems => _shopItems;
 
   // In-memory list of all available badges
-  List<BadgeModel> _badges = [
-    BadgeModel(
+  List<Badge> _badges = [
+    Badge(
       id: GamificationConstants.badgeFirstLogin,
       nameKey: 'badgeFirstLoginName',
       descriptionKey: 'badgeFirstLoginDesc',
       iconKey: 'login',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeFirstDraw,
       nameKey: 'badgeFirstDrawName',
       descriptionKey: 'badgeFirstDrawDesc',
       iconKey: 'edit',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeStreak3,
       nameKey: 'badgeStreak3Name',
       descriptionKey: 'badgeStreak3Desc',
       iconKey: 'local_fire_department',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeStreak7,
       nameKey: 'badgeStreak7Name',
       descriptionKey: 'badgeStreak7Desc',
       iconKey: 'stars',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeStreak30,
       nameKey: 'badgeStreak30Name',
       descriptionKey: 'badgeStreak30Desc',
       iconKey: 'whatshot',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeBronzeArtist,
       nameKey: 'badgeBronzeArtistName',
       descriptionKey: 'badgeBronzeArtistDesc',
       iconKey: 'edit_note',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeSilverArtist,
       nameKey: 'badgeSilverArtistName',
       descriptionKey: 'badgeSilverArtistDesc',
       iconKey: 'brush',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeMasterArtist,
       nameKey: 'badgeMasterArtistName',
       descriptionKey: 'badgeMasterArtistDesc',
       iconKey: 'palette',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeGoldArtist,
       nameKey: 'badgeGoldArtistName',
       descriptionKey: 'badgeGoldArtistDesc',
       iconKey: 'color_lens',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeDiamondArtist,
       nameKey: 'badgeDiamondArtistName',
       descriptionKey: 'badgeDiamondArtistDesc',
       iconKey: 'diamond',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeEarlyBird,
       nameKey: 'badgeEarlyBirdName',
       descriptionKey: 'badgeEarlyBirdDesc',
       iconKey: 'wb_sunny',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeNightOwl,
       nameKey: 'badgeNightOwlName',
       descriptionKey: 'badgeNightOwlDesc',
       iconKey: 'nights_stay',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeWeekendWarrior,
       nameKey: 'badgeWeekendWarriorName',
       descriptionKey: 'badgeWeekendWarriorDesc',
       iconKey: 'weekend',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeNumberMaster,
       nameKey: 'badgeNumberMasterName',
       descriptionKey: 'badgeNumberMasterDesc',
       iconKey: 'looks_one',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeLetterMaster,
       nameKey: 'badgeLetterMasterName',
       descriptionKey: 'badgeLetterMasterDesc',
       iconKey: 'abc',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeShapeMaster,
       nameKey: 'badgeShapeMasterName',
       descriptionKey: 'badgeShapeMasterDesc',
       iconKey: 'category',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeColorMaster,
       nameKey: 'badgeColorMasterName',
       descriptionKey: 'badgeColorMasterDesc',
       iconKey: 'palette',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeWordMaster,
       nameKey: 'badgeWordMasterName',
       descriptionKey: 'badgeWordMasterDesc',
       iconKey: 'spellcheck',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeHighScorer,
       nameKey: 'badgeHighScorerName',
       descriptionKey: 'badgeHighScorerDesc',
       iconKey: 'emoji_events',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeScoreLegend,
       nameKey: 'badgeScoreLegendName',
       descriptionKey: 'badgeScoreLegendDesc',
       iconKey: 'military_tech',
     ),
-    BadgeModel(
+    Badge(
       id: GamificationConstants.badgeBadgeCollector,
       nameKey: 'badgeBadgeCollectorName',
       descriptionKey: 'badgeBadgeCollectorDesc',
       iconKey: 'collections_bookmark',
     ),
-      BadgeModel(
+      Badge(
         id: GamificationConstants.badgeBadgeMaster,
         nameKey: 'badgeBadgeMasterName',
         descriptionKey: 'badgeBadgeMasterDesc',
         iconKey: 'workspace_premium',
       ),
-      BadgeModel(
+      Badge(
         id: GamificationConstants.badgeMathFirstAddition,
         nameKey: 'badgeMathFirstAdditionName',
         descriptionKey: 'badgeMathFirstAdditionDesc',
         iconKey: 'calculate',
       ),
-      BadgeModel(
+      Badge(
         id: GamificationConstants.badgeTensHero,
         nameKey: 'badgeTensHeroName',
         descriptionKey: 'badgeTensHeroDesc',
         iconKey: 'exposure_plus_1',
       ),
-      BadgeModel(
+      Badge(
         id: GamificationConstants.badgeSubtractionMaster,
         nameKey: 'badgeSubtractionMasterName',
         descriptionKey: 'badgeSubtractionMasterDesc',
@@ -423,13 +423,13 @@ final class GamificationProvider extends ChangeNotifier {
   int get lastActivityRemaining =>
       _lastActivityTotal > 0 ? (_lastActivityTotal - _lastActivityIndex).clamp(0, _lastActivityTotal) : 0;
   bool get hasLastActivity => _lastActivityMode != null && _lastActivityTotal > 0;
-  List<BadgeModel> get badges {
+  List<Badge> get badges {
     return _badges.map((badge) {
       return badge.copyWith(isLocked: !_unlockedBadgeIds.contains(badge.id));
     }).toList();
   }
 
-  List<BadgeModel> get unlockedBadges {
+  List<Badge> get unlockedBadges {
     return badges.where((b) => !b.isLocked).toList();
   }
 
@@ -500,7 +500,7 @@ final class GamificationProvider extends ChangeNotifier {
       now: DateTime.now(),
       saved: decoded,
     );
-    _quests = List<QuestModel>.from(resolved.ledger.quests);
+    _quests = List<Quest>.from(resolved.ledger.quests);
     _questLedger = resolved.ledger;
     if (resolved.didRollover) {
       _questRolloverGeneration++;
@@ -517,7 +517,7 @@ final class GamificationProvider extends ChangeNotifier {
       schemaVersion: QuestLedger.currentSchemaVersion,
       dayKey: cur.dayKey,
       weekKey: cur.weekKey,
-      quests: List<QuestModel>.from(_quests),
+      quests: List<Quest>.from(_quests),
     );
   }
 
@@ -912,7 +912,7 @@ final class GamificationProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<void> buyItem(ShopItemModel item) async {
+  Future<void> buyItem(ShopItem item) async {
     if (_points >= item.price && !_ownedItemIds.contains(item.id)) {
       _points -= item.price;
       _ownedItemIds.add(item.id);
@@ -925,14 +925,14 @@ final class GamificationProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> equipItem(ShopItemModel item) async {
+  Future<void> equipItem(ShopItem item) async {
     if (_ownedItemIds.contains(item.id)) {
       await _equipItemSilent(item);
       notifyListeners();
     }
   }
 
-  Future<void> _equipItemSilent(ShopItemModel item) async {
+  Future<void> _equipItemSilent(ShopItem item) async {
     _equippedItems[item.type.toString()] = item.id;
     await _persistence.setString(
       GamificationConstants.keyEquippedItems,

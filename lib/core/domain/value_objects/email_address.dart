@@ -1,68 +1,55 @@
-import 'package:abc123/core/error/failures/failure.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:abc123/core/domain/base/value_object.dart';
+import 'package:abc123/core/error/failures/value_failure.dart';
 
-/// E-posta doğrulama hatası — [EmailAddress] value object'i ile birlikte yaşar
-/// (`01_project_structure.md` — Value Objects and Failures).
-sealed class EmailFailure extends Failure {
+sealed class EmailFailure extends ValueFailure<String> {
   const EmailFailure();
 
-  /// E-posta formatı geçersiz.
-  const factory EmailFailure.invalid() = _Invalid;
-
-  /// E-posta adresi boş.
+  const factory EmailFailure.invalidFormat({required String failedValue}) = _InvalidFormat;
   const factory EmailFailure.empty() = _Empty;
 }
 
-final class _Invalid extends EmailFailure {
-  const _Invalid();
+final class _InvalidFormat extends EmailFailure {
+  @override
+  final String failedValue;
+  const _InvalidFormat({required this.failedValue});
 }
 
 final class _Empty extends EmailFailure {
   const _Empty();
 }
 
-/// E-posta adresini temsil eden value object (`01_project_structure.md`).
-///
-/// Kimliği yoktur; eşitlik değere göre belirlenir.
-/// Doğrulama başarısız olursa [EmailFailure] döner.
-///
-/// ```dart
-/// final email = EmailAddress.create('test@example.com');
-/// email.fold(
-///   (failure) => print('Geçersiz: $failure'),
-///   (address) => print('Geçerli: ${address.value}'),
-/// );
-/// ```
-final class EmailAddress {
-  const EmailAddress._(this.value);
+@immutable
+class EmailAddress extends ValueObject<String> {
+  @override
+  final Either<List<ValueFailure<String>>, String> value;
 
-  /// Doğrulanmış e-posta adresi.
-  final String value;
-
-  static final _emailRegex = RegExp(
-    r'^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$',
-  );
-
-  /// [raw] e-posta adresini doğrular ve [EmailAddress] veya [EmailFailure] döner.
-  static Either<EmailFailure, EmailAddress> create(String raw) {
-    final trimmed = raw.trim();
-    if (trimmed.isEmpty) {
-      return const Left(EmailFailure.empty());
-    }
-    if (!_emailRegex.hasMatch(trimmed)) {
-      return const Left(EmailFailure.invalid());
-    }
-    return Right(EmailAddress._(trimmed));
+  factory EmailAddress(String input) {
+    return EmailAddress._(_validateEmailAddress(input));
   }
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is EmailAddress && runtimeType == other.runtimeType && value == other.value;
+  const EmailAddress._(this.value);
 
-  @override
-  int get hashCode => value.hashCode;
+  factory EmailAddress.fromTrustedSource(String input) {
+    return EmailAddress._(right(input));
+  }
 
-  @override
-  String toString() => 'EmailAddress($value)';
+  static final RegExp _emailRegex = RegExp(
+    r"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+
+  static Either<List<ValueFailure<String>>, String> _validateEmailAddress(String? input) {
+    if (input == null || input.isEmpty) {
+      return left([const EmailFailure.empty()]);
+    }
+
+    if (!_emailRegex.hasMatch(input)) {
+      return left([
+        EmailFailure.invalidFormat(failedValue: input),
+      ]);
+    }
+
+    return right(input.trim().toLowerCase());
+  }
 }

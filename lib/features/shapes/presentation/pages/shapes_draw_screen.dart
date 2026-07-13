@@ -1,30 +1,30 @@
 import 'dart:async';
+
 // ignore_for_file: deprecated_member_use
 
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/features/shapes/l10n/l10n_extensions.dart';
-import 'package:abc123/features/shapes/l10n/shapes_shape_lookup.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/constants/image_constants.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/drawing_area_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
-import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart';
-import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:abc123/core/presentation/orientation_helper.dart';
-import 'package:provider/provider.dart';
-
-import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_widget.dart';
+import 'package:abc123/features/shapes/l10n/l10n_extensions.dart';
+import 'package:abc123/features/shapes/l10n/shapes_shape_lookup.dart';
 import 'package:abc123/features/shapes/presentation/providers/shapes_drawing_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class ShapesDrawScreen extends StatefulWidget {
   const ShapesDrawScreen({super.key});
@@ -54,13 +54,13 @@ class _ShapesDrawScreenState extends State<ShapesDrawScreen> with SingleTickerPr
       curve: Curves.easeInOut,
     );
 
-    AudioService().playBackground(AppAudios.happyKids);
+    getIt<IAudioService>().playBackground(AppAudios.happyKids);
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    AudioService().stopBackground();
+    getIt<IAudioService>().stopBackground();
 
     // Dikey moda geri dön
     unawaited(OrientationHelper.setPortrait());

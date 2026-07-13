@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:abc123/core/constants/audio.dart';
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/orientation_helper.dart';
@@ -47,7 +47,7 @@ class _WordDrawScreenState extends State<WordDrawScreen> with SingleTickerProvid
     );
     _animation = CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
 
-    AudioService().playBackground(AppAudios.happyKids);
+    getIt<IAudioService>().playBackground(AppAudios.happyKids);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
@@ -59,16 +59,16 @@ class _WordDrawScreenState extends State<WordDrawScreen> with SingleTickerProvid
   void dispose() {
     _animationController.dispose();
     unawaited(OrientationHelper.setPortrait());
-    AudioService().stopBackground();
+    getIt<IAudioService>().stopBackground();
     super.dispose();
   }
 
   Future<void> _showResult(ResultScreenData data) async {
     try {
       if (data.isCorrect) {
-        AudioService().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
+        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
       } else {
-        AudioService().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
+        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
       }
       context.push(AppRoutes.result, extra: data);
     } catch (e, st) {

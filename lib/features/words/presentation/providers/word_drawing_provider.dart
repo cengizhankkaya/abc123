@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/application/usecases/recognize_letter_use_case.dart';
@@ -37,7 +37,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
   WordDrawingProvider() :
     _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>(),
     _getWordListUseCase = getIt<GetWordListUseCase>() {
-    volume = AudioService().currentVolume;
+    volume = getIt<IAudioService>().currentVolume;
     _activeGuide = DrawingContentProvider.activeLetterGuide;
   }
 
@@ -212,7 +212,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    AudioService().setVolume(value);
+    getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }
 

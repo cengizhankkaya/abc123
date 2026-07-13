@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 
 /// Kalıcı görev defteri (`schemaVersion` ile genişletilebilir).
 class QuestLedger {
@@ -9,7 +9,7 @@ class QuestLedger {
   final int schemaVersion;
   final String dayKey;
   final String weekKey;
-  final List<QuestModel> quests;
+  final List<Quest> quests;
 
   const QuestLedger({
     required this.schemaVersion,
@@ -32,7 +32,7 @@ class QuestLedger {
       dayKey: json['dayKey'] as String? ?? '',
       weekKey: json['weekKey'] as String? ?? '',
       quests: rawQuests
-          .map((e) => QuestModel.fromJson(Map<String, dynamic>.from(e as Map<dynamic, dynamic>)))
+          .map((e) => Quest.fromJson(Map<String, dynamic>.from(e as Map<dynamic, dynamic>)))
           .toList(),
     );
   }

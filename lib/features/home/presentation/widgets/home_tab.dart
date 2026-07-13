@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:abc123/core/constants/image_constants.dart';
-import 'package:abc123/core/infrastructure/ads/rewarded_ad_helper.dart';
-import 'package:abc123/core/infrastructure/images/image_manager.dart';
+import 'package:abc123/core/presentation/mixins/rewarded_ad_helper.dart';
+import 'package:abc123/core/presentation/services/image_service.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';

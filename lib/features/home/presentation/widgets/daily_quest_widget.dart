@@ -1,6 +1,6 @@
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
@@ -14,7 +14,7 @@ class DailyQuestWidget extends StatelessWidget {
     super.key,
   });
 
-  final QuestModel quest;
+  final Quest quest;
   final Duration animationDelay;
 
   @override
@@ -92,7 +92,7 @@ class DailyQuestWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildProgressIndicator(QuestModel quest, Color accent) {
+  Widget _buildProgressIndicator(Quest quest, Color accent) {
     if (quest.targetCount <= 5) {
       return Row(
         children: List.generate(quest.targetCount, (index) {
@@ -143,7 +143,7 @@ class DailyQuestWidget extends StatelessWidget {
     };
   }
 
-  Widget _buildTargetVisual(QuestModel quest, Color accent) {
+  Widget _buildTargetVisual(Quest quest, Color accent) {
     if (quest.targetType == DrawingType.shape) {
       final icon = switch (quest.targetLabel) {
         'DAIRE' => Icons.circle_outlined,
@@ -180,7 +180,7 @@ class _RewardButton extends StatelessWidget {
     required this.onClaim,
   });
 
-  final QuestModel quest;
+  final Quest quest;
   final Color accent;
   final VoidCallback? onClaim;
 
