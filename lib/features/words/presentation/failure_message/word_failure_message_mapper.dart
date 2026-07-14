@@ -6,7 +6,6 @@ abstract final class WordFailureMessageMapper {
     return switch (failure) {
       WordWordListLoadFailed() => 'Kelime listesi yüklenemedi.',
       WordRecognitionFailed() => 'Yazı tanıma başarısız oldu.',
-      _ => 'Beklenmeyen bir hata oluştu.',
     };
   }
 }

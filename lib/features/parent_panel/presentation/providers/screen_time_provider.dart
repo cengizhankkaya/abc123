@@ -1,11 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:abc123/features/parent_panel/domain/entities/daily_activity.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:abc123/features/parent_panel/domain/entities/daily_activity.dart';
 
 /// Ebeveyn Paneli: Günlük Ekran Süresi Kontrolü yöneticisi.
 class ScreenTimeProvider extends ChangeNotifier {
+
+  ScreenTimeProvider() {
+    _loadSettings();
+    _startTicker();
+  }
   static const String _keyDailyLimitMinutes = 'parent_screen_time_limit_minutes';
   static const String _keyUsedSecondsToday = 'child_daily_screen_time_used_seconds';
   static const String _keyLastRecordedDate = 'child_daily_screen_time_last_date';
@@ -18,18 +24,13 @@ class ScreenTimeProvider extends ChangeNotifier {
   bool _limitModalShown = false;
   Timer? _timer;
 
-  Map<String, int> _dailySecondsHistory = {};
-  Map<String, int> _dailyActivitiesCountHistory = {};
+  final Map<String, int> _dailySecondsHistory = {};
+  final Map<String, int> _dailyActivitiesCountHistory = {};
 
   int get dailyLimitMinutes => _dailyLimitMinutes;
   int get usedSecondsToday => _usedSecondsToday;
   bool get isLimitExceeded => _dailyLimitMinutes > 0 && _usedSecondsToday >= _dailyLimitMinutes * 60;
   bool get limitModalShown => _limitModalShown;
-
-  ScreenTimeProvider() {
-    _loadSettings();
-    _startTicker();
-  }
 
   void markModalShown() {
     _limitModalShown = true;
@@ -116,15 +117,15 @@ class ScreenTimeProvider extends ChangeNotifier {
     return List.generate(7, (index) {
       final date = now.subtract(Duration(days: 6 - index));
       final dateStr = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
-      int seconds = _dailySecondsHistory[dateStr] ?? 0;
+      var seconds = _dailySecondsHistory[dateStr] ?? 0;
       if (dateStr == _getTodayDateStr()) {
         seconds = _usedSecondsToday;
       }
-      int minutes = seconds ~/ 60;
+      var minutes = seconds ~/ 60;
       if (seconds > 0 && minutes == 0) {
         minutes = 1; // 1 dakikadan az ama 0 olmayan süreyi 1 dk göster
       }
-      int tasks = _dailyActivitiesCountHistory[dateStr] ?? (minutes > 0 ? (minutes / 3).ceil() : 0);
+      final tasks = _dailyActivitiesCountHistory[dateStr] ?? (minutes > 0 ? (minutes / 3).ceil() : 0);
       return DailyActivity(
         date: date,
         durationMinutes: minutes,

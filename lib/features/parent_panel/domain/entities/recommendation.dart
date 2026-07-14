@@ -2,12 +2,6 @@
 
 /// Ebeveyn Paneli'nde gösterilecek akıllı öneri modeli.
 class Recommendation {
-  final String title;
-  final String description;
-  final String targetModule;
-  final String routePath;
-  final String iconCode;
-  final int accentColorArgb;
 
   const Recommendation({
     required this.title,
@@ -17,4 +11,10 @@ class Recommendation {
     required this.iconCode,
     required this.accentColorArgb,
   });
+  final String title;
+  final String description;
+  final String targetModule;
+  final String routePath;
+  final String iconCode;
+  final int accentColorArgb;
 }

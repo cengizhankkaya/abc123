@@ -10,6 +10,6 @@ import 'package:go_router/go_router.dart';
 ///
 /// İleride `part of` pattern'ine geçildiğinde burası ana rota dosyası olacaktır.
 abstract final class ColorRoutePaths {
-  static const colorGame = AppRoutes.colorGame;
-  static const colorVisionGame = AppRoutes.colorVisionGame;
+  static const String colorGame = AppRoutes.colorGame;
+  static const String colorVisionGame = AppRoutes.colorVisionGame;
 }

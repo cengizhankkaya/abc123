@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:abc123/core/presentation/responsive/build_context_extension.dart';
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
+import 'package:flutter/material.dart';
 
 /// [responsivePadding] ile saran çocuk (`14_adaptive_ui_strategy.md`).
 class ResponsiveSpacing extends StatelessWidget {

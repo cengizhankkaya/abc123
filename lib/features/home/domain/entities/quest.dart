@@ -3,45 +3,16 @@ import 'package:abc123/core/domain/base/entity.dart';
 
 /// Görev tanımı — alanlar değişmez; güncelleme `copyWith` ile (`11_data_modeling.md`).
 class Quest extends Entity {
-  final String id;
-  final String titleKey;
-  final DrawingType targetType;
-  final String? targetLabel;
-  final int targetCount;
-  final int currentCount;
-  final bool isCompleted;
-  final bool isClaimed;
-  final int rewardPoints;
-
-  @override
-  Object get entityId => id;
 
   Quest({
     required this.id,
     required this.titleKey,
     required this.targetType,
-    this.targetLabel,
-    required this.targetCount,
+    required this.targetCount, required this.rewardPoints, this.targetLabel,
     this.currentCount = 0,
     this.isCompleted = false,
     this.isClaimed = false,
-    required this.rewardPoints,
   });
-
-  /// İlerleme 0.0–1.0 (saf hesaplama, yan etki yok).
-  double get progress => (currentCount / targetCount).clamp(0.0, 1.0);
-
-  Map<String, Object?> toJson() => <String, Object?>{
-        'id': id,
-        'titleKey': titleKey,
-        'targetType': targetType.name,
-        'targetLabel': targetLabel,
-        'targetCount': targetCount,
-        'currentCount': currentCount,
-        'isCompleted': isCompleted,
-        'isClaimed': isClaimed,
-        'rewardPoints': rewardPoints,
-      };
 
   factory Quest.fromJson(Map<String, dynamic> json) {
     final typeName = json['targetType'] as String?;
@@ -61,6 +32,33 @@ class Quest extends Entity {
       rewardPoints: (json['rewardPoints'] as num?)?.toInt() ?? 0,
     );
   }
+  final String id;
+  final String titleKey;
+  final DrawingType targetType;
+  final String? targetLabel;
+  final int targetCount;
+  final int currentCount;
+  final bool isCompleted;
+  final bool isClaimed;
+  final int rewardPoints;
+
+  @override
+  Object get entityId => id;
+
+  /// İlerleme 0.0–1.0 (saf hesaplama, yan etki yok).
+  double get progress => (currentCount / targetCount).clamp(0.0, 1.0);
+
+  Map<String, Object?> toJson() => <String, Object?>{
+        'id': id,
+        'titleKey': titleKey,
+        'targetType': targetType.name,
+        'targetLabel': targetLabel,
+        'targetCount': targetCount,
+        'currentCount': currentCount,
+        'isCompleted': isCompleted,
+        'isClaimed': isClaimed,
+        'rewardPoints': rewardPoints,
+      };
 
   Quest copyWith({
     String? id,

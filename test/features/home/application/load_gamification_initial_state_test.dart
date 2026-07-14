@@ -4,6 +4,7 @@ library;
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/features/home/application/usecases/load_gamification_initial_state.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../helpers/mock_helpers.dart';
@@ -23,35 +24,35 @@ void main() {
 
     test('kalıcılık değerlerini GamificationInitialState olarak birleştirir',
         () async {
-      final d = GamificationTestData.initialStateDefaults;
+      const d = GamificationTestData.initialStateDefaults;
       when(() => mockPersistence.getInt(GamificationConstants.keyPoints))
-          .thenAnswer((_) async => d.points);
+          .thenAnswer((_) async => right(d.points));
       when(() => mockPersistence.getInt(GamificationConstants.keyStreak))
-          .thenAnswer((_) async => d.streak);
+          .thenAnswer((_) async => right(d.streak));
       when(() => mockPersistence.getInt(GamificationConstants.keyTotalDrawings))
-          .thenAnswer((_) async => d.totalDrawings);
+          .thenAnswer((_) async => right(d.totalDrawings));
       when(
-              () => mockPersistence.getInt(GamificationConstants.keyNumberDrawings))
-          .thenAnswer((_) async => d.numberDrawings);
+              () => mockPersistence.getInt(GamificationConstants.keyNumberDrawings),)
+          .thenAnswer((_) async => right(d.numberDrawings));
       when(
-              () => mockPersistence.getInt(GamificationConstants.keyLetterDrawings))
-          .thenAnswer((_) async => d.letterDrawings);
+              () => mockPersistence.getInt(GamificationConstants.keyLetterDrawings),)
+          .thenAnswer((_) async => right(d.letterDrawings));
       when(
-              () => mockPersistence.getInt(GamificationConstants.keyShapeDrawings))
-          .thenAnswer((_) async => d.shapeDrawings);
+              () => mockPersistence.getInt(GamificationConstants.keyShapeDrawings),)
+          .thenAnswer((_) async => right(d.shapeDrawings));
       when(() => mockPersistence.getInt(GamificationConstants.keyColorRounds))
-          .thenAnswer((_) async => d.colorRounds);
+          .thenAnswer((_) async => right(d.colorRounds));
       when(() => mockPersistence.getInt(GamificationConstants.keyWordsCompleted))
-          .thenAnswer((_) async => d.wordsCompleted);
+          .thenAnswer((_) async => right(d.wordsCompleted));
       when(() => mockPersistence
-              .getStringList(GamificationConstants.keyUnlockedBadges))
-          .thenAnswer((_) async => d.unlockedBadgeIds);
+              .getStringList(GamificationConstants.keyUnlockedBadges),)
+          .thenAnswer((_) async => right(d.unlockedBadgeIds));
       when(() => mockPersistence.getStringList(GamificationConstants.keyOwnedItems))
-          .thenAnswer((_) async => d.ownedItemIds);
+          .thenAnswer((_) async => right(d.ownedItemIds));
       when(() => mockPersistence.getString(GamificationConstants.keyEquippedItems))
-          .thenAnswer((_) async => d.equippedItemsJson);
+          .thenAnswer((_) async => right(d.equippedItemsJson));
       when(() => mockPersistence.getString(GamificationConstants.keyQuestsLedger))
-          .thenAnswer((_) async => d.questsLedgerJson);
+          .thenAnswer((_) async => right(d.questsLedgerJson));
 
       final result = await useCase.call();
 
@@ -70,11 +71,11 @@ void main() {
 
     test('null sayısal alanlarda varsayılan sıfır ve boş listeler kullanılır',
         () async {
-      when(() => mockPersistence.getInt(any())).thenAnswer((_) async => null);
+      when(() => mockPersistence.getInt(any())).thenAnswer((_) async => right(null));
       when(() => mockPersistence.getStringList(any()))
-          .thenAnswer((_) async => null);
+          .thenAnswer((_) async => right(null));
       when(() => mockPersistence.getString(any()))
-          .thenAnswer((_) async => null);
+          .thenAnswer((_) async => right(null));
 
       final result = await useCase.call();
 

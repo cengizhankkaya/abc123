@@ -7,6 +7,7 @@ import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
 import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
+import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nested/nested.dart';
@@ -21,6 +22,7 @@ List<SingleChildWidget> defaultTestNotifierProviders() {
     ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
     ChangeNotifierProvider(create: (_) => CounterProvider()),
     ChangeNotifierProvider(create: (_) => getIt<GamificationProvider>()),
+    ChangeNotifierProvider(create: (_) => ScreenTimeProvider()),
   ];
 }
 

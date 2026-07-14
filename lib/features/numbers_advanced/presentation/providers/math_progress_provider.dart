@@ -7,14 +7,13 @@ import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/numbers_advanced/application/math_problem_generator.dart';
+import 'package:abc123/features/numbers_advanced/application/usecases/recognize_multi_digit.dart';
 import 'package:abc123/features/numbers_advanced/domain/math_difficulty.dart';
 import 'package:abc123/features/numbers_advanced/domain/math_operation.dart';
 import 'package:abc123/features/numbers_advanced/domain/number_lesson.dart';
-import 'package:abc123/features/numbers_advanced/application/usecases/recognize_multi_digit_use_case.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ────────────────────── Yardımcı tipler ──────────────────────
 
@@ -34,15 +33,15 @@ enum DigitBoxState { empty, drawing, done }
 class MathProgressProvider extends ChangeNotifier implements ProgressSource {
   MathProgressProvider({
     required GamificationProvider gamification,
-    required RecognizeMultiDigitUseCase recognizeMultiDigitUseCase,
-  }) : _gamification = gamification,
-       _recognizeMultiDigitUseCase = recognizeMultiDigitUseCase {
+    required RecognizeMultiDigit recognizeMultiDigitUseCase,
+  })  : _gamification = gamification,
+        _recognizeMultiDigitUseCase = recognizeMultiDigitUseCase {
     _generator = MathProblemGenerator();
     _loadProgress();
   }
 
   final GamificationProvider _gamification;
-  final RecognizeMultiDigitUseCase _recognizeMultiDigitUseCase;
+  final RecognizeMultiDigit _recognizeMultiDigitUseCase;
   late final MathProblemGenerator _generator;
 
   // ─────────────────── İlerleme (SharedPreferences) ───────────────────
@@ -230,14 +229,11 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
 
   bool canUnlockLevel(DifficultyLevel level) {
     if (level == DifficultyLevel.levelA) return true;
-    final prev = level == DifficultyLevel.levelB
-        ? DifficultyLevel.levelA
-        : DifficultyLevel.levelB;
+    final prev = level == DifficultyLevel.levelB ? DifficultyLevel.levelA : DifficultyLevel.levelB;
     return _levelStats[prev]!.accuracy >= 0.80;
   }
 
-  List<DifficultyLevel> get unlockedLevels =>
-      DifficultyLevel.values.where((l) => canUnlockLevel(l)).toList();
+  List<DifficultyLevel> get unlockedLevels => DifficultyLevel.values.where(canUnlockLevel).toList();
 
   void selectLevel(DifficultyLevel level) {
     if (!canUnlockLevel(level)) return;
@@ -265,8 +261,7 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
         notifyListeners();
         return;
       }
-      final recognizedResult =
-          await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
+      final recognizedResult = await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
       recognizedResult.fold(
         (failure) {
           _isLoading = false;
@@ -287,10 +282,10 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
   Future<void> evaluateMultiDigit({
     required GlobalKey tensKey,
     required GlobalKey unitsKey,
-    GlobalKey? hundredsKey,
     required int expectedResult,
     required MathType type,
     required BuildContext context,
+    GlobalKey? hundredsKey,
     bool singleBox = false,
   }) async {
     final hasHundreds = hundredsPoints.isNotEmpty;
@@ -304,15 +299,13 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
     try {
       if (singleBox) {
         // Tek basamak bekleniyor (birler hanesi)
-        final pngBytes =
-            await _renderBoxToBytes(context, unitsKey, unitsPoints);
+        final pngBytes = await _renderBoxToBytes(context, unitsKey, unitsPoints);
         if (pngBytes == null) {
           _isLoading = false;
           notifyListeners();
           return;
         }
-        final result =
-            await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
+        final result = await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
         result.fold(
           (failure) {},
           (recognized) async {
@@ -322,12 +315,9 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
         );
       } else if (hundredsKey != null) {
         // Üç basamak bekleniyor (ör: 100)
-        final hundredsBytes =
-            await _renderBoxToBytes(context, hundredsKey, hundredsPoints);
-        final tensBytes =
-            await _renderBoxToBytes(context, tensKey, tensPoints);
-        final unitsBytes =
-            await _renderBoxToBytes(context, unitsKey, unitsPoints);
+        final hundredsBytes = await _renderBoxToBytes(context, hundredsKey, hundredsPoints);
+        final tensBytes = await _renderBoxToBytes(context, tensKey, tensPoints);
+        final unitsBytes = await _renderBoxToBytes(context, unitsKey, unitsPoints);
         if (hundredsBytes == null || tensBytes == null || unitsBytes == null) {
           _isLoading = false;
           notifyListeners();
@@ -346,17 +336,15 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           },
         );
       } else {
-        final tensBytes =
-            await _renderBoxToBytes(context, tensKey, tensPoints);
-        final unitsBytes =
-            await _renderBoxToBytes(context, unitsKey, unitsPoints);
+        final tensBytes = await _renderBoxToBytes(context, tensKey, tensPoints);
+        final unitsBytes = await _renderBoxToBytes(context, unitsKey, unitsPoints);
         if (tensBytes == null || unitsBytes == null) {
           _isLoading = false;
           notifyListeners();
           return;
         }
-        final result = await _recognizeMultiDigitUseCase
-            .recognizeMultiDigit(tensBytes: tensBytes, unitsBytes: unitsBytes);
+        final result = await _recognizeMultiDigitUseCase.recognizeMultiDigit(
+            tensBytes: tensBytes, unitsBytes: unitsBytes);
         result.fold(
           (failure) {},
           (recognized) async {
@@ -395,19 +383,22 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           _additionsCompleted++;
           if (_additionsCompleted == 1) {
             await _gamification.unlockMathBadge(
-                GamificationConstants.badgeMathFirstAddition);
+              GamificationConstants.badgeMathFirstAddition,
+            );
           }
         case MathType.subtraction:
           _subtractionsCompleted++;
           if (_subtractionsCompleted >= 20) {
             await _gamification.unlockMathBadge(
-                GamificationConstants.badgeSubtractionMaster);
+              GamificationConstants.badgeSubtractionMaster,
+            );
           }
         case MathType.tens:
           _tensCompleted++;
           if (_tensCompleted >= 10) {
             await _gamification.unlockMathBadge(
-                GamificationConstants.badgeTensHero);
+              GamificationConstants.badgeTensHero,
+            );
           }
         case MathType.visual:
           _visualCompleted++;
@@ -451,14 +442,14 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
     List<DrawingPointMath?> points,
   ) async {
     try {
-      const double size = 280.0;
+      const size = 280;
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);
-      final rect = Rect.fromLTWH(0, 0, size, size);
+      final rect = Rect.fromLTWH(0, 0, size as double, size as double);
       canvas.drawRect(rect, Paint()..color = Colors.white);
       _paintPoints(canvas, points);
       final picture = recorder.endRecording();
-      final image = await picture.toImage(size.toInt(), size.toInt());
+      final image = await picture.toImage(size, size);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       return byteData?.buffer.asUint8List();
     } catch (_) {
@@ -477,8 +468,11 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           current.paint,
         );
       } else if (current != null && next == null) {
-        canvas.drawCircle(current.point, current.paint.strokeWidth / 2,
-            current.paint);
+        canvas.drawCircle(
+          current.point,
+          current.paint.strokeWidth / 2,
+          current.paint,
+        );
       }
     }
   }
@@ -539,8 +533,7 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
     await prefs.setInt(_keyLevelCTotal, c.total);
   }
 
-  _LevelStat statFor(DifficultyLevel level) =>
-      _levelStats[level] ?? _LevelStat();
+  _LevelStat statFor(DifficultyLevel level) => _levelStats[level] ?? _LevelStat();
 
   // ─────────────────── ProgressSource İmplementasyonu ───────────────────
 
@@ -551,16 +544,24 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
 
   @override
   double get completionPercentage {
-    final totalDone = additionsCompleted + subtractionsCompleted + tensCompleted + visualCompleted + freeCompleted;
+    final totalDone = additionsCompleted +
+        subtractionsCompleted +
+        tensCompleted +
+        visualCompleted +
+        freeCompleted;
     return (totalDone / 20.0 * 100.0).clamp(0.0, 100.0);
   }
 
   @override
   double get accuracyRate {
-    final totalDone = additionsCompleted + subtractionsCompleted + tensCompleted + visualCompleted + freeCompleted;
+    final totalDone = additionsCompleted +
+        subtractionsCompleted +
+        tensCompleted +
+        visualCompleted +
+        freeCompleted;
     final totalWrong = wrongAdditionsCount + wrongSubtractionsCount + wrongTensCount;
     final totalAttempts = totalDone + totalWrong;
-    if (totalAttempts == 0) return 100.0;
+    if (totalAttempts == 0) return 100;
     return (totalDone / totalAttempts * 100.0).clamp(0.0, 100.0);
   }
 
@@ -574,8 +575,7 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
       if (wrongSubtractionsCount > 0) 'Çıkarma İşlemi': wrongSubtractionsCount,
       if (wrongTensCount > 0) 'Onluklar (10-100)': wrongTensCount,
     };
-    final entries = map.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
+    final entries = map.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
     return entries.map((e) => e.key).toList();
   }
 }

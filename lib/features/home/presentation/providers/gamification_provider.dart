@@ -14,11 +14,27 @@ import 'package:abc123/features/home/domain/entities/badge.dart';
 import 'package:abc123/features/home/domain/entities/quest.dart';
 import 'package:abc123/features/home/domain/entities/shop_item.dart';
 import 'package:abc123/features/home/domain/repositories/i_gamification_persistence.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:injectable/injectable.dart';
 
 @injectable
 final class GamificationProvider extends ChangeNotifier {
+
+  GamificationProvider({
+    required IGamificationPersistence persistence,
+    required LoadGamificationInitialState loadInitial,
+    required PersistDrawingCounters persistDrawingCounters,
+    required PersistQuestLedger persistQuestLedger,
+    required QuestRolloverResolver questRolloverResolver,
+    required AppLogger logger,
+  })  : _persistence = persistence,
+        _loadInitial = loadInitial,
+        _persistDrawingCounters = persistDrawingCounters,
+        _persistQuestLedger = persistQuestLedger,
+        _questRolloverResolver = questRolloverResolver,
+        _logger = logger {
+    _init();
+  }
   final IGamificationPersistence _persistence;
   final LoadGamificationInitialState _loadInitial;
   final PersistDrawingCounters _persistDrawingCounters;
@@ -255,7 +271,7 @@ final class GamificationProvider extends ChangeNotifier {
   List<ShopItem> get shopItems => _shopItems;
 
   // In-memory list of all available badges
-  List<Badge> _badges = [
+  final List<Badge> _badges = [
     Badge(
       id: GamificationConstants.badgeFirstLogin,
       nameKey: 'badgeFirstLoginName',
@@ -433,22 +449,6 @@ final class GamificationProvider extends ChangeNotifier {
     return badges.where((b) => !b.isLocked).toList();
   }
 
-  GamificationProvider({
-    required IGamificationPersistence persistence,
-    required LoadGamificationInitialState loadInitial,
-    required PersistDrawingCounters persistDrawingCounters,
-    required PersistQuestLedger persistQuestLedger,
-    required QuestRolloverResolver questRolloverResolver,
-    required AppLogger logger,
-  })  : _persistence = persistence,
-        _loadInitial = loadInitial,
-        _persistDrawingCounters = persistDrawingCounters,
-        _persistQuestLedger = persistQuestLedger,
-        _questRolloverResolver = questRolloverResolver,
-        _logger = logger {
-    _init();
-  }
-
   Future<void> _init() async {
     _logger.debug('Gamification init started', tag: 'Gamification');
     GamificationInitialState? loaded;
@@ -487,7 +487,7 @@ final class GamificationProvider extends ChangeNotifier {
       },
     );
 
-    final loadedAvatarItems = await _persistence.getStringList('owned_avatar_items');
+    final loadedAvatarItems = (await _persistence.getStringList('owned_avatar_items')).fold((_) => null, (r) => r);
     if (loadedAvatarItems != null) {
       _ownedAvatarItems = List<String>.from(loadedAvatarItems);
     }
@@ -539,10 +539,10 @@ final class GamificationProvider extends ChangeNotifier {
   }
 
   Future<void> _loadProfileAndLastActivity() async {
-    _childName = await _persistence.getString(GamificationConstants.keyChildName) ?? '';
-    final modeName = await _persistence.getString(GamificationConstants.keyLastActivityMode);
-    _lastActivityIndex = await _persistence.getInt(GamificationConstants.keyLastActivityIndex) ?? 0;
-    _lastActivityTotal = await _persistence.getInt(GamificationConstants.keyLastActivityTotal) ?? 0;
+    _childName = (await _persistence.getString(GamificationConstants.keyChildName)).fold((_) => '', (r) => r ?? '');
+    final modeName = (await _persistence.getString(GamificationConstants.keyLastActivityMode)).fold((_) => null, (r) => r);
+    _lastActivityIndex = (await _persistence.getInt(GamificationConstants.keyLastActivityIndex)).fold((_) => 0, (r) => r ?? 0);
+    _lastActivityTotal = (await _persistence.getInt(GamificationConstants.keyLastActivityTotal)).fold((_) => 0, (r) => r ?? 0);
     _lastActivityMode = switch (modeName) {
       'number' => LastActivityMode.number,
       'letter' => LastActivityMode.letter,
@@ -574,7 +574,7 @@ final class GamificationProvider extends ChangeNotifier {
   }
 
   Future<void> _checkStreak() async {
-    final lastLoginString = await _persistence.getString(GamificationConstants.keyLastLoginDate);
+    final lastLoginString = (await _persistence.getString(GamificationConstants.keyLastLoginDate)).fold((_) => null, (r) => r);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
@@ -598,7 +598,7 @@ final class GamificationProvider extends ChangeNotifier {
           _streak = 1;
         }
         await _persistence.setString(
-            GamificationConstants.keyLastLoginDate, today.toIso8601String());
+            GamificationConstants.keyLastLoginDate, today.toIso8601String(),);
         await _persistence.setInt(GamificationConstants.keyStreak, _streak);
 
         // Check streak badges
@@ -651,8 +651,8 @@ final class GamificationProvider extends ChangeNotifier {
     try {
       final now = DateTime.now();
       final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-      final jsonStr = await _persistence.getString('parent_daily_activities_count_json');
-      Map<String, int> countMap = {};
+      final jsonStr = (await _persistence.getString('parent_daily_activities_count_json')).fold((_) => null, (r) => r);
+      final countMap = <String, int>{};
       if (jsonStr != null) {
         final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
         decoded.forEach((k, v) => countMap[k] = (v as num).toInt());
@@ -944,7 +944,7 @@ final class GamificationProvider extends ChangeNotifier {
     if (_equippedItems.containsKey(type.toString())) {
       _equippedItems.remove(type.toString());
       await _persistence.setString(
-          GamificationConstants.keyEquippedItems, json.encode(_equippedItems));
+          GamificationConstants.keyEquippedItems, json.encode(_equippedItems),);
       notifyListeners();
     }
   }

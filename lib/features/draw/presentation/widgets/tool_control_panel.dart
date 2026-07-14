@@ -1,18 +1,15 @@
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
+import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/widgets/admob_banner_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_color_button.dart';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
-import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
-import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
-
-import 'package:abc123/core/presentation/providers/language_provider.dart';
-import 'package:abc123/core/constants/app_radii.dart';
-import 'package:abc123/core/constants/app_sizes.dart';
 
 String _penColorSemanticsLabel(DrawLocalizations d, Color color) {
   if (color == Colors.black) return d.drawSemanticPenColorBlack;
@@ -26,6 +23,11 @@ String _penColorSemanticsLabel(DrawLocalizations d, Color color) {
 }
 
 class ToolControlPanel extends StatelessWidget {
+
+  const ToolControlPanel({
+    required this.strokeWidth, required this.eraseMode, required this.selectedColor, required this.colors, required this.onStrokeWidthChanged, required this.onColorChanged, required this.onEraseModeChanged, required this.titleKey, required this.volume, required this.onVolumeChanged, super.key,
+    this.panelColor,
+  });
   final double strokeWidth;
   final bool eraseMode;
   final Color selectedColor;
@@ -37,21 +39,6 @@ class ToolControlPanel extends StatelessWidget {
   final double volume;
   final void Function(double) onVolumeChanged;
   final Color? panelColor;
-
-  const ToolControlPanel({
-    super.key,
-    required this.strokeWidth,
-    required this.eraseMode,
-    required this.selectedColor,
-    required this.colors,
-    required this.onStrokeWidthChanged,
-    required this.onColorChanged,
-    required this.onEraseModeChanged,
-    required this.titleKey,
-    required this.volume,
-    required this.onVolumeChanged,
-    this.panelColor,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +68,7 @@ class ToolControlPanel extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   spreadRadius: 1,
                 ),
@@ -124,12 +111,12 @@ class ToolControlPanel extends StatelessWidget {
                   ),
                 ),
                 if (!compact)
-                  Flexible(
+                  const Flexible(
                     flex: 3,
                     child: Center(
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: AdmobBannerWidget(showTitle: true, isTitleSide: true),
+                        child: AdmobBannerWidget(isTitleSide: true),
                       ),
                     ),
                   ),
@@ -147,11 +134,9 @@ class ToolControlPanel extends StatelessWidget {
                             height: AppSizes.sliderHeight(context),
                             child: Slider(
                               value: volume,
-                              min: 0.0,
-                              max: 1.0,
                               onChanged: onVolumeChanged,
                               activeColor: AppColors.surfaceColor,
-                              inactiveColor: AppColors.surfaceColor.withOpacity(0.3),
+                              inactiveColor: AppColors.surfaceColor.withValues(alpha: 0.3),
                             ),
                           ),
                         IconButton(

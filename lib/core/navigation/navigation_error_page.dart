@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 /// Bilinmeyen rota veya hata durumunda gösterilen sayfa (`13_navigation.md`).
 class NavigationErrorPage extends StatelessWidget {
-  const NavigationErrorPage({super.key, required this.state});
+  const NavigationErrorPage({required this.state, super.key});
 
   final GoRouterState state;
 

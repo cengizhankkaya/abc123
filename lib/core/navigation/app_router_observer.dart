@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart' show GoRouter;
 
 /// Navigasyon olaylarını izleyen ve debug logları üreten observer
 /// (`01_project_structure.md` — Navigation Organization).
@@ -13,7 +14,6 @@ import 'package:flutter/material.dart';
 /// );
 /// ```
 class AppRouterObserver extends NavigatorObserver {
-  // ignore: prefer_const_constructors_in_immutables
   AppRouterObserver();
 
   @override

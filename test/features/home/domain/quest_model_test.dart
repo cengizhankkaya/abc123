@@ -2,13 +2,13 @@
 library;
 
 import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/test_data.dart';
 
 void main() {
-  group('QuestModel', () {
+  group('Quest', () {
     test('ilerleme oranı hedefe göre 0 ile 1 arasında kalır', () {
       final half = GamificationTestData.sampleQuest(currentCount: 5);
       expect(half.progress, closeTo(0.5, 1e-9));
@@ -21,14 +21,14 @@ void main() {
     });
 
     test('aynı id ile Entity eşitliği sağlanır', () {
-      final a = QuestModel(
+      final a = Quest(
         id: 'same',
         titleKey: 't1',
         targetType: DrawingType.letter,
         targetCount: 1,
         rewardPoints: 1,
       );
-      final b = QuestModel(
+      final b = Quest(
         id: 'same',
         titleKey: 'farklı',
         targetType: DrawingType.shape,
@@ -46,18 +46,16 @@ void main() {
     });
 
     test('JSON serileştirme round-trip', () {
-      final original = QuestModel(
+      final original = Quest(
         id: 'daily_2026-04-13',
         titleKey: 'daily_quest',
         targetType: DrawingType.shape,
         targetLabel: 'KARE',
         targetCount: 4,
         currentCount: 2,
-        isCompleted: false,
-        isClaimed: false,
         rewardPoints: 20,
       );
-      final decoded = QuestModel.fromJson(
+      final decoded = Quest.fromJson(
         Map<String, dynamic>.from(original.toJson()),
       );
       expect(decoded.id, original.id);
@@ -72,7 +70,7 @@ void main() {
     });
 
     test('copyWith yeni örnek üretir; orijinal değişmez', () {
-      final original = QuestModel(
+      final original = Quest(
         id: 'q',
         titleKey: 't',
         targetType: DrawingType.number,

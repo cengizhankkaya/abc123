@@ -4,6 +4,8 @@ import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class YoutubeVideoScreen extends StatelessWidget {
+  const YoutubeVideoScreen({super.key});
+
   final String youtubeUrl = 'https://www.youtube.com/watch?v=Dzg3JjjoeX8';
 
   Future<void> _launchYoutube(BuildContext context) async {

@@ -5,6 +5,6 @@ import 'package:abc123/core/types/result.dart';
 /// Matematik alıştırmalarını domain repository üzerinden getirir.
 ///
 /// TODO: [IMathRepository] bağımlılığını enjekte et ve implemente et.
-abstract interface class GetMathExercisesUseCase {
+abstract interface class GetMathExercises {
   FutureResult<void> execute();
 }

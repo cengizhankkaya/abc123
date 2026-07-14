@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
+import 'package:flutter/material.dart';
 
 extension ResponsiveContext on BuildContext {
   /// Geçerli [ScreenSize].

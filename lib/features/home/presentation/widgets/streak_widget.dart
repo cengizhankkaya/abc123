@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 class StreakWidget extends StatefulWidget {
-  final int streak;
-  final VoidCallback? onTap;
 
   const StreakWidget({
-    super.key,
-    required this.streak,
+    required this.streak, super.key,
     this.onTap,
   });
+  final int streak;
+  final VoidCallback? onTap;
 
   @override
   State<StreakWidget> createState() => _StreakWidgetState();
@@ -26,7 +25,7 @@ class _StreakWidgetState extends State<StreakWidget> with SingleTickerProviderSt
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
 
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+    _scaleAnimation = Tween<double>(begin: 1, end: 1.1).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
@@ -52,12 +51,12 @@ class _StreakWidgetState extends State<StreakWidget> with SingleTickerProviderSt
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFFFF5E62).withOpacity(0.4),
+              color: const Color(0xFFFF5E62).withValues(alpha: 0.4),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
           ],
-          border: Border.all(color: Colors.white.withOpacity(0.5), width: 2),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 2),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

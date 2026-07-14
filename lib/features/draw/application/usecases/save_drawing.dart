@@ -5,6 +5,6 @@ import 'package:abc123/core/types/result.dart';
 /// Çizimi domain repository üzerinden kaydeder.
 ///
 /// TODO: [IDrawRepository] bağımlılığını enjekte et ve implemente et.
-abstract interface class SaveDrawingUseCase {
+abstract interface class SaveDrawing {
   FutureResult<void> execute();
 }

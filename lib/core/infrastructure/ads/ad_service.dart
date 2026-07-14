@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:abc123/app/config/admob_rewarded_ids.dart';
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/domain/types/feature_flag.dart';
 import 'package:abc123/core/domain/ports/i_ad_service.dart';
 import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
+import 'package:abc123/core/domain/types/feature_flag.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter/foundation.dart';
@@ -14,13 +14,13 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAdService)
 class AdService implements IAdService {
-  static final AdService _instance = AdService._internal();
 
   factory AdService() {
     return _instance;
   }
 
   AdService._internal();
+  static final AdService _instance = AdService._internal();
 
   AppLogger get _log => getIt<AppLogger>();
 
@@ -31,6 +31,7 @@ class AdService implements IAdService {
   /// Birim kimlikleri: [AdmobRewardedIds] (`ADMOB_REWARDED_ANDROID` / `ADMOB_REWARDED_IOS`).
   String get _rewardedAdUnitId => AdmobRewardedIds.current;
 
+  @override
   void initialize() {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
@@ -48,6 +49,7 @@ class AdService implements IAdService {
     );
   }
 
+  @override
   void loadRewardedAd() {
     if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
@@ -81,6 +83,7 @@ class AdService implements IAdService {
     );
   }
 
+  @override
   void showRewardedAd({
     required void Function(int rewardAmount) onReward,
     void Function()? onAdNotReady,

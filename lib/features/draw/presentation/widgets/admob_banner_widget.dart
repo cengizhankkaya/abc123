@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobBannerWidget extends StatefulWidget {
-  final bool showTitle;
-  final bool isTitleSide;
 
   const AdmobBannerWidget({
     super.key,
     this.showTitle = true,
     this.isTitleSide = false,
   });
+  final bool showTitle;
+  final bool isTitleSide;
 
   /// Dikey banner + "Reklam" etiketi için sabit yükseklik.
   static const double verticalSlotHeight = 74;

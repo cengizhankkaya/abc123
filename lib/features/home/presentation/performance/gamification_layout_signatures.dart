@@ -2,6 +2,7 @@ import 'package:abc123/features/home/domain/entities/badge.dart';
 import 'package:abc123/features/home/domain/entities/quest.dart';
 import 'package:abc123/features/home/domain/entities/shop_item.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
+import 'package:provider/provider.dart' show Selector;
 
 /// [Selector] / [context.select] için hafif imzalar (`16_performance.md` — gereksiz rebuild azaltma).
 

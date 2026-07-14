@@ -2,47 +2,47 @@ import 'package:flutter/foundation.dart';
 
 /// Maps attribute keys to the attribute value list
 final Map<String, FluttermojiPropertyItem> fluttermojiProperties = {
-  "style": FluttermojiPropertyItem(title: "Style", property: FluttermojiStyle),
-  "topType": FluttermojiPropertyItem(title: "Hair", property: TopType),
-  "accessoriesType":
-      FluttermojiPropertyItem(title: "Accessory", property: AccessoriesType),
-  "hairColor":
-      FluttermojiPropertyItem(title: "Hair\nColor", property: HairColor),
-  "facialHairType":
-      FluttermojiPropertyItem(title: "Facial\nHair", property: FacialHairType),
-  "facialHairColor": FluttermojiPropertyItem(
-      title: "F-Hair\nColor", property: FacialHairColor),
-  "clotheType": FluttermojiPropertyItem(title: "Outfit", property: ClotheType),
-  "clotheColor":
-      FluttermojiPropertyItem(title: "Outfit\nColor", property: ClotheColor),
-  "eyeType": FluttermojiPropertyItem(title: "Eye", property: EyeType),
-  "eyebrowType":
-      FluttermojiPropertyItem(title: "Eyebrow", property: EyebrowType),
-  "mouthType": FluttermojiPropertyItem(title: "Mouth", property: MouthType),
-  "skinColor": FluttermojiPropertyItem(title: "Skin", property: SkinColor),
+  'style': FluttermojiPropertyItem(title: 'Style', property: FluttermojiStyle),
+  'topType': FluttermojiPropertyItem(title: 'Hair', property: TopType),
+  'accessoriesType':
+      FluttermojiPropertyItem(title: 'Accessory', property: AccessoriesType),
+  'hairColor':
+      FluttermojiPropertyItem(title: 'Hair\nColor', property: HairColor),
+  'facialHairType':
+      FluttermojiPropertyItem(title: 'Facial\nHair', property: FacialHairType),
+  'facialHairColor': FluttermojiPropertyItem(
+      title: 'F-Hair\nColor', property: FacialHairColor,),
+  'clotheType': FluttermojiPropertyItem(title: 'Outfit', property: ClotheType),
+  'clotheColor':
+      FluttermojiPropertyItem(title: 'Outfit\nColor', property: ClotheColor),
+  'eyeType': FluttermojiPropertyItem(title: 'Eye', property: EyeType),
+  'eyebrowType':
+      FluttermojiPropertyItem(title: 'Eyebrow', property: EyebrowType),
+  'mouthType': FluttermojiPropertyItem(title: 'Mouth', property: MouthType),
+  'skinColor': FluttermojiPropertyItem(title: 'Skin', property: SkinColor),
 };
 
 /// Models the metadata needed for rendering widgets in the UI
 ///
 /// 'ExpandedFluttermojiCardItem' has been renamed to Attribute Item
 class AttributeItem {
+  AttributeItem(
+      {this.iconsize, this.title = 'Unnamed', this.key, this.iconAsset,});
   String title;
   String? key;
   String? iconAsset;
   double? iconsize;
-  AttributeItem(
-      {this.iconsize, this.title = "Unnamed", this.key, this.iconAsset});
 }
 
 class FluttermojiPropertyItem extends ChangeNotifier {
-  String title;
-  int choice;
-  List<String>? property;
   FluttermojiPropertyItem({
-    this.title = "Unnamed",
+    this.title = 'Unnamed',
     this.choice = 0,
     this.property,
   });
+  String title;
+  int choice;
+  List<String>? property;
 }
 
 const String emptySVGIcon = '''
@@ -62,7 +62,7 @@ const Map<String, int> defaultFluttermojiOptions = {
   'skinColor': 3,
   'clotheColor': 8,
   'style': 0,
-  'graphicType': 0
+  'graphicType': 0,
 };
 
 const List<String> FluttermojiStyle = [
@@ -76,7 +76,7 @@ const List<String> TopType = [
   'Hijab',
   'Turban',
   'Hat',
-  'I\'m not bald',
+  "I'm not bald",
   'Flat',
   'from School',
   'Short n waved',
@@ -155,7 +155,7 @@ const List<String> FacialHairType = [
   'Full Beard',
   'Beard, Light',
   'Moustache, Fancy',
-  'That 80\'s moustache',
+  "That 80's moustache",
   'Goatee',
   'Beard, Majestic',
   'Stubble',

@@ -1,4 +1,3 @@
-import 'package:abc123/features/parent_panel/domain/entities/daily_activity.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class WeeklyActivityChart extends StatelessWidget {
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
 
     double maxY = 0;
-    for (var d in weeklyData) {
+    for (final d in weeklyData) {
       if (d.durationMinutes > maxY) maxY = d.durationMinutes.toDouble();
     }
     if (maxY < 30) maxY = 30;
@@ -29,7 +28,7 @@ class WeeklyActivityChart extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -71,7 +70,7 @@ class WeeklyActivityChart extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6C63FF).withOpacity(0.12),
+                  color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -105,7 +104,7 @@ class WeeklyActivityChart extends StatelessWidget {
                     tooltipPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     tooltipMargin: 8,
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                      final item = weeklyData[group.x.toInt()];
+                      final item = weeklyData[group.x];
                       return BarTooltipItem(
                         '${item.durationMinutes} ${isTr ? "dk" : "min"}\n',
                         const TextStyle(
@@ -117,7 +116,7 @@ class WeeklyActivityChart extends StatelessWidget {
                           TextSpan(
                             text: '${item.completedActivitiesCount} ${isTr ? "görev tamamlandı" : "tasks completed"}',
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               fontSize: 11,
                               fontWeight: FontWeight.w400,
                             ),
@@ -128,7 +127,6 @@ class WeeklyActivityChart extends StatelessWidget {
                   ),
                 ),
                 titlesData: FlTitlesData(
-                  show: true,
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
@@ -140,7 +138,6 @@ class WeeklyActivityChart extends StatelessWidget {
                         final isToday = idx == weeklyData.length - 1;
                         return SideTitleWidget(
                           axisSide: meta.axisSide,
-                          space: 8,
                           child: Text(
                             d.getShortDayName(isTr),
                             style: TextStyle(
@@ -155,9 +152,9 @@ class WeeklyActivityChart extends StatelessWidget {
                       },
                     ),
                   ),
-                  leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  leftTitles: const AxisTitles(),
+                  topTitles: const AxisTitles(),
+                  rightTitles: const AxisTitles(),
                 ),
                 gridData: const FlGridData(show: false),
                 borderData: FlBorderData(show: false),
@@ -177,7 +174,7 @@ class WeeklyActivityChart extends StatelessWidget {
                         backDrawRodData: BackgroundBarChartRodData(
                           show: true,
                           toY: maxY,
-                          color: isDark ? Colors.white.withOpacity(0.04) : Colors.grey.shade100,
+                          color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.grey.shade100,
                         ),
                       ),
                     ],

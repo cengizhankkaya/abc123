@@ -18,8 +18,8 @@ class WelcomeCard extends StatelessWidget {
         color: Colors.white,
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF6C5CE7).withOpacity(0.1),
-            const Color(0xFFA29BFE).withOpacity(0.1)
+            const Color(0xFF6C5CE7).withValues(alpha: 0.1),
+            const Color(0xFFA29BFE).withValues(alpha: 0.1),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -27,13 +27,13 @@ class WelcomeCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6C5CE7).withOpacity(0.15),
+            color: const Color(0xFF6C5CE7).withValues(alpha: 0.15),
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),
         ],
         border: Border.all(
-          color: Colors.white.withOpacity(0.8),
+          color: Colors.white.withValues(alpha: 0.8),
           width: 1.5,
         ),
       ),
@@ -44,7 +44,7 @@ class WelcomeCard extends StatelessWidget {
             child: Container(
               width: AppSizes.imageSize(context),
               height: AppSizes.imageSize(context),
-              color: Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withValues(alpha: 0.3),
               child: ExcludeSemantics(
                 child: ImageManager.getRobotImage(
                   width: AppSizes.imageSize(context),

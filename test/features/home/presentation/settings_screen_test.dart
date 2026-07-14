@@ -2,7 +2,6 @@ import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/l10n/app_localizations_setup.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
-import 'package:abc123/core/theme/app_theme_mode.dart';
 import 'package:abc123/features/home/presentation/pages/settings_screen.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
@@ -51,7 +50,7 @@ void main() {
   group('SettingsScreen & Yeni Bileşen Testleri', () {
     testWidgets('SettingsSectionHeader başlık ve ikonu düzgün render eder', (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             body: SettingsSectionHeader(
               title: 'Test Bölüm',
@@ -69,7 +68,7 @@ void main() {
     });
 
     testWidgets('AnimatedChoiceCard dokunuşu algılar ve seçim durumunu gösterir', (tester) async {
-      bool tapped = false;
+      var tapped = false;
 
       await tester.pumpWidget(
         MaterialApp(
@@ -92,7 +91,7 @@ void main() {
     });
 
     testWidgets('ChildNameEditor boş girişte hata verir, dolu girişte kaydeder', (tester) async {
-      String savedName = '';
+      var savedName = '';
 
       await tester.pumpWidget(
         MaterialApp(
@@ -140,7 +139,7 @@ void main() {
       // Ebeveyn alanı aşağıda kaldığı için kaydıralım
       await tester.scrollUntilVisible(
         find.text('Ebeveyn Alanı'),
-        300.0,
+        300,
         scrollable: find.byType(Scrollable).first,
       );
 

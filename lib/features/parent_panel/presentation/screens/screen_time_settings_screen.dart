@@ -9,6 +9,15 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const _ScreenTimeSettingsView();
+  }
+}
+
+class _ScreenTimeSettingsView extends StatelessWidget {
+  const _ScreenTimeSettingsView();
+
+  @override
+  Widget build(BuildContext context) {
     final screenTime = context.watch<ScreenTimeProvider>();
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
@@ -55,7 +64,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF6C63FF).withOpacity(0.3),
+                      color: const Color(0xFF6C63FF).withValues(alpha: 0.3),
                       blurRadius: 18,
                       offset: const Offset(0, 6),
                     ),
@@ -66,7 +75,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(Icons.hourglass_bottom_rounded, color: Colors.white, size: 32),
@@ -88,9 +97,9 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                           Text(
                             isTr
                                 ? 'Çocuğunuzun günlük uygulama kullanım süresini sınırlayın. Süre dolduğunda sevimli bir uyarı ile mola zamanı hatırlatılır.'
-                                : 'Limit your child\'s daily app usage. When time is up, a gentle friendly prompt reminds them it is time to rest.',
+                                : "Limit your child's daily app usage. When time is up, a gentle friendly prompt reminds them it is time to rest.",
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.85),
+                              color: Colors.white.withValues(alpha: 0.85),
                               fontSize: 13,
                               height: 1.35,
                             ),
@@ -111,7 +120,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+                      color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
                       blurRadius: 14,
                       offset: const Offset(0, 4),
                     ),
@@ -125,7 +134,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          isTr ? 'Bugünkü Kullanım Süresi' : 'Today\'s Used Time',
+                          isTr ? 'Bugünkü Kullanım Süresi' : "Today's Used Time",
                           style: TextStyle(
                             fontSize: 14,
                             color: isDark ? Colors.white70 : Colors.grey.shade600,
@@ -190,48 +199,42 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
                 crossAxisSpacing: 12,
                 childAspectRatio: 2.3,
                 children: [
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: isTr ? 'Sınırsız / Kapalı' : 'Unlimited / Off',
                     subtitle: isTr ? 'Süre sınırı uygulanmaz' : 'No time limit applied',
                     value: 0,
                     isSelected: limitMins == 0,
                     isDark: isDark,
                   ),
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: '15 ${isTr ? "Dakika" : "Mins"}',
                     subtitle: isTr ? 'Kısa pratik süresi' : 'Short practice time',
                     value: 15,
                     isSelected: limitMins == 15,
                     isDark: isDark,
                   ),
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: '30 ${isTr ? "Dakika" : "Mins"}',
                     subtitle: isTr ? 'Önerilen günlük süre' : 'Recommended daily time',
                     value: 30,
                     isSelected: limitMins == 30,
                     isDark: isDark,
                   ),
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: '45 ${isTr ? "Dakika" : "Mins"}',
                     subtitle: isTr ? 'Geniş pratik süresi' : 'Extended practice time',
                     value: 45,
                     isSelected: limitMins == 45,
                     isDark: isDark,
                   ),
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: '60 ${isTr ? "Dakika" : "Mins"}',
                     subtitle: isTr ? 'Max günlük sınır' : 'Max daily boundary',
                     value: 60,
                     isSelected: limitMins == 60,
                     isDark: isDark,
                   ),
-                  _buildOptionCard(
-                    context: context,
+                  _OptionCard(
                     title: '90 ${isTr ? "Dakika" : "Mins"}',
                     subtitle: isTr ? 'Yoğun tekrar süresi' : 'Intensive review time',
                     value: 90,
@@ -246,15 +249,25 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildOptionCard({
-    required BuildContext context,
-    required String title,
-    required String subtitle,
-    required int value,
-    required bool isSelected,
-    required bool isDark,
-  }) {
+class _OptionCard extends StatelessWidget {
+  const _OptionCard({
+    required this.title,
+    required this.subtitle,
+    required this.value,
+    required this.isSelected,
+    required this.isDark,
+  });
+
+  final String title;
+  final String subtitle;
+  final int value;
+  final bool isSelected;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         context.read<ScreenTimeProvider>().setDailyLimitMinutes(value);
@@ -277,7 +290,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: const Color(0xFF6C63FF).withOpacity(0.3),
+                    color: const Color(0xFF6C63FF).withValues(alpha: 0.3),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -311,7 +324,7 @@ class ScreenTimeSettingsScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11,
                 color: isSelected
-                    ? Colors.white.withOpacity(0.85)
+                    ? Colors.white.withValues(alpha: 0.85)
                     : (isDark ? Colors.white54 : Colors.grey.shade600),
               ),
               maxLines: 1,

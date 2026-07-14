@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class BuildColorButton extends StatelessWidget {
+
+  const BuildColorButton({
+    required this.color, required this.size, required this.selectedColor, required this.eraseMode, required this.onTap, required this.semanticsLabel, super.key,
+  });
   final Color color;
   final double size;
   final Color selectedColor;
@@ -8,19 +12,9 @@ class BuildColorButton extends StatelessWidget {
   final void Function(Color) onTap;
   final String semanticsLabel;
 
-  const BuildColorButton({
-    super.key,
-    required this.color,
-    required this.size,
-    required this.selectedColor,
-    required this.eraseMode,
-    required this.onTap,
-    required this.semanticsLabel,
-  });
-
   @override
   Widget build(BuildContext context) {
-    bool isSelected = selectedColor == color && !eraseMode;
+    final isSelected = selectedColor == color && !eraseMode;
     return Semantics(
       button: true,
       label: semanticsLabel,
@@ -30,7 +24,7 @@ class BuildColorButton extends StatelessWidget {
           onTap(color);
         },
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           width: size,
           height: size,
           decoration: BoxDecoration(
@@ -40,7 +34,7 @@ class BuildColorButton extends StatelessWidget {
             boxShadow: [
               if (isSelected)
                 BoxShadow(
-                  color: color.withOpacity(0.6),
+                  color: color.withValues(alpha: 0.6),
                   blurRadius: 8,
                   spreadRadius: 1,
                 ),

@@ -1,4 +1,5 @@
 /// Domain'e özgü tipler — bağlantı durumu vb. (`01_project_structure.md` — core/domain/types).
+library;
 
 /// WebSocket bağlantısının durumunu temsil eden enum.
 ///

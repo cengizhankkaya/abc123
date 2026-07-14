@@ -1,8 +1,8 @@
 import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
-import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
-import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
+import 'package:abc123/features/home/presentation/gamification_icon_catalog.dart';
+import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
+import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class HomeBadgesWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                padding: const EdgeInsets.only(left: 8, bottom: 4),
                 child: Text(
                   h.badgesTitle,
                   style: const TextStyle(
@@ -61,7 +61,7 @@ class HomeBadgesWidget extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                              color: const Color(0xFF6C5CE7).withValues(alpha: 0.3),
                               blurRadius: 8,
                               offset: const Offset(0, 4),
                             ),

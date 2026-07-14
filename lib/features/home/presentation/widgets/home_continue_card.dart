@@ -1,8 +1,8 @@
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/l10n/generated/home_localizations.dart';
 import 'package:abc123/features/home/l10n/l10n_extensions.dart';
+import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +83,7 @@ class HomeContinueCard extends StatelessWidget {
             onTap: route == null ? null : () => context.push(route),
             borderRadius: BorderRadius.circular(HomeDesignTokens.continueCardRadius),
             child: CustomPaint(
-              painter: _DashedBorderPainter(
+              painter: const _DashedBorderPainter(
                 color: _borderColor,
                 radius: HomeDesignTokens.continueCardRadius,
               ),
@@ -95,7 +95,6 @@ class HomeContinueCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(HomeDesignTokens.continueCardRadius),
                 ),
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       width: _badgeSize,

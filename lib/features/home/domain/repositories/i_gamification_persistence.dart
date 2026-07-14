@@ -1,6 +1,7 @@
 /// Yerel oyun durumu kalıcılığı için domain portu (`I` öneki — 03_domain_layer).
-import 'package:fpdart/fpdart.dart';
+library;
 import 'package:abc123/core/types/types.dart';
+import 'package:fpdart/fpdart.dart';
 
 abstract class IGamificationPersistence {
   FutureResult<int?> getInt(String key);

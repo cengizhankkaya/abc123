@@ -1,13 +1,12 @@
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class ImageManager {
   // Varsayılan görsel yükleyici - kaliteyi korur
   static Widget getImage(String path,
-      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius}) {
-    Widget image = Image.asset(
+      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius,}) {
+    final Widget image = Image.asset(
       path,
       width: width,
       height: height,
@@ -113,14 +112,14 @@ class ImageManager {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.3),
+        color: Colors.grey.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(
         child: Text(
           text ?? 'Görsel',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.black54),
+          style: const TextStyle(color: Colors.black54),
         ),
       ),
     );

@@ -2,11 +2,11 @@ import 'package:abc123/core/constants/image_constants.dart';
 
 /// Çizim rehberi (saf domain: yalnızca asset yolu).
 class DrawingGuide {
-  final String imagePath;
 
   DrawingGuide({
     required this.imagePath,
   });
+  final String imagePath;
 }
 
 /// Tüm rakamlar ve harfler için rehber içeriklerini sağlayan sınıf

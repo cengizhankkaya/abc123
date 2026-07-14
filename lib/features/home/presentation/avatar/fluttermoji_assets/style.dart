@@ -1,7 +1,7 @@
 /// SVG strings for style of avatar
 const fluttermojiStyle = {
-  "Transparent": "",
-  "Circle": '''
+  'Transparent': '',
+  'Circle': '''
 <g id="Circle" stroke-width="1" fill-rule="evenodd" transform="translate(12.000000, 40.000000)">
 <mask id="mask-2" fill="white"><use xlink:href="#path-1">
 </use>

@@ -1,9 +1,7 @@
-import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/numbers_advanced/domain/math_difficulty.dart';
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
 import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
 import 'package:abc123/features/numbers_advanced/presentation/widgets/digit_box_widget.dart';
-import 'package:abc123/features/numbers_advanced/presentation/widgets/level_lock_badge.dart';
 import 'package:abc123/features/numbers_advanced/presentation/widgets/math_result_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -41,7 +39,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF6C5CE7).withOpacity(0.1),
+              const Color(0xFF6C5CE7).withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -107,7 +105,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                                 DigitBoxWidget(
                                   boxKey: _hundredsKey,
                                   boxIndex: 2,
-                                  label: "Yüzler",
+                                  label: 'Yüzler',
                                   isActive: provider.activeBox == 2,
                                   points: provider.hundredsPoints,
                                   hintText: provider.hintEnabled ? hundredsDigit.toString() : null,
@@ -132,7 +130,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                               DigitBoxWidget(
                                 boxKey: _unitsKey,
                                 boxIndex: 1,
-                                label: isDoubleDigit ? l10n.mathUnitsBox : "Sonuç",
+                                label: isDoubleDigit ? l10n.mathUnitsBox : 'Sonuç',
                                 isActive: provider.activeBox == 1,
                                 points: provider.unitsPoints,
                                 hintText: provider.hintEnabled ? operation.unitsDigit.toString() : null,
@@ -281,7 +279,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                    color: const Color(0xFF6C5CE7).withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),

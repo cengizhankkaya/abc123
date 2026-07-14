@@ -1,7 +1,9 @@
-import 'package:abc123/core/navigation/route_paths.dart';
-import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary_use_case.dart';
-import 'package:abc123/features/parent_panel/application/usecases/get_recommendations_use_case.dart';
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_recommendations.dart';
+import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
+import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/premium_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/module_progress_card.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/recommendation_tile.dart';
@@ -19,7 +21,16 @@ class ParentDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getProgressSummary = context.watch<GetProgressSummaryUseCase>();
+    return const _ParentDashboardView();
+  }
+}
+
+class _ParentDashboardView extends StatelessWidget {
+  const _ParentDashboardView();
+
+  @override
+  Widget build(BuildContext context) {
+    final getProgressSummary = context.watch<GetProgressSummary>();
     final premium = context.watch<PremiumProvider>();
 
     final theme = Theme.of(context);
@@ -30,7 +41,7 @@ class ParentDashboardScreen extends StatelessWidget {
       future: () async {
         final progressRes = await getProgressSummary.getAllModuleProgress();
         final progressList = progressRes.fold((l) => <ModuleProgress>[], (r) => r);
-        final getRecommendationsUseCase = getIt<GetRecommendationsUseCase>();
+        final getRecommendationsUseCase = getIt<GetRecommendations>();
         final recRes = await getRecommendationsUseCase(
           progressList: progressList,
           isTurkish: isTr,
@@ -45,136 +56,149 @@ class ParentDashboardScreen extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
         }
-        
+
         final data = snapshot.data ?? {'progress': <ModuleProgress>[], 'recommendations': <Recommendation>[]};
         final allModuleProgress = data['progress'] as List<ModuleProgress>;
         final recommendations = data['recommendations'] as List<Recommendation>;
 
-    return Scaffold(
-      backgroundColor: isDark ? const Color(0xFF121218) : const Color(0xFFF4F6F9),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: isDark ? Colors.white : Colors.black87),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          isTr ? 'Ebeveyn Kontrol Paneli' : 'Parent Dashboard',
-          style: TextStyle(
-            color: isDark ? Colors.white : Colors.black87,
-            fontWeight: FontWeight.w800,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            tooltip: isTr ? 'Ekran Süresi Kontrolü' : 'Screen Time Control',
-            icon: Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: const Color(0xFF6C63FF).withOpacity(0.12),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(Icons.timer_rounded, color: Color(0xFF6C63FF), size: 22),
+        return Scaffold(
+          backgroundColor: isDark ? const Color(0xFF121218) : const Color(0xFFF4F6F9),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_rounded, color: isDark ? Colors.white : Colors.black87),
+              onPressed: () => context.pop(),
             ),
-            onPressed: () => context.push(AppRoutes.parentScreenTime),
-          ),
-          const SizedBox(width: 8),
-        ],
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Premium Yönetim ve Durum Banner'ı
-              _buildPremiumBanner(context, premium, isDark, isTr),
-              const SizedBox(height: 20),
-
-              // Genel Özet Kartı
-              const SummaryOverviewCard(),
-              const SizedBox(height: 24),
-
-              // Haftalık Aktivite Grafiği
-              const WeeklyActivityChart(),
-              const SizedBox(height: 28),
-
-              // Akıllı Öneriler Bölümü
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      isTr ? 'AKILLI ÖNERİLER & AKSİYONLAR' : 'SMART RECOMMENDATIONS & ACTIONS',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 1.1,
-                        color: isDark ? Colors.white60 : Colors.grey.shade600,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Icon(Icons.auto_awesome_rounded, color: Colors.amber.shade600, size: 18),
-                ],
+            title: Text(
+              isTr ? 'Ebeveyn Kontrol Paneli' : 'Parent Dashboard',
+              style: TextStyle(
+                color: isDark ? Colors.white : Colors.black87,
+                fontWeight: FontWeight.w800,
+                fontSize: 20,
               ),
-              const SizedBox(height: 12),
-              for (final rec in recommendations)
-                RecommendationTile(recommendation: rec),
-              const SizedBox(height: 20),
-
-              // Modül Bazlı İlerleme Raporları
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      isTr ? 'MODÜL BAZLI İLERLEME RAPORLARI' : 'MODULE PROGRESS REPORTS',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 1.1,
-                        color: isDark ? Colors.white60 : Colors.grey.shade600,
-                      ),
-                    ),
+            ),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                tooltip: isTr ? 'Ekran Süresi Kontrolü' : 'Screen Time Control',
+                icon: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF00C853).withOpacity(0.12),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      '${allModuleProgress.length} ${isTr ? "Modül Aktif" : "Modules Active"}',
-                      style: const TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF00C853),
-                      ),
-                    ),
-                  ),
-                ],
+                  child: const Icon(Icons.timer_rounded, color: Color(0xFF6C63FF), size: 22),
+                ),
+                onPressed: () => context.push(AppRoutes.parentScreenTime),
               ),
-              const SizedBox(height: 14),
-              for (final prog in allModuleProgress)
-                ModuleProgressCard(progress: prog),
-              const SizedBox(height: 32),
+              const SizedBox(width: 8),
             ],
           ),
-        ),
-      ),
-    );
-    },
+          body: SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Premium Yönetim ve Durum Banner'ı
+                  _PremiumBanner(premium: premium, isDark: isDark, isTr: isTr),
+                  const SizedBox(height: 20),
+
+                  // Genel Özet Kartı
+                  const SummaryOverviewCard(),
+                  const SizedBox(height: 24),
+
+                  // Haftalık Aktivite Grafiği
+                  const WeeklyActivityChart(),
+                  const SizedBox(height: 28),
+
+                  // Akıllı Öneriler Bölümü
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          isTr ? 'AKILLI ÖNERİLER & AKSİYONLAR' : 'SMART RECOMMENDATIONS & ACTIONS',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.1,
+                            color: isDark ? Colors.white60 : Colors.grey.shade600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(Icons.auto_awesome_rounded, color: Colors.amber.shade600, size: 18),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  for (final rec in recommendations)
+                    RecommendationTile(recommendation: rec),
+                  const SizedBox(height: 20),
+
+                  // Modül Bazlı İlerleme Raporları
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          isTr ? 'MODÜL BAZLI İLERLEME RAPORLARI' : 'MODULE PROGRESS REPORTS',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.1,
+                            color: isDark ? Colors.white60 : Colors.grey.shade600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00C853).withValues(alpha: 0.12),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '${allModuleProgress.length} ${isTr ? "Modül Aktif" : "Modules Active"}',
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF00C853),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  for (final prog in allModuleProgress)
+                    ModuleProgressCard(progress: prog),
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
+}
 
-  Widget _buildPremiumBanner(BuildContext context, PremiumProvider premium, bool isDark, bool isTr) {
+class _PremiumBanner extends StatelessWidget {
+  const _PremiumBanner({
+    required this.premium,
+    required this.isDark,
+    required this.isTr,
+  });
+
+  final PremiumProvider premium;
+  final bool isDark;
+  final bool isTr;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
@@ -188,7 +212,7 @@ class ParentDashboardScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: (premium.isPremium ? const Color(0xFF00C853) : const Color(0xFFFF9800)).withOpacity(0.3),
+            color: (premium.isPremium ? const Color(0xFF00C853) : const Color(0xFFFF9800)).withValues(alpha: 0.3),
             blurRadius: 14,
             offset: const Offset(0, 5),
           ),
@@ -199,7 +223,7 @@ class ParentDashboardScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -229,7 +253,7 @@ class ParentDashboardScreen extends StatelessWidget {
                       ? (isTr ? 'Tüm modül raporları ve sınırsız özellikler açık' : 'Full access to all module reports and limits')
                       : (isTr ? 'Daha kapsamlı analiz ve sınırsız pratik için yükseltin' : 'Upgrade for deep analytical insights and unlimited practice'),
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.88),
+                    color: Colors.white.withValues(alpha: 0.88),
                     fontSize: 12,
                   ),
                 ),

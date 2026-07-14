@@ -1,10 +1,10 @@
+import 'package:abc123/core/error/failures/value_failure.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:abc123/core/error/failures/value_failure.dart';
 
 class UnexpectedValueError extends Error {
-  final List<ValueFailure> failures;
   UnexpectedValueError(this.failures);
+  final List<ValueFailure> failures;
 
   @override
   String toString() {

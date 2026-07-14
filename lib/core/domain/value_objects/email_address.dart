@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:abc123/core/domain/base/value_object.dart';
 import 'package:abc123/core/error/failures/value_failure.dart';
+import 'package:flutter/foundation.dart';
+import 'package:fpdart/fpdart.dart';
 
 sealed class EmailFailure extends ValueFailure<String> {
   const EmailFailure();
@@ -11,9 +11,9 @@ sealed class EmailFailure extends ValueFailure<String> {
 }
 
 final class _InvalidFormat extends EmailFailure {
+  const _InvalidFormat({required this.failedValue});
   @override
   final String failedValue;
-  const _InvalidFormat({required this.failedValue});
 }
 
 final class _Empty extends EmailFailure {
@@ -22,8 +22,6 @@ final class _Empty extends EmailFailure {
 
 @immutable
 class EmailAddress extends ValueObject<String> {
-  @override
-  final Either<List<ValueFailure<String>>, String> value;
 
   factory EmailAddress(String input) {
     return EmailAddress._(_validateEmailAddress(input));
@@ -34,6 +32,8 @@ class EmailAddress extends ValueObject<String> {
   factory EmailAddress.fromTrustedSource(String input) {
     return EmailAddress._(right(input));
   }
+  @override
+  final Either<List<ValueFailure<String>>, String> value;
 
   static final RegExp _emailRegex = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",

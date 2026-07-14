@@ -5,6 +5,6 @@ import 'package:abc123/core/types/result.dart';
 /// Harf setini domain repository üzerinden getirir.
 ///
 /// TODO: [ILetterRepository] bağımlılığını enjekte et ve implemente et.
-abstract interface class GetLetterSetUseCase {
+abstract interface class GetLetterSet {
   FutureResult<void> execute();
 }

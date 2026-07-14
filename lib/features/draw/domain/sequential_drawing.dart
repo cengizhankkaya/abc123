@@ -44,7 +44,7 @@ class SequentialDrawingManager {
     'W',
     'X',
     'Y',
-    'Z'
+    'Z',
   ];
 
   // Getters
@@ -95,7 +95,7 @@ class SequentialDrawingManager {
         // Belirli bir harf rehberi bulunamazsa, genel bir harf rehberi al
         if (DrawingContentProvider.letterGuides.isNotEmpty) {
           // İndeks sınırları içinde kal
-          int safeIndex = _currentItemIndex % DrawingContentProvider.letterGuides.length;
+          final safeIndex = _currentItemIndex % DrawingContentProvider.letterGuides.length;
           return DrawingContentProvider.letterGuides[safeIndex];
         }
       }
@@ -133,7 +133,7 @@ class SequentialDrawingManager {
 
   // Başarı oranını hesapla (yüzde olarak)
   double getSuccessRate() {
-    if (_totalAttempts == 0) return 0.0;
+    if (_totalAttempts == 0) return 0;
     return (_correctlyDrawnCount / _totalAttempts) * 100;
   }
 
@@ -151,8 +151,8 @@ class SequentialDrawingManager {
     // Harf için
     else if (_isLetterMode) {
       // Tanıma sonucunu ve hedef harfi büyük harfe çevirerek karşılaştırma
-      String recognized = recognizedItem.trim().toUpperCase();
-      String target = currentTargetLetter.trim().toUpperCase();
+      final recognized = recognizedItem.trim().toUpperCase();
+      final target = currentTargetLetter.trim().toUpperCase();
 
       // Tam eşleşme veya benzer harf kontrolü
       return recognized == target;

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class WordLetterSlots extends StatelessWidget {
   const WordLetterSlots({
-    super.key,
-    required this.spelling,
-    required this.activeIndex,
+    required this.spelling, required this.activeIndex, super.key,
     this.alignment = WrapAlignment.center,
     this.maxWidth,
   });
@@ -73,7 +71,7 @@ class _Slot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final base = Colors.white;
+    const base = Colors.white;
     final border = isActive
         ? const Color(0xFF00B894)
         : isCompleted
@@ -90,7 +88,7 @@ class _Slot extends StatelessWidget {
         border: Border.all(color: border, width: isActive ? 2.5 : 1.5),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

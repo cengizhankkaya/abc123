@@ -1,5 +1,4 @@
 import 'package:abc123/app/config/app_environment.dart';
-import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/api/app_api_endpoints.dart';
 import 'package:abc123/core/api/app_api_service.dart';
 import 'package:abc123/core/api/interceptors/auth_interceptor.dart';
@@ -8,6 +7,7 @@ import 'package:abc123/core/api/interceptors/logging_interceptor.dart';
 import 'package:abc123/core/api/interceptors/refresh_token_interceptor.dart';
 import 'package:abc123/core/api/network_error_handler.dart';
 import 'package:abc123/core/domain/ports/i_token_storage.dart';
+import 'package:abc123/core/logging/app_logger.dart';
 import 'package:chopper/chopper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:synchronized/synchronized.dart';

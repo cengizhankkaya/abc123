@@ -4,12 +4,6 @@ import 'package:abc123/features/home/domain/entities/quest.dart';
 
 /// Kalıcı görev defteri (`schemaVersion` ile genişletilebilir).
 class QuestLedger {
-  static const int currentSchemaVersion = 1;
-
-  final int schemaVersion;
-  final String dayKey;
-  final String weekKey;
-  final List<Quest> quests;
 
   const QuestLedger({
     required this.schemaVersion,
@@ -17,13 +11,6 @@ class QuestLedger {
     required this.weekKey,
     required this.quests,
   });
-
-  Map<String, Object?> toJson() => <String, Object?>{
-        'schemaVersion': schemaVersion,
-        'dayKey': dayKey,
-        'weekKey': weekKey,
-        'quests': quests.map((q) => q.toJson()).toList(),
-      };
 
   factory QuestLedger.fromJson(Map<String, dynamic> json) {
     final rawQuests = json['quests'] as List<dynamic>? ?? const [];
@@ -36,6 +23,19 @@ class QuestLedger {
           .toList(),
     );
   }
+  static const int currentSchemaVersion = 1;
+
+  final int schemaVersion;
+  final String dayKey;
+  final String weekKey;
+  final List<Quest> quests;
+
+  Map<String, Object?> toJson() => <String, Object?>{
+        'schemaVersion': schemaVersion,
+        'dayKey': dayKey,
+        'weekKey': weekKey,
+        'quests': quests.map((q) => q.toJson()).toList(),
+      };
 
   String encode() => json.encode(toJson());
 

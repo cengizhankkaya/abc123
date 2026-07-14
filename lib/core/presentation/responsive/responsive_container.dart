@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:abc123/core/presentation/responsive/adaptive_layout_builder.dart';
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
+import 'package:flutter/material.dart';
 
 /// Geniş ekranda içeriği ortalar ve [maxWidth] ile sınırlar (`14_adaptive_ui_strategy.md`).
 class ResponsiveContainer extends StatelessWidget {

@@ -6,13 +6,7 @@ import 'package:flutter/material.dart';
 /// İsim kaydetme akışı: boş değer kontrolü, inline checkmark geri bildirimi.
 class ChildNameEditor extends StatefulWidget {
   const ChildNameEditor({
-    super.key,
-    required this.initialName,
-    required this.onSave,
-    required this.hintText,
-    required this.saveText,
-    required this.savedText,
-    required this.emptyErrorText,
+    required this.initialName, required this.onSave, required this.hintText, required this.saveText, required this.savedText, required this.emptyErrorText, super.key,
   });
 
   final String initialName;
@@ -138,7 +132,7 @@ class _ChildNameEditorState extends State<ChildNameEditor> {
                         color: _showError
                             ? HomeDesignTokens.numbersCard
                             : HomeDesignTokens.headerBlue,
-                        width: 2.0,
+                        width: 2,
                       ),
                     ),
                   ),

@@ -49,10 +49,10 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
     _activeHighlightIndex = -1;
     // Delay slightly based on startIndex so operandB waits for operandA to finish
     final initialDelay = widget.startIndex * 700;
-    
+
     Future.delayed(Duration(milliseconds: initialDelay), () {
       if (!mounted || !widget.isCountingMode) return;
-      
+
       setState(() {
         _activeHighlightIndex = 0;
       });
@@ -89,14 +89,15 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    final double emojiSize = widget.count > 6 ? 24 : (widget.count > 4 ? 30 : 36);
-    final double spacing = widget.count > 6 ? 6 : (widget.count > 4 ? 8 : 10);
+    final emojiSize = widget.count > 6 ? 24 : (widget.count > 4 ? 30 : 36);
+    final spacing = widget.count > 6 ? 6 : (widget.count > 4 ? 8 : 10);
 
     return Container(
       clipBehavior: Clip.antiAlias,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: widget.isCountingMode ? const Color(0xFFFFF2CC) : Colors.white.withOpacity(0.5),
+        color:
+            widget.isCountingMode ? const Color(0xFFFFF2CC) : Colors.white.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(
           color: widget.isCountingMode ? const Color(0xFFF1C40F) : Colors.white,
@@ -107,8 +108,8 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
         child: SingleChildScrollView(
           child: Wrap(
             alignment: WrapAlignment.center,
-            spacing: spacing,
-            runSpacing: spacing,
+            spacing: spacing - 0,
+            runSpacing: spacing - 0,
             children: List.generate(widget.count, (index) {
               final isHighlighted = index == _activeHighlightIndex;
               final currentNumber = widget.startIndex + index + 1;
@@ -121,7 +122,9 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
                   duration: const Duration(milliseconds: 250),
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: isHighlighted ? const Color(0xFFF1C40F).withOpacity(0.3) : Colors.transparent,
+                    color: isHighlighted
+                        ? const Color(0xFFF1C40F).withValues(alpha: 0.3)
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Stack(
@@ -130,9 +133,10 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
                     children: [
                       Text(
                         widget.emoji,
-                        style: TextStyle(fontSize: emojiSize),
+                        style: TextStyle(fontSize: emojiSize - 0),
                       ),
-                      if (widget.isCountingMode && (_activeHighlightIndex >= index || _activeHighlightIndex == -1))
+                      if (widget.isCountingMode &&
+                          (_activeHighlightIndex >= index || _activeHighlightIndex == -1))
                         Positioned(
                           top: -6,
                           right: -6,

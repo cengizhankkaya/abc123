@@ -66,7 +66,7 @@ class _LanguageBottomSheetContent extends StatelessWidget {
                   child: Text(
                     h.settingsChooseLanguage ?? h.settingsLanguage,
                     style: HomeDesignTokens.headingSection(
-                      color: HomeDesignTokens.darkText,
+                      
                     ),
                   ),
                 ),
@@ -93,7 +93,7 @@ class _LanguageBottomSheetContent extends StatelessWidget {
                   isSelected: isSelected,
                   activeBorderColor: HomeDesignTokens.colorsCard,
                   activeBgColor: HomeDesignTokens.colorsCard.withValues(alpha: 0.1),
-                  minHeight: 56.0,
+                  minHeight: 56,
                   onTap: () async {
                     await context.read<LanguageProvider>().setLanguage(option.value);
                     if (context.mounted) {

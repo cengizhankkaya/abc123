@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 /// Sonuç ekranına taşınan veri (çizim oyunları ortak modeli).
 @immutable
 class ResultScreenData {
-  ResultScreenData({
+  const ResultScreenData({
     required this.drawingImage,
     required this.recognizedLetter,
     required this.targetLetter,

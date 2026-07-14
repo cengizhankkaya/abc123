@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/api/exceptions/network_exception.dart';
 import 'package:abc123/core/api/network_error_handler.dart';
+import 'package:abc123/core/logging/app_logger.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 

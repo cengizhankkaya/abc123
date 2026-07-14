@@ -1,30 +1,41 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
+
+import 'package:abc123/core/constants/language_constants.dart';
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
-import 'package:abc123/features/draw/application/usecases/recognize_number_use_case.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_number.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+import 'package:flutter/material.dart';
 
 /// Çizim ekranı state yöneticisi.
 ///
 /// Refactor (Hexagonal Architecture): TFLite model yükleme ve inference kodu
-/// `NumberRecognitionRepositoryImpl` (infrastructure) ve `RecognizeNumberUseCase`
+/// `NumberRecognitionRepositoryImpl` (infrastructure) ve `RecognizeNumber`
 /// (application) katmanlarına taşındı. Bu Provider yalnızca UI state yönetir.
 class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
-  final RecognizeNumberUseCase _recognizeNumberUseCase;
+
+  DrawScreenProvider({
+    required RecognizeNumber recognizeNumberUseCase,
+    this.context,
+    this.language = AppLanguage.turkish,
+  }) : _recognizeNumberUseCase = recognizeNumberUseCase {
+    volume = getIt<IAudioService>().currentVolume;
+    sequentialManager.isLetterMode = false;
+    sequentialManager.toggleSequentialMode(true);
+    activeGuide = DrawingContentProvider.activeGuide;
+    strokeWidth = 25.0;
+  }
+  final RecognizeNumber _recognizeNumberUseCase;
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim kontrolleri
   Color selectedColor = Colors.black;
-  double strokeWidth = 25.0;
+  double strokeWidth = 25;
   List<Color> colors = [
     Colors.black,
     Colors.red,
@@ -57,21 +68,9 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
 
   BuildContext? context;
 
-  double volume = 1.0;
+  double volume = 1;
 
   AppLanguage language = AppLanguage.turkish;
-
-  DrawScreenProvider({
-    required RecognizeNumberUseCase recognizeNumberUseCase,
-    this.context,
-    this.language = AppLanguage.turkish,
-  }) : _recognizeNumberUseCase = recognizeNumberUseCase {
-    volume = getIt<IAudioService>().currentVolume;
-    sequentialManager.isLetterMode = false;
-    sequentialManager.toggleSequentialMode(true);
-    activeGuide = DrawingContentProvider.activeGuide;
-    strokeWidth = 25.0;
-  }
 
   void setAnimationController(AnimationController controller) {
     animationController = controller;
@@ -126,14 +125,14 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     isLoading = true;
     notifyListeners();
     try {
-      final ui.Image? image = await _renderToImage();
+      final image = await _renderToImage();
       if (image == null) {
         tanima = 'Görüntü oluşturulamadı';
         isLoading = false;
         notifyListeners();
         return;
       }
-      final ByteData? byteData =
+      final byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
@@ -141,11 +140,11 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
         notifyListeners();
         return;
       }
-      final Uint8List pngBytes = byteData.buffer.asUint8List();
+      final pngBytes = byteData.buffer.asUint8List();
 
       // ─── Use Case üzerinden tanıma (infrastructure'a direkt erişim yok) ───
       final resultEither = await _recognizeNumberUseCase(pngBytes);
-      final int recognizedNumber = resultEither.fold(
+      final recognizedNumber = resultEither.fold(
         (_) {
           tanima = 'Tanıma başarısız';
           return -1;
@@ -166,7 +165,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       notifyListeners();
 
       if (sequentialManager.isSequentialModeActive) {
-        final bool isCorrect =
+        final isCorrect =
             sequentialManager.evaluateRecognitionResult(recognitionResult);
         showResultScreen(isCorrect);
         if (!isCorrect) {
@@ -189,7 +188,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
     try {
       if (context == null) return null;
       final responsive = ResponsiveSize(context!);
-      final double drawingSize = responsive.drawingAreaSize;
+      final drawingSize = responsive.drawingAreaSize;
       final scaleRatio = drawingSize / 280.0;
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);

@@ -117,7 +117,8 @@ class MathProblemGenerator {
 
   // Seviye C: 2 basamaklı - 2 basamaklı, borçlanmasız
   MathOperation _subtractionLevelC() {
-    int a, b;
+    int a;
+    int b;
     do {
       final a1 = 2 + _random.nextInt(7); // 2–8
       final a0 = _random.nextInt(10); // 0–9

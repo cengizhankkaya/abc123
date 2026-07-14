@@ -36,7 +36,7 @@ class _HomeLearningModeCardState extends State<HomeLearningModeCard>
       duration: const Duration(milliseconds: 100),
       reverseDuration: const Duration(milliseconds: 100),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+    _scaleAnimation = Tween<double>(begin: 1, end: 0.95).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }

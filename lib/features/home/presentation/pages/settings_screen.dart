@@ -23,9 +23,17 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = context.homeL10n!;
-    final appL10n = AppLocalizations.of(context);
+    return const _SettingsView();
+  }
+}
 
+class _SettingsView extends StatelessWidget {
+  const _SettingsView();
+
+  @override
+  Widget build(BuildContext context) {
+    final h = context.homeL10n!;
+    
     return ColoredBox(
       color: HomeDesignTokens.background,
       child: SafeArea(
@@ -37,7 +45,7 @@ class SettingsScreen extends StatelessWidget {
                 child: ListView(
                   padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
                   children: [
-                    _buildTopHeader(h.settingsTitle),
+                    _TopHeader(title: h.settingsTitle),
                     const SizedBox(height: 24),
 
                     // BÖLÜM 1: BENİM AYARLARIM (Çocuk Odaklı)
@@ -47,89 +55,11 @@ class SettingsScreen extends StatelessWidget {
                       iconColor: HomeDesignTokens.headerBlue,
                     ),
                     const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: HomeDesignTokens.settingsSectionChild,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: HomeDesignTokens.settingsCardBorder,
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.02),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            h.settingsChildName,
-                            style: HomeDesignTokens.cardSubtitle(
-                              color: HomeDesignTokens.mutedText,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Selector<GamificationProvider, String>(
-                            selector: (_, provider) => provider.childName,
-                            builder: (context, childName, _) {
-                              return ChildNameEditor(
-                                initialName: childName,
-                                onSave: (name) => context
-                                    .read<GamificationProvider>()
-                                    .setChildName(name),
-                                hintText: h.settingsChildNameHint,
-                                saveText: h.settingsSaveName,
-                                savedText: h.settingsNameSavedShort ??
-                                    h.settingsNameSaved,
-                                emptyErrorText: h.settingsEmptyNameError ??
-                                    'İsim boş olamaz',
-                              );
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          Divider(
-                            color: HomeDesignTokens.settingsCardBorder,
-                            height: 1,
-                          ),
-                          const SizedBox(height: 20),
-
-                          // Tema Seçimi (Segmented Choice Cards)
-                          Text(
-                            h.settingsAppearance,
-                            style: HomeDesignTokens.cardSubtitle(
-                              color: HomeDesignTokens.mutedText,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          _buildThemeSegmentedControl(context, h, appL10n),
-                          const SizedBox(height: 20),
-                          Divider(
-                            color: HomeDesignTokens.settingsCardBorder,
-                            height: 1,
-                          ),
-                          const SizedBox(height: 20),
-
-                          // Dil Seçimi (Modal Bottom Sheet tetikleyici kart)
-                          Text(
-                            h.settingsLanguage,
-                            style: HomeDesignTokens.cardSubtitle(
-                              color: HomeDesignTokens.mutedText,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          _buildLanguageChoiceCard(context, h),
-                        ],
-                      ),
-                    ),
+                    const _ChildSettingsSection(),
 
                     // GÖRSEL AYRAÇ & BOŞLUK
                     const SizedBox(height: 32),
-                    _buildVisualSeparator(),
+                    const _VisualSeparator(),
                     const SizedBox(height: 32),
 
                     // BÖLÜM 2: EBEVEYN ALANI (Güven Veren, Sade Blok)
@@ -141,44 +71,7 @@ class SettingsScreen extends StatelessWidget {
                       iconColor: HomeDesignTokens.parentPanelAccent,
                     ),
                     const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: HomeDesignTokens.settingsSectionParent,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: HomeDesignTokens.settingsParentCardBorder,
-                          width: 1.5,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: HomeDesignTokens.parentPanelAccent
-                                .withValues(alpha: 0.04),
-                            blurRadius: 12,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          _ParentActionTile(
-                            icon: Icons.family_restroom_rounded,
-                            iconColor: HomeDesignTokens.parentPanelAccent,
-                            title: h.settingsParentPanel,
-                            subtitle: h.settingsParentPanelSubtitle,
-                            onTap: () => context.push(AppRoutes.parentPanel),
-                          ),
-                          const SizedBox(height: 12),
-                          _ParentActionTile(
-                            icon: Icons.play_circle_fill_rounded,
-                            iconColor: HomeDesignTokens.parentPanelChart,
-                            title: h.tutorial,
-                            subtitle: h.seeTutorial,
-                            onTap: () => context.push(AppRoutes.tutorial),
-                          ),
-                        ],
-                      ),
-                    ),
+                    const _ParentSettingsSection(),
                   ],
                 ),
               ),
@@ -188,8 +81,15 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildTopHeader(String title) {
+class _TopHeader extends StatelessWidget {
+  const _TopHeader({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
     return Semantics(
       header: true,
       child: Row(
@@ -217,12 +117,107 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildThemeSegmentedControl(
-    BuildContext context,
-    HomeLocalizations h,
-    AppLocalizations? appL10n,
-  ) {
+class _ChildSettingsSection extends StatelessWidget {
+  const _ChildSettingsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final h = context.homeL10n!;
+    final appL10n = AppLocalizations.of(context);
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: HomeDesignTokens.settingsSectionChild,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: HomeDesignTokens.settingsCardBorder,
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            h.settingsChildName,
+            style: HomeDesignTokens.cardSubtitle(
+              color: HomeDesignTokens.mutedText,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Selector<GamificationProvider, String>(
+            selector: (_, provider) => provider.childName,
+            builder: (context, childName, _) {
+              return ChildNameEditor(
+                initialName: childName,
+                onSave: (name) => context
+                    .read<GamificationProvider>()
+                    .setChildName(name),
+                hintText: h.settingsChildNameHint,
+                saveText: h.settingsSaveName,
+                savedText: h.settingsNameSavedShort ?? h.settingsNameSaved,
+                emptyErrorText: h.settingsEmptyNameError ?? 'İsim boş olamaz',
+              );
+            },
+          ),
+          const SizedBox(height: 20),
+          const Divider(
+            color: HomeDesignTokens.settingsCardBorder,
+            height: 1,
+          ),
+          const SizedBox(height: 20),
+
+          // Tema Seçimi (Segmented Choice Cards)
+          Text(
+            h.settingsAppearance,
+            style: HomeDesignTokens.cardSubtitle(
+              color: HomeDesignTokens.mutedText,
+            ),
+          ),
+          const SizedBox(height: 10),
+          _ThemeSegmentedControl(h: h, appL10n: appL10n),
+          const SizedBox(height: 20),
+          const Divider(
+            color: HomeDesignTokens.settingsCardBorder,
+            height: 1,
+          ),
+          const SizedBox(height: 20),
+
+          // Dil Seçimi (Modal Bottom Sheet tetikleyici kart)
+          Text(
+            h.settingsLanguage,
+            style: HomeDesignTokens.cardSubtitle(
+              color: HomeDesignTokens.mutedText,
+            ),
+          ),
+          const SizedBox(height: 10),
+          _LanguageChoiceCard(h: h),
+        ],
+      ),
+    );
+  }
+}
+
+class _ThemeSegmentedControl extends StatelessWidget {
+  const _ThemeSegmentedControl({
+    required this.h,
+    required this.appL10n,
+  });
+
+  final HomeLocalizations h;
+  final AppLocalizations? appL10n;
+
+  @override
+  Widget build(BuildContext context) {
     final mode = context.watch<ThemeModeProvider>().appThemeMode;
 
     return Row(
@@ -233,7 +228,6 @@ class SettingsScreen extends StatelessWidget {
             leading: const Text('☀️', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.light,
             showCheckmark: false,
-            minHeight: 52,
             onTap: () => context
                 .read<ThemeModeProvider>()
                 .setAppThemeMode(AppThemeMode.light),
@@ -246,7 +240,6 @@ class SettingsScreen extends StatelessWidget {
             leading: const Text('🌙', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.dark,
             showCheckmark: false,
-            minHeight: 52,
             onTap: () => context
                 .read<ThemeModeProvider>()
                 .setAppThemeMode(AppThemeMode.dark),
@@ -259,7 +252,6 @@ class SettingsScreen extends StatelessWidget {
             leading: const Text('⚙️', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.system,
             showCheckmark: false,
-            minHeight: 52,
             onTap: () => context
                 .read<ThemeModeProvider>()
                 .setAppThemeMode(AppThemeMode.system),
@@ -268,8 +260,15 @@ class SettingsScreen extends StatelessWidget {
       ],
     );
   }
+}
 
-  Widget _buildLanguageChoiceCard(BuildContext context, HomeLocalizations h) {
+class _LanguageChoiceCard extends StatelessWidget {
+  const _LanguageChoiceCard({required this.h});
+
+  final HomeLocalizations h;
+
+  @override
+  Widget build(BuildContext context) {
     final currentLang = context.watch<LanguageProvider>().language;
     final currentOption = supportedLanguages.firstWhere(
       (l) => l.value == currentLang,
@@ -283,8 +282,61 @@ class SettingsScreen extends StatelessWidget {
       onTap: () => showLanguageSelectionBottomSheet(context),
     );
   }
+}
 
-  Widget _buildVisualSeparator() {
+class _ParentSettingsSection extends StatelessWidget {
+  const _ParentSettingsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final h = context.homeL10n!;
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: HomeDesignTokens.settingsSectionParent,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: HomeDesignTokens.settingsParentCardBorder,
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: HomeDesignTokens.parentPanelAccent
+                .withValues(alpha: 0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _ParentActionTile(
+            icon: Icons.family_restroom_rounded,
+            iconColor: HomeDesignTokens.parentPanelAccent,
+            title: h.settingsParentPanel,
+            subtitle: h.settingsParentPanelSubtitle,
+            onTap: () => context.push(AppRoutes.parentPanel),
+          ),
+          const SizedBox(height: 12),
+          _ParentActionTile(
+            icon: Icons.play_circle_fill_rounded,
+            iconColor: HomeDesignTokens.parentPanelChart,
+            title: h.tutorial,
+            subtitle: h.seeTutorial,
+            onTap: () => context.push(AppRoutes.tutorial),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VisualSeparator extends StatelessWidget {
+  const _VisualSeparator();
+
+  @override
+  Widget build(BuildContext context) {
     return Semantics(
       excludeSemantics: true,
       child: Row(
@@ -425,8 +477,7 @@ class _ParentActionTile extends StatefulWidget {
     required this.icon,
     required this.iconColor,
     required this.title,
-    this.subtitle,
-    required this.onTap,
+    required this.onTap, this.subtitle,
   });
 
   final IconData icon;

@@ -5,6 +5,7 @@ import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/flut
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_controller.dart';
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_theme_data.dart';
 import 'package:abc123/features/home/presentation/avatar/widgets/attribute_grid.dart';
+import 'package:abc123/features/home/presentation/avatar/widgets/attribute_tile.dart' show AttributeTile;
 import 'package:abc123/features/home/presentation/avatar/widgets/avatar_tab_bar.dart';
 import 'package:abc123/features/home/presentation/avatar/widgets/buy_item_bottom_sheet.dart';
 import 'package:abc123/features/home/presentation/avatar/widgets/earn_stars_bottom_sheet.dart';

@@ -27,7 +27,7 @@ class MathHubScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF6C63FF).withOpacity(0.1),
+              const Color(0xFF6C63FF).withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -58,9 +58,8 @@ class MathHubScreen extends StatelessWidget {
                 GameCategoryCard(
                   title: l10n.mathHubTensTitle,
                   progressLabel: l10n.mathHubTensSubtitle,
-                  progress: 0.0,
+                  progress: 0,
                   image: const FittedBox(
-                    fit: BoxFit.contain,
                     child: Icon(Icons.apps, color: Colors.white, size: 56),
                   ),
                   baseColor: const Color(0xFF00CEC9), // Teal
@@ -70,9 +69,8 @@ class MathHubScreen extends StatelessWidget {
                 GameCategoryCard(
                   title: l10n.mathHubFreeTitle,
                   progressLabel: l10n.mathHubFreeSubtitle,
-                  progress: 0.0,
+                  progress: 0,
                   image: const FittedBox(
-                    fit: BoxFit.contain,
                     child: Icon(Icons.edit, color: Colors.white, size: 56),
                   ),
                   baseColor: const Color(0xFFE17055), // Orange
@@ -82,9 +80,8 @@ class MathHubScreen extends StatelessWidget {
                 GameCategoryCard(
                   title: l10n.mathHubVisualTitle,
                   progressLabel: l10n.mathHubVisualSubtitle,
-                  progress: 0.0,
+                  progress: 0,
                   image: const FittedBox(
-                    fit: BoxFit.contain,
                     child: Icon(Icons.visibility, color: Colors.white, size: 56),
                   ),
                   baseColor: const Color(0xFFFDCB6E), // Yellow
@@ -94,9 +91,8 @@ class MathHubScreen extends StatelessWidget {
                 GameCategoryCard(
                   title: l10n.mathHubSymbolicTitle,
                   progressLabel: l10n.mathHubSymbolicSubtitle,
-                  progress: 0.0,
+                  progress: 0,
                   image: const FittedBox(
-                    fit: BoxFit.contain,
                     child: Icon(Icons.calculate, color: Colors.white, size: 56),
                   ),
                   baseColor: const Color(0xFF6C5CE7), // Purple

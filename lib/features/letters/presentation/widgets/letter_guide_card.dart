@@ -1,24 +1,20 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:flutter/material.dart';
 
-import 'package:abc123/features/draw/domain/drawing_content.dart';
-import 'package:abc123/core/constants/app_sizes.dart';
-import 'package:abc123/core/constants/app_radii.dart';
-
 class LetterGuideCard extends StatefulWidget {
+
+  const LetterGuideCard({
+    required this.guide, required this.onNext, required this.onPrevious, super.key,
+  });
   final DrawingGuide guide;
   final VoidCallback onNext;
   final VoidCallback onPrevious;
-
-  const LetterGuideCard({
-    super.key,
-    required this.guide,
-    required this.onNext,
-    required this.onPrevious,
-  });
 
   @override
   State<LetterGuideCard> createState() => _LetterGuideCardState();
@@ -66,7 +62,7 @@ class _LetterGuideCardState extends State<LetterGuideCard> {
               child: GestureDetector(
                 onTap: widget.onPrevious,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(12),
@@ -86,7 +82,7 @@ class _LetterGuideCardState extends State<LetterGuideCard> {
               child: GestureDetector(
                 onTap: widget.onNext,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   decoration: BoxDecoration(
                     color: Colors.white.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(12),

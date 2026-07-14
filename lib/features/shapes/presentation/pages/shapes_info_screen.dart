@@ -7,24 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ShapesInfoScreen extends StatelessWidget {
+  const ShapesInfoScreen({
+    required this.drawingImage,
+    required this.recognizedShape,
+    super.key,
+    this.targetShape,
+    this.isCorrect = true,
+  });
+
   final ui.Image? drawingImage;
   final String recognizedShape;
   final String? targetShape;
   final bool isCorrect;
 
-  const ShapesInfoScreen({
-    super.key,
-    required this.drawingImage,
-    required this.recognizedShape,
-    this.targetShape,
-    this.isCorrect = true,
-  });
-
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final bool success = isCorrect;
-
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -42,183 +39,13 @@ class ShapesInfoScreen extends StatelessWidget {
             padding: EdgeInsets.all(AppSizes.paddingSmall(context)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Sol: Çizim
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: AppSizes.imageSize(context) * 0.9,
-                        height: AppSizes.imageSize(context) * 0.9,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            AppRadii.cardRadius(context),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: drawingImage != null
-                            ? CustomPaint(
-                                painter: _ShapesDrawingImagePainter(
-                                  image: drawingImage!,
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                  'Çizim bulunamadı',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: AppFontSizes.subtitle(context) * 0.5,
-                                  ),
-                                ),
-                              ),
-                      ),
-                      SizedBox(height: size.height * 0.03),
-                      Text(
-                        'Çizdiğin Şekil',
-                        style: TextStyle(
-                          fontSize: AppFontSizes.title(context) * 0.4,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Orta ayırıcı
-                Container(
-                  height: size.height * 0.6,
-                  width: 1,
-                  color: Colors.white.withOpacity(0.3),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: AppSizes.paddingSmall(context),
-                  ),
-                ),
-                // Sağ: Sonuç
-                Expanded(
-                  flex: 2,
-                  child: SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSizes.paddingSmall(context),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          success ? 'Tebrikler!' : 'Tekrar Dene!',
-                          style: TextStyle(
-                            fontSize: AppFontSizes.title(context) * 0.5,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.3),
-                                offset: const Offset(0, 3),
-                                blurRadius: 5,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.03),
-                        Container(
-                          width: AppSizes.imageSize(context) * 0.55,
-                          height: AppSizes.imageSize(context) * 0.55,
-                          decoration: BoxDecoration(
-                            color: success ? Colors.yellow : Colors.redAccent,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 12,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Center(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                recognizedShape,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: AppFontSizes.title(context) * 0.55,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.indigo,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        if (targetShape != null && !success)
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: size.height * 0.02,
-                              left: AppSizes.paddingLarge(context),
-                              right: AppSizes.paddingLarge(context),
-                            ),
-                            child: Text(
-                              'Hedef şekil: $targetShape',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: AppFontSizes.subtitle(context) * 0.42,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        SizedBox(height: size.height * 0.03),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppSizes.paddingLarge(context),
-                          ),
-                          child: Text(
-                            success
-                                ? 'Bu şekli harika çizdin! Devam etmek için geri dönüp yeni şekiller deneyebilirsin.'
-                                : 'Bu sefer olmadı. Aynı şekli tekrar çizmeyi dene, sonra yeniden deneyelim!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: AppFontSizes.subtitle(context) * 0.42,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.035),
-                        ElevatedButton(
-                          onPressed: () => context.pop(),
-                          style: ElevatedButton.styleFrom(
-                            foregroundColor: const Color(0xFF303F9F),
-                            backgroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.05,
-                              vertical: size.height * 0.015,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            elevation: 5,
-                          ),
-                          child: Text(
-                            'Geri Dön',
-                            style: TextStyle(
-                              fontSize: AppFontSizes.subtitle(context) * 0.48,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                _DrawingPreview(drawingImage: drawingImage),
+                const _Divider(),
+                _ResultPanel(
+                  isCorrect: isCorrect,
+                  recognizedShape: recognizedShape,
+                  targetShape: targetShape,
                 ),
               ],
             ),
@@ -229,10 +56,222 @@ class ShapesInfoScreen extends StatelessWidget {
   }
 }
 
-class _ShapesDrawingImagePainter extends CustomPainter {
-  final ui.Image image;
+class _DrawingPreview extends StatelessWidget {
+  const _DrawingPreview({required this.drawingImage});
 
+  final ui.Image? drawingImage;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    
+    return Expanded(
+      flex: 2,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: AppSizes.imageSize(context) * 0.9,
+            height: AppSizes.imageSize(context) * 0.9,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                AppRadii.cardRadius(context),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: drawingImage != null
+                ? CustomPaint(
+                    painter: _ShapesDrawingImagePainter(
+                      image: drawingImage!,
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      'Çizim bulunamadı',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: AppFontSizes.subtitle(context) * 0.5,
+                      ),
+                    ),
+                  ),
+          ),
+          SizedBox(height: size.height * 0.03),
+          Text(
+            'Çizdiğin Şekil',
+            style: TextStyle(
+              fontSize: AppFontSizes.title(context) * 0.4,
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Divider extends StatelessWidget {
+  const _Divider();
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * 0.6,
+      width: 1,
+      color: Colors.white.withValues(alpha: 0.3),
+      margin: EdgeInsets.symmetric(
+        horizontal: AppSizes.paddingSmall(context),
+      ),
+    );
+  }
+}
+
+class _ResultPanel extends StatelessWidget {
+  const _ResultPanel({
+    required this.isCorrect,
+    required this.recognizedShape,
+    this.targetShape,
+  });
+
+  final bool isCorrect;
+  final String recognizedShape;
+  final String? targetShape;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    
+    return Expanded(
+      flex: 2,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: AppSizes.paddingSmall(context),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              isCorrect ? 'Tebrikler!' : 'Tekrar Dene!',
+              style: TextStyle(
+                fontSize: AppFontSizes.title(context) * 0.5,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    offset: const Offset(0, 3),
+                    blurRadius: 5,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Container(
+              width: AppSizes.imageSize(context) * 0.55,
+              height: AppSizes.imageSize(context) * 0.55,
+              decoration: BoxDecoration(
+                color: isCorrect ? Colors.yellow : Colors.redAccent,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    recognizedShape,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: AppFontSizes.title(context) * 0.55,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            if (targetShape != null && !isCorrect)
+              Padding(
+                padding: EdgeInsets.only(
+                  top: size.height * 0.02,
+                  left: AppSizes.paddingLarge(context),
+                  right: AppSizes.paddingLarge(context),
+                ),
+                child: Text(
+                  'Hedef şekil: $targetShape',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: AppFontSizes.subtitle(context) * 0.42,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            SizedBox(height: size.height * 0.03),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.paddingLarge(context),
+              ),
+              child: Text(
+                isCorrect
+                    ? 'Bu şekli harika çizdin! Devam etmek için geri dönüp yeni şekiller deneyebilirsin.'
+                    : 'Bu sefer olmadı. Aynı şekli tekrar çizmeyi dene, sonra yeniden deneyelim!',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: AppFontSizes.subtitle(context) * 0.42,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.035),
+            ElevatedButton(
+              onPressed: () => context.pop(),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: const Color(0xFF303F9F),
+                backgroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.05,
+                  vertical: size.height * 0.015,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 5,
+              ),
+              child: Text(
+                'Geri Dön',
+                style: TextStyle(
+                  fontSize: AppFontSizes.subtitle(context) * 0.48,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShapesDrawingImagePainter extends CustomPainter {
   _ShapesDrawingImagePainter({required this.image});
+
+  final ui.Image image;
 
   @override
   void paint(Canvas canvas, Size size) {

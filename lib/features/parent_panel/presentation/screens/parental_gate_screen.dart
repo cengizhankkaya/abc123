@@ -10,14 +10,14 @@ import 'package:provider/provider.dart';
 /// Çocukların yanlışlıkla Ebeveyn Paneli'ne veya ödeme alanlarına girmesini önleyen
 /// matematik sorusu ve basılı tutma doğrulaması.
 class ParentalGateScreen extends StatefulWidget {
-  final VoidCallback? onSuccess;
-  final bool isForScreenTimeExtension;
 
   const ParentalGateScreen({
     super.key,
     this.onSuccess,
     this.isForScreenTimeExtension = false,
   });
+  final VoidCallback? onSuccess;
+  final bool isForScreenTimeExtension;
 
   @override
   State<ParentalGateScreen> createState() => _ParentalGateScreenState();
@@ -137,7 +137,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                   width: 76,
                   height: 76,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6C63FF).withOpacity(0.12),
+                    color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -179,7 +179,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: _hasError ? Colors.red.withOpacity(0.25) : Colors.black.withOpacity(0.06),
+                        color: _hasError ? Colors.red.withValues(alpha: 0.25) : Colors.black.withValues(alpha: 0.06),
                         blurRadius: 16,
                         offset: const Offset(0, 4),
                       ),
@@ -196,7 +196,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         style: const TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 2.0,
+                          letterSpacing: 2,
                           color: Color(0xFF6C63FF),
                         ),
                       ),
@@ -282,10 +282,10 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(26),
                           color: isDark ? const Color(0xFF1E1E26) : Colors.white,
-                          border: Border.all(color: const Color(0xFF6C63FF).withOpacity(0.4), width: 1.5),
+                          border: Border.all(color: const Color(0xFF6C63FF).withValues(alpha: 0.4), width: 1.5),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF6C63FF).withOpacity(0.15),
+                              color: const Color(0xFF6C63FF).withValues(alpha: 0.15),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             ),
@@ -298,7 +298,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(26),
-                                  color: const Color(0xFF6C63FF).withOpacity(0.25),
+                                  color: const Color(0xFF6C63FF).withValues(alpha: 0.25),
                                 ),
                               ),
                             ),
@@ -347,7 +347,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
           : (isDark ? const Color(0xFF1E1E26) : Colors.white)),
       borderRadius: BorderRadius.circular(12),
       elevation: isSpecial && specialColor == null ? 0 : 2,
-      shadowColor: Colors.black.withOpacity(0.08),
+      shadowColor: Colors.black.withValues(alpha: 0.08),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(12),

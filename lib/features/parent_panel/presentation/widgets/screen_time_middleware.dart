@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 ///
 /// Uygulama gövdesini sarmalayarak, günlük limit dolduğunda çocuk dostu uyarı gösterir.
 class ScreenTimeMiddleware extends StatelessWidget {
-  final Widget child;
 
-  const ScreenTimeMiddleware({super.key, required this.child});
+  const ScreenTimeMiddleware({required this.child, super.key});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +48,14 @@ class ScreenTimeMiddleware extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF9800).withOpacity(0.15),
+                  color: const Color(0xFFFF9800).withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.bedtime_rounded, color: Color(0xFFFF9800), size: 54),
               ),
               const SizedBox(height: 20),
               Text(
-                isTr ? 'Bugünkü Öğrenme Zamanı Doldu! 🌙' : 'Today\'s Learning Time is Up! 🌙',
+                isTr ? 'Bugünkü Öğrenme Zamanı Doldu! 🌙' : "Today's Learning Time is Up! 🌙",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -67,7 +67,7 @@ class ScreenTimeMiddleware extends StatelessWidget {
               Text(
                 isTr
                     ? 'Gözlerini dinlendirme zamanı geldi. Harika bir iş çıkardın, yarın yeni görevlerle ve çizimlerle devam edelim!'
-                    : 'It is time to rest your eyes. You did a fantastic job today, let\'s continue tomorrow with fresh activities!',
+                    : "It is time to rest your eyes. You did a fantastic job today, let's continue tomorrow with fresh activities!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,

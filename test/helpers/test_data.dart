@@ -1,7 +1,7 @@
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/features/home/application/dtos/drawing_counters_write.dart';
 import 'package:abc123/features/home/application/dtos/gamification_initial_state.dart';
-import 'package:abc123/features/home/domain/entities/quest_model.dart';
+import 'package:abc123/features/home/domain/entities/quest.dart';
 
 /// Ortak test verileri (`10_testing_standards.md` — Test Helpers).
 abstract final class GamificationTestData {
@@ -18,7 +18,6 @@ abstract final class GamificationTestData {
     unlockedBadgeIds: ['badge_first_login'],
     ownedItemIds: ['hat_blue_cap'],
     equippedItemsJson: '{"ShopItemType.hat":"hat_blue_cap"}',
-    questsLedgerJson: null,
   );
 
   static const DrawingCountersWrite sampleCountersWrite =
@@ -31,12 +30,12 @@ abstract final class GamificationTestData {
     wordsCompleted: 3,
   );
 
-  static QuestModel sampleQuest({
+  static Quest sampleQuest({
     String id = 'q1',
     int targetCount = 10,
     int currentCount = 0,
   }) {
-    return QuestModel(
+    return Quest(
       id: id,
       titleKey: 'quest_title',
       targetType: DrawingType.number,

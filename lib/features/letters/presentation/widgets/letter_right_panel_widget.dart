@@ -1,26 +1,23 @@
+import 'dart:ui';
+
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:ui';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
-
 class LetterRightPanel extends StatefulWidget {
+
+  const LetterRightPanel({
+    required this.tanimaText, required this.isLoading, required this.correctlyDrawnCount, super.key,
+    this.isSequentialMode = false,
+  });
   final String tanimaText;
   final bool isLoading;
   final bool isSequentialMode;
   final int correctlyDrawnCount;
-
-  const LetterRightPanel({
-    super.key,
-    required this.tanimaText,
-    required this.isLoading,
-    this.isSequentialMode = false,
-    required this.correctlyDrawnCount,
-  });
 
   @override
   State<LetterRightPanel> createState() => _LetterRightPanelState();
@@ -71,8 +68,8 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
     final responsive = ResponsiveSize(context);
 
     // Panel boyutunu daha büyük ve dinamik yap
-    final double panelWidth = AppSizes.imageSize(context) * 5.5;
-    final double panelHeight = AppSizes.imageSize(context) * 7.5;
+    final panelWidth = AppSizes.imageSize(context) * 5.5;
+    final panelHeight = AppSizes.imageSize(context) * 7.5;
     return Container(
       margin: EdgeInsets.only(
         right: AppSizes.paddingNormal(context) / 2,
@@ -90,7 +87,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
                 borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 12,
                     spreadRadius: 2,
                     offset: const Offset(0, 3),
@@ -117,7 +114,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator(
+        const CircularProgressIndicator(
           color: AppColors.primaryColor,
           strokeWidth: 4,
         ),
@@ -136,19 +133,19 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
   }
 
   Widget _buildPuzzleImage(double panelWidth, double panelHeight) {
-    List<Widget> rows = [];
-    for (int row = 0; row < puzzleRows; row++) {
-      List<Widget> rowPieces = [];
-      for (int col = 0; col < puzzleCols; col++) {
-        int i = row * puzzleCols + col;
-        bool isOpened = i < widget.correctlyDrawnCount;
+    final rows = <Widget>[];
+    for (var row = 0; row < puzzleRows; row++) {
+      final rowPieces = <Widget>[];
+      for (var col = 0; col < puzzleCols; col++) {
+        final i = row * puzzleCols + col;
+        final isOpened = i < widget.correctlyDrawnCount;
         rowPieces.add(
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(0.5),
+              margin: const EdgeInsets.all(0.5),
               decoration: BoxDecoration(
                 color: Colors.grey[300],
-                border: Border.all(color: Colors.black, width: 0.1),
+                border: Border.all(width: 0.1),
                 borderRadius: BorderRadius.circular(2),
               ),
               child: isOpened

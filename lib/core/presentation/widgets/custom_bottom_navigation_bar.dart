@@ -1,4 +1,5 @@
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
+import 'package:abc123/core/navigation/main_shell_scaffold.dart' show MainShellScaffold;
 import 'package:abc123/core/presentation/widgets/animated_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,7 @@ import 'package:flutter/material.dart';
 /// köprü widget. [MainShellScaffold] bu sınıfı import eder.
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
+    required this.currentIndex, required this.onTap, super.key,
   });
 
   final int currentIndex;

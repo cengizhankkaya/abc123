@@ -1,11 +1,9 @@
 import 'dart:typed_data';
 
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/error/failures/failure.dart';
-import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/infrastructure/base/base_repository.dart';
 import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/draw/domain/repositories/i_recognition_repository.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:image/image.dart' as img;
 import 'package:injectable/injectable.dart';
 import 'package:synchronized/synchronized.dart';
@@ -16,7 +14,11 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 /// Eski `LetterRecognitionService` singleton mantığı bu adapter sınıfına taşındı.
 /// DI ile `@LazySingleton` olarak kaydedilir, Singleton pattern korunur.
 @LazySingleton(as: IRecognitionRepository)
-final class LetterRecognitionRepositoryImpl implements IRecognitionRepository {
+final class LetterRecognitionRepositoryImpl extends BaseRepository implements IRecognitionRepository {
+  LetterRecognitionRepositoryImpl(
+    super.exceptionHandler,
+    super.failureMapper,
+  );
   static const List<String> _labels = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
@@ -37,48 +39,38 @@ final class LetterRecognitionRepositoryImpl implements IRecognitionRepository {
   }
 
   @override
-  FutureResult<String> recognizeLetter(Uint8List imageBytes) async {
-    try {
-      await _ensureLoaded();
+  FutureResult<String> recognizeLetter(Uint8List imageBytes) => execute(() async {
+    await _ensureLoaded();
 
-      final decoded = img.decodeImage(imageBytes);
-      if (decoded == null) {
-        return Left(_RecognitionFailure('Görüntü decode edilemedi'));
-      }
-
-      final resized = img.copyResize(
-        decoded,
-        width: 28,
-        height: 28,
-        interpolation: img.Interpolation.average,
-      );
-
-      final inputData = _toModelInput(resized);
-      final output = [List<double>.filled(26, 0)];
-
-      _interpreter!.run(inputData, output);
-
-      final probs = output[0];
-      var maxIndex = 0;
-      var maxValue = probs[0];
-      for (var i = 1; i < probs.length; i++) {
-        if (probs[i] > maxValue) {
-          maxValue = probs[i];
-          maxIndex = i;
-        }
-      }
-
-      return Right(_labels[maxIndex]);
-    } catch (e, st) {
-      getIt<AppLogger>().error(
-        'Letter inference failed',
-        tag: 'LetterRecognitionRepositoryImpl',
-        error: e,
-        stackTrace: st,
-      );
-      return Left(_RecognitionFailure(e.toString()));
+    final decoded = img.decodeImage(imageBytes);
+    if (decoded == null) {
+      throw Exception('Görüntü decode edilemedi');
     }
-  }
+
+    final resized = img.copyResize(
+      decoded,
+      width: 28,
+      height: 28,
+      interpolation: img.Interpolation.average,
+    );
+
+    final inputData = _toModelInput(resized);
+    final output = [List<double>.filled(26, 0)];
+
+    _interpreter!.run(inputData, output);
+
+    final probs = output[0];
+    var maxIndex = 0;
+    var maxValue = probs[0];
+    for (var i = 1; i < probs.length; i++) {
+      if (probs[i] > maxValue) {
+        maxValue = probs[i];
+        maxIndex = i;
+      }
+    }
+
+    return _labels[maxIndex];
+  });
 
   /// Model girişi: [1][28][28][1] float.
   List<List<List<List<double>>>> _toModelInput(img.Image resized) {
@@ -103,6 +95,6 @@ final class LetterRecognitionRepositoryImpl implements IRecognitionRepository {
 
 /// Bu sınıfa özgü failure — `DrawFailure` hiyerarşisini şişirmemek için iç tip.
 final class _RecognitionFailure extends Failure {
-  final String message;
   const _RecognitionFailure(this.message);
+  final String message;
 }

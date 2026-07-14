@@ -1,4 +1,4 @@
-import 'package:abc123/core/application/base/async_use_case.dart';
+import 'package:abc123/core/application/base/use_case.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/error/run_guarded.dart';
 import 'package:abc123/core/types/result.dart';
@@ -9,33 +9,33 @@ import 'package:injectable/injectable.dart';
 /// İlk açılışta kalıcılıktan oyun sayaçlarını ve envanter özetini okur (Query).
 @injectable
 final class LoadGamificationInitialState
-    implements AsyncQueryNoParamsResult<GamificationInitialState> {
-  final IGamificationPersistence _persistence;
+    implements QueryNoParams<GamificationInitialState> {
 
   LoadGamificationInitialState(this._persistence);
+  final IGamificationPersistence _persistence;
 
   @override
   FutureResult<GamificationInitialState> call() {
     return runGuarded(() async {
-      final points = await _persistence.getInt(GamificationConstants.keyPoints) ?? 0;
-      final streak = await _persistence.getInt(GamificationConstants.keyStreak) ?? 0;
-      final totalDrawings = await _persistence.getInt(GamificationConstants.keyTotalDrawings) ?? 0;
+      final points = (await _persistence.getInt(GamificationConstants.keyPoints)).fold((_) => 0, (r) => r ?? 0);
+      final streak = (await _persistence.getInt(GamificationConstants.keyStreak)).fold((_) => 0, (r) => r ?? 0);
+      final totalDrawings = (await _persistence.getInt(GamificationConstants.keyTotalDrawings)).fold((_) => 0, (r) => r ?? 0);
       final numberDrawings =
-          await _persistence.getInt(GamificationConstants.keyNumberDrawings) ?? 0;
+          (await _persistence.getInt(GamificationConstants.keyNumberDrawings)).fold((_) => 0, (r) => r ?? 0);
       final letterDrawings =
-          await _persistence.getInt(GamificationConstants.keyLetterDrawings) ?? 0;
-      final shapeDrawings = await _persistence.getInt(GamificationConstants.keyShapeDrawings) ?? 0;
-      final colorRounds = await _persistence.getInt(GamificationConstants.keyColorRounds) ?? 0;
+          (await _persistence.getInt(GamificationConstants.keyLetterDrawings)).fold((_) => 0, (r) => r ?? 0);
+      final shapeDrawings = (await _persistence.getInt(GamificationConstants.keyShapeDrawings)).fold((_) => 0, (r) => r ?? 0);
+      final colorRounds = (await _persistence.getInt(GamificationConstants.keyColorRounds)).fold((_) => 0, (r) => r ?? 0);
       final wordsCompleted =
-          await _persistence.getInt(GamificationConstants.keyWordsCompleted) ?? 0;
+          (await _persistence.getInt(GamificationConstants.keyWordsCompleted)).fold((_) => 0, (r) => r ?? 0);
       final unlockedBadgeIds =
-          await _persistence.getStringList(GamificationConstants.keyUnlockedBadges) ?? [];
+          (await _persistence.getStringList(GamificationConstants.keyUnlockedBadges)).fold((_) => <String>[], (r) => r ?? <String>[]);
       final ownedItemIds =
-          await _persistence.getStringList(GamificationConstants.keyOwnedItems) ?? [];
+          (await _persistence.getStringList(GamificationConstants.keyOwnedItems)).fold((_) => <String>[], (r) => r ?? <String>[]);
       final equippedItemsJson =
-          await _persistence.getString(GamificationConstants.keyEquippedItems);
+          (await _persistence.getString(GamificationConstants.keyEquippedItems)).fold((_) => null, (r) => r);
       final questsLedgerJson =
-          await _persistence.getString(GamificationConstants.keyQuestsLedger);
+          (await _persistence.getString(GamificationConstants.keyQuestsLedger)).fold((_) => null, (r) => r);
 
       return GamificationInitialState(
         points: points,

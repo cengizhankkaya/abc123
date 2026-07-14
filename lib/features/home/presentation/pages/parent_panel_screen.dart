@@ -12,6 +12,15 @@ class ParentPanelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const _ParentPanelView();
+  }
+}
+
+class _ParentPanelView extends StatelessWidget {
+  const _ParentPanelView();
+
+  @override
+  Widget build(BuildContext context) {
     final h = context.homeL10n!;
     final gamificationProvider = context.watch<GamificationProvider>();
     final mathProvider = context.watch<MathProgressProvider>();
@@ -32,51 +41,85 @@ class ParentPanelScreen extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: _StatCard(
-                        value: h.parentPanelDurationMinutes(snapshot.durationMinutes),
-                        label: h.parentPanelStatDuration,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: _StatCard(
-                        value: '${snapshot.completedCount}',
-                        label: h.parentPanelStatCompleted,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: _StatCard(
-                        value: h.parentPanelAccuracyPercent(snapshot.accuracyPercent),
-                        label: h.parentPanelStatAccuracy,
-                      ),
-                    ),
-                  ],
-                ),
+                _StatisticsRow(snapshot: snapshot, h: h),
                 const SizedBox(height: 16),
                 _ChartCard(
                   title: h.parentPanelChartTitle,
                   bars: snapshot.dailyBars,
                 ),
                 const SizedBox(height: 16),
-                for (final insight in snapshot.insights(h))
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: _InsightTile(
-                      icon: insight.icon,
-                      iconColor: insight.iconColor,
-                      text: insight.text,
-                      when: insight.when,
-                    ),
-                  ),
+                _InsightsList(snapshot: snapshot, h: h),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _StatisticsRow extends StatelessWidget {
+  const _StatisticsRow({
+    required this.snapshot,
+    required this.h,
+  });
+
+  final _ParentPanelSnapshot snapshot;
+  final HomeLocalizations h;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _StatCard(
+            value: h.parentPanelDurationMinutes(snapshot.durationMinutes),
+            label: h.parentPanelStatDuration,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _StatCard(
+            value: '${snapshot.completedCount}',
+            label: h.parentPanelStatCompleted,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: _StatCard(
+            value: h.parentPanelAccuracyPercent(snapshot.accuracyPercent),
+            label: h.parentPanelStatAccuracy,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _InsightsList extends StatelessWidget {
+  const _InsightsList({
+    required this.snapshot,
+    required this.h,
+  });
+
+  final _ParentPanelSnapshot snapshot;
+  final HomeLocalizations h;
+
+  @override
+  Widget build(BuildContext context) {
+    final insights = snapshot.insights(h);
+    return Column(
+      children: insights.map((insight) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: _InsightTile(
+            icon: insight.icon,
+            iconColor: insight.iconColor,
+            text: insight.text,
+            when: insight.when,
+          ),
+        );
+      }).toList(),
     );
   }
 }
@@ -115,7 +158,7 @@ final class _ParentPanelSnapshot {
         ? 0
         : (72 + provider.streak * 2 + (completed ~/ 5)).clamp(60, 95);
 
-    int strugglingMathCode = -1;
+    var strugglingMathCode = -1;
     final maxWrong = [
       mathProvider.wrongAdditionsCount,
       mathProvider.wrongSubtractionsCount,
@@ -162,7 +205,7 @@ final class _ParentPanelSnapshot {
   List<_InsightData> insights(HomeLocalizations h) {
     final items = <_InsightData>[];
     if (strugglingMathCode != -1) {
-      String text = h.parentPanelInsightMath;
+      var text = h.parentPanelInsightMath;
       if (strugglingMathCode == 0) {
         text = h.parentPanelMathStrugglingAddition;
       } else if (strugglingMathCode == 1) {

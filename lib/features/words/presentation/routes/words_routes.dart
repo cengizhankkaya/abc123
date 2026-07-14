@@ -1,4 +1,4 @@
-part of '../../../../../core/navigation/app_router.dart';
+part of '../../../../core/navigation/app_router.dart';
 
 final _wordsRoutes = [
   GoRoute(

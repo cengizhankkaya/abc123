@@ -1,7 +1,6 @@
 // Generates feature ARB files from `language_constants.dart` maps.
 // Run from repo root: dart run tool/export_l10n_arbs.dart
 //
-// ignore_for_file: avoid_dynamic_calls
 
 import 'dart:convert';
 import 'dart:io';
@@ -356,7 +355,7 @@ Map<String, String> _infoMergedForLang(AppLanguage lang) {
       localizedInfoScreenTexts[AppLanguage.english]!;
   for (final e in info.entries) {
     out['info${e.key[0].toUpperCase()}${e.key.substring(1)}'] =
-        e.value.toString();
+        e.value;
   }
   final res = localizedResultScreenTexts[lang] ??
       localizedResultScreenTexts[AppLanguage.english]!;

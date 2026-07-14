@@ -2,18 +2,18 @@ import 'dart:typed_data';
 
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/error/failures/failure.dart';
+import 'package:abc123/core/infrastructure/base/base_repository.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/numbers_advanced/domain/repositories/i_multi_digit_recognition_repository.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:image/image.dart' as img;
 import 'package:injectable/injectable.dart';
 import 'package:synchronized/synchronized.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 
 final class MultiDigitRecognitionFailure extends Failure {
-  final String message;
   const MultiDigitRecognitionFailure([this.message = 'Rakam tanıma başarısız']);
+  final String message;
 }
 
 /// Çok basamaklı rakam tanıma orkestrasyon katmanı.
@@ -22,8 +22,11 @@ final class MultiDigitRecognitionFailure extends Failure {
 /// onlar ve birler hanelerini ayrı ayrı tanır; sonuçları birleştirir.
 /// Yeni bir TFLite modeli **eklenmez** — mevcut model yeniden kullanılır.
 @LazySingleton(as: IMultiDigitRecognitionRepository)
-final class MultiDigitRecognitionRepositoryImpl implements IMultiDigitRecognitionRepository {
-  MultiDigitRecognitionRepositoryImpl();
+final class MultiDigitRecognitionRepositoryImpl extends BaseRepository implements IMultiDigitRecognitionRepository {
+  MultiDigitRecognitionRepositoryImpl(
+    super.exceptionHandler,
+    super.failureMapper,
+  );
 
   static const String _modelPath = 'assets/models/rakam_model.tflite';
 
@@ -36,15 +39,11 @@ final class MultiDigitRecognitionRepositoryImpl implements IMultiDigitRecognitio
 
   /// Tek basamaklı rakamı PNG bytes'tan tanır (0–9).
   @override
-  FutureResult<int> recognizeDigit(Uint8List pngBytes) async {
-    try {
-      await _ensureLoaded();
-      final result = await _infer(pngBytes);
-      return Right(result);
-    } catch (e) {
-      return Left(MultiDigitRecognitionFailure(e.toString()));
-    }
-  }
+  FutureResult<int> recognizeDigit(Uint8List pngBytes) => execute(() async {
+    await _ensureLoaded();
+    final result = await _infer(pngBytes);
+    return result;
+  });
 
   /// İki PNG bytes (onlar hanesi + birler hanesi) → tam sayı (0–99 veya 100).
   ///
@@ -53,16 +52,12 @@ final class MultiDigitRecognitionRepositoryImpl implements IMultiDigitRecognitio
   FutureResult<int> recognizeMultiDigit({
     required Uint8List tensBytes,
     required Uint8List unitsBytes,
-  }) async {
-    try {
-      await _ensureLoaded();
-      final tens = await _infer(tensBytes);
-      final units = await _infer(unitsBytes);
-      return Right(tens * 10 + units);
-    } catch (e) {
-      return Left(MultiDigitRecognitionFailure(e.toString()));
-    }
-  }
+  }) => execute(() async {
+    await _ensureLoaded();
+    final tens = await _infer(tensBytes);
+    final units = await _infer(unitsBytes);
+    return tens * 10 + units;
+  });
 
   /// Üç PNG bytes (yüzler + onlar + birler) → tam sayı (örneğin 100).
   @override
@@ -70,17 +65,13 @@ final class MultiDigitRecognitionRepositoryImpl implements IMultiDigitRecognitio
     required Uint8List hundredsBytes,
     required Uint8List tensBytes,
     required Uint8List unitsBytes,
-  }) async {
-    try {
-      await _ensureLoaded();
-      final hundreds = await _infer(hundredsBytes);
-      final tens = await _infer(tensBytes);
-      final units = await _infer(unitsBytes);
-      return Right(hundreds * 100 + tens * 10 + units);
-    } catch (e) {
-      return Left(MultiDigitRecognitionFailure(e.toString()));
-    }
-  }
+  }) => execute(() async {
+    await _ensureLoaded();
+    final hundreds = await _infer(hundredsBytes);
+    final tens = await _infer(tensBytes);
+    final units = await _infer(unitsBytes);
+    return hundreds * 100 + tens * 10 + units;
+  });
 
   // ────────────────────────────── Private ──────────────────────────────
 
@@ -147,7 +138,7 @@ final class MultiDigitRecognitionRepositoryImpl implements IMultiDigitRecognitio
   List<List<List<List<double>>>> _toModelInput(img.Image resized) {
     final buffer = Float32List(28 * 28);
     var pixelIndex = 0;
-    const double threshold = 0.20;
+    const threshold = 0.20;
 
     for (var y = 0; y < 28; y++) {
       for (var x = 0; x < 28; x++) {

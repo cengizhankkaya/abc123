@@ -1,4 +1,3 @@
-import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
 import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
 import 'package:abc123/features/numbers_advanced/presentation/widgets/digit_box_widget.dart';
@@ -40,7 +39,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFFFDCB6E).withOpacity(0.2), // Yellow
+              const Color(0xFFFDCB6E).withValues(alpha: 0.2), // Yellow
               Colors.white,
             ],
           ),
@@ -87,7 +86,6 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                                 count: operation.operandA,
                                 emoji: '🍎',
                                 isCountingMode: provider.isCountingMode,
-                                startIndex: 0,
                               ),
                             ),
                             const Padding(
@@ -137,7 +135,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                                 DigitBoxWidget(
                                   boxKey: _hundredsKey,
                                   boxIndex: 2,
-                                  label: "Yüzler",
+                                  label: 'Yüzler',
                                   isActive: provider.activeBox == 2,
                                   points: provider.hundredsPoints,
                                   hintText: provider.hintEnabled ? hundredsDigit.toString() : null,
@@ -162,7 +160,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                               DigitBoxWidget(
                                 boxKey: _unitsKey,
                                 boxIndex: 1,
-                                label: isDoubleDigit ? l10n.mathUnitsBox : "Sonuç",
+                                label: isDoubleDigit ? l10n.mathUnitsBox : 'Sonuç',
                                 isActive: provider.activeBox == 1,
                                 points: provider.unitsPoints,
                                 hintText: provider.hintEnabled ? operation.unitsDigit.toString() : null,

@@ -1,21 +1,26 @@
+import 'package:abc123/core/infrastructure/base/base_repository.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:abc123/features/parent_panel/domain/repositories/i_recommendation_repository.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 /// Ebeveyn Paneli için kural tabanlı akıllı öneri motoru.
 @LazySingleton(as: IRecommendationRepository)
-class RecommendationRepositoryImpl implements IRecommendationRepository {
+class RecommendationRepositoryImpl extends BaseRepository implements IRecommendationRepository {
+  RecommendationRepositoryImpl(
+    super.exceptionHandler,
+    super.failureMapper,
+  );
+
   /// Modül verilerini analiz ederek ebeveyn için eylem odaklı öneriler üretir.
   @override
   FutureResult<List<Recommendation>> generateRecommendations({
     required List<ModuleProgress> progressList,
     required bool isTurkish,
-  }) async {
-    final List<Recommendation> recommendations = [];
+  }) => execute(() async {
+    final recommendations = <Recommendation>[];
 
     for (final module in progressList) {
       if (module.moduleName == 'numbers') {
@@ -133,6 +138,6 @@ class RecommendationRepositoryImpl implements IRecommendationRepository {
       );
     }
 
-    return right(recommendations);
-  }
+    return recommendations;
+  });
 }

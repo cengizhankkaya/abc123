@@ -7,12 +7,6 @@ import 'package:provider/provider.dart';
 ///
 /// GetX kaldırıldı — context.read<FluttermojiController>() ile erişim sağlanıyor.
 class FluttermojiSaveWidget extends StatelessWidget {
-  final FluttermojiThemeData theme;
-  final Function? onTap;
-  final Widget? child;
-  final InteractiveInkFeatureFactory? splashFactory;
-  final Color? splashColor;
-  final double? radius;
 
   FluttermojiSaveWidget({
     super.key,
@@ -23,6 +17,12 @@ class FluttermojiSaveWidget extends StatelessWidget {
     this.splashColor,
     this.radius,
   }) : theme = theme ?? FluttermojiThemeData.standard;
+  final FluttermojiThemeData theme;
+  final Function? onTap;
+  final Widget? child;
+  final InteractiveInkFeatureFactory? splashFactory;
+  final Color? splashColor;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {

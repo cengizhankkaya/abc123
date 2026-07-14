@@ -1,26 +1,23 @@
-// ignore_for_file: deprecated_member_use
 
-import 'package:abc123/core/constants/audio.dart';
-import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/logging/app_logger.dart';
-import 'package:abc123/core/domain/ports/i_audio_service.dart';
-import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:abc123/core/constants/audio.dart';
+import 'package:abc123/core/constants/gamification_constants.dart';
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
+import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/orientation_helper.dart';
-import 'package:provider/provider.dart';
-
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
 import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/tool_control_panel.dart';
-import 'package:abc123/core/constants/gamification_constants.dart';
-import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/info/presentation/models/info_draw_extra.dart';
 import 'package:abc123/features/info/presentation/models/result_screen_data.dart';
+import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class LetterDrawScreen extends StatefulWidget {
   const LetterDrawScreen({super.key});
@@ -30,18 +27,14 @@ class LetterDrawScreen extends StatefulWidget {
 }
 
 class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerProviderStateMixin {
-  final GlobalKey _drawingAreaKey = GlobalKey();
-  // Animasyon için controller
   late AnimationController _animationController;
   late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
-    // Ekranı yatay (landscape) moduna zorunlu kılma
     unawaited(OrientationHelper.setLandscape());
 
-    // Animasyon controller'ı
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
@@ -52,43 +45,227 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
       curve: Curves.easeInOut,
     );
 
-    getIt<IAudioService>().playBackground(AppAudios.happyKids);
+    unawaited(getIt<IAudioService>().playBackground(AppAudios.happyKids));
 
-    // Tek seferlik bir ölçeklendirme yap
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       Provider.of<LetterDrawingProvider>(context, listen: false)
-          .adjustStrokeWidthForScreenSize(20.0);
+          .adjustStrokeWidthForScreenSize(20);
     });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    // Ekran yönünü normale döndürme (dikey mod)
     unawaited(OrientationHelper.setPortrait());
-    getIt<IAudioService>().stopBackground();
+    unawaited(getIt<IAudioService>().stopBackground());
     super.dispose();
   }
 
-  // _showResultScreen fonksiyonunu güncelliyorum
-  void _showResultScreenWithModel(ResultScreenData data) {
-    // Gamification Integration
+  @override
+  Widget build(BuildContext context) {
+    final drawingProvider = Provider.of<LetterDrawingProvider>(context);
+
+    return _LetterDrawView(
+      provider: drawingProvider,
+      animation: _animation,
+    );
+  }
+}
+
+class _LetterDrawView extends StatelessWidget {
+  const _LetterDrawView({
+    required this.provider,
+    required this.animation,
+  });
+
+  final LetterDrawingProvider provider;
+  final Animation<double> animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color(0xFF74B9FF).withValues(alpha: 0.2),
+              Colors.white,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              _ControlPanel(provider: provider),
+              _MainContent(provider: provider, animation: animation),
+              _BottomToolbar(provider: provider),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ControlPanel extends StatelessWidget {
+  const _ControlPanel({required this.provider});
+
+  final LetterDrawingProvider provider;
+
+  @override
+  Widget build(BuildContext context) {
+    return ToolControlPanel(
+      titleKey: 'letterTitle',
+      strokeWidth: provider.strokeWidth,
+      eraseMode: provider.eraseMode,
+      selectedColor: provider.selectedColor,
+      colors: const [
+        Colors.black,
+        Colors.red,
+        Colors.blue,
+        Colors.yellow,
+        Colors.green,
+        Colors.purple,
+        Colors.orange,
+      ],
+      onStrokeWidthChanged: provider.setStrokeWidth,
+      onColorChanged: provider.setColor,
+      onEraseModeChanged: provider.setEraseMode,
+      panelColor: const Color(0xFF74B9FF),
+      volume: provider.volume,
+      onVolumeChanged: provider.setVolume,
+    );
+  }
+}
+
+class _MainContent extends StatelessWidget {
+  const _MainContent({
+    required this.provider,
+    required this.animation,
+  });
+
+  final LetterDrawingProvider provider;
+  final Animation<double> animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: MainContentArea(
+        activeGuide: provider.currentActiveGuide,
+        onNextGuide: provider.nextDrawingGuide,
+        onPreviousGuide: provider.previousDrawingGuide,
+        points: provider.points,
+        eraseMode: provider.eraseMode,
+        selectedColor: provider.selectedColor,
+        strokeWidth: provider.strokeWidth,
+        showResult: provider.showResult,
+        isLoading: provider.isLoading,
+        recognitionResult: provider.recognitionResult,
+        animation: animation,
+        tanima: provider.tanima,
+        drawingAreaKey: provider.drawingAreaKey,
+        onClear: provider.clear,
+        onDrawPoint: provider.addPoint,
+        onEndDrawing: provider.endLine,
+        isSequentialModeActive: provider.sequentialManager.isSequentialModeActive,
+        correctlyDrawnCount: provider.sequentialManager.correctlyDrawnCount,
+      ),
+    );
+  }
+}
+
+class _BottomToolbar extends StatelessWidget {
+  const _BottomToolbar({required this.provider});
+
+  final LetterDrawingProvider provider;
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionToolbarWidget(
+      onClear: provider.clear,
+      onPenMode: () {
+        provider
+          ..setColor(Colors.black)
+          ..setStrokeWidth(20)
+          ..setEraseMode(false);
+      },
+      onEraseMode: () {
+        provider
+          ..setEraseMode(true)
+          ..setStrokeWidth(35);
+      },
+      onRecognize: () => _handleRecognize(context),
+      eraseMode: provider.eraseMode,
+      selectedColor: provider.selectedColor,
+      showResult: provider.showResult,
+      isLoading: provider.isLoading,
+      isSequentialModeActive: provider.sequentialManager.isSequentialModeActive,
+      onSequentialModeChanged: provider.toggleSequentialMode,
+      correctlyDrawnCount: provider.sequentialManager.correctlyDrawnCount,
+      totalAttempts: provider.sequentialManager.totalAttempts,
+    );
+  }
+
+  Future<void> _handleRecognize(BuildContext context) async {
+    if (!provider.showResult && !provider.isLoading) {
+      await provider.tanimlaHarf(context);
+
+      if (context.mounted) {
+        if (provider.sequentialManager.isSequentialModeActive) {
+          final isCorrect = provider.sequentialManager
+              .evaluateRecognitionResult(provider.recognitionResult);
+          
+          await _showResultScreenWithModel(
+            context,
+            ResultScreenData(
+              drawingImage: provider.drawingImage,
+              recognizedLetter: provider.recognitionResult,
+              targetLetter: provider.sequentialManager.currentTargetLetter,
+              isCorrect: isCorrect,
+              correctCount: provider.sequentialManager.correctlyDrawnCount,
+              totalAttempts: provider.sequentialManager.totalAttempts,
+              onTryAgain: () {
+                context.pop();
+                provider.onResultScreenAction(isCorrect, tryAgain: true);
+              },
+              onContinue: () {
+                context.pop();
+                provider.onResultScreenAction(isCorrect, tryAgain: false);
+              },
+            ),
+          );
+        } else {
+          await context.push(
+            AppRoutes.infoDraw,
+            extra: InfoDrawExtra(
+              drawingImage: provider.drawingImage,
+              recognizedLetter: provider.recognitionResult,
+            ),
+          );
+        }
+      }
+    } else if (provider.showResult) {
+      provider.updateShowResultAndTanima(false);
+    }
+  }
+
+  Future<void> _showResultScreenWithModel(BuildContext context, ResultScreenData data) async {
     if (data.isCorrect) {
-      Provider.of<GamificationProvider>(context, listen: false)
-          .incrementTotalDrawings(type: DrawingType.letter, label: data.recognizedLetter);
+      unawaited(Provider.of<GamificationProvider>(context, listen: false)
+          .incrementTotalDrawings(type: DrawingType.letter, label: data.recognizedLetter),);
     }
 
     try {
       if (data.isCorrect) {
-        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids);
+        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids));
       } else {
-        getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids);
+        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids));
       }
-      context.push(
-        AppRoutes.result,
-        extra: data,
-      );
-    } catch (e, st) {
+      await context.push(AppRoutes.result, extra: data);
+    } on Object catch (e, st) {
       getIt<AppLogger>().error(
         'Result screen navigation failed',
         tag: 'LetterDraw',
@@ -97,141 +274,5 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
       );
       data.onContinue();
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final drawingProvider = Provider.of<LetterDrawingProvider>(context);
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF74B9FF).withOpacity(0.2),
-              Colors.white,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // Başlık ve Kalem kontrol paneli
-              ToolControlPanel(
-                titleKey: 'letterTitle',
-                strokeWidth: drawingProvider.strokeWidth,
-                eraseMode: drawingProvider.eraseMode,
-                selectedColor: drawingProvider.selectedColor,
-                colors: [
-                  Colors.black,
-                  Colors.red,
-                  Colors.blue,
-                  Colors.yellow,
-                  Colors.green,
-                  Colors.purple,
-                  Colors.orange,
-                ],
-                onStrokeWidthChanged: (width) {
-                  drawingProvider.setStrokeWidth(width);
-                },
-                onColorChanged: (color) {
-                  drawingProvider.setColor(color);
-                },
-                onEraseModeChanged: drawingProvider.setEraseMode,
-                panelColor: const Color(0xFF74B9FF),
-                volume: drawingProvider.volume,
-                onVolumeChanged: drawingProvider.setVolume,
-              ),
-
-              // Ana İçerik
-              Expanded(
-                child: MainContentArea(
-                  activeGuide: drawingProvider.currentActiveGuide,
-                  onNextGuide: drawingProvider.nextDrawingGuide,
-                  onPreviousGuide: drawingProvider.previousDrawingGuide,
-                  points: drawingProvider.points,
-                  eraseMode: drawingProvider.eraseMode,
-                  selectedColor: drawingProvider.selectedColor,
-                  strokeWidth: drawingProvider.strokeWidth,
-                  showResult: drawingProvider.showResult,
-                  isLoading: drawingProvider.isLoading,
-                  recognitionResult: drawingProvider.recognitionResult,
-                  animation: _animation,
-                  tanima: drawingProvider.tanima,
-                  drawingAreaKey: _drawingAreaKey,
-                  onClear: drawingProvider.clear,
-                  onDrawPoint: (point) {
-                    drawingProvider.addPoint(point);
-                  },
-                  onEndDrawing: () {
-                    drawingProvider.endLine();
-                  },
-                  isSequentialModeActive: drawingProvider.sequentialManager.isSequentialModeActive,
-                  correctlyDrawnCount: drawingProvider.sequentialManager.correctlyDrawnCount,
-                ),
-              ),
-              // Alt araç çubuğu
-              ActionToolbarWidget(
-                onClear: drawingProvider.clear,
-                onPenMode: () {
-                  drawingProvider.setColor(Colors.black);
-                  drawingProvider.setStrokeWidth(20.0);
-                  drawingProvider.setEraseMode(false);
-                },
-                onEraseMode: () {
-                  drawingProvider.setEraseMode(true);
-                  drawingProvider.setStrokeWidth(35.0);
-                },
-                onRecognize: () async {
-                  if (!drawingProvider.showResult && !drawingProvider.isLoading) {
-                    await drawingProvider.tanimlaHarf(context);
-                    // Sıralı mod aktifse, sonuç ekranını göster
-                    if (drawingProvider.sequentialManager.isSequentialModeActive) {
-                      final bool isCorrect = drawingProvider.sequentialManager
-                          .evaluateRecognitionResult(drawingProvider.recognitionResult);
-                      _showResultScreenWithModel(ResultScreenData(
-                        drawingImage: drawingProvider.drawingImage,
-                        recognizedLetter: drawingProvider.recognitionResult,
-                        targetLetter: drawingProvider.sequentialManager.currentTargetLetter,
-                        isCorrect: isCorrect,
-                        correctCount: drawingProvider.sequentialManager.correctlyDrawnCount,
-                        totalAttempts: drawingProvider.sequentialManager.totalAttempts,
-                        onTryAgain: () {
-                          context.pop();
-                          drawingProvider.onResultScreenAction(isCorrect, tryAgain: true);
-                        },
-                        onContinue: () {
-                          context.pop();
-                          drawingProvider.onResultScreenAction(isCorrect, tryAgain: false);
-                        },
-                      ));
-                    } else {
-                      context.push(
-                        AppRoutes.infoDraw,
-                        extra: InfoDrawExtra(
-                          drawingImage: drawingProvider.drawingImage,
-                          recognizedLetter: drawingProvider.recognitionResult,
-                        ),
-                      );
-                    }
-                  } else if (drawingProvider.showResult) {
-                    drawingProvider.updateShowResultAndTanima(false);
-                  }
-                },
-                eraseMode: drawingProvider.eraseMode,
-                selectedColor: drawingProvider.selectedColor,
-                showResult: drawingProvider.showResult,
-                isLoading: drawingProvider.isLoading,
-                isSequentialModeActive: drawingProvider.sequentialManager.isSequentialModeActive,
-                onSequentialModeChanged: drawingProvider.toggleSequentialMode,
-                correctlyDrawnCount: drawingProvider.sequentialManager.correctlyDrawnCount,
-                totalAttempts: drawingProvider.sequentialManager.totalAttempts,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

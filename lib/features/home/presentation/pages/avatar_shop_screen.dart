@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/core/domain/types/feature_flag.dart';
-import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
 import 'package:abc123/core/domain/ports/i_ad_service.dart';
+import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
+import 'package:abc123/core/domain/types/feature_flag.dart';
 import 'package:abc123/core/infrastructure/ads/ad_service.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/presentation/widgets/fade_in_slide.dart';
@@ -53,7 +53,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
               onSave: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Avatarınız başarıyla kaydedildi!"),
+                    content: Text('Avatarınız başarıyla kaydedildi!'),
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: HomeDesignTokens.lettersCard,
                   ),
@@ -69,7 +69,6 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
                 builder: (context, constraints) => FluttermojiCustomizer(
                   scaffoldHeight: constraints.maxHeight,
                   scaffoldWidth: constraints.maxWidth,
-                  autosave: true,
                   theme: FluttermojiThemeData(
                     boxDecoration: const BoxDecoration(
                       color: Colors.white,
@@ -88,7 +87,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
                     unselectedTileDecoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
+                      border: Border.all(color: const Color(0xFFE5E7EB)),
                     ),
                   ),
                 ),
@@ -108,7 +107,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                "🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)"),
+                '🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)',),
             backgroundColor: HomeDesignTokens.lettersCard,
           ),
         );
@@ -173,7 +172,7 @@ class _AvatarDashboardCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Avatarını Tasarla",
+                  'Avatarını Tasarla',
                   style: HomeDesignTokens.cardTitle(color: HomeDesignTokens.darkText).copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
@@ -181,7 +180,7 @@ class _AvatarDashboardCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  "Seçtiğin parça anında uygulanır.",
+                  'Seçtiğin parça anında uygulanır.',
                   style: HomeDesignTokens.cardSubtitle(color: HomeDesignTokens.mutedText).copyWith(
                     fontSize: 11,
                   ),
@@ -203,7 +202,7 @@ class _AvatarDashboardCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Icon(Icons.play_circle_fill_rounded,
-                                      color: HomeDesignTokens.darkText, size: 16),
+                                      color: HomeDesignTokens.darkText, size: 16,),
                                   const SizedBox(width: 4),
                                   Flexible(
                                     child: Text(
@@ -211,7 +210,7 @@ class _AvatarDashboardCard extends StatelessWidget {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: HomeDesignTokens.cardTitle(
-                                              color: HomeDesignTokens.darkText)
+                                              color: HomeDesignTokens.darkText,)
                                           .copyWith(
                                         fontSize: 11,
                                       ),
@@ -246,7 +245,7 @@ class _AvatarDashboardCard extends StatelessWidget {
                             Icon(Icons.save_rounded, color: HomeDesignTokens.darkText, size: 16),
                             SizedBox(width: 5),
                             Text(
-                              "Kaydet",
+                              'Kaydet',
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 color: HomeDesignTokens.darkText,

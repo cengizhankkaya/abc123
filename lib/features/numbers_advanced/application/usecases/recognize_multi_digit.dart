@@ -5,10 +5,10 @@ import 'package:abc123/features/numbers_advanced/domain/repositories/i_multi_dig
 import 'package:injectable/injectable.dart';
 
 @injectable
-final class RecognizeMultiDigitUseCase {
-  final IMultiDigitRecognitionRepository _repository;
+final class RecognizeMultiDigit {
 
-  const RecognizeMultiDigitUseCase(this._repository);
+  const RecognizeMultiDigit(this._repository);
+  final IMultiDigitRecognitionRepository _repository;
 
   FutureResult<int> recognizeDigit(Uint8List pngBytes) {
     return _repository.recognizeDigit(pngBytes);

@@ -1,45 +1,43 @@
-import 'package:abc123/core/domain/ports/i_audio_service.dart';
+import 'dart:ui' as ui;
+
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
-import 'package:abc123/features/draw/application/usecases/recognize_letter_use_case.dart';
-
-import 'package:flutter/material.dart';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:flutter/services.dart';
-
+import 'package:abc123/features/draw/application/usecases/recognize_letter.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+import 'package:flutter/material.dart';
 
 class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
-  List<DrawingPoint?> points = [];
-  bool eraseMode = false;
-  Color selectedColor = Colors.black;
-  double strokeWidth = 35.0;
-
-  String tanima = 'Lütfen bir harf çizin';
-  bool isLoading = false;
-  bool showResult = false;
-  String recognitionResult = "";
-  ui.Image? drawingImage;
-
-  final SequentialDrawingManager sequentialManager = SequentialDrawingManager();
-  late DrawingGuide activeGuide;
-
-  double volume = 1.0;
-
-  final RecognizeLetterUseCase _recognizeLetterUseCase;
 
   LetterDrawingProvider() :
-    _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>() {
+    _recognizeLetterUseCase = getIt<RecognizeLetter>() {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
     volume = getIt<IAudioService>().currentVolume;
     sequentialManager.isLetterMode = true;
     activeGuide = DrawingContentProvider.activeLetterGuide;
   }
+  final GlobalKey drawingAreaKey = GlobalKey();
+  List<DrawingPoint?> points = [];
+  bool eraseMode = false;
+  Color selectedColor = Colors.black;
+  double strokeWidth = 35;
+
+  String tanima = 'Lütfen bir harf çizin';
+  bool isLoading = false;
+  bool showResult = false;
+  String recognitionResult = '';
+  ui.Image? drawingImage;
+
+  final SequentialDrawingManager sequentialManager = SequentialDrawingManager();
+  late DrawingGuide activeGuide;
+
+  double volume = 1;
+
+  final RecognizeLetter _recognizeLetterUseCase;
 
   Future<void> tanimlaHarf(BuildContext context) async {
     if (!sequentialManager.isLetterMode) {
@@ -53,21 +51,21 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
     isLoading = true;
     notifyListeners();
     try {
-      final ui.Image? image = await renderToImage(context);
+      final image = await renderToImage(context);
       if (image == null) {
         tanima = 'Görüntü oluşturulamadı';
         isLoading = false;
         notifyListeners();
         return;
       }
-      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
         isLoading = false;
         notifyListeners();
         return;
       }
-      final Uint8List pngBytes = byteData.buffer.asUint8List();
+      final pngBytes = byteData.buffer.asUint8List();
       // ─── Use Case üzerinden tanıma (infrastructure'a direkt erişim yok) ───
       final resultEither = await _recognizeLetterUseCase(pngBytes);
       final result = resultEither.fold(
@@ -80,7 +78,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
       recognitionResult = result;
       isLoading = false;
       notifyListeners();
-    } catch (e) {
+    } on Object catch (e) {
       tanima = 'Hata oluştu: $e';
       isLoading = false;
       notifyListeners();
@@ -90,18 +88,19 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   Future<ui.Image?> renderToImage(BuildContext context) async {
     try {
       final responsive = ResponsiveSize(context);
-      final double drawingSize = responsive.drawingAreaSize;
+      final drawingSize = responsive.drawingAreaSize;
       final scaleRatio = drawingSize / 280.0;
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);
       final rect = Rect.fromLTWH(0, 0, drawingSize, drawingSize);
-      canvas.drawRect(rect, Paint()..color = Colors.white);
-      canvas.scale(scaleRatio, scaleRatio);
+      canvas
+        ..drawRect(rect, Paint()..color = Colors.white)
+        ..scale(scaleRatio, scaleRatio);
       final painter = DrawingPainter(pointsList: points);
-      painter.paint(canvas, Size(280, 280));
+      painter.paint(canvas, const Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e, st) {
+    } on Object catch (e, st) {
       getIt<AppLogger>().error(
         'Image render failed',
         tag: 'LetterDraw',
@@ -127,6 +126,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
     notifyListeners();
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void setEraseMode(bool value) {
     eraseMode = value;
     notifyListeners();
@@ -160,6 +160,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   }
 
   // Sıralı çizim modunu etkinleştir
+  // ignore: avoid_positional_boolean_parameters
   void toggleSequentialMode(bool enabled) {
     sequentialManager.toggleSequentialMode(enabled);
     if (enabled) {
@@ -187,6 +188,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   }
 
   // Sıralı mod sonuç ekranı mantığı (ekran açma UI'da kalacak, burada sadece state güncelleme)
+  // ignore: avoid_positional_boolean_parameters
   void handleResult(bool isCorrect) {
     _recordProgressAttempt(isCorrect);
     sequentialManager.moveToNextLetter(isCorrect);
@@ -208,6 +210,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   }
 
   /// Sonuç ekranı sonrası yapılacak işlemler (tekrar dene veya devam)
+  // ignore: avoid_positional_boolean_parameters
   void onResultScreenAction(bool isCorrect, {required bool tryAgain}) {
     _recordProgressAttempt(isCorrect);
     if (tryAgain) {
@@ -221,6 +224,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
+    // ignore: discarded_futures
     getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }

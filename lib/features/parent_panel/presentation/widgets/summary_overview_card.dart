@@ -1,5 +1,5 @@
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
-import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary_use_case.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,7 @@ class SummaryOverviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gamification = context.watch<GamificationProvider>();
-    final aggregator = context.watch<GetProgressSummaryUseCase>();
+    final aggregator = context.watch<GetProgressSummary>();
 
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -48,7 +48,7 @@ class SummaryOverviewCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6C63FF).withOpacity(isDark ? 0.2 : 0.35),
+            color: const Color(0xFF6C63FF).withValues(alpha: isDark ? 0.2 : 0.35),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -62,7 +62,7 @@ class SummaryOverviewCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.18),
+                  color: Colors.white.withValues(alpha: 0.18),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.analytics_rounded, color: Colors.white, size: 24),
@@ -84,7 +84,7 @@ class SummaryOverviewCard extends StatelessWidget {
                     Text(
                       isTr ? 'Tüm modüllerin canlı istatistikleri' : 'Real-time statistics across all modules',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.75),
+                        color: Colors.white.withValues(alpha: 0.75),
                         fontSize: 12,
                       ),
                     ),
@@ -144,9 +144,9 @@ class SummaryOverviewCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.12),
+        color: Colors.white.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.15)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
       ),
       child: Row(
         children: [
@@ -170,7 +170,7 @@ class SummaryOverviewCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.75),
+                    color: Colors.white.withValues(alpha: 0.75),
                     fontSize: 11,
                     fontWeight: FontWeight.w500,
                   ),

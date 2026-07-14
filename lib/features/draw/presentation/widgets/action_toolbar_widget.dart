@@ -1,13 +1,19 @@
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
 
 class ActionToolbarWidget extends StatelessWidget {
+
+  const ActionToolbarWidget({
+    required this.onClear, required this.onPenMode, required this.onEraseMode, required this.onRecognize, required this.eraseMode, required this.selectedColor, required this.showResult, required this.isLoading, required this.isSequentialModeActive, required this.onSequentialModeChanged, required this.correctlyDrawnCount, required this.totalAttempts, super.key,
+    this.showSequentialControls = true,
+    this.panelColor,
+  });
   final VoidCallback onClear;
   final VoidCallback onPenMode;
   final VoidCallback onEraseMode;
@@ -22,24 +28,6 @@ class ActionToolbarWidget extends StatelessWidget {
   final int totalAttempts;
   final bool showSequentialControls;
   final Color? panelColor;
-
-  const ActionToolbarWidget({
-    super.key,
-    required this.onClear,
-    required this.onPenMode,
-    required this.onEraseMode,
-    required this.onRecognize,
-    required this.eraseMode,
-    required this.selectedColor,
-    required this.showResult,
-    required this.isLoading,
-    required this.isSequentialModeActive,
-    required this.onSequentialModeChanged,
-    required this.correctlyDrawnCount,
-    required this.totalAttempts,
-    this.showSequentialControls = true,
-    this.panelColor,
-  });
 
   double _optimizedFontSize(ResponsiveSize responsive) {
     // Ekran boyutuna göre 12-16 arası bir değer döndür
@@ -57,15 +45,15 @@ class ActionToolbarWidget extends StatelessWidget {
   ) {
     final responsive = ResponsiveSize(context);
     // Material minimum dokunma hedefi 48 dp (22_accessibility.md)
-    final double buttonSize = (responsive.height * 0.06).clamp(48.0, 56.0);
-    final double iconSize = (responsive.height * 0.035).clamp(16.0, 26.0);
-    final double buttonHPadding = (responsive.width * 0.01).clamp(6.0, 14.0);
-    final double buttonVPadding = (responsive.height * 0.01).clamp(4.0, 10.0);
-    final double borderRadius = (responsive.width * 0.02).clamp(10.0, 18.0);
-    final Color backgroundColor = isSelected ? Colors.red : color.withOpacity(0.9);
+    final buttonSize = (responsive.height * 0.06).clamp(48.0, 56.0);
+    final iconSize = (responsive.height * 0.035).clamp(16.0, 26.0);
+    final buttonHPadding = (responsive.width * 0.01).clamp(6.0, 14.0);
+    final buttonVPadding = (responsive.height * 0.01).clamp(4.0, 10.0);
+    final borderRadius = (responsive.width * 0.02).clamp(10.0, 18.0);
+    final backgroundColor = isSelected ? Colors.red : color.withValues(alpha: 0.9);
 
     // Kalem butonu için ikon rengini ayarla
-    bool isPenButton = icon == Icons.edit;
+    final isPenButton = icon == Icons.edit;
     Color iconColor;
     if (isPenButton) {
       iconColor = Colors.white;
@@ -80,7 +68,7 @@ class ActionToolbarWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         width: buttonSize,
         height: buttonSize,
         padding: EdgeInsets.symmetric(
@@ -93,10 +81,10 @@ class ActionToolbarWidget extends StatelessWidget {
           boxShadow: [
             if (isSelected)
               BoxShadow(
-                color: backgroundColor.withOpacity(0.5),
+                color: backgroundColor.withValues(alpha: 0.5),
                 blurRadius: 6,
                 spreadRadius: 0.5,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
           ],
         ),
@@ -119,9 +107,9 @@ class ActionToolbarWidget extends StatelessWidget {
     final d = context.drawL10n!;
 
     // Responsive yükseklik ve padding
-    final double toolbarHeight =
+    final toolbarHeight =
         (responsive.height * 0.12).clamp(52.0, 64.0);
-    final double buttonSpacing = (responsive.width * 0.01).clamp(10.0, 12.0);
+    final buttonSpacing = (responsive.width * 0.01).clamp(10.0, 12.0);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -140,44 +128,48 @@ class ActionToolbarWidget extends StatelessWidget {
             vertical: AppSizes.paddingSmall(context) * 0.08,
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (showSequentialControls)
-                Flexible(
-                  flex: 2,
+                Expanded(
                   child: Row(
                     children: [
-                      Text(
-                        d.drawSequentialMode,
-                        style: TextStyle(
-                          fontSize: _optimizedFontSize(responsive),
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(width: buttonSpacing),
-                      Transform.scale(
-                        scale: 0.7,
-                        child: Switch(
-                          value: isSequentialModeActive,
-                          onChanged: onSequentialModeChanged,
-                          activeColor: Colors.green,
-                        ),
-                      ),
-                      if (isSequentialModeActive)
-                        Padding(
-                          padding: EdgeInsets.only(left: buttonSpacing),
-                          child: Text(
-                            d.drawCorrectTotal(correctlyDrawnCount, totalAttempts),
-                            style: TextStyle(
-                              fontSize: _optimizedFontSize(responsive) * 0.95,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Text(
+                                d.drawSequentialMode,
+                                style: TextStyle(
+                                  fontSize: _optimizedFontSize(responsive),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(width: buttonSpacing),
+                              Transform.scale(
+                                scale: 0.7,
+                                child: Switch(
+                                  value: isSequentialModeActive,
+                                  onChanged: onSequentialModeChanged,
+                                  activeThumbColor: Colors.green,
+                                ),
+                              ),
+                              if (isSequentialModeActive)
+                                Padding(
+                                  padding: EdgeInsets.only(left: buttonSpacing),
+                                  child: Text(
+                                    d.drawCorrectTotal(correctlyDrawnCount, totalAttempts),
+                                    style: TextStyle(
+                                      fontSize: _optimizedFontSize(responsive) * 0.95,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
-                      Spacer(),
+                      ),
                       _buildActionButton(
                         '',
                         Icons.delete_outline,

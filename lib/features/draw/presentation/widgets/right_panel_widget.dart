@@ -2,25 +2,24 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:abc123/core/constants/app_colors.dart';
-import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
 
 class RightPanelWidget extends StatefulWidget {
+  const RightPanelWidget({
+    required this.tanimaText,
+    required this.isLoading,
+    super.key,
+    this.isSequentialMode = false,
+  });
   final String tanimaText;
   final bool isLoading;
   final bool isSequentialMode;
-
-  const RightPanelWidget({
-    super.key,
-    required this.tanimaText,
-    required this.isLoading,
-    this.isSequentialMode = false,
-  });
 
   @override
   State<RightPanelWidget> createState() => _RightPanelWidgetState();
@@ -71,11 +70,11 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
       return 0;
     }
     // Metinden rakam değerini çıkarmaya çalış
-    RegExp regExp = RegExp(r'(\d+)');
-    var match = regExp.firstMatch(widget.tanimaText);
+    final regExp = RegExp(r'(\d+)');
+    final match = regExp.firstMatch(widget.tanimaText);
 
     if (match != null) {
-      return int.tryParse(match.group(1) ?? "0") ?? 0;
+      return int.tryParse(match.group(1) ?? '0') ?? 0;
     }
     return 0;
   }
@@ -92,7 +91,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
     _gameTimer = null;
 
     // Tüm timer'ları iptal et
-    for (var timer in List<Timer>.from(_balloonTimers)) {
+    for (final timer in List<Timer>.from(_balloonTimers)) {
       try {
         timer.cancel();
       } catch (e) {
@@ -170,7 +169,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
 
     // Başlangıçta balonları oluştur (max 5 adet)
     final initialBalloons = min(5, balloonCount);
-    for (int i = 0; i < initialBalloons; i++) {
+    for (var i = 0; i < initialBalloons; i++) {
       _createBalloon();
     }
   }
@@ -296,7 +295,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                 _checkGameEnd();
               } else if (mounted && !_disposed && _balloons.length < 5) {
                 // Yeni balon ekle (ekrandaki balon sayısı 5'ten azsa)
-                Future.microtask(() => _createBalloon());
+                Future.microtask(_createBalloon);
               }
             }
           } else {
@@ -402,7 +401,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                   borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 12,
                       spreadRadius: 2,
                       offset: const Offset(0, 3),
@@ -495,7 +494,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                         final balloon = entry.value;
 
                         // Balonun ekrandan taşmamasını sağla
-                        double x = balloon.x;
+                        var x = balloon.x;
                         if (x < 0) x = 0;
                         if (x > _gameWidth - balloon.size) x = _gameWidth - balloon.size;
 
@@ -512,7 +511,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
+                                    color: Colors.black.withValues(alpha: 0.1),
                                     blurRadius: 2,
                                     spreadRadius: 1,
                                   ),
@@ -526,7 +525,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                                     width: balloon.size * 0.25,
                                     height: balloon.size * 0.25,
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.3),
+                                      color: Colors.white.withValues(alpha: 0.3),
                                       shape: BoxShape.circle,
                                     ),
                                   ),
@@ -548,7 +547,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                             ),
                           ),
                         );
-                      }).toList(),
+                      }),
 
                       // Tüm balonlar patlatıldıysa oyun sonu mesajı
                       if (_poppedBalloons + _missedBalloons >= _totalBalloons && _totalBalloons > 0)
@@ -563,7 +562,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  "Tebrikler!",
+                                  'Tebrikler!',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: responsive.subtitleFontSize * 1.5,
@@ -572,7 +571,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                                 ),
                                 SizedBox(height: responsive.height * 0.01),
                                 Text(
-                                  "Tüm balonları patlattın!",
+                                  'Tüm balonları patlattın!',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: responsive.bodyFontSize * 1.2,
@@ -615,7 +614,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
         // Duraklatıldı ekranı
         if (_isGamePaused)
           Positioned.fill(
-            child: Container(
+            child: ColoredBox(
               color: Colors.black54,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -672,14 +671,13 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
           child: Container(
             padding: EdgeInsets.all(responsive.width * 0.02),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   blurRadius: 10,
-                  spreadRadius: 0,
-                )
+                ),
               ],
             ),
             child: Column(
@@ -741,13 +739,13 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator(
+        const CircularProgressIndicator(
           color: AppColors.primaryColor,
           strokeWidth: 4,
         ),
         SizedBox(height: responsive.height * 0.015),
         Text(
-          "Balonlar hazırlanıyor...",
+          'Balonlar hazırlanıyor...',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: responsive.subtitleFontSize * 1.1,
@@ -777,7 +775,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
           child: Container(
             padding: EdgeInsets.all(responsive.width * 0.02),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
@@ -791,7 +789,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                 ),
                 SizedBox(height: responsive.height * 0.01),
                 Text(
-                  "Henüz balon yok!",
+                  'Henüz balon yok!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.bodyFontSize * 1.2,
@@ -801,7 +799,7 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
                 ),
                 SizedBox(height: responsive.height * 0.008),
                 Text(
-                  "Bir sayı çizerek balon oyununu başlat!",
+                  'Bir sayı çizerek balon oyununu başlat!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.bodyFontSize * 1.1,
@@ -820,12 +818,6 @@ class _RightPanelWidgetState extends State<RightPanelWidget> with TickerProvider
 
 // Skor panelini ayrı bir widget olarak ekliyorum
 class ScorePanel extends StatelessWidget {
-  final int score;
-  final int remainingBalloons;
-  final int totalBalloons;
-  final int level;
-  final int timeLeft;
-  final ResponsiveSize responsive;
   const ScorePanel({
     required this.score,
     required this.remainingBalloons,
@@ -835,6 +827,12 @@ class ScorePanel extends StatelessWidget {
     required this.responsive,
     super.key,
   });
+  final int score;
+  final int remainingBalloons;
+  final int totalBalloons;
+  final int level;
+  final int timeLeft;
+  final ResponsiveSize responsive;
 
   @override
   Widget build(BuildContext context) {
@@ -846,28 +844,28 @@ class ScorePanel extends StatelessWidget {
           icon: Icons.stars,
           color: Colors.amber,
           value: score.toString(),
-          tooltip: "Puan",
+          tooltip: 'Puan',
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.bubble_chart,
           color: Colors.blue,
-          value: "$remainingBalloons/$totalBalloons",
-          tooltip: "Balon Sayısı",
+          value: '$remainingBalloons/$totalBalloons',
+          tooltip: 'Balon Sayısı',
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.trending_up,
           color: Colors.purple,
           value: level.toString(),
-          tooltip: "Seviye",
+          tooltip: 'Seviye',
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.timer,
           color: Colors.red,
           value: timeLeft.toString(),
-          tooltip: "Kalan Süre",
+          tooltip: 'Kalan Süre',
         ),
       ],
     );
@@ -896,7 +894,7 @@ class ScorePanel extends StatelessWidget {
               width: iconSize,
               height: iconSize,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
             ),
@@ -936,15 +934,14 @@ class ScorePanel extends StatelessWidget {
 
 // Arka planda uçuşan balonlar için widget - StatelessWidget'a dönüştürüldü
 class _BackgroundBalloons extends StatelessWidget {
-  final int balloonCount;
-  final double gameWidth;
-  final double gameHeight;
-
   const _BackgroundBalloons({
     required this.balloonCount,
     required this.gameWidth,
     required this.gameHeight,
   });
+  final int balloonCount;
+  final double gameWidth;
+  final double gameHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -966,13 +963,6 @@ class _BackgroundBalloons extends StatelessWidget {
 
 // Balon sınıfı
 class Balloon {
-  final String id;
-  double x;
-  double y;
-  final double size;
-  final Color color;
-  final double speed;
-
   Balloon({
     required this.id,
     required this.x,
@@ -981,4 +971,10 @@ class Balloon {
     required this.color,
     required this.speed,
   });
+  final String id;
+  double x;
+  double y;
+  final double size;
+  final Color color;
+  final double speed;
 }

@@ -2,7 +2,7 @@ import 'package:abc123/core/constants/language_constants.dart';
 
 // Bu dosya yalnızca `dart run tool/export_l10n_arbs.dart` içindir; uygulama kodu import etmemeli.
 
-final localizedActionToolbarTexts = {
+final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   AppLanguage.turkish: {
     'sequentialMode': 'Sıralı Çizme Modu:',
     'correctTotal': (int correct, int total) =>
@@ -118,7 +118,7 @@ final localizedActionToolbarTexts = {
   },
 };
 
-final localizedToolControlPanelTexts = {
+final Map<AppLanguage, Map<String, String>> localizedToolControlPanelTexts = {
   AppLanguage.turkish: {
     'penColor': 'Kalem Rengi',
     'numberTitle': 'Rakam Öğrenme',
@@ -199,7 +199,7 @@ final localizedToolControlPanelTexts = {
   },
 };
 
-final localizedInfoScreenTexts = {
+final Map<AppLanguage, Map<String, String>> localizedInfoScreenTexts = {
   AppLanguage.turkish: {
     'drawingNotFound': 'Çizim Bulunamadı',
     'drawnLetter': 'Çizdiğin Harf',
@@ -239,7 +239,7 @@ final localizedInfoScreenTexts = {
     'drawingNotFound': 'Dessin non trouvé',
     'drawnLetter': 'Votre dessin',
     'congrats': 'Félicitations !',
-    'successMessage': 'Bravo ! J\'ai reconnu cette lettre correctement !',
+    'successMessage': "Bravo ! J'ai reconnu cette lettre correctement !",
     'back': 'Retour',
   },
   AppLanguage.arabic: {
@@ -294,7 +294,7 @@ final localizedInfoScreenTexts = {
   },
 };
 
-final localizedResultScreenTexts = {
+final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
   AppLanguage.turkish: {
     'drawingNotFound': 'Çizim Bulunamadı',
     'drawn': 'Çizdiğin:',
@@ -368,7 +368,7 @@ final localizedResultScreenTexts = {
     'congrats': 'Félicitations !',
     'tryAgain': 'Réessayez !',
     'targetLetter': 'Cible :',
-    'successMessage': 'Bravo ! J\'ai correctement reconnu votre dessin !',
+    'successMessage': "Bravo ! J'ai correctement reconnu votre dessin !",
     'failMessage': 'Réessayez ! Votre dessin ressemble à autre chose.',
     'progress': (int correct, int total) =>
         'Correct : $correct / Total : $total',
@@ -473,7 +473,7 @@ final localizedResultScreenTexts = {
   },
 };
 
-final localizedTexts = {
+final Map<String, Map<AppLanguage, String>> localizedTexts = {
   'hello': {
     AppLanguage.turkish: 'Merhaba',
     AppLanguage.english: 'Hello',
@@ -834,7 +834,7 @@ final localizedTexts = {
     AppLanguage.chinese: '银铅笔',
     AppLanguage.spanish: 'Lápiz de Plata',
     AppLanguage.hindi: 'चांदी की पेंसिल',
-    AppLanguage.french: 'Crayon d\'Argent',
+    AppLanguage.french: "Crayon d'Argent",
     AppLanguage.arabic: 'قلم فضي',
     AppLanguage.portuguese: 'Lápis de Prata',
     AppLanguage.bengali: 'রৌপ্য পেন্সিল',
@@ -864,7 +864,7 @@ final localizedTexts = {
     AppLanguage.chinese: '金铅笔',
     AppLanguage.spanish: 'Lápiz de Oro',
     AppLanguage.hindi: 'सोने की पेंसिल',
-    AppLanguage.french: 'Crayon d\'Or',
+    AppLanguage.french: "Crayon d'Or",
     AppLanguage.arabic: 'قلم ذهبي',
     AppLanguage.portuguese: 'Lápis de Ouro',
     AppLanguage.bengali: 'সোনার পেন্সিল',
@@ -1044,7 +1044,7 @@ final localizedTexts = {
     AppLanguage.chinese: '字母专家',
     AppLanguage.spanish: 'Profesional del Alfabeto',
     AppLanguage.hindi: 'वर्णमाला समर्थक',
-    AppLanguage.french: 'Pro de l\'Alphabet',
+    AppLanguage.french: "Pro de l'Alphabet",
     AppLanguage.arabic: 'محترف الأبجدية',
     AppLanguage.portuguese: 'Profissional do Alfabeto',
     AppLanguage.bengali: 'বর্ণমালা প্রো',
@@ -1518,7 +1518,7 @@ final localizedTexts = {
     AppLanguage.chinese: '书呆子眼镜',
     AppLanguage.spanish: 'Gafas de Nerd',
     AppLanguage.hindi: 'पढ़ाकू चश्मा',
-    AppLanguage.french: 'Lunettes d\'Intello',
+    AppLanguage.french: "Lunettes d'Intello",
     AppLanguage.arabic: 'نظارات المهووس',
     AppLanguage.portuguese: 'Óculos Nerd',
     AppLanguage.bengali: 'নার্ড গ্লাস',
@@ -1744,7 +1744,7 @@ final localizedTexts = {
     AppLanguage.chinese: '冬衣',
     AppLanguage.spanish: 'Abrigo de Invierno',
     AppLanguage.hindi: 'सर्दी का कोट',
-    AppLanguage.french: 'Manteau d\'Hiver',
+    AppLanguage.french: "Manteau d'Hiver",
     AppLanguage.arabic: 'معطف شتوي',
     AppLanguage.portuguese: 'Casaco de Inverno',
     AppLanguage.bengali: 'শীতের কোট',

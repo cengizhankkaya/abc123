@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:abc123/core/constants/audio.dart';
+import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
+import 'package:abc123/features/colors/application/usecases/get_color_palettes.dart';
 import 'package:abc123/features/colors/domain/color_game_stage.dart';
 import 'package:abc123/features/colors/domain/game_palette_color.dart';
-import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/features/colors/application/usecases/get_color_palettes_use_case.dart';
 import 'package:abc123/features/colors/l10n/generated/colors_localizations.dart';
 import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:abc123/features/colors/presentation/extensions/game_palette_color_extension.dart';
@@ -171,7 +171,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
   Future<void> _newRound() async {
     setState(() => _busy = true);
     final stage = _stage;
-    final getPalettesUseCase = getIt<GetColorPalettesUseCase>();
+    final getPalettesUseCase = getIt<GetColorPalettes>();
     final result = await getPalettesUseCase(stage.poolSize);
     
     if (!mounted) return;
@@ -349,8 +349,6 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       );
     }
 
-    final size = MediaQuery.sizeOf(context);
-    final targetDiameter = size.shortestSide * 0.42;
     if (_target == null || _options.isEmpty) {
       return const Scaffold(
         backgroundColor: Colors.white,
@@ -358,13 +356,72 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
       );
     }
 
-    final t = _target!;
-    final r = targetDiameter / 2;
-    final need = _stage.requiredCorrect;
     final levelInfo = _level;
     final chIdx = ColorGameStory.chapters.indexWhere(
       (c) => c.titleKey == levelInfo.chapter.titleKey,
     );
+
+    return _ColorGameView(
+      l: l,
+      target: _target!,
+      options: _options,
+      stage: _stage,
+      levelInfo: levelInfo,
+      chapterIndex: chIdx,
+      correctInStage: _correctInStage,
+      secondsLeft: _secondsLeft,
+      shakeDx: _shakeDx,
+      pulseScale: _pulseScale,
+      popScale: _popScale,
+      starsVisible: _starsVisible,
+      busy: _busy,
+      onPick: _onPick,
+      onBack: () => context.pop(),
+    );
+  }
+}
+
+class _ColorGameView extends StatelessWidget {
+  const _ColorGameView({
+    required this.l,
+    required this.target,
+    required this.options,
+    required this.stage,
+    required this.levelInfo,
+    required this.chapterIndex,
+    required this.correctInStage,
+    required this.secondsLeft,
+    required this.shakeDx,
+    required this.pulseScale,
+    required this.popScale,
+    required this.starsVisible,
+    required this.busy,
+    required this.onPick,
+    required this.onBack,
+  });
+
+  final ColorsLocalizations l;
+  final GamePaletteColor target;
+  final List<GamePaletteColor> options;
+  final ColorGameStageConfig stage;
+  final ({ColorGameChapterConfig chapter, int levelInChapter, ColorGameStageConfig stage}) levelInfo;
+  final int chapterIndex;
+  final int correctInStage;
+  final int? secondsLeft;
+  final double shakeDx;
+  final Animation<double> pulseScale;
+  final Animation<double> popScale;
+  final bool starsVisible;
+  final bool busy;
+  final Future<void> Function(GamePaletteColor) onPick;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+    final targetDiameter = size.shortestSide * 0.42;
+    final r = targetDiameter / 2;
+    final need = stage.requiredCorrect;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -383,13 +440,13 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
           ),
         ),
         actions: [
-          if (_secondsLeft != null)
+          if (secondsLeft != null)
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: Center(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: _secondsLeft! <= 5
+                    color: secondsLeft! <= 5
                         ? Colors.red.withValues(alpha: 0.9)
                         : const Color(0xFF6C5CE7).withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(20),
@@ -402,7 +459,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
                         const Icon(Icons.timer_rounded, color: Colors.white, size: 20),
                         const SizedBox(width: 6),
                         Text(
-                          l.colorGameTimeLeft(_secondsLeft!.clamp(0, 999)),
+                          l.colorGameTimeLeft(secondsLeft!.clamp(0, 999)),
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w800,
@@ -418,7 +475,7 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
         ],
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.pop(),
+          onPressed: onBack,
         ),
       ),
       body: Container(
@@ -445,14 +502,14 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
               children: [
                 _ChapterProgressPanel(
                   chapterTitle: _colorChapterTitle(l, levelInfo.chapter.titleKey),
-                  chapterPosition: l.colorGameChapterProgress(chIdx + 1, ColorGameStory.totalChapters),
+                  chapterPosition: l.colorGameChapterProgress(chapterIndex + 1, ColorGameStory.totalChapters),
                   levelPosition: l.colorGameLevelProgress(
                     levelInfo.levelInChapter + 1,
                     levelInfo.chapter.levels.length,
                   ),
-                  roundLabel: l.colorGameRoundProgress(_correctInStage, need),
-                  progress: need == 0 ? 0.0 : (_correctInStage / need).clamp(0.0, 1.0),
-                  chapterIndex: chIdx,
+                  roundLabel: l.colorGameRoundProgress(correctInStage, need),
+                  progress: need == 0 ? 0.0 : (correctInStage / need).clamp(0.0, 1.0),
+                  chapterIndex: chapterIndex,
                   totalChapters: ColorGameStory.totalChapters,
                 ),
                 const SizedBox(height: 10),
@@ -469,27 +526,27 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
                         ),
                       ),
                       Transform.translate(
-                        offset: Offset(_shakeDx, 0),
+                        offset: Offset(shakeDx, 0),
                         child: Stack(
                           clipBehavior: Clip.none,
                           alignment: Alignment.center,
                           children: [
                             ScaleTransition(
-                              scale: _pulseScale,
+                              scale: pulseScale,
                               child: ScaleTransition(
-                                scale: _popScale,
+                                scale: popScale,
                                 child: Semantics(
-                                  label: t.localizedName(l),
+                                  label: target.localizedName(l),
                                   hint: l.colorGameInstruction,
                                   container: true,
                                   child: _TargetWordCard(
-                                    word: t.localizedName(l),
+                                    word: target.localizedName(l),
                                     maxWidth: size.shortestSide * 0.86,
                                   ),
                                 ),
                               ),
                             ),
-                            if (_starsVisible) ...[
+                            if (starsVisible) ...[
                               Transform.translate(
                                 offset: Offset(-r * 0.88, -r * 0.42),
                                 child: Icon(
@@ -533,10 +590,10 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
                 const SizedBox(height: 8),
                 _ChoiceGrid(
                   rowKey: const ValueKey('color_choice_row'),
-                  options: _options,
+                  options: options,
                   labelFor: (c) => c.localizedName(l),
-                  enabled: !_busy,
-                  onPick: _onPick,
+                  enabled: !busy,
+                  onPick: onPick,
                 ),
                 const SizedBox(height: 12),
               ],

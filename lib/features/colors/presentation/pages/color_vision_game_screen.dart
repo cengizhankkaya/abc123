@@ -140,6 +140,54 @@ class _ColorVisionGameScreenState extends State<ColorVisionGameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return _ColorVisionGameView(
+      intro: _intro,
+      finished: _finished,
+      correct: _correct,
+      rgCorrect: _rgCorrect,
+      byCorrect: _byCorrect,
+      roundIndex: _roundIndex,
+      rounds: _rounds,
+      awaitingAdvance: _awaitingAdvance,
+      onStart: () => setState(() => _intro = false),
+      onRestart: _restart,
+      onPick: _onPick,
+      onBack: () => context.pop(),
+    );
+  }
+}
+
+class _ColorVisionGameView extends StatelessWidget {
+  const _ColorVisionGameView({
+    required this.intro,
+    required this.finished,
+    required this.correct,
+    required this.rgCorrect,
+    required this.byCorrect,
+    required this.roundIndex,
+    required this.rounds,
+    required this.awaitingAdvance,
+    required this.onStart,
+    required this.onRestart,
+    required this.onPick,
+    required this.onBack,
+  });
+
+  final bool intro;
+  final bool finished;
+  final int correct;
+  final int rgCorrect;
+  final int byCorrect;
+  final int roundIndex;
+  final List<_PlateSpec> rounds;
+  final bool awaitingAdvance;
+  final VoidCallback onStart;
+  final VoidCallback onRestart;
+  final void Function(ColorVisionShape?) onPick;
+  final VoidCallback onBack;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = context.colorsL10n;
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
@@ -152,7 +200,7 @@ class _ColorVisionGameScreenState extends State<ColorVisionGameScreen> {
         title: Text(l10n.colorVisionHomeTitle),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: cs.onSurface),
-          onPressed: () => context.pop(),
+          onPressed: onBack,
           tooltip: l10n.colorGameBack,
         ),
       ),
@@ -175,22 +223,22 @@ class _ColorVisionGameScreenState extends State<ColorVisionGameScreen> {
           top: false,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 72, 20, 16),
-            child: _intro
-                ? _IntroBody(onStart: () => setState(() => _intro = false))
-                : _finished
+            child: intro
+                ? _IntroBody(onStart: onStart)
+                : finished
                     ? _ResultsBody(
-                        correct: _correct,
-                        total: _rounds.length,
-                        rgCorrect: _rgCorrect,
-                        byCorrect: _byCorrect,
-                        onPlayAgain: _restart,
+                        correct: correct,
+                        total: rounds.length,
+                        rgCorrect: rgCorrect,
+                        byCorrect: byCorrect,
+                        onPlayAgain: onRestart,
                       )
                     : _RoundBody(
-                        plate: _rounds[_roundIndex],
-                        roundIndex: _roundIndex,
-                        totalRounds: _rounds.length,
-                        busy: _awaitingAdvance,
-                        onPick: _onPick,
+                        plate: rounds[roundIndex],
+                        roundIndex: roundIndex,
+                        totalRounds: rounds.length,
+                        busy: awaitingAdvance,
+                        onPick: onPick,
                       ),
           ),
         ),

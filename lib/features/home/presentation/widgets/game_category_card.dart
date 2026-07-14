@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
 class GameCategoryCard extends StatefulWidget {
-  final String title;
-  final String progressLabel;
-  final double progress;
-  final Widget image;
-  final Color baseColor;
-  final VoidCallback onTap;
 
   const GameCategoryCard({
     required this.title,
@@ -17,6 +11,12 @@ class GameCategoryCard extends StatefulWidget {
     required this.onTap,
     super.key,
   });
+  final String title;
+  final String progressLabel;
+  final double progress;
+  final Widget image;
+  final Color baseColor;
+  final VoidCallback onTap;
 
   @override
   State<GameCategoryCard> createState() => _GameCategoryCardState();
@@ -34,7 +34,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
       duration: const Duration(milliseconds: 100),
       reverseDuration: const Duration(milliseconds: 100),
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
+    _scaleAnimation = Tween<double>(begin: 1, end: 0.95).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
   }
@@ -80,8 +80,8 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          widget.baseColor.withOpacity(0.9),
-                          widget.baseColor.withOpacity(0.7),
+                          widget.baseColor.withValues(alpha: 0.9),
+                          widget.baseColor.withValues(alpha: 0.7),
                         ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -89,7 +89,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: widget.baseColor.withOpacity(0.3),
+                          color: widget.baseColor.withValues(alpha: 0.3),
                           blurRadius: 15,
                           offset: const Offset(0, 8),
                         ),
@@ -106,7 +106,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                       width: 100,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
+                        color: Colors.white.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -123,7 +123,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                         width: 80,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
+                          color: Colors.white.withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding: const EdgeInsets.all(8),
@@ -149,7 +149,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                               widget.progressLabel,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -162,7 +162,7 @@ class _GameCategoryCardState extends State<GameCategoryCard> with SingleTickerPr
                                       height: 6,
                                       width: constraints.maxWidth,
                                       decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.1),
+                                        color: Colors.black.withValues(alpha: 0.1),
                                         borderRadius: BorderRadius.circular(3),
                                       ),
                                     ),

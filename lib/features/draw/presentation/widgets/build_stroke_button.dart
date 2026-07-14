@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
 
 class BuildStrokeButton extends StatelessWidget {
+
+  const BuildStrokeButton({
+    required this.width, required this.size, required this.currentStrokeWidth, required this.eraseMode, required this.onTap, super.key,
+  });
   final double width;
   final double size;
   final double currentStrokeWidth;
   final bool eraseMode;
   final void Function(double) onTap;
 
-  const BuildStrokeButton({
-    super.key,
-    required this.width,
-    required this.size,
-    required this.currentStrokeWidth,
-    required this.eraseMode,
-    required this.onTap,
-  });
-
   @override
   Widget build(BuildContext context) {
-    bool isSelected = currentStrokeWidth == width && !eraseMode;
+    final isSelected = currentStrokeWidth == width && !eraseMode;
     return GestureDetector(
       onTap: () {
         onTap(width);
       },
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         width: size,
         height: size,
         decoration: BoxDecoration(
@@ -37,7 +32,7 @@ class BuildStrokeButton extends StatelessWidget {
           boxShadow: [
             if (isSelected)
               BoxShadow(
-                color: Colors.blue.withOpacity(0.3),
+                color: Colors.blue.withValues(alpha: 0.3),
                 blurRadius: 8,
                 spreadRadius: 1,
               ),
@@ -47,7 +42,7 @@ class BuildStrokeButton extends StatelessWidget {
           child: Container(
             width: width * 0.6,
             height: width * 0.6,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.black,
               shape: BoxShape.circle,
             ),

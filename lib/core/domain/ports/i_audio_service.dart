@@ -1,3 +1,5 @@
+import 'package:abc123/core/infrastructure/audio/audio_service.dart' show AudioService;
+
 /// Ses servisi için domain portu.
 ///
 /// Presentation katmanı bu interface üzerinden ses işlemlerini çağırır;

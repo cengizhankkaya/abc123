@@ -9,10 +9,10 @@ import 'package:injectable/injectable.dart';
 /// Harf tanıma use case — Presentation katmanı bu use case'i çağırır,
 /// doğrudan infrastructure'a erişmez.
 @injectable
-final class RecognizeLetterUseCase {
-  final IRecognitionRepository _repository;
+final class RecognizeLetter {
 
-  const RecognizeLetterUseCase(this._repository);
+  const RecognizeLetter(this._repository);
+  final IRecognitionRepository _repository;
 
   /// [imageBytes]: Çizim alanından elde edilen PNG bytes.
   /// Döndürür: Tanınan harf (A–Z) veya [DrawRecognitionFailed].
@@ -20,7 +20,7 @@ final class RecognizeLetterUseCase {
     try {
       return await _repository.recognizeLetter(imageBytes);
     } catch (e) {
-      return Left(const DrawRecognitionFailed());
+      return const Left(DrawRecognitionFailed());
     }
   }
 }

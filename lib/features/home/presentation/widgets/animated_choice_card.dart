@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 /// mikro ölçek ve renk geçiş animasyonlu seçim kartı.
 class AnimatedChoiceCard extends StatefulWidget {
   const AnimatedChoiceCard({
-    super.key,
-    required this.title,
-    required this.isSelected,
-    required this.onTap,
+    required this.title, required this.isSelected, required this.onTap, super.key,
     this.subtitle,
     this.leading,
     this.activeBgColor,

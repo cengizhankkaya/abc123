@@ -1,20 +1,14 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
+import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart' show LetterGuideCard;
 import 'package:flutter/material.dart';
 
 /// Sol panel: harf rehberi + altta hedef kelime bandı (harf [LetterGuideCard] deseni).
 class WordGuideCard extends StatelessWidget {
   const WordGuideCard({
-    super.key,
-    required this.guide,
-    required this.emoji,
-    required this.displayText,
-    required this.spelling,
-    required this.targetLetter,
+    required this.guide, required this.emoji, required this.displayText, required this.spelling, required this.targetLetter, super.key,
   });
 
   final DrawingGuide guide;
@@ -34,11 +28,11 @@ class WordGuideCard extends StatelessWidget {
         bottom: AppSizes.paddingSmall(context),
       ),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
+        color: Colors.white.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: AppSizes.paddingLarge(context) * 0.5,
             spreadRadius: 1,
           ),
@@ -61,7 +55,7 @@ class WordGuideCard extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF00B894).withOpacity(0.92),
+                    color: const Color(0xFF00B894).withValues(alpha: 0.92),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
@@ -85,8 +79,8 @@ class WordGuideCard extends StatelessWidget {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [
-                      Colors.white.withOpacity(0.95),
-                      Colors.white.withOpacity(0.75),
+                      Colors.white.withValues(alpha: 0.95),
+                      Colors.white.withValues(alpha: 0.75),
                       Colors.transparent,
                     ],
                   ),

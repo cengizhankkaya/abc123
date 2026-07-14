@@ -1,6 +1,5 @@
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 /// Flutter `Widget` döndürdüğü için domain portuna çıkarılamayan
@@ -13,8 +12,8 @@ import 'package:flutter/services.dart';
 abstract final class ImageService {
   // Varsayılan görsel yükleyici - kaliteyi korur
   static Widget getImage(String path,
-      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius}) {
-    Widget image = Image.asset(
+      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius,}) {
+    final Widget image = Image.asset(
       path,
       width: width,
       height: height,
@@ -119,7 +118,7 @@ abstract final class ImageService {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.3),
+        color: Colors.grey.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Center(

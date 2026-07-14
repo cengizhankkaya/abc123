@@ -136,10 +136,7 @@ class _SparklePainter extends CustomPainter {
 /// ```
 class AnimatedBottomNavBar extends StatefulWidget {
   const AnimatedBottomNavBar({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-    required this.items,
+    required this.currentIndex, required this.onTap, required this.items, super.key,
   });
 
   final int currentIndex;
@@ -195,10 +192,10 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
 
     _bounceScales = _bounceControllers.map((c) {
       return TweenSequence<double>([
-        TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.72), weight: 20),
+        TweenSequenceItem(tween: Tween(begin: 1, end: 0.72), weight: 20),
         TweenSequenceItem(tween: Tween(begin: 0.72, end: 1.22), weight: 35),
         TweenSequenceItem(tween: Tween(begin: 1.22, end: 0.92), weight: 20),
-        TweenSequenceItem(tween: Tween(begin: 0.92, end: 1.0), weight: 25),
+        TweenSequenceItem(tween: Tween(begin: 0.92, end: 1), weight: 25),
       ]).animate(CurvedAnimation(parent: c, curve: Curves.easeInOut));
     }).toList();
 
@@ -210,7 +207,7 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
       ..addListener(_onSparkleUpdate)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed && mounted) {
-          setState(() => _particles.clear());
+          setState(_particles.clear);
         }
       });
   }
@@ -224,15 +221,15 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
     );
 
     _blobScaleX = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.35), weight: 40),
-      TweenSequenceItem(tween: Tween(begin: 1.35, end: 1.0), weight: 60),
+      TweenSequenceItem(tween: Tween(begin: 1, end: 1.35), weight: 40),
+      TweenSequenceItem(tween: Tween(begin: 1.35, end: 1), weight: 60),
     ]).animate(
       CurvedAnimation(parent: _blobController, curve: Curves.easeInOut),
     );
 
     _blobScaleY = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 0.72), weight: 40),
-      TweenSequenceItem(tween: Tween(begin: 0.72, end: 1.0), weight: 60),
+      TweenSequenceItem(tween: Tween(begin: 1, end: 0.72), weight: 40),
+      TweenSequenceItem(tween: Tween(begin: 0.72, end: 1), weight: 60),
     ]).animate(
       CurvedAnimation(parent: _blobController, curve: Curves.easeInOut),
     );
@@ -373,7 +370,7 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
                           transform: Matrix4.diagonal3Values(
                             _blobScaleX.value,
                             _blobScaleY.value,
-                            1.0,
+                            1,
                           ),
                           child: Container(
                             width: itemWidth * 0.76,

@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 
 /// Ebeveyn Paneli: Akıllı Öneri Kartı (Smart Recommendation Tile).
 class RecommendationTile extends StatelessWidget {
-  final Recommendation recommendation;
 
-  const RecommendationTile({super.key, required this.recommendation});
+  const RecommendationTile({required this.recommendation, super.key});
+  final Recommendation recommendation;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class RecommendationTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
         ],
         border: Border.all(
-          color: accentColor.withOpacity(0.3),
+          color: accentColor.withValues(alpha: 0.3),
           width: 1.5,
         ),
       ),
@@ -40,7 +40,7 @@ class RecommendationTile extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: accentColor.withOpacity(0.15),
+              color: accentColor.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(_getIcon(recommendation.iconCode), color: accentColor, size: 28),
@@ -55,7 +55,7 @@ class RecommendationTile extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: accentColor.withOpacity(0.12),
+                        color: accentColor.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(

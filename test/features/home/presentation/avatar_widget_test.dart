@@ -1,5 +1,5 @@
 import 'package:abc123/core/di/injection.dart';
-import 'package:abc123/features/home/domain/entities/shop_item_model.dart';
+import 'package:abc123/features/home/domain/entities/shop_item.dart';
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_controller.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/widgets/avatar_widget.dart';
@@ -74,7 +74,7 @@ void main() {
               ChangeNotifierProvider<GamificationProvider>.value(value: provider),
               ChangeNotifierProvider<FluttermojiController>.value(value: fluttermojiController),
             ],
-            child: const AvatarWidget(size: 180),
+            child: const AvatarWidget(),
           ),
         ),
       ),
@@ -102,7 +102,7 @@ void main() {
               ChangeNotifierProvider<GamificationProvider>.value(value: provider),
               ChangeNotifierProvider<FluttermojiController>.value(value: fluttermojiController),
             ],
-            child: const AvatarWidget(size: 180),
+            child: const AvatarWidget(),
           ),
         ),
       ),

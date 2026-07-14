@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
+import 'package:flutter/material.dart';
 
 class MathResultOverlay extends StatelessWidget {
   const MathResultOverlay({
@@ -18,11 +18,11 @@ class MathResultOverlay extends StatelessWidget {
     final l10n = context.mathL10n;
 
     return Positioned.fill(
-      child: Container(
-        color: Colors.black.withOpacity(0.5),
+      child: ColoredBox(
+        color: Colors.black.withValues(alpha: 0.5),
         child: Center(
           child: TweenAnimationBuilder<double>(
-            tween: Tween(begin: 0.0, end: 1.0),
+            tween: Tween(begin: 0, end: 1),
             duration: const Duration(milliseconds: 300),
             curve: Curves.elasticOut,
             builder: (context, value, child) {
@@ -35,7 +35,7 @@ class MathResultOverlay extends StatelessWidget {
                     borderRadius: BorderRadius.circular(32),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withValues(alpha: 0.2),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),

@@ -4,10 +4,10 @@ import 'package:abc123/features/colors/domain/repositories/i_color_game_reposito
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetColorPalettesUseCase {
-  final IColorGameRepository _repository;
+class GetColorPalettes {
 
-  const GetColorPalettesUseCase(this._repository);
+  const GetColorPalettes(this._repository);
+  final IColorGameRepository _repository;
 
   FutureResult<List<GamePaletteColor>> call(int poolSize) async {
     return _repository.getPalette(poolSize);

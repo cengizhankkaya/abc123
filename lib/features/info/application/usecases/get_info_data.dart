@@ -5,6 +5,6 @@ import 'package:abc123/core/types/result.dart';
 /// Bilgi ekranı verilerini domain repository üzerinden getirir.
 ///
 /// TODO: [IInfoRepository] bağımlılığını enjekte et ve implemente et.
-abstract interface class GetInfoDataUseCase {
+abstract interface class GetInfoData {
   FutureResult<void> execute();
 }

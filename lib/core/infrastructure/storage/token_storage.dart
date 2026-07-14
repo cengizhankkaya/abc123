@@ -1,7 +1,6 @@
+import 'package:abc123/core/domain/ports/i_token_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
-
-import 'package:abc123/core/domain/ports/i_token_storage.dart';
 
 /// [FlutterSecureStorage] ile belirteç saklama (`15_security.md`).
 @LazySingleton(as: ITokenStorage)

@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:abc123/core/di/injection.dart';
@@ -7,7 +6,7 @@ import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
-import 'package:abc123/features/shapes/application/usecases/recognize_shape_use_case.dart';
+import 'package:abc123/features/shapes/application/usecases/recognize_shape.dart';
 import 'package:flutter/material.dart';
 
 /// Şekiller için sıralı çizim durum yöneticisi
@@ -34,7 +33,7 @@ class ShapesSequentialDrawingManager {
 
   String get currentTargetShape => _targetShapes[_currentItemIndex % _targetShapes.length];
 
-  // Sıralı modu aktif/pasif yapar
+  // ignore: avoid_positional_boolean_parameters
   void toggleSequentialMode(bool isActive) {
     _isSequentialModeActive = isActive;
     if (isActive) {
@@ -49,7 +48,7 @@ class ShapesSequentialDrawingManager {
     _totalAttempts = 0;
   }
 
-  // Bir sonraki şekle geç
+  // ignore: avoid_positional_boolean_parameters
   void moveToNextShape(bool wasCorrect) {
     if (!_isSequentialModeActive) return;
 
@@ -70,19 +69,27 @@ class ShapesSequentialDrawingManager {
 
   // Başarı oranını hesapla
   double getSuccessRate() {
-    if (_totalAttempts == 0) return 0.0;
+    if (_totalAttempts == 0) return 0;
     return (_correctlyDrawnCount / _totalAttempts) * 100;
   }
 }
 
 class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
+
+  ShapesDrawingProvider() : _recognizeShapeUseCase = getIt<RecognizeShape>() {
+    // AudioService içindeki kaydedilmiş ses seviyesini başlat
+    volume = getIt<IAudioService>().currentVolume;
+    // Başlangıçta sıralı çizim modunu açık başlat
+    sequentialManager.toggleSequentialMode(true);
+    _updateTanima();
+  }
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim verisi
   final List<DrawingPoint?> points = [];
   bool eraseMode = false;
   Color selectedColor = Colors.black;
-  double strokeWidth = 25.0;
+  double strokeWidth = 25;
 
   // Metin ve durumlar
   static const String _freeDrawText = 'Bir şekil çizin (daire, kare veya üçgen)';
@@ -104,21 +111,13 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   bool lastPredictionCorrect = true;
 
   // Ses seviyesi
-  double volume = 1.0;
+  double volume = 1;
 
   ui.Image? drawingImage;
 
   // Ses için harici servis kullanılacak (AudioService) – burada sadece state var
 
-  final RecognizeShapeUseCase _recognizeShapeUseCase;
-
-  ShapesDrawingProvider() : _recognizeShapeUseCase = getIt<RecognizeShapeUseCase>() {
-    // AudioService içindeki kaydedilmiş ses seviyesini başlat
-    volume = getIt<IAudioService>().currentVolume;
-    // Başlangıçta sıralı çizim modunu açık başlat
-    sequentialManager.toggleSequentialMode(true);
-    _updateTanima();
-  }
+  final RecognizeShape _recognizeShapeUseCase;
 
   void _updateTanima() {
     if (isSequentialModeActive) {
@@ -142,7 +141,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
     notifyListeners();
 
     try {
-      final ui.Image? image = await _renderToImage(context);
+      final image = await _renderToImage(context);
       if (image == null) {
         recognitionResult = 'Görüntü oluşturulamadı';
         isLoading = false;
@@ -151,7 +150,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
         return;
       }
 
-      final ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         recognitionResult = 'Görüntü işlenemedi';
         isLoading = false;
@@ -160,10 +159,10 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
         return;
       }
 
-      final Uint8List pngBytes = byteData.buffer.asUint8List();
+      final pngBytes = byteData.buffer.asUint8List();
 
       final resultEither = await _recognizeShapeUseCase(pngBytes);
-      final String resultLabel = resultEither.fold(
+      final resultLabel = resultEither.fold(
         (failure) => 'Hata oluştu',
         (shape) => shape,
       );
@@ -176,7 +175,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
       isLoading = false;
       showResult = true;
       notifyListeners();
-    } catch (e) {
+    } on Object catch (e) {
       recognitionResult = 'Hata oluştu: $e';
       lastPredictionCorrect = false;
       isLoading = false;
@@ -188,23 +187,22 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   Future<ui.Image?> _renderToImage(BuildContext context) async {
     try {
       final responsive = ResponsiveSize(context);
-      final double drawingSize = responsive.drawingAreaSize;
-      final double scaleRatio = drawingSize / 280.0;
+      final drawingSize = responsive.drawingAreaSize;
+      final scaleRatio = drawingSize / 280.0;
 
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);
 
       final rect = Rect.fromLTWH(0, 0, drawingSize, drawingSize);
-      canvas.drawRect(rect, Paint()..color = Colors.white);
+      canvas
+        ..drawRect(rect, Paint()..color = Colors.white)
+        ..scale(scaleRatio, scaleRatio);
 
-      canvas.scale(scaleRatio, scaleRatio);
-
-      final painter = DrawingPainter(pointsList: points);
-      painter.paint(canvas, const Size(280, 280));
+      DrawingPainter(pointsList: points).paint(canvas, const Size(280, 280));
 
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e, st) {
+    } on Object catch (e, st) {
       getIt<AppLogger>().error(
         'Image render failed',
         tag: 'ShapesDraw',
@@ -234,6 +232,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
     notifyListeners();
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void setEraseMode(bool value) {
     eraseMode = value;
     notifyListeners();
@@ -251,10 +250,12 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
+    // ignore: discarded_futures
     getIt<IAudioService>().setVolume(value);
     notifyListeners();
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void toggleSequentialMode(bool enabled) {
     sequentialManager.toggleSequentialMode(enabled);
     clear();
@@ -263,12 +264,13 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   /// Sıralı modda tanıma sonucunu değerlendirir ve doğru/yanlış bilgisini döner
   bool evaluateSequentialRecognition() {
     if (!isSequentialModeActive) return true;
-    final bool isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
+    final isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
     lastPredictionCorrect = isCorrect;
     return isCorrect;
   }
 
   /// Sonuç ekranı kapatıldıktan sonra sıralı mod ilerlemesini günceller
+  // ignore: avoid_positional_boolean_parameters
   void handleSequentialResult(bool isCorrect) {
     _recordProgressAttempt(isCorrect);
     if (!isSequentialModeActive) return;
@@ -278,6 +280,7 @@ class ShapesDrawingProvider extends ChangeNotifier implements ProgressSource {
   }
 
   /// Sonuç ekranı sonrası yapılacak işlemler (tekrar dene veya devam)
+  // ignore: avoid_positional_boolean_parameters
   void onResultScreenAction(bool isCorrect, {required bool tryAgain}) {
     _recordProgressAttempt(isCorrect);
     if (tryAgain) {

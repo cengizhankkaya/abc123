@@ -5,6 +5,6 @@ import 'package:abc123/core/types/result.dart';
 /// Şekil setini domain repository üzerinden getirir.
 ///
 /// TODO: [IShapeRepository] bağımlılığını enjekte et ve implemente et.
-abstract interface class GetShapeSetUseCase {
+abstract interface class GetShapeSet {
   FutureResult<void> execute();
 }

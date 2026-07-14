@@ -1,18 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
-import 'package:flutter/services.dart';
-import 'dart:async';
-import 'package:abc123/core/presentation/orientation_helper.dart';
-import 'package:provider/provider.dart';
 
-import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/app_font_sizes.dart';
 import 'package:abc123/core/constants/app_radii.dart';
-
+import 'package:abc123/core/constants/app_sizes.dart';
+import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/features/info/l10n/l10n_extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 // Ana uygulamanın main.dart dosyasında uygulamayı başlatırken bu kodu çağırın
 void enforceInfoScreenOrientation() {
@@ -22,10 +20,12 @@ void enforceInfoScreenOrientation() {
 
 // InfoScreen artık bir sayfa olarak çalışacak ve çizimi gösterecek
 class InfoScreen extends StatefulWidget {
+
+  const InfoScreen({
+    required this.drawingImage, required this.recognizedLetter, super.key,
+  });
   final ui.Image? drawingImage;
   final String recognizedLetter;
-
-  const InfoScreen({super.key, required this.drawingImage, required this.recognizedLetter});
 
   @override
   State<InfoScreen> createState() => _InfoScreenState();
@@ -51,14 +51,26 @@ class _InfoScreenState extends State<InfoScreen> {
     // Yatay modu zorla
     unawaited(OrientationHelper.setLandscape());
 
-    final screenSize = MediaQuery.of(context).size;
-    context.watch<LanguageProvider>();
-    final i = context.infoL10n!;
+    return _InfoView(
+      drawingImage: widget.drawingImage,
+      recognizedLetter: widget.recognizedLetter,
+    );
+  }
+}
 
-    final screenWidth = MediaQuery.of(context).size.width;
-    final buttonHorizontalPadding = screenWidth * 0.01; // %1
-    final buttonFontSize = screenWidth * 0.017; // %1.2
-    final buttonMaxWidth = screenWidth * 0.18; // %18
+class _InfoView extends StatelessWidget {
+
+  const _InfoView({
+    required this.drawingImage,
+    required this.recognizedLetter,
+  });
+  final ui.Image? drawingImage;
+  final String recognizedLetter;
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<LanguageProvider>();
+    final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Container(
@@ -67,7 +79,7 @@ class _InfoScreenState extends State<InfoScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF3F51B5).withOpacity(0.8),
+              const Color(0xFF3F51B5).withValues(alpha: 0.8),
               const Color(0xFF303F9F),
             ],
           ),
@@ -78,170 +90,31 @@ class _InfoScreenState extends State<InfoScreen> {
             alignment: Alignment.center,
             children: [
               // Konfeti arka plan
-              const ColorfulConfetti(),
+              const _ColorfulConfetti(),
               // Ana içerik - Yatay düzen (Landscape)
               Padding(
                 padding: EdgeInsets.all(AppSizes.paddingSmall(context)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // Sol bölüm - Çizim görüntüsü
                     Expanded(
                       flex: 2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Çizim görüntüsü - çerçeve içinde
-                          Container(
-                            width: AppSizes.imageSize(context) * 0.8,
-                            height: AppSizes.imageSize(context) * 0.8,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: widget.drawingImage != null
-                                ? CustomPaint(
-                                    painter: DrawingImagePainter(image: widget.drawingImage!),
-                                  )
-                                : Center(
-                                    child: Text(
-                                      i.infoDrawingNotFound,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: AppFontSizes.subtitle(context) * 0.4,
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                          Text(
-                            i.infoDrawnLetter,
-                            style: TextStyle(
-                              fontSize: AppFontSizes.title(context) * 0.4,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
+                      child: _DrawingPanel(drawingImage: drawingImage),
                     ),
 
                     // Orta ayırıcı
                     Container(
                       height: screenSize.height * 0.5,
                       width: 1,
-                      color: Colors.white.withOpacity(0.3),
+                      color: Colors.white.withValues(alpha: 0.3),
                       margin: const EdgeInsets.symmetric(horizontal: 10),
                     ),
 
                     // Sağ bölüm - Metin ve buton
                     Expanded(
                       flex: 2,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes.paddingSmall(context) * 0.003,
-                          vertical: AppSizes.paddingSmall(context) * 0.003,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min, // EKLENDİ
-                          children: [
-                            // Tebrikler yazısı
-                            Text(
-                              i.infoCongrats,
-                              style: TextStyle(
-                                fontSize: AppFontSizes.title(context) * 0.4,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    offset: const Offset(0, 3),
-                                    blurRadius: 5,
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // Tanınan rakam
-                            Container(
-                              width: AppSizes.imageSize(context) * 0.4,
-                              height: AppSizes.imageSize(context) * 0.4,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.yellow,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 3),
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Text(
-                                  widget.recognizedLetter,
-                                  style: TextStyle(
-                                    fontSize: AppFontSizes.title(context) * 0.4,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.indigo,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            // Mesaj metni
-                            Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: AppSizes.paddingLarge(context)),
-                              child: Text(
-                                i.infoSuccessMessage,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: AppFontSizes.subtitle(context) * 0.4,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxWidth: buttonMaxWidth,
-                              ),
-                              child: ElevatedButton(
-                                onPressed: () => context.pop(),
-                                style: ElevatedButton.styleFrom(
-                                  foregroundColor: const Color(0xFF303F9F),
-                                  backgroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: buttonHorizontalPadding,
-                                    vertical: 10,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  elevation: 5,
-                                ),
-                                child: Text(
-                                  i.infoBack,
-                                  style: TextStyle(
-                                    fontSize: buttonFontSize,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      child: _ResultPanel(recognizedLetter: recognizedLetter),
                     ),
                   ],
                 ),
@@ -254,11 +127,177 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 }
 
-// Çizim görüntüsünü göstermek için CustomPainter
-class DrawingImagePainter extends CustomPainter {
-  final ui.Image image;
+class _DrawingPanel extends StatelessWidget {
 
-  DrawingImagePainter({required this.image});
+  const _DrawingPanel({required this.drawingImage});
+  final ui.Image? drawingImage;
+
+  @override
+  Widget build(BuildContext context) {
+    final i = context.infoL10n!;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Çizim görüntüsü - çerçeve içinde
+        Container(
+          width: AppSizes.imageSize(context) * 0.8,
+          height: AppSizes.imageSize(context) * 0.8,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.3),
+                spreadRadius: 2,
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: drawingImage != null
+              ? CustomPaint(
+                  painter: _DrawingImagePainter(image: drawingImage!),
+                )
+              : Center(
+                  child: Text(
+                    i.infoDrawingNotFound,
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: AppFontSizes.subtitle(context) * 0.4,
+                    ),
+                  ),
+                ),
+        ),
+        Text(
+          i.infoDrawnLetter,
+          style: TextStyle(
+            fontSize: AppFontSizes.title(context) * 0.4,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _ResultPanel extends StatelessWidget {
+
+  const _ResultPanel({required this.recognizedLetter});
+  final String recognizedLetter;
+
+  @override
+  Widget build(BuildContext context) {
+    final i = context.infoL10n!;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonHorizontalPadding = screenWidth * 0.01;
+    final buttonFontSize = screenWidth * 0.017;
+    final buttonMaxWidth = screenWidth * 0.18;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSizes.paddingSmall(context) * 0.003,
+        vertical: AppSizes.paddingSmall(context) * 0.003,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Tebrikler yazısı
+          Text(
+            i.infoCongrats,
+            style: TextStyle(
+              fontSize: AppFontSizes.title(context) * 0.4,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withValues(alpha: 0.3),
+                  offset: const Offset(0, 3),
+                  blurRadius: 5,
+                ),
+              ],
+            ),
+          ),
+
+          // Tanınan rakam
+          Container(
+            width: AppSizes.imageSize(context) * 0.4,
+            height: AppSizes.imageSize(context) * 0.4,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.yellow,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                recognizedLetter,
+                style: TextStyle(
+                  fontSize: AppFontSizes.title(context) * 0.4,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo,
+                ),
+              ),
+            ),
+          ),
+          // Mesaj metni
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.paddingLarge(context)),
+            child: Text(
+              i.infoSuccessMessage,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: AppFontSizes.subtitle(context) * 0.4,
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: buttonMaxWidth,
+            ),
+            child: ElevatedButton(
+              onPressed: () => context.pop(),
+              style: ElevatedButton.styleFrom(
+                foregroundColor: const Color(0xFF303F9F),
+                backgroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  horizontal: buttonHorizontalPadding,
+                  vertical: 10,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                elevation: 5,
+              ),
+              child: Text(
+                i.infoBack,
+                style: TextStyle(
+                  fontSize: buttonFontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Çizim görüntüsünü göstermek için CustomPainter
+class _DrawingImagePainter extends CustomPainter {
+
+  _DrawingImagePainter({required this.image});
+  final ui.Image image;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -282,23 +321,23 @@ class DrawingImagePainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-class ColorfulConfetti extends StatelessWidget {
-  const ColorfulConfetti({super.key});
+class _ColorfulConfetti extends StatelessWidget {
+  const _ColorfulConfetti();
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final confettiCount = 50;
+    const confettiCount = 50;
 
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: AppSizes.paddingSmall(context) * 0.003,
         vertical: AppSizes.paddingSmall(context) * 0.003,
       ),
-      child: Container(
+      child: SizedBox(
         width: screenSize.width,
         height: screenSize.height,
-        color: Colors.transparent,
+        // color: Colors.transparent, // Kaldırıldı gereksiz
         child: Stack(
           children: List.generate(
             confettiCount,

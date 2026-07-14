@@ -1,3 +1,5 @@
+import 'package:abc123/core/infrastructure/ads/ad_service.dart' show AdService;
+
 /// Ödüllü reklam servisi için domain portu.
 ///
 /// Presentation katmanı bu interface üzerinden reklam işlemlerini çağırır;

@@ -1,45 +1,44 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
-import 'package:abc123/features/draw/application/usecases/recognize_letter_use_case.dart';
+import 'package:abc123/features/draw/application/usecases/recognize_letter.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
-import 'package:abc123/features/words/application/usecases/get_word_list_use_case.dart';
+import 'package:abc123/features/parent_panel/domain/progress_source.dart';
+import 'package:abc123/features/words/application/usecases/get_word_list.dart';
 import 'package:abc123/features/words/domain/word_drawing_session.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 
 final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
+
+  WordDrawingProvider() :
+    _recognizeLetterUseCase = getIt<RecognizeLetter>(),
+    _getWordListUseCase = getIt<GetWordList>() {
+    volume = getIt<IAudioService>().currentVolume;
+    _activeGuide = DrawingContentProvider.activeLetterGuide;
+  }
   List<DrawingPoint?> points = [];
   bool eraseMode = false;
   Color selectedColor = Colors.black;
-  double strokeWidth = 35.0;
+  double strokeWidth = 35;
 
   bool isLoading = false;
   bool showResult = false;
   String recognitionResult = '';
   ui.Image? drawingImage;
 
-  double volume = 1.0;
+  double volume = 1;
 
   WordDrawingSession? _session;
   late DrawingGuide _activeGuide;
   Locale? _locale;
 
-  final RecognizeLetterUseCase _recognizeLetterUseCase;
-  final GetWordListUseCase _getWordListUseCase;
-
-  WordDrawingProvider() :
-    _recognizeLetterUseCase = getIt<RecognizeLetterUseCase>(),
-    _getWordListUseCase = getIt<GetWordListUseCase>() {
-    volume = getIt<IAudioService>().currentVolume;
-    _activeGuide = DrawingContentProvider.activeLetterGuide;
-  }
+  final RecognizeLetter _recognizeLetterUseCase;
+  final GetWordList _getWordListUseCase;
 
   bool get hasSession => _session != null;
   WordDrawingSession get session => _session!;
@@ -109,7 +108,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
       recognitionResult = result;
       isLoading = false;
       notifyListeners();
-    } catch (e) {
+    } on Object catch (_) {
       isLoading = false;
       notifyListeners();
     }
@@ -124,15 +123,15 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);
       final rect = Rect.fromLTWH(0, 0, drawingSize, drawingSize);
-      canvas.drawRect(rect, Paint()..color = Colors.white);
-      canvas.scale(scaleRatio, scaleRatio);
+      canvas
+        ..drawRect(rect, Paint()..color = Colors.white)
+        ..scale(scaleRatio, scaleRatio);
 
-      final painter = DrawingPainter(pointsList: points);
-      painter.paint(canvas, const Size(280, 280));
+      DrawingPainter(pointsList: points).paint(canvas, const Size(280, 280));
 
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
-    } catch (e, st) {
+    } on Object catch (e, st) {
       getIt<AppLogger>().error(
         'Image render failed',
         tag: 'WordDraw',
@@ -191,6 +190,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
     notifyListeners();
   }
 
+  // ignore: avoid_positional_boolean_parameters
   void setEraseMode(bool value) {
     eraseMode = value;
     notifyListeners();
@@ -212,7 +212,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    getIt<IAudioService>().setVolume(value);
+    unawaited(getIt<IAudioService>().setVolume(value));
     notifyListeners();
   }
 
@@ -234,13 +234,13 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
 
   @override
   double get completionPercentage {
-    if (!hasSession) return 0.0;
+    if (!hasSession) return 0;
     return (session.completedWords / 10.0 * 100.0).clamp(0.0, 100.0);
   }
 
   @override
   double get accuracyRate {
-    if (!hasSession || session.totalAttempts == 0) return 100.0;
+    if (!hasSession || session.totalAttempts == 0) return 100;
     return (session.correctLetters / session.totalAttempts * 100.0).clamp(0.0, 100.0);
   }
 

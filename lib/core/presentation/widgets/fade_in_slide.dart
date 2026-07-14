@@ -3,10 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class FadeInSlide extends StatefulWidget {
-  final Widget child;
-  final Duration duration;
-  final Duration delay;
-  final Offset offset;
 
   const FadeInSlide({
     required this.child,
@@ -15,6 +11,10 @@ class FadeInSlide extends StatefulWidget {
     this.offset = const Offset(0, 0.2), // Slide up slightly
     super.key,
   });
+  final Widget child;
+  final Duration duration;
+  final Duration delay;
+  final Offset offset;
 
   @override
   State<FadeInSlide> createState() => _FadeInSlideState();

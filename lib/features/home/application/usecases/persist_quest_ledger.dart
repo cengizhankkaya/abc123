@@ -1,4 +1,4 @@
-import 'package:abc123/core/application/base/async_use_case.dart';
+import 'package:abc123/core/application/base/use_case.dart';
 import 'package:abc123/core/constants/gamification_constants.dart';
 import 'package:abc123/core/error/run_guarded.dart';
 import 'package:abc123/core/types/result.dart';
@@ -9,10 +9,10 @@ import 'package:injectable/injectable.dart';
 
 /// Görev defterini kalıcılığa yazar (Command).
 @injectable
-final class PersistQuestLedger implements AsyncCommandResult<QuestLedgerWrite> {
-  final IGamificationPersistence _persistence;
+final class PersistQuestLedger implements Command<QuestLedgerWrite, Unit> {
 
   PersistQuestLedger(this._persistence);
+  final IGamificationPersistence _persistence;
 
   @override
   FutureResult<Unit> call(QuestLedgerWrite input) {

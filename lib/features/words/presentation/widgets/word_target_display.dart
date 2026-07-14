@@ -1,15 +1,10 @@
-import 'package:flutter/material.dart';
-
 import 'package:abc123/features/words/presentation/widgets/word_letter_slots.dart';
+import 'package:flutter/material.dart';
 
 /// Hedef kelime gösterimi (emoji + yerelleştirilmiş ad + harf slotları).
 class WordTargetDisplay extends StatelessWidget {
   const WordTargetDisplay({
-    super.key,
-    required this.emoji,
-    required this.displayText,
-    required this.spelling,
-    required this.activeLetterIndex,
+    required this.emoji, required this.displayText, required this.spelling, required this.activeLetterIndex, super.key,
     this.compact = false,
     this.showSlots = true,
     this.slotsAlignment = WrapAlignment.center,

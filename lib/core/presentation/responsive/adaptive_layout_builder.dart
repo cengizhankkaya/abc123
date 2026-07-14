@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
+import 'package:flutter/widgets.dart';
 
 /// [ScreenSize]’a göre çocuğu yeniden oluşturur (`14_adaptive_ui_strategy.md`).
 class AdaptiveLayoutBuilder extends StatelessWidget {

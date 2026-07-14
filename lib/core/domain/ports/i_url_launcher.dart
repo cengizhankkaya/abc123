@@ -1,3 +1,5 @@
+import 'package:abc123/core/infrastructure/security/url_launch_guard.dart' show UrlLaunchGuardImpl;
+
 /// Dış URL açma işlemleri için domain portu.
 ///
 /// Presentation katmanı bu interface üzerinden URL açma işlemlerini çağırır;

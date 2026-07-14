@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigatorBar extends StatefulWidget {
-  final void Function(int) onItemTapped;
 
   const BottomNavigatorBar({
-    super.key,
-    required this.onItemTapped,
+    required this.onItemTapped, super.key,
   });
+  final void Function(int) onItemTapped;
 
   @override
   State<BottomNavigatorBar> createState() => _BottomNavigatorBarState();
@@ -31,7 +30,7 @@ class _BottomNavigatorBarState extends State<BottomNavigatorBar> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withValues(alpha: 0.3),
             spreadRadius: 1,
             blurRadius: 10,
             offset: const Offset(0, 3),
@@ -63,7 +62,7 @@ class _BottomNavigatorBarState extends State<BottomNavigatorBar> {
       curve: Curves.easeInOut,
       padding: EdgeInsets.all(isSelected ? 10 : 8),
       decoration: BoxDecoration(
-        color: isSelected ? Colors.grey.withOpacity(0.1) : Colors.transparent,
+        color: isSelected ? Colors.grey.withValues(alpha: 0.1) : Colors.transparent,
         borderRadius: BorderRadius.circular(15),
       ),
       child: IconButton(
@@ -94,7 +93,7 @@ class _BottomNavigatorBarState extends State<BottomNavigatorBar> {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(isSelected ? 0.3 : 0.2),
+            color: Colors.grey.withValues(alpha: isSelected ? 0.3 : 0.2),
             spreadRadius: isSelected ? 2 : 1,
             blurRadius: isSelected ? 8 : 6,
             offset: const Offset(0, 2),

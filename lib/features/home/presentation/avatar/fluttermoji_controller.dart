@@ -1,23 +1,26 @@
 import 'dart:convert';
 
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/clothes/clothes.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/face/eyebrow/eyebrow.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/face/eyes/eyes.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/face/mouth/mouth.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/face/nose/nose.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/fluttermojimodel.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/skin.dart';
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/style.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/top/accessories/accessories.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/top/facialHair/facialHair.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/top/hairStyles/hairStyle.dart';
+import 'package:abc123/features/home/presentation/avatar/fluttermoji_functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'fluttermoji_functions.dart';
-import 'fluttermoji_assets/fluttermojimodel.dart';
-import 'fluttermoji_assets/clothes/clothes.dart';
-import 'fluttermoji_assets/face/eyebrow/eyebrow.dart';
-import 'fluttermoji_assets/face/eyes/eyes.dart';
-import 'fluttermoji_assets/face/mouth/mouth.dart';
-import 'fluttermoji_assets/face/nose/nose.dart';
-import 'fluttermoji_assets/skin.dart';
-import 'fluttermoji_assets/top/accessories/accessories.dart';
-import 'fluttermoji_assets/top/facialHair/facialHair.dart';
-import 'fluttermoji_assets/top/hairStyles/hairStyle.dart';
-
 /// GetX kaldırıldı — abc123 projesinde ChangeNotifier + provider kullanılıyor.
 class FluttermojiController extends ChangeNotifier {
+
+  FluttermojiController() {
+    _init();
+  }
   String _fluttermoji = '';
 
   String get fluttermoji => _fluttermoji;
@@ -26,11 +29,7 @@ class FluttermojiController extends ChangeNotifier {
   /// Örn: selectedOptions["eyes"] → seçilen göz tipinin indeksi
   Map<String?, dynamic> selectedOptions = <String?, dynamic>{};
 
-  FluttermojiController() {
-    _init();
-  }
-
-  void _init() async {
+  Future<void> _init() async {
     final tempOptions = await getFluttermojiOptions();
     selectedOptions = tempOptions;
     _fluttermoji = getFluttermojiFromOptions();
@@ -47,7 +46,7 @@ class FluttermojiController extends ChangeNotifier {
   }
 
   /// Kaydedilen son versiyonu geri yükler.
-  void restoreState() async {
+  Future<void> restoreState() async {
     final pref = await SharedPreferences.getInstance();
     _fluttermoji = pref.getString('fluttermoji') ??
         FluttermojiFunctions().decodeFluttermojifromString(
@@ -72,7 +71,7 @@ class FluttermojiController extends ChangeNotifier {
     await pref.setString('fluttermoji', fluttermojiNew);
     _fluttermoji = fluttermojiNew;
     await pref.setString(
-        'fluttermojiSelectedOptions', jsonEncode(selectedOptions));
+        'fluttermojiSelectedOptions', jsonEncode(selectedOptions),);
     notifyListeners();
   }
 
@@ -82,18 +81,18 @@ class FluttermojiController extends ChangeNotifier {
         fluttermojiStyle[_getFluttermojiProperty('style')]!;
     final clothe = Clothes.generateClothes(
         clotheType: _getFluttermojiProperty('clotheType'),
-        clColor: _getFluttermojiProperty('clotheColor'))!;
+        clColor: _getFluttermojiProperty('clotheColor'),)!;
     final facialHair = FacialHair.generateFacialHair(
         facialHairType: _getFluttermojiProperty('facialHairType'),
-        fhColor: _getFluttermojiProperty('facialHairColor'))!;
-    final mouthSvg = mouth['${_getFluttermojiProperty('mouthType')}'] as String;
+        fhColor: _getFluttermojiProperty('facialHairColor'),)!;
+    final mouthSvg = mouth[_getFluttermojiProperty('mouthType')] as String;
     final noseSvg = nose['Default'] as String;
-    final eyesSvg = eyes['${_getFluttermojiProperty('eyeType')}'] as String;
-    final eyebrowsSvg = eyebrow['${_getFluttermojiProperty('eyebrowType')}'] as String;
+    final eyesSvg = eyes[_getFluttermojiProperty('eyeType')] as String;
+    final eyebrowsSvg = eyebrow[_getFluttermojiProperty('eyebrowType')] as String;
     final accessory = accessories[_getFluttermojiProperty('accessoriesType')] as String;
     final hair = HairStyle.generateHairStyle(
         hairType: _getFluttermojiProperty('topType'),
-        hColor: _getFluttermojiProperty('hairColor'))!;
+        hColor: _getFluttermojiProperty('hairColor'),)!;
     final skinSvg = skin[_getFluttermojiProperty('skinColor')] as String;
 
     return '''<svg width="264px" height="280px" viewBox="0 0 264 280" version="1.1"
@@ -107,30 +106,14 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
 </defs>
 <g id="Fluttermoji" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 <g transform="translate(-825.000000, -1100.000000)" id="Fluttermoji/Circle">
-<g transform="translate(825.000000, 1100.000000)">''' +
-        fmStyle +
-        '''
-<g id="Mask"></g>
+<g transform="translate(825.000000, 1100.000000)">$fmStyle<g id="Mask"></g>
 <g id="Fluttermoji" stroke-width="1" fill-rule="evenodd">
 <g id="Body" transform="translate(32.000000, 36.000000)">
 
 <mask id="mask-6" fill="white">
 <use xlink:href="#path-5"></use>
 </mask>
-<use fill="#D0C6AC" xlink:href="#path-5"></use>''' +
-        skinSvg +
-        '''<path d="M156,79 L156,102 C156,132.927946 130.927946,158 100,158 C69.072054,158 44,132.927946 44,102 L44,79 L44,94 C44,124.927946 69.072054,150 100,150 C130.927946,150 156,124.927946 156,94 L156,79 Z" id="Neck-Shadow" opacity="0.100000001" fill="#000000" mask="url(#mask-6)"></path></g>''' +
-        clothe +
-        '''<g id="Face" transform="translate(76.000000, 82.000000)" fill="#000000">''' +
-        mouthSvg +
-        facialHair +
-        noseSvg +
-        eyesSvg +
-        eyebrowsSvg +
-        accessory +
-        '''</g>''' +
-        hair +
-        '''</g></g></g></g></svg>''';
+<use fill="#D0C6AC" xlink:href="#path-5"></use>$skinSvg<path d="M156,79 L156,102 C156,132.927946 130.927946,158 100,158 C69.072054,158 44,132.927946 44,102 L44,79 L44,94 C44,124.927946 69.072054,150 100,150 C130.927946,150 156,124.927946 156,94 L156,79 Z" id="Neck-Shadow" opacity="0.100000001" fill="#000000" mask="url(#mask-6)"></path></g>$clothe<g id="Face" transform="translate(76.000000, 82.000000)" fill="#000000">$mouthSvg$facialHair$noseSvg$eyesSvg$eyebrowsSvg$accessory</g>$hair</g></g></g></g></svg>''';
   }
 
   Future<Map<String?, int>> getFluttermojiOptions() async {
@@ -139,14 +122,14 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
     if (saved == null || saved.isEmpty) {
       final defaults = Map<String?, int>.from(defaultFluttermojiOptions);
       await pref.setString(
-          'fluttermojiSelectedOptions', jsonEncode(defaults));
+          'fluttermojiSelectedOptions', jsonEncode(defaults),);
       selectedOptions = defaults;
       notifyListeners();
       return defaults;
     }
     final raw = jsonDecode(saved) as Map;
     final decoded = raw.map<String?, int>(
-        (k, v) => MapEntry(k as String?, v as int));
+        (k, v) => MapEntry(k as String?, v as int),);
     selectedOptions = decoded;
     notifyListeners();
     return decoded;
@@ -162,66 +145,46 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
   String getComponentSVG(String? attributeKey, int? attributeValueIndex) {
     switch (attributeKey) {
       case 'clotheType':
-        return '''<svg width="100px" height="120px" viewBox="30 100 200 250" >''' +
-            Clothes.generateClothes(
+        return '''<svg width="100px" height="120px" viewBox="30 100 200 250" >${Clothes.generateClothes(
                 clotheType: ClotheType.elementAt(attributeValueIndex!),
-                clColor: ClotheColor[selectedOptions['clotheColor'] as int])! +
-            '''</svg>''';
+                clColor: ClotheColor[selectedOptions['clotheColor'] as int],)!}</svg>''';
 
       case 'clotheColor':
         return '''<svg width="120px" height="120px" > 
-                <circle cx="60" cy="60" r="35" stroke="black" stroke-width="1" fill="''' +
-            Clothes.clotheColor[ClotheColor[attributeValueIndex!]]! +
-            '''"/></svg>''';
+                <circle cx="60" cy="60" r="35" stroke="black" stroke-width="1" fill="${Clothes.clotheColor[ClotheColor[attributeValueIndex!]]!}"/></svg>''';
 
       case 'topType':
         if (attributeValueIndex == 0) return emptySVGIcon;
-        return '''<svg width="20px" width="100px" height="100px" viewBox="10 0 250 250">''' +
-            HairStyle.generateHairStyle(
+        return '''<svg width="20px" width="100px" height="100px" viewBox="10 0 250 250">${HairStyle.generateHairStyle(
                 hairType: TopType[attributeValueIndex!],
-                hColor: HairColor[selectedOptions['hairColor'] as int])! +
-            '''</svg>''';
+                hColor: HairColor[selectedOptions['hairColor'] as int],)!}</svg>''';
 
       case 'hairColor':
         return '''<svg width="120px" height="120px" > 
-                <circle cx="60" cy="60" r="30" stroke="black" stroke-width="1" fill="''' +
-            HairStyle.hairColor[HairColor.elementAt(attributeValueIndex!)]! +
-            '''"/> </svg>''';
+                <circle cx="60" cy="60" r="30" stroke="black" stroke-width="1" fill="${HairStyle.hairColor[HairColor.elementAt(attributeValueIndex!)]!}"/> </svg>''';
 
       case 'facialHairType':
         if (attributeValueIndex == 0) return emptySVGIcon;
-        return '''<svg width="20px" height="20px" viewBox="0 -40 112 180" >''' +
-            FacialHair.generateFacialHair(
+        return '''<svg width="20px" height="20px" viewBox="0 -40 112 180" >${FacialHair.generateFacialHair(
                 facialHairType: FacialHairType[attributeValueIndex!],
-                fhColor: FacialHairColor[selectedOptions['facialHairColor'] as int])! +
-            '''</svg>''';
+                fhColor: FacialHairColor[selectedOptions['facialHairColor'] as int],)!}</svg>''';
 
       case 'facialHairColor':
         return '''<svg width="120px" height="120px" > 
-                <circle cx="60" cy="60" r="30" stroke="black" stroke-width="1" fill="''' +
-            FacialHair.facialHairColor[FacialHairColor[attributeValueIndex!]]! +
-            '''"/></svg>''';
+                <circle cx="60" cy="60" r="30" stroke="black" stroke-width="1" fill="${FacialHair.facialHairColor[FacialHairColor[attributeValueIndex!]]!}"/></svg>''';
 
       case 'eyeType':
-        return '''<svg width="20px" height="20px" viewBox="-3 -30 120 120">''' +
-            (eyes[EyeType[attributeValueIndex!]] as String) +
-            '''</svg>''';
+        return '''<svg width="20px" height="20px" viewBox="-3 -30 120 120">${eyes[EyeType[attributeValueIndex!]] as String}</svg>''';
 
       case 'eyebrowType':
-        return '''<svg width="20px" height="20px" viewBox="-3 -50 120 120">''' +
-            (eyebrow[EyebrowType[attributeValueIndex!]] as String) +
-            '''</svg>''';
+        return '''<svg width="20px" height="20px" viewBox="-3 -50 120 120">${eyebrow[EyebrowType[attributeValueIndex!]] as String}</svg>''';
 
       case 'mouthType':
-        return '''<svg width="20px" height="20px" viewBox="0 10 120 120">''' +
-            (mouth[MouthType[attributeValueIndex!]] as String) +
-            '''</svg>''';
+        return '''<svg width="20px" height="20px" viewBox="0 10 120 120">${mouth[MouthType[attributeValueIndex!]] as String}</svg>''';
 
       case 'accessoriesType':
         if (attributeValueIndex == 0) return emptySVGIcon;
-        return '''<svg width="20px" height="20px" viewBox="-3 -50 120 170" >''' +
-            (accessories[AccessoriesType[attributeValueIndex!]] as String) +
-            '''</svg>''';
+        return '''<svg width="20px" height="20px" viewBox="-3 -50 120 170" >${accessories[AccessoriesType[attributeValueIndex!]] as String}</svg>''';
 
       case 'skinColor':
         return '''<svg width="264px" height="280px" viewBox="0 0 264 280" version="1.1"
@@ -242,9 +205,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
 \t\t\t\t\t\t\t<use xlink:href="#path-5"></use>
 \t\t\t\t\t\t</mask>
 \t\t\t\t\t\t<use fill="#D0C6AC" xlink:href="#path-5"></use>
-        ''' +
-            (skin[SkinColor[attributeValueIndex!]] as String) +
-            '''\t<path d="M156,79 L156,102 C156,132.927946 130.927946,158 100,158 C69.072054,158 44,132.927946 44,102 L44,79 L44,94 C44,124.927946 69.072054,150 100,150 C130.927946,150 156,124.927946 156,94 L156,79 Z" id="Neck-Shadow" opacity="0.100000001" fill="#000000" mask="url(#mask-6)"></path>
+        ${skin[SkinColor[attributeValueIndex!]] as String}\t<path d="M156,79 L156,102 C156,132.927946 130.927946,158 100,158 C69.072054,158 44,132.927946 44,102 L44,79 L44,94 C44,124.927946 69.072054,150 100,150 C130.927946,150 156,124.927946 156,94 L156,79 Z" id="Neck-Shadow" opacity="0.100000001" fill="#000000" mask="url(#mask-6)"></path>
 \t\t\t\t</g>
 \t\t</g>
 \t</g>

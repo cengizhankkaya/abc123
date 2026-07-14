@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 /// Ebeveyn Paneli: Tekil Modül İlerleme ve Detay Kartı.
 class ModuleProgressCard extends StatelessWidget {
-  final ModuleProgress progress;
 
-  const ModuleProgressCard({super.key, required this.progress});
+  const ModuleProgressCard({required this.progress, super.key});
+  final ModuleProgress progress;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ModuleProgressCard extends StatelessWidget {
     final accStr = '%${progress.accuracyRate.round()}';
     final compStr = '%${progress.completionPercentage.round()}';
 
-    String dateStr = isTr ? 'Henüz aktivite yok' : 'No activity yet';
+    var dateStr = isTr ? 'Henüz aktivite yok' : 'No activity yet';
     if (progress.lastActivityDate != null) {
       final d = progress.lastActivityDate!;
       dateStr = '${d.day.toString().padLeft(2, '0')}.${d.month.toString().padLeft(2, '0')}.${d.year}';
@@ -32,7 +32,7 @@ class ModuleProgressCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDark ? 0.2 : 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -50,7 +50,7 @@ class ModuleProgressCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: moduleInfo.color.withOpacity(0.15),
+                  color: moduleInfo.color.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(moduleInfo.icon, color: moduleInfo.color, size: 26),
@@ -142,11 +142,10 @@ class ModuleProgressCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.redAccent.withOpacity(isDark ? 0.12 : 0.08),
+                color: Colors.redAccent.withValues(alpha: isDark ? 0.12 : 0.08),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.redAccent.withOpacity(0.3),
-                  width: 1,
+                  color: Colors.redAccent.withValues(alpha: 0.3),
                 ),
               ),
               child: Row(

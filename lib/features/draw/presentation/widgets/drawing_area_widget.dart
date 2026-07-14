@@ -1,10 +1,14 @@
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
 
 class DrawingAreaWidget extends StatelessWidget {
+
+  const DrawingAreaWidget({
+    required this.points, required this.eraseMode, required this.selectedColor, required this.strokeWidth, required this.showResult, required this.isLoading, required this.recognitionResult, required this.animation, required this.tanima, required this.drawingAreaKey, required this.onClear, required this.onDrawPoint, required this.onEndDrawing, super.key,
+  });
   final List<DrawingPoint?> points;
   final bool eraseMode;
   final Color selectedColor;
@@ -18,23 +22,6 @@ class DrawingAreaWidget extends StatelessWidget {
   final VoidCallback onClear;
   final void Function(DrawingPoint?) onDrawPoint;
   final VoidCallback onEndDrawing;
-
-  const DrawingAreaWidget({
-    super.key,
-    required this.points,
-    required this.eraseMode,
-    required this.selectedColor,
-    required this.strokeWidth,
-    required this.showResult,
-    required this.isLoading,
-    required this.recognitionResult,
-    required this.animation,
-    required this.tanima,
-    required this.drawingAreaKey,
-    required this.onClear,
-    required this.onDrawPoint,
-    required this.onEndDrawing,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +40,6 @@ class DrawingAreaWidget extends StatelessWidget {
             child: RepaintBoundary(
               child: Center(
                 child: FittedBox(
-                  fit: BoxFit.contain,
                   child: buildDrawingArea(
                     Size(responsive.width, responsive.height),
                     drawingAreaKey,

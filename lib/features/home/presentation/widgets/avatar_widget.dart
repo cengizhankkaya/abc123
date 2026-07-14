@@ -37,12 +37,12 @@ class _AvatarWidgetState extends State<AvatarWidget>
     );
     _pulseScale = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.0, end: 1.09)
+        tween: Tween<double>(begin: 1, end: 1.09)
             .chain(CurveTween(curve: Curves.easeOutCubic)),
         weight: 42,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.09, end: 1.0)
+        tween: Tween<double>(begin: 1.09, end: 1)
             .chain(CurveTween(curve: Curves.elasticOut)),
         weight: 58,
       ),
@@ -65,7 +65,6 @@ class _AvatarWidgetState extends State<AvatarWidget>
       builder: (context, child) {
         return Transform.scale(
           scale: _pulseScale.value,
-          alignment: Alignment.center,
           child: child,
         );
       },

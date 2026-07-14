@@ -3,14 +3,13 @@ library;
 
 import 'package:abc123/features/words/domain/word_catalog.dart';
 import 'package:abc123/features/words/domain/word_story.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('WordStory', () {
     test('sortedByLength tüm kelimeleri korur', () {
-      final raw = WordCatalog.wordsForLocale(const Locale('en'));
-      final chapters = WordCatalog.chaptersForLocale(const Locale('en'));
+      final raw = WordCatalog.wordsForLocale('en');
+      final chapters = WordCatalog.chaptersForLocale('en');
       final sorted = WordStory.sortedByLength(raw);
       expect(sorted.length, raw.length);
       expect(sorted.map((w) => w.id).toSet(), raw.map((w) => w.id).toSet());
@@ -19,7 +18,7 @@ void main() {
     });
 
     test('levelAt doğru bölüm ve kelimeyi döner', () {
-      final chapters = WordCatalog.chaptersForLocale(const Locale('en'));
+      final chapters = WordCatalog.chaptersForLocale('en');
       final first = WordStory.levelAt(chapters, 0);
       expect(first.chapter.length, 2);
       expect(first.levelInChapter, 0);

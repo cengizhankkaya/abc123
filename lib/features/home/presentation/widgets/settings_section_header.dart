@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 /// Ayarlar ekranındaki bölümler için semantik başlık bileşeni.
 class SettingsSectionHeader extends StatelessWidget {
   const SettingsSectionHeader({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.iconColor,
+    required this.title, required this.icon, required this.iconColor, super.key,
     this.subtitle,
   });
 
@@ -45,7 +42,7 @@ class SettingsSectionHeader extends StatelessWidget {
                   Text(
                     title,
                     style: HomeDesignTokens.headingSection(
-                      color: HomeDesignTokens.darkText,
+                      
                     ),
                   ),
                   if (subtitle != null) ...[

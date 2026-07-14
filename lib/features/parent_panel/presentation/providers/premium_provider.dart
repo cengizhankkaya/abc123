@@ -3,6 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// Ebeveyn Paneli ve Paywall ekranı için Premium/Abonelik durumu yöneticisi.
 class PremiumProvider extends ChangeNotifier {
+
+  PremiumProvider() {
+    _loadStatus();
+  }
   static const String _keyIsPremium = 'is_premium_subscription_active';
   static const String _keyExpiryDate = 'premium_subscription_expiry_date';
 
@@ -13,10 +17,6 @@ class PremiumProvider extends ChangeNotifier {
   bool get isPremium => _isPremium;
   DateTime? get expiryDate => _expiryDate;
   bool get isLoading => _isLoading;
-
-  PremiumProvider() {
-    _loadStatus();
-  }
 
   Future<void> _loadStatus() async {
     final prefs = await SharedPreferences.getInstance();

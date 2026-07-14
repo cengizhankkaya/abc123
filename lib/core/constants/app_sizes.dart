@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
-
 import 'package:abc123/core/presentation/responsive/screen_size.dart';
+import 'package:flutter/widgets.dart';
 
 ScreenSize _screenSize(BuildContext context) =>
     ScreenSize.fromWidth(MediaQuery.sizeOf(context).width);

@@ -21,11 +21,11 @@ void main() {
       mockPersistence = MockGamificationPersistence();
       useCase = PersistDrawingCounters(mockPersistence);
       when(() => mockPersistence.setInt(any(), any()))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async => right(unit));
     });
 
     test('tüm sayaç anahtarlarına doğru değerleri yazar', () async {
-      final input = GamificationTestData.sampleCountersWrite;
+      const input = GamificationTestData.sampleCountersWrite;
 
       final result = await useCase.call(input);
 

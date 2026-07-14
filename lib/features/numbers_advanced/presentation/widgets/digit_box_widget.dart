@@ -60,7 +60,7 @@ class DigitBoxWidget extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -107,10 +107,10 @@ class DigitBoxWidget extends StatelessWidget {
     if (provider.activeBox != boxIndex) {
       provider.setActiveBox(boxIndex);
     }
-    final RenderBox renderBox = boxKey.currentContext?.findRenderObject() as RenderBox;
-    final Offset localPosition = renderBox.globalToLocal(globalPosition);
+    final renderBox = boxKey.currentContext!.findRenderObject()! as RenderBox;
+    final localPosition = renderBox.globalToLocal(globalPosition);
     // Normalize position to 280x280 which the model expects
-    final Offset normalizedPosition = localPosition * (280 / size);
+    final normalizedPosition = localPosition * (280 / size);
     provider.addPoint(
       DrawingPointMath(
         point: normalizedPosition,

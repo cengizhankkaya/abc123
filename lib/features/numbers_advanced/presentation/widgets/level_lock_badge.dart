@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
+import 'package:flutter/material.dart';
 
 class LevelLockBadge extends StatelessWidget {
   const LevelLockBadge({
@@ -23,7 +23,7 @@ class LevelLockBadge extends StatelessWidget {
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -47,7 +47,7 @@ class LevelLockBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(

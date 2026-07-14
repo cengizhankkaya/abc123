@@ -4,10 +4,10 @@ import 'package:abc123/features/words/domain/word_entry.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetWordListUseCase {
-  final IWordRepository _repository;
+class GetWordList {
 
-  const GetWordListUseCase(this._repository);
+  const GetWordList(this._repository);
+  final IWordRepository _repository;
 
   List<WordEntry> call(Locale locale) {
     return _repository.getWordsForLocale(locale);

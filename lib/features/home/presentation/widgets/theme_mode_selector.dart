@@ -25,7 +25,7 @@ class ThemeModeSelector extends StatelessWidget {
         color: scheme.primary,
         size: 32,
       ),
-      onSelected: (AppThemeMode selected) async {
+      onSelected: (selected) async {
         await context.read<ThemeModeProvider>().setAppThemeMode(selected);
       },
       itemBuilder: (_) => [

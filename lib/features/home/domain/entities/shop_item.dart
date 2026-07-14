@@ -9,13 +9,6 @@ enum ShopItemType {
 
 /// Mağaza öğesi domain varlığı (`colorArgb`: 0xAARRGGBB); alanlar değişmez (`11_data_modeling.md`).
 class ShopItem extends Entity {
-  final String id;
-  final String name;
-  final ShopItemType type;
-  final int price;
-  final String? iconKey;
-  final String? assetPath;
-  final int? colorArgb;
 
   ShopItem({
     required this.id,
@@ -26,6 +19,13 @@ class ShopItem extends Entity {
     this.assetPath,
     this.colorArgb,
   });
+  final String id;
+  final String name;
+  final ShopItemType type;
+  final int price;
+  final String? iconKey;
+  final String? assetPath;
+  final int? colorArgb;
 
   @override
   Object get entityId => id;

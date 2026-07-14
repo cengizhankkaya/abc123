@@ -15,10 +15,6 @@ enum AppLanguage {
 }
 
 class LanguageOption {
-  final AppLanguage value;
-  final String label;
-  final String code;
-  final String flag;
 
   const LanguageOption({
     required this.value,
@@ -26,6 +22,10 @@ class LanguageOption {
     required this.code,
     required this.flag,
   });
+  final AppLanguage value;
+  final String label;
+  final String code;
+  final String flag;
 }
 
 const supportedLanguages = [

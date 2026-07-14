@@ -8,4 +8,4 @@
 /// - Birden fazla feature kullanan cross-cutting uygulama mantığı buraya gelir.
 /// - Örnek: analitik servis, deep link yönetimi, push notification handler.
 /// - Tek bir feature tarafından kullanılan servisler o feature'ın `application/` katmanına aittir.
-library core_application;
+library;

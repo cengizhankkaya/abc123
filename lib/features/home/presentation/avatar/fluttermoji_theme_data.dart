@@ -2,25 +2,13 @@ import 'package:flutter/material.dart';
 
 /// Defines the configuration of the overall visual theme for a FluttermojiCustomizer.
 class FluttermojiThemeData {
-  final TextStyle labelTextStyle;
-  final Color primaryBgColor;
-  final Color secondaryBgColor;
-  final Decoration selectedTileDecoration;
-  final Decoration? unselectedTileDecoration;
-  final Color iconColor;
-  final Color selectedIconColor;
-  final Color unselectedIconColor;
-  final Decoration boxDecoration;
-  final ScrollPhysics scrollPhysics;
-  final EdgeInsetsGeometry tilePadding;
-  final EdgeInsetsGeometry tileMargin;
 
   FluttermojiThemeData({
     TextStyle? labelTextStyle,
     Color? primaryBgColor,
     Color? secondaryBgColor,
     Decoration? selectedTileDecoration,
-    Decoration? unselectedTileDecoration,
+    this.unselectedTileDecoration,
     Color? iconColor,
     Color? selectedIconColor,
     Color? unselectedIconColor,
@@ -35,20 +23,31 @@ class FluttermojiThemeData {
         unselectedIconColor = unselectedIconColor ?? const Color(0xFF9C9C9C),
         selectedTileDecoration = selectedTileDecoration ??
             BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: const Color(0xFF00FF00),
-                width: 3.0,
+                width: 3,
               ),
             ),
-        unselectedTileDecoration = unselectedTileDecoration,
         boxDecoration =
             boxDecoration ?? BoxDecoration(borderRadius: BorderRadius.circular(18)),
         labelTextStyle = labelTextStyle ??
             const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
         scrollPhysics = scrollPhysics ?? const ClampingScrollPhysics(),
-        tileMargin = tileMargin ?? const EdgeInsets.all(2.0),
-        tilePadding = tilePadding ?? const EdgeInsets.all(2.0);
+        tileMargin = tileMargin ?? const EdgeInsets.all(2),
+        tilePadding = tilePadding ?? const EdgeInsets.all(2);
+  final TextStyle labelTextStyle;
+  final Color primaryBgColor;
+  final Color secondaryBgColor;
+  final Decoration selectedTileDecoration;
+  final Decoration? unselectedTileDecoration;
+  final Color iconColor;
+  final Color selectedIconColor;
+  final Color unselectedIconColor;
+  final Decoration boxDecoration;
+  final ScrollPhysics scrollPhysics;
+  final EdgeInsetsGeometry tilePadding;
+  final EdgeInsetsGeometry tileMargin;
 
   FluttermojiThemeData copyWith({
     TextStyle? labelTextStyle,
@@ -86,18 +85,17 @@ class FluttermojiThemeData {
     iconColor: const Color(0xFF9C9C9C),
     selectedIconColor: const Color(0xFF424242),
     selectedTileDecoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(12),
       border: Border.all(
-        color: Color(0xFF00FF00),
-        width: 3.0,
+        color: const Color(0xFF00FF00),
+        width: 3,
       ),
     ),
-    unselectedTileDecoration: null,
     boxDecoration: BoxDecoration(borderRadius: BorderRadius.circular(18)),
     labelTextStyle:
         const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
     scrollPhysics: const ClampingScrollPhysics(),
-    tileMargin: const EdgeInsets.all(2.0),
-    tilePadding: const EdgeInsets.all(2.0),
+    tileMargin: const EdgeInsets.all(2),
+    tilePadding: const EdgeInsets.all(2),
   );
 }

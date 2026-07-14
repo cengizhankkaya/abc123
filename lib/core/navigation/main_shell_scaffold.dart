@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 
 /// [StatefulShellRoute.indexedStack] kabuğu; [ScreenSize]’a göre gezinme deseni (`14_adaptive_ui_strategy.md`).
 class MainShellScaffold extends StatefulWidget {
-  const MainShellScaffold({super.key, required this.navigationShell});
+  const MainShellScaffold({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
 

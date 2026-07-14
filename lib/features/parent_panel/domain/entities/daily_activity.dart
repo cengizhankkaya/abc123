@@ -1,14 +1,14 @@
 /// Ebeveyn Paneli'ndeki haftalık ve günlük çalışma/aktivite grafiği için veri modeli.
 class DailyActivity {
-  final DateTime date;
-  final int durationMinutes;
-  final int completedActivitiesCount;
 
   const DailyActivity({
     required this.date,
     required this.durationMinutes,
     required this.completedActivitiesCount,
   });
+  final DateTime date;
+  final int durationMinutes;
+  final int completedActivitiesCount;
 
   /// Günün adını kısa olarak döndürür (örn. Pzt, Sal / Mon, Tue).
   String getShortDayName(bool isTurkish) {

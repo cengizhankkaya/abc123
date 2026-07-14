@@ -5,16 +5,16 @@ import 'package:abc123/features/parent_panel/domain/repositories/i_recommendatio
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetRecommendationsUseCase {
-  final IRecommendationRepository _repository;
+class GetRecommendations {
 
-  GetRecommendationsUseCase(this._repository);
+  GetRecommendations(this._repository);
+  final IRecommendationRepository _repository;
 
   FutureResult<List<Recommendation>> call({
     required List<ModuleProgress> progressList,
     required bool isTurkish,
   }) async {
-    return await _repository.generateRecommendations(
+    return _repository.generateRecommendations(
       progressList: progressList,
       isTurkish: isTurkish,
     );

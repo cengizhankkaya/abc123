@@ -1,3 +1,5 @@
+import 'package:abc123/core/error/failures/failure.dart' show Failure;
+
 /// Sunucu tarafından dönen hatalar için exception (`01_project_structure.md` — core/error/exceptions).
 ///
 /// Infrastructure katmanında fırlatılır; repository'ler bunu [Failure]'a

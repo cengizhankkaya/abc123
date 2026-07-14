@@ -16,3 +16,7 @@ linter:
     public_member_api_docs: false
     # Mevcut kod tabanında satır kırılımı aşamalı düzeltilecek.
     lines_longer_than_80_chars: false
+    # Clean Architecture için UseCase/Repository interfaceleri tek metoda sahiptir
+    one_member_abstracts: false
+    # ignore: yorumları için dokümantasyon zorunluluğu kapalı
+    document_ignores: false

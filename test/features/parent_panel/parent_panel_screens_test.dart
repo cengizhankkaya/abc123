@@ -1,9 +1,13 @@
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/error/exception_handler.dart';
+import 'package:abc123/core/error/failure_mapper.dart';
 import 'package:abc123/core/l10n/app_localizations_setup.dart';
+import 'package:abc123/core/logging/loggers/console_logger.dart';
 import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/letters/presentation/providers/letter_drawing_provider.dart';
 import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
+import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary.dart';
 import 'package:abc123/features/parent_panel/infrastructure/repositories/progress_aggregator_repository_impl.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/premium_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
@@ -58,7 +62,10 @@ void main() {
             context.read<ShapesDrawingProvider>(),
             context.read<WordDrawingProvider>(),
             context.read<MathProgressProvider>(),
-          ]),
+          ], ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper(),),
+        ),
+        ProxyProvider<ProgressAggregatorRepositoryImpl, GetProgressSummary>(
+          update: (context, repo, _) => GetProgressSummary(repo),
         ),
       ],
       child: MaterialApp(

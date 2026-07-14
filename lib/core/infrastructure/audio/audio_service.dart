@@ -7,26 +7,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton(as: IAudioService)
 class AudioService implements IAudioService {
-  static final AudioService _instance = AudioService._internal();
   factory AudioService() => _instance;
   AudioService._internal() {
     // Android/iOS ses bağlamını ayarla (audioplayers ^7.x uyumlu)
     final context = AudioContext(
-      android: AudioContextAndroid(
-        isSpeakerphoneOn: false,
-        stayAwake: false,
-        contentType: AndroidContentType.music,
-        usageType: AndroidUsageType.media,
-        audioFocus: AndroidAudioFocus.gain,
+      android: const AudioContextAndroid(
+        
       ),
       iOS: AudioContextIOS(
-        category: AVAudioSessionCategory.playback,
-        options: {AVAudioSessionOptions.duckOthers},
+        options: const {AVAudioSessionOptions.duckOthers},
       ),
     );
     _bgPlayer.setAudioContext(context);
     _effectPlayer.setAudioContext(context);
   }
+  static final AudioService _instance = AudioService._internal();
 
   final AudioPlayer _bgPlayer = AudioPlayer();
   final AudioPlayer _effectPlayer = AudioPlayer();
@@ -34,11 +29,13 @@ class AudioService implements IAudioService {
   AppLogger get _log => getIt<AppLogger>();
 
   static const String _volumeKey = 'global_volume';
-  double _currentVolume = 1.0;
+  double _currentVolume = 1;
 
+  @override
   double get currentVolume => _currentVolume;
 
   /// Uygulama başlarken daha önce kaydedilmiş ses seviyesini yükler
+  @override
   Future<void> init() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -60,6 +57,7 @@ class AudioService implements IAudioService {
     }
   }
 
+  @override
   Future<void> playBackground(String assetPath, {bool loop = true}) async {
     try {
       await _bgPlayer.stop();
@@ -82,10 +80,12 @@ class AudioService implements IAudioService {
     }
   }
 
+  @override
   Future<void> stopBackground() async {
     await _bgPlayer.stop();
   }
 
+  @override
   Future<void> playEffect(String assetPath) async {
     try {
       await _effectPlayer.setReleaseMode(ReleaseMode.stop);
@@ -102,6 +102,7 @@ class AudioService implements IAudioService {
     }
   }
 
+  @override
   Future<void> playEffectAndResumeBackground(String effectPath, String bgPath) async {
     await _bgPlayer.pause();
     await _effectPlayer.setReleaseMode(ReleaseMode.stop);
@@ -110,11 +111,13 @@ class AudioService implements IAudioService {
     await _bgPlayer.resume();
   }
 
+  @override
   Future<void> dispose() async {
     await _bgPlayer.dispose();
     await _effectPlayer.dispose();
   }
 
+  @override
   Future<void> setVolume(double volume) async {
     _currentVolume = volume.clamp(0.0, 1.0);
     await _bgPlayer.setVolume(_currentVolume);

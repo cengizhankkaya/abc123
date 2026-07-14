@@ -10,14 +10,14 @@ import 'package:provider/provider.dart';
 /// Widget'in çalışması için widget ağacında `FluttermojiController`'ın
 /// `ChangeNotifierProvider` olarak sağlanmış olması gerekir.
 class FluttermojiCircleAvatar extends StatelessWidget {
-  final double radius;
-  final Color? backgroundColor;
 
   const FluttermojiCircleAvatar({
     super.key,
     this.radius = 75.0,
     this.backgroundColor,
   });
+  final double radius;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {

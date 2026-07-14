@@ -1,11 +1,5 @@
 /// Çizim sayaçlarını kalıcılığa yazmak için girdi (değişmez DTO — `11_data_modeling.md`).
 class DrawingCountersWrite {
-  final int totalDrawings;
-  final int numberDrawings;
-  final int letterDrawings;
-  final int shapeDrawings;
-  final int colorRounds;
-  final int wordsCompleted;
 
   const DrawingCountersWrite({
     required this.totalDrawings,
@@ -15,4 +9,10 @@ class DrawingCountersWrite {
     required this.colorRounds,
     required this.wordsCompleted,
   });
+  final int totalDrawings;
+  final int numberDrawings;
+  final int letterDrawings;
+  final int shapeDrawings;
+  final int colorRounds;
+  final int wordsCompleted;
 }

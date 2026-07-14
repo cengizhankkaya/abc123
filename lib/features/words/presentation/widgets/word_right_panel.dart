@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:abc123/core/constants/app_colors.dart';
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
@@ -11,12 +9,7 @@ import 'package:flutter/material.dart';
 /// Sağ panel: puzzle yerine hedef kelime ve harf ilerlemesi.
 class WordRightPanel extends StatelessWidget {
   const WordRightPanel({
-    super.key,
-    required this.emoji,
-    required this.displayText,
-    required this.spelling,
-    required this.activeLetterIndex,
-    required this.isLoading,
+    required this.emoji, required this.displayText, required this.spelling, required this.activeLetterIndex, required this.isLoading, super.key,
   });
 
   final String emoji;
@@ -42,7 +35,7 @@ class WordRightPanel extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 12,
               spreadRadius: 2,
               offset: const Offset(0, 3),
@@ -69,7 +62,6 @@ class WordRightPanel extends StatelessWidget {
                             spelling: spelling,
                             activeLetterIndex: activeLetterIndex,
                             compact: true,
-                            showSlots: true,
                           ),
                         ),
                       ),

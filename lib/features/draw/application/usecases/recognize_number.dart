@@ -9,10 +9,10 @@ import 'package:injectable/injectable.dart';
 /// Rakam tanıma use case — Presentation katmanı bu use case'i çağırır,
 /// doğrudan infrastructure'a erişmez.
 @injectable
-final class RecognizeNumberUseCase {
-  final INumberRecognitionRepository _repository;
+final class RecognizeNumber {
 
-  const RecognizeNumberUseCase(this._repository);
+  const RecognizeNumber(this._repository);
+  final INumberRecognitionRepository _repository;
 
   /// [imageBytes]: Çizim alanından elde edilen PNG bytes.
   /// Döndürür: Tanınan rakam (0–9) veya [DrawRecognitionFailed].
@@ -20,7 +20,7 @@ final class RecognizeNumberUseCase {
     try {
       return await _repository.recognizeNumber(imageBytes);
     } catch (e) {
-      return Left(const DrawRecognitionFailed());
+      return const Left(DrawRecognitionFailed());
     }
   }
 }

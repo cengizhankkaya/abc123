@@ -1,9 +1,9 @@
-part of '../../../../../core/navigation/app_router.dart';
+part of '../../../../core/navigation/app_router.dart';
 
 final _homeRoutes = [
   GoRoute(
     path: AppRoutes.tutorial,
-    builder: (context, state) => YoutubeVideoScreen(),
+    builder: (context, state) => const YoutubeVideoScreen(),
   ),
   GoRoute(
     path: AppRoutes.badgesFull,

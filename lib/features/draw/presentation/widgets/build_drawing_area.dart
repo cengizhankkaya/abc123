@@ -1,8 +1,8 @@
 import 'package:abc123/core/constants/app_colors.dart';
+import 'package:abc123/core/constants/app_radii.dart';
+import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_sizes.dart';
-import '../../../../core/constants/app_radii.dart';
 
 /// Çizim alanını oluşturan widget
 Widget buildDrawingArea(
@@ -23,7 +23,7 @@ Widget buildDrawingArea(
   BuildContext context,
 ) {
   // Ekran boyutuna göre çizim alanı boyutlarını hesapla
-  final double drawingSize = AppSizes.drawingAreaSize(context);
+  final drawingSize = AppSizes.drawingAreaSize(context);
 
   return Center(
     child: Stack(
@@ -45,13 +45,13 @@ Widget buildDrawingArea(
               child: GestureDetector(
               onPanStart: (details) {
                 if (showResult) return;
-                final RenderBox renderBox =
-                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
+                final renderBox =
+                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
+                final localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition = localPosition * (280 / drawingSize);
+                final normalizedPosition = localPosition * (280 / drawingSize);
 
                 onAddPoint(
                   DrawingPoint(
@@ -66,13 +66,13 @@ Widget buildDrawingArea(
               },
               onPanUpdate: (details) {
                 if (showResult) return;
-                final RenderBox renderBox =
-                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
+                final renderBox =
+                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
+                final localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition = localPosition * (280 / drawingSize);
+                final normalizedPosition = localPosition * (280 / drawingSize);
 
                 onAddPoint(
                   DrawingPoint(
@@ -85,15 +85,15 @@ Widget buildDrawingArea(
                   ),
                 );
               },
-              onTapDown: (TapDownDetails details) {
+              onTapDown: (details) {
                 if (showResult) return;
-                final RenderBox renderBox =
-                    drawingAreaKey.currentContext?.findRenderObject() as RenderBox;
+                final renderBox =
+                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
                 // Çizim alanı içindeki tam konumu hesapla
-                final Offset localPosition = renderBox.globalToLocal(details.globalPosition);
+                final localPosition = renderBox.globalToLocal(details.globalPosition);
                 // Pozisyonu normalize et
-                final Offset normalizedPosition = localPosition * (280 / drawingSize);
+                final normalizedPosition = localPosition * (280 / drawingSize);
 
                 // Tek noktada çizim için aynı konuma iki nokta ekle
                 onAddPoint(
@@ -131,7 +131,7 @@ Widget buildDrawingArea(
                   width: drawingSize,
                   height: drawingSize,
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.85),
+                    color: Colors.black.withValues(alpha: 0.85),
                     borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
                     border: Border.all(
                       color: AppColors.accentColor,
@@ -142,7 +142,7 @@ Widget buildDrawingArea(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Tahmin Sonucu:",
+                        'Tahmin Sonucu:',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: drawingSize * 0.14,
@@ -158,7 +158,7 @@ Widget buildDrawingArea(
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.accentColor.withOpacity(0.5),
+                              color: AppColors.accentColor.withValues(alpha: 0.5),
                               blurRadius: 20,
                               spreadRadius: 5,
                             ),
@@ -198,9 +198,9 @@ Widget buildDrawingArea(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(Icons.refresh, size: drawingSize * 0.06),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             Text(
-                              "Tekrar Çiz",
+                              'Tekrar Çiz',
                               style: TextStyle(
                                 fontSize: drawingSize * 0.06,
                                 fontWeight: FontWeight.bold,
@@ -219,8 +219,8 @@ Widget buildDrawingArea(
         // Yükleme indikatörü
         if (isLoading)
           Positioned.fill(
-            child: Container(
-              color: Colors.black.withOpacity(0.5),
+            child: ColoredBox(
+              color: Colors.black.withValues(alpha: 0.5),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -230,12 +230,12 @@ Widget buildDrawingArea(
                       height: drawingSize * 0.15,
                       child: CircularProgressIndicator(
                         strokeWidth: drawingSize * 0.015,
-                        valueColor: AlwaysStoppedAnimation<Color>(AppColors.accentColor),
+                        valueColor: const AlwaysStoppedAnimation<Color>(AppColors.accentColor),
                       ),
                     ),
                     SizedBox(height: drawingSize * 0.07),
                     Text(
-                      "Tanımlanıyor...",
+                      'Tanımlanıyor...',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: drawingSize * 0.06,
@@ -254,17 +254,17 @@ Widget buildDrawingArea(
 
 /// DrawingPainter sınıfı - çizimi yapan CustomPainter
 class DrawingPainter extends CustomPainter {
-  final List<DrawingPoint?> pointsList;
 
   DrawingPainter({required this.pointsList});
+  final List<DrawingPoint?> pointsList;
 
   @override
   void paint(Canvas canvas, Size size) {
     // Ekran boyutuna göre ölçeklendirme için hazırlık
-    final double scaleX = size.width / 280.0;
-    final double scaleY = size.height / 280.0;
+    final scaleX = size.width / 280.0;
+    final scaleY = size.height / 280.0;
 
-    for (int i = 0; i < pointsList.length - 1; i++) {
+    for (var i = 0; i < pointsList.length - 1; i++) {
       if (pointsList[i] != null && pointsList[i + 1] != null) {
         // Çizgi çiz - ölçeklendirilmiş koordinatlar
         canvas.drawLine(
@@ -298,8 +298,8 @@ class DrawingPainter extends CustomPainter {
 
 /// Çizim noktası sınıfı
 class DrawingPoint {
-  final Offset point;
-  final Paint paint;
 
   DrawingPoint({required this.point, required this.paint});
+  final Offset point;
+  final Paint paint;
 }

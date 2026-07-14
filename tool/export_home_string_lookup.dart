@@ -15,7 +15,7 @@ void main() {
     ..sort();
 
   final shopKeys =
-      keys.where((k) => k.startsWith(RegExp(r'(hat_|glasses_|outfit_)')));
+      keys.where((k) => k.startsWith(RegExp('(hat_|glasses_|outfit_)')));
   final badgeKeys = keys.where(
     (k) => k.startsWith('badge') && (k.endsWith('Name') || k.endsWith('Desc')),
   );

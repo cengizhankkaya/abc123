@@ -1,5 +1,5 @@
-import 'package:abc123/features/colors/domain/game_palette_color.dart';
 import 'package:abc123/core/types/result.dart';
+import 'package:abc123/features/colors/domain/game_palette_color.dart';
 
 /// Renk oyunu için domain portu.
 ///
