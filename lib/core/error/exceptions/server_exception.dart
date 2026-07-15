@@ -15,7 +15,7 @@ import 'package:abc123/core/error/failures/failure.dart' show Failure;
 ///   );
 /// }
 /// ```
-class ServerException implements Exception {
+final class ServerException implements Exception {
   const ServerException({
     required this.message,
     this.statusCode,
@@ -32,7 +32,7 @@ class ServerException implements Exception {
 }
 
 /// Önbellek / yerel depolama hatası.
-class CacheException implements Exception {
+final class CacheException implements Exception {
   const CacheException({required this.message});
 
   final String message;
@@ -42,7 +42,7 @@ class CacheException implements Exception {
 }
 
 /// Ağ bağlantısı hatası — sunucu yanıtsız veya internet yok.
-class NetworkException implements Exception {
+final class NetworkException implements Exception {
   const NetworkException({this.message = 'İnternet bağlantısı yok.'});
 
   final String message;

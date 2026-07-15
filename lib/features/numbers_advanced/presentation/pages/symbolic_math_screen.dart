@@ -6,6 +6,7 @@ import 'package:abc123/features/numbers_advanced/presentation/widgets/math_resul
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class SymbolicMathScreen extends StatefulWidget {
   const SymbolicMathScreen({super.key});
@@ -29,7 +30,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF6C63FF)),
+          icon: Icon(Icons.arrow_back_ios_new, color: context.mathColors.purple),
           onPressed: () => context.pop(),
         ),
       ),
@@ -39,7 +40,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF6C5CE7).withValues(alpha: 0.1),
+              context.mathColors.deepPurple.withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -87,10 +88,10 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                       // İşlem Metni
                       Text(
                         '${operation.operandA} ${operation.operator} ${operation.operandB} = ?',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 64,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF6C5CE7),
+                          color: context.mathColors.deepPurple,
                         ),
                       ),
 
@@ -191,7 +192,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6C63FF),
+                            backgroundColor: context.mathColors.purple,
                             padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -207,7 +208,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                           ),
                         ),
 
-                      if (isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+                      if (isLoading) CircularProgressIndicator(color: context.mathColors.purple),
 
                       // Alt Araç Çubuğu
                       Padding(
@@ -280,16 +281,16 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 4),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF6C5CE7) : Colors.white,
+          color: isSelected ? context.mathColors.deepPurple : Colors.white,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: isSelected ? const Color(0xFF6C5CE7) : Colors.grey.shade300,
+            color: isSelected ? context.mathColors.deepPurple : Colors.grey.shade300,
             width: 2,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: const Color(0xFF6C5CE7).withValues(alpha: 0.3),
+                    color: context.mathColors.deepPurple.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),

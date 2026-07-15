@@ -9,6 +9,13 @@ extension ThemeAccessX on BuildContext {
     return ext!;
   }
 
+  /// [MathColors] tema uzantısı
+  MathColors get mathColors {
+    final ext = Theme.of(this).extension<MathColors>();
+    assert(ext != null, 'MathColors ThemeExtension eksik');
+    return ext!;
+  }
+
   ColorScheme get appColorScheme => ColorScheme.of(this);
 
   TextTheme get appTextTheme => TextTheme.of(this);

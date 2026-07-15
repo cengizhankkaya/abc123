@@ -10,6 +10,7 @@ import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({
@@ -223,7 +224,7 @@ class _DrawingResultPanel extends StatelessWidget {
                   child: Text(
                     i.resultDrawingNotFound,
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: context.appColorScheme.outline,
                       fontSize: AppFontSizes.subtitle(context) * 0.4,
                     ),
                   ),
@@ -256,7 +257,7 @@ class _DrawingResultPanel extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ).copyWith(
-                  color: isCorrect ? Colors.green : Colors.red,
+                  color: isCorrect ? context.semanticColors.success : context.appColorScheme.error,
                 ),
               ),
             ),
@@ -339,7 +340,8 @@ class _ActionPanel extends StatelessWidget {
                   style: TextStyle(
                     fontSize: AppFontSizes.title(context) * 0.4,
                     fontWeight: FontWeight.bold,
-                    color: isCorrect ? Colors.green : Colors.red,
+                    color:
+                        isCorrect ? context.semanticColors.success : context.appColorScheme.error,
                   ),
                 ),
               ),
@@ -397,7 +399,7 @@ class _ActionPanel extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onTryAgain,
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.grey[800],
+                  foregroundColor: context.appColorScheme.onSurfaceVariant,
                   backgroundColor: Colors.white,
                   padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.015,
@@ -425,7 +427,8 @@ class _ActionPanel extends StatelessWidget {
                 onPressed: onContinue,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: isCorrect ? Colors.green[600] : Colors.blue[600],
+                  backgroundColor:
+                      isCorrect ? context.semanticColors.success : context.appColorScheme.primary,
                   padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.015,
                   ),

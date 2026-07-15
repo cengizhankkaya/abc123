@@ -1,4 +1,4 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -48,7 +48,7 @@ class WordRightPanel extends StatelessWidget {
           ],
         ),
         child: isLoading
-            ? _buildLoading(responsive, loadingText)
+            ? _buildLoading(context, responsive, loadingText)
             : LayoutBuilder(
                 builder: (context, constraints) {
                   return Center(
@@ -78,7 +78,7 @@ class WordRightPanel extends StatelessWidget {
     );
   }
 
-  Widget _buildLoading(ResponsiveSize responsive, String text) {
+  Widget _buildLoading(BuildContext context, ResponsiveSize responsive, String text) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -93,7 +93,7 @@ class WordRightPanel extends StatelessWidget {
           style: TextStyle(
             fontSize: responsive.subtitleFontSize,
             fontWeight: FontWeight.bold,
-            color: AppColors.primaryColor,
+            color: ColorScheme.of(context).primary,
           ),
         ),
       ],

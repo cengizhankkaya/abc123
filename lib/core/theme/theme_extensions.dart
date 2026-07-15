@@ -51,3 +51,68 @@ class SemanticColors extends ThemeExtension<SemanticColors> {
     );
   }
 }
+
+/// Matematik (numbers_advanced) modülü için özel renkler.
+@immutable
+class MathColors extends ThemeExtension<MathColors> {
+  const MathColors({
+    required this.purple,
+    required this.teal,
+    required this.orange,
+    required this.yellow,
+    required this.deepPurple,
+  });
+
+  final Color purple;
+  final Color teal;
+  final Color orange;
+  final Color yellow;
+  final Color deepPurple;
+
+  static const MathColors light = MathColors(
+    purple: Color(0xFF6C63FF),
+    teal: Color(0xFF00CEC9),
+    orange: Color(0xFFE17055),
+    yellow: Color(0xFFFDCB6E),
+    deepPurple: Color(0xFF6C5CE7),
+  );
+
+  static const MathColors dark = MathColors(
+    purple: Color(0xFF8C84FF),
+    teal: Color(0xFF4DD8D5),
+    orange: Color(0xFFE99682),
+    yellow: Color(0xFFFFD98C),
+    deepPurple: Color(0xFF8C7FFF),
+  );
+
+  @override
+  MathColors copyWith({
+    Color? purple,
+    Color? teal,
+    Color? orange,
+    Color? yellow,
+    Color? deepPurple,
+  }) {
+    return MathColors(
+      purple: purple ?? this.purple,
+      teal: teal ?? this.teal,
+      orange: orange ?? this.orange,
+      yellow: yellow ?? this.yellow,
+      deepPurple: deepPurple ?? this.deepPurple,
+    );
+  }
+
+  @override
+  MathColors lerp(ThemeExtension<MathColors>? other, double t) {
+    if (other is! MathColors) {
+      return this;
+    }
+    return MathColors(
+      purple: Color.lerp(purple, other.purple, t)!,
+      teal: Color.lerp(teal, other.teal, t)!,
+      orange: Color.lerp(orange, other.orange, t)!,
+      yellow: Color.lerp(yellow, other.yellow, t)!,
+      deepPurple: Color.lerp(deepPurple, other.deepPurple, t)!,
+    );
+  }
+}

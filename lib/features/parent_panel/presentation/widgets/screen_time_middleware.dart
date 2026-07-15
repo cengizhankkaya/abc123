@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/features/parent_panel/presentation/providers/screen_time_provider.dart';
-import 'package:abc123/features/parent_panel/presentation/screens/parental_gate_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Ekran Süresi Middleware / Ara Katman Widget'ı.
 ///
@@ -36,7 +40,7 @@ class ScreenTimeMiddleware extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (dialogContext) => Dialog(
-        backgroundColor: isDark ? const Color(0xFF1E1E26) : Colors.white,
+        backgroundColor: context.appColorScheme.surfaceContainer,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
         elevation: 16,
         child: Padding(
@@ -47,10 +51,10 @@ class ScreenTimeMiddleware extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF9800).withValues(alpha: 0.15),
+                  color: context.semanticColors.warning.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.bedtime_rounded, color: Color(0xFFFF9800), size: 54),
+                child: Icon(Icons.bedtime_rounded, color: context.semanticColors.warning, size: 54),
               ),
               const SizedBox(height: 20),
               Text(
@@ -71,7 +75,7 @@ class ScreenTimeMiddleware extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   height: 1.4,
-                  color: isDark ? Colors.white70 : Colors.grey.shade700,
+                  color: isDark ? Colors.white70 : context.appColorScheme.outline,
                 ),
               ),
               const SizedBox(height: 28),
@@ -79,7 +83,7 @@ class ScreenTimeMiddleware extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF6C63FF),
+                    backgroundColor: context.mathColors.purple,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                   ),
@@ -98,19 +102,21 @@ class ScreenTimeMiddleware extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               TextButton(
-                onPressed: () {
-                  Navigator.of(dialogContext).pop();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => ParentalGateScreen(
-                        isForScreenTimeExtension: true,
-                        onSuccess: () {
-                          Navigator.of(context).pop();
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                    // `13_navigation.md` kuralı: Navigator.push yerine GoRouter kullan.
+                    unawaited(
+                      context.push(
+                        AppRoutes.parentGate,
+                        extra: {
+                          'isForScreenTimeExtension': true,
+                          'onSuccess': () {
+                            if (context.mounted) context.pop();
+                          },
                         },
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
                 child: Text(
                   isTr
                       ? 'Ebeveyn Girişi ile Süreyi Uzat (+15 dk)'
@@ -118,7 +124,7 @@ class ScreenTimeMiddleware extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.white54 : Colors.grey.shade600,
+                    color: isDark ? Colors.white54 : context.appColorScheme.outline,
                   ),
                 ),
               ),

@@ -11,6 +11,7 @@ import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 // Ana uygulamanın main.dart dosyasında uygulamayı başlatırken bu kodu çağırın
 void enforceInfoScreenOrientation() {
@@ -161,7 +162,7 @@ class _DrawingPanel extends StatelessWidget {
                   child: Text(
                     i.infoDrawingNotFound,
                     style: TextStyle(
-                      color: Colors.grey,
+                      color: context.appColorScheme.outline,
                       fontSize: AppFontSizes.subtitle(context) * 0.4,
                     ),
                   ),

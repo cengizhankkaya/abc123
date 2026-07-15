@@ -1,6 +1,7 @@
 import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Akıllı Öneri Kartı (Smart Recommendation Tile).
 class RecommendationTile extends StatelessWidget {
@@ -19,7 +20,7 @@ class RecommendationTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+        color: context.appColorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -84,7 +85,7 @@ class RecommendationTile extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13,
                     height: 1.35,
-                    color: isDark ? Colors.white70 : Colors.grey.shade700,
+                    color: isDark ? Colors.white70 : context.appColorScheme.outline,
                   ),
                 ),
                 const SizedBox(height: 12),

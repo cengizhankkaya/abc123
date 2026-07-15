@@ -1,6 +1,5 @@
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
-import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +20,7 @@ class DrawingAreaWidget extends StatelessWidget {
     required this.onEndDrawing,
     super.key,
   });
+
   final List<DrawingPoint?> points;
   final bool eraseMode;
   final Color selectedColor;
@@ -37,8 +37,6 @@ class DrawingAreaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responsive = ResponsiveSize(context);
-
     return Container(
       margin: EdgeInsets.all(AppSizes.paddingSmall(context)),
       decoration: BoxDecoration(
@@ -47,28 +45,26 @@ class DrawingAreaWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Çizim alanı
+          // Çizim alanı — DrawingArea kendi içinde RepaintBoundary barındırıyor.
           Expanded(
-            child: RepaintBoundary(
-              child: Center(
-                child: FittedBox(
-                  child: buildDrawingArea(
-                    Size(responsive.width, responsive.height),
-                    drawingAreaKey,
-                    points,
-                    eraseMode,
-                    selectedColor,
-                    strokeWidth,
-                    showResult,
-                    isLoading,
-                    recognitionResult,
-                    animation,
-                    tanima,
-                    onClear,
-                    onDrawPoint,
-                    onEndDrawing,
-                    context,
-                  ),
+            child: Center(
+              child: FittedBox(
+                // ✅ buildDrawingArea() fonksiyonu yerine DrawingArea widget'ı
+                // (16_performance.md §"Extract Widgets Instead of Methods")
+                child: DrawingArea(
+                  drawingAreaKey: drawingAreaKey,
+                  points: points,
+                  eraseMode: eraseMode,
+                  selectedColor: selectedColor,
+                  strokeWidth: strokeWidth,
+                  showResult: showResult,
+                  isLoading: isLoading,
+                  recognitionResult: recognitionResult,
+                  animation: animation,
+                  tanima: tanima,
+                  onClear: onClear,
+                  onAddPoint: onDrawPoint,
+                  onEndLine: onEndDrawing,
                 ),
               ),
             ),

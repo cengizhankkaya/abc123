@@ -1,6 +1,7 @@
 import 'package:abc123/features/numbers_advanced/presentation/providers/math_progress_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class DigitBoxWidget extends StatelessWidget {
   const DigitBoxWidget({
@@ -34,7 +35,7 @@ class DigitBoxWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
             decoration: BoxDecoration(
-              color: isActive ? const Color(0xFF6C63FF) : Colors.grey.shade300,
+              color: isActive ? context.mathColors.purple : Colors.grey.shade300,
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
@@ -55,7 +56,7 @@ class DigitBoxWidget extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: isActive ? const Color(0xFF6C63FF) : Colors.grey.shade300,
+                color: isActive ? context.mathColors.purple : Colors.grey.shade300,
                 width: isActive ? 4 : 2,
               ),
               boxShadow: [

@@ -5,6 +5,7 @@ import 'package:abc123/features/numbers_advanced/presentation/widgets/math_resul
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class MultiDigitDrawScreen extends StatefulWidget {
   const MultiDigitDrawScreen({
@@ -67,7 +68,7 @@ class _MultiDigitDrawView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF6C63FF)),
+          icon: Icon(Icons.arrow_back_ios_new, color: context.mathColors.purple),
           onPressed: () => context.pop(),
         ),
       ),
@@ -78,9 +79,9 @@ class _MultiDigitDrawView extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               if (isFreePractice)
-                const Color(0xFFE17055).withValues(alpha: 0.1)
+                context.mathColors.orange.withValues(alpha: 0.1)
               else
-                const Color(0xFF00CEC9).withValues(alpha: 0.1),
+                context.mathColors.teal.withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -112,7 +113,7 @@ class _MultiDigitDrawView extends StatelessWidget {
                       tensKey: tensKey,
                       unitsKey: unitsKey,
                     ),
-                  if (provider.isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+                  if (provider.isLoading) CircularProgressIndicator(color: context.mathColors.purple),
                   const Spacer(),
                   _ClearButton(provider: provider),
                 ],
@@ -292,7 +293,7 @@ class _CheckButton extends StatelessWidget {
         );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF6C63FF),
+        backgroundColor: context.mathColors.purple,
         padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

@@ -2,6 +2,7 @@ import 'package:abc123/features/parent_panel/presentation/providers/screen_time_
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Haftalık Aktivite Grafiği (Weekly Activity Bar Chart).
 class WeeklyActivityChart extends StatelessWidget {
@@ -24,7 +25,7 @@ class WeeklyActivityChart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+        color: context.appColorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -34,7 +35,7 @@ class WeeklyActivityChart extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.grey.shade100,
+          color: isDark ? Colors.white10 : context.appColorScheme.outline,
         ),
       ),
       child: Column(
@@ -64,7 +65,7 @@ class WeeklyActivityChart extends StatelessWidget {
                           : 'Practice minutes over the last 7 days',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark ? Colors.white60 : Colors.grey.shade600,
+                        color: isDark ? Colors.white60 : context.appColorScheme.outline,
                       ),
                     ),
                   ],
@@ -74,19 +75,19 @@ class WeeklyActivityChart extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
+                  color: context.mathColors.purple.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.show_chart_rounded, color: Color(0xFF6C63FF), size: 16),
+                    Icon(Icons.show_chart_rounded, color: context.mathColors.purple, size: 16),
                     const SizedBox(width: 4),
                     Text(
                       isTr ? 'Canlı Takip' : 'Live Tracking',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF6C63FF),
+                        color: context.mathColors.purple,
                       ),
                     ),
                   ],
@@ -148,7 +149,7 @@ class WeeklyActivityChart extends StatelessWidget {
                             d.getShortDayName(isTr),
                             style: TextStyle(
                               color: isToday
-                                  ? const Color(0xFF6C63FF)
+                                  ? context.mathColors.purple
                                   : (isDark ? Colors.white70 : Colors.black87),
                               fontWeight: isToday ? FontWeight.w800 : FontWeight.w600,
                               fontSize: 12,
@@ -175,13 +176,13 @@ class WeeklyActivityChart extends StatelessWidget {
                         width: 18,
                         borderRadius: BorderRadius.circular(6),
                         color: isToday
-                            ? const Color(0xFF6C63FF)
+                            ? context.mathColors.purple
                             : (isDark ? const Color(0xFF3F3F54) : const Color(0xFFC5CAE9)),
                         backDrawRodData: BackgroundBarChartRodData(
                           show: true,
                           toY: maxY,
                           color:
-                              isDark ? Colors.white.withValues(alpha: 0.04) : Colors.grey.shade100,
+                              isDark ? Colors.white.withValues(alpha: 0.04) : context.appColorScheme.outline,
                         ),
                       ),
                     ],

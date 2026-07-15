@@ -3,6 +3,7 @@ import 'package:abc123/features/home/presentation/widgets/game_category_card.dar
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class MathHubScreen extends StatelessWidget {
   const MathHubScreen({super.key});
@@ -17,7 +18,7 @@ class MathHubScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF6C63FF)),
+          icon: Icon(Icons.arrow_back_ios_new, color: context.mathColors.purple),
           onPressed: () => context.pop(),
         ),
       ),
@@ -27,7 +28,7 @@ class MathHubScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF6C63FF).withValues(alpha: 0.1),
+              context.mathColors.purple.withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -62,7 +63,7 @@ class MathHubScreen extends StatelessWidget {
                   image: const FittedBox(
                     child: Icon(Icons.apps, color: Colors.white, size: 56),
                   ),
-                  baseColor: const Color(0xFF00CEC9), // Teal
+                  baseColor: context.mathColors.teal, // Teal
                   onTap: () => context.push(AppRoutes.mathTens),
                 ),
                 const SizedBox(height: 16),
@@ -73,7 +74,7 @@ class MathHubScreen extends StatelessWidget {
                   image: const FittedBox(
                     child: Icon(Icons.edit, color: Colors.white, size: 56),
                   ),
-                  baseColor: const Color(0xFFE17055), // Orange
+                  baseColor: context.mathColors.orange, // Orange
                   onTap: () => context.push(AppRoutes.mathFree),
                 ),
                 const SizedBox(height: 16),
@@ -84,7 +85,7 @@ class MathHubScreen extends StatelessWidget {
                   image: const FittedBox(
                     child: Icon(Icons.visibility, color: Colors.white, size: 56),
                   ),
-                  baseColor: const Color(0xFFFDCB6E), // Yellow
+                  baseColor: context.mathColors.yellow, // Yellow
                   onTap: () => context.push(AppRoutes.mathVisual),
                 ),
                 const SizedBox(height: 16),
@@ -95,7 +96,7 @@ class MathHubScreen extends StatelessWidget {
                   image: const FittedBox(
                     child: Icon(Icons.calculate, color: Colors.white, size: 56),
                   ),
-                  baseColor: const Color(0xFF6C5CE7), // Purple
+                  baseColor: context.mathColors.deepPurple, // Purple
                   onTap: () => context.push(AppRoutes.mathSymbolic),
                 ),
               ],

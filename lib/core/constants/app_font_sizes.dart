@@ -4,7 +4,12 @@ import 'package:flutter/widgets.dart';
 ScreenSize _screenSize(BuildContext context) =>
     ScreenSize.fromWidth(MediaQuery.sizeOf(context).width);
 
-class AppFontSizes {
+/// Ekran boyutuna göre uyarlanmış yazı boyutu sabitleri.
+///
+/// Tüm text style tanımlarında magic number yerine bu sınıf kullanılır;
+/// [ScreenSize] breakpoint'lerine göre adaptif font boyutları döndürür.
+final class AppFontSizes {
+  const AppFontSizes._();
   static double title(BuildContext context) {
     return switch (_screenSize(context)) {
       ScreenSize.compact => 22,

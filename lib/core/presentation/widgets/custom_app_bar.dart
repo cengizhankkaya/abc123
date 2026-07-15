@@ -1,4 +1,4 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor: ColorScheme.of(context).primary,
       elevation: 0,
       centerTitle: true,
       leading: showBackButton

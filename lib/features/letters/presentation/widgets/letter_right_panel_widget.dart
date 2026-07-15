@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/image_constants.dart';
@@ -116,8 +116,8 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CircularProgressIndicator(
-          color: AppColors.primaryColor,
+        CircularProgressIndicator(
+          color: ColorScheme.of(context).primary,
           strokeWidth: 4,
         ),
         SizedBox(height: responsive.height * 0.015),
@@ -127,7 +127,7 @@ class _LetterRightPanelState extends State<LetterRightPanel> {
           style: TextStyle(
             fontSize: responsive.subtitleFontSize * 1.1,
             fontWeight: FontWeight.bold,
-            color: AppColors.primaryColor,
+            color: ColorScheme.of(context).primary,
           ),
         ),
       ],

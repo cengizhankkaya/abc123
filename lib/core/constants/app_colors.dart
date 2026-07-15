@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 /// Uygulama genelinde kullanılan renk sabitleri.
-class AppColors {
+///
+/// Tüm renk değerleri bu sınıfta merkezi olarak tanımlanır;
+/// UI katmanında doğrudan renk literal kullanımı yerine bu sınıf tercih edilir.
+final class AppColors {
+  const AppColors._();
   // Ana renkler
   static const Color backgroundColor = Color(0xFFBCC9D7);
   static const Color primaryColor = Color(0xFF2196F3); // Maviß

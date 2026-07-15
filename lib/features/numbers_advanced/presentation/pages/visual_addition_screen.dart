@@ -6,6 +6,7 @@ import 'package:abc123/features/numbers_advanced/presentation/widgets/object_cou
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class VisualAdditionScreen extends StatefulWidget {
   const VisualAdditionScreen({super.key});
@@ -29,7 +30,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF6C63FF)),
+          icon: Icon(Icons.arrow_back_ios_new, color: context.mathColors.purple),
           onPressed: () => context.pop(),
         ),
       ),
@@ -39,7 +40,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFFFDCB6E).withValues(alpha: 0.2), // Yellow
+              context.mathColors.yellow.withValues(alpha: 0.2), // Yellow
               Colors.white,
             ],
           ),
@@ -88,14 +89,14 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                                 isCountingMode: provider.isCountingMode,
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Text(
                                 '+',
                                 style: TextStyle(
                                   fontSize: 40,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF6C63FF),
+                                  color: context.mathColors.purple,
                                 ),
                               ),
                             ),
@@ -111,14 +112,14 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                         ),
                       ),
 
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
                           '=',
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF6C63FF),
+                            color: context.mathColors.purple,
                           ),
                         ),
                       ),
@@ -214,7 +215,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6C63FF),
+                            backgroundColor: context.mathColors.purple,
                             padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 16),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
@@ -230,7 +231,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                           ),
                         ),
 
-                      if (isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+                      if (isLoading) CircularProgressIndicator(color: context.mathColors.purple),
 
                       // Alt Araç Çubuğu
                       Padding(

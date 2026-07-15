@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class ObjectCountDisplay extends StatefulWidget {
   const ObjectCountDisplay({
@@ -145,8 +146,8 @@ class _ObjectCountDisplayState extends State<ObjectCountDisplay> {
                             opacity: (_activeHighlightIndex >= index) ? 1.0 : 0.4,
                             child: Container(
                               padding: const EdgeInsets.all(3),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF6C63FF),
+                              decoration: BoxDecoration(
+                                color: context.mathColors.purple,
                                 shape: BoxShape.circle,
                               ),
                               constraints: const BoxConstraints(minWidth: 20, minHeight: 20),

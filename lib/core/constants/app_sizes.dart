@@ -4,7 +4,12 @@ import 'package:flutter/widgets.dart';
 ScreenSize _screenSize(BuildContext context) =>
     ScreenSize.fromWidth(MediaQuery.sizeOf(context).width);
 
-class AppSizes {
+/// Ekran boyutuna göre uyarlanmış boşluk ve boyut sabitleri.
+///
+/// [ScreenSize] breakpoint'lerine göre farklı değerler döndürür;
+/// doğrudan sabit yerine context-aware metodlar kullanır (`14_adaptive_ui_strategy.md`).
+final class AppSizes {
+  const AppSizes._();
   /// Geniş ekran; [ScreenSize] compact dışı (`14_adaptive_ui_strategy.md`).
   static bool isWideLayout(BuildContext context) => _screenSize(context) != ScreenSize.compact;
 

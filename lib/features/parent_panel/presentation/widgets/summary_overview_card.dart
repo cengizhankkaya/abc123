@@ -2,6 +2,7 @@ import 'package:abc123/features/home/presentation/providers/gamification_provide
 import 'package:abc123/features/parent_panel/application/usecases/get_progress_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Genel Özet ve İçgörüler Kartı (Summary Overview).
 class SummaryOverviewCard extends StatelessWidget {
@@ -43,12 +44,12 @@ class SummaryOverviewCard extends StatelessWidget {
               end: Alignment.bottomRight,
               colors: isDark
                   ? [const Color(0xFF28283E), const Color(0xFF1E1E2C)]
-                  : [const Color(0xFF6C63FF), const Color(0xFF4834D4)],
+                  : [context.mathColors.purple, Color(0xFF4834D4)],
             ),
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF6C63FF).withValues(alpha: isDark ? 0.2 : 0.35),
+                color: context.mathColors.purple.withValues(alpha: isDark ? 0.2 : 0.35),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),

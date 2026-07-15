@@ -1,4 +1,4 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
@@ -128,7 +128,7 @@ class ActionToolbarWidget extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: panelColor ?? AppColors.panelColor,
+          color: panelColor ?? ColorScheme.of(context).primary,
           borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
         ),
         height: toolbarHeight,
@@ -213,7 +213,7 @@ class ActionToolbarWidget extends StatelessWidget {
                       _buildActionButton(
                         '',
                         Icons.arrow_forward_ios,
-                        AppColors.secondaryColor,
+                        ColorScheme.of(context).secondary,
                         onRecognize,
                         context,
                         false,
@@ -260,7 +260,7 @@ class ActionToolbarWidget extends StatelessWidget {
                       _buildActionButton(
                         '',
                         Icons.arrow_forward_ios,
-                        AppColors.secondaryColor,
+                        ColorScheme.of(context).secondary,
                         onRecognize,
                         context,
                         false,

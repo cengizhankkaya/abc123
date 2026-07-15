@@ -26,6 +26,7 @@ abstract final class AppTheme {
       scaffoldBackground: ColorPalette.scaffoldLight,
       extensions: const <ThemeExtension<dynamic>>[
         SemanticColors.light,
+        MathColors.light,
       ],
       subThemesData: const FlexSubThemesData(
         elevatedButtonRadius: 10,
@@ -50,6 +51,7 @@ abstract final class AppTheme {
       colors: _flexDark,
       extensions: const <ThemeExtension<dynamic>>[
         SemanticColors.dark,
+        MathColors.dark,
       ],
       subThemesData: const FlexSubThemesData(
         elevatedButtonRadius: 10,

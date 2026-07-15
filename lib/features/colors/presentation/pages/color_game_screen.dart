@@ -828,7 +828,7 @@ class _VictoryOverlay extends StatelessWidget {
               Text(
                 strings.colorGameVictoryTitle,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                style: TextTheme.of(context).headlineMedium?.copyWith(
                       fontWeight: FontWeight.w900,
                       color: const Color(0xFF6C5CE7),
                     ),
@@ -837,7 +837,7 @@ class _VictoryOverlay extends StatelessWidget {
               Text(
                 strings.colorGameVictoryBody,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                style: TextTheme.of(context).titleMedium?.copyWith(
                       color: Colors.grey.shade800,
                       height: 1.35,
                     ),
@@ -894,7 +894,7 @@ class _InstructionBubble extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                style: TextTheme.of(context).titleMedium?.copyWith(
                       height: 1.25,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF2D3436),

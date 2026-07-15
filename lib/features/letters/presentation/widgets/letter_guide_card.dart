@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -72,7 +72,7 @@ class _LetterGuideCardState extends State<LetterGuideCard> {
                   child: Icon(
                     Icons.arrow_back_ios,
                     size: responsive.smallIconSize * 0.8,
-                    color: AppColors.primaryColor,
+                    color: ColorScheme.of(context).primary,
                   ),
                 ),
               ),
@@ -92,7 +92,7 @@ class _LetterGuideCardState extends State<LetterGuideCard> {
                   child: Icon(
                     Icons.arrow_forward_ios,
                     size: responsive.smallIconSize * 0.8,
-                    color: AppColors.primaryColor,
+                    color: ColorScheme.of(context).primary,
                   ),
                 ),
               ),

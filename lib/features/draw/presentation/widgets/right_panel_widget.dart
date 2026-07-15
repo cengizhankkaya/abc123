@@ -1,4 +1,4 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -273,7 +273,7 @@ class _GameContent extends StatelessWidget {
                   : context.drawL10n!.drawSemanticPauseGame,
               icon: Icon(provider.isGamePaused ? Icons.play_arrow : Icons.pause),
               onPressed: () => context.read<BalloonGameProvider>().pauseGame(),
-              color: AppColors.primaryColor,
+              color: ColorScheme.of(context).primary,
               iconSize: (responsive.width * 0.015).clamp(20.0, 28.0),
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(
@@ -304,7 +304,7 @@ class _GameContent extends StatelessWidget {
                     icon: const Icon(Icons.play_arrow),
                     label: Text(context.drawL10n!.drawContinue),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
+                      backgroundColor: ColorScheme.of(context).primary,
                       foregroundColor: Colors.white,
                       padding: EdgeInsets.symmetric(
                         horizontal: responsive.width * 0.02,
@@ -355,7 +355,7 @@ class _StartGamePrompt extends StatelessWidget {
               children: [
                 Icon(
                   Icons.bubble_chart,
-                  color: AppColors.primaryColor,
+                  color: ColorScheme.of(context).primary,
                   size: responsive.smallIconSize * 2,
                 ),
                 SizedBox(height: responsive.height * 0.015),
@@ -383,7 +383,7 @@ class _StartGamePrompt extends StatelessWidget {
                   icon: const Icon(Icons.play_arrow),
                   label: Text(l10n.drawStartGame),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
+                    backgroundColor: ColorScheme.of(context).primary,
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(
                       horizontal: responsive.width * 0.03,
@@ -412,8 +412,8 @@ class _LoadingContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CircularProgressIndicator(
-          color: AppColors.primaryColor,
+        CircularProgressIndicator(
+          color: ColorScheme.of(context).primary,
           strokeWidth: 4,
         ),
         SizedBox(height: responsive.height * 0.015),
@@ -423,7 +423,7 @@ class _LoadingContent extends StatelessWidget {
           style: TextStyle(
             fontSize: responsive.subtitleFontSize * 1.1,
             fontWeight: FontWeight.bold,
-            color: AppColors.primaryColor,
+            color: ColorScheme.of(context).primary,
           ),
         ),
       ],

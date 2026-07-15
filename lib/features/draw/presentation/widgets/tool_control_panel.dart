@@ -1,7 +1,8 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/core/presentation/responsive/adaptive_layout_builder.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/l10n/generated/draw_localizations.dart';
 import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
@@ -66,14 +67,14 @@ class ToolControlPanel extends StatelessWidget {
         horizontal: AppSizes.paddingSmall(context) * 0.001,
         vertical: AppSizes.paddingSmall(context) * 0.001,
       ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final compact = constraints.maxWidth < 760;
+      child: AdaptiveLayoutBuilder(
+        builder: (context, screenSize) {
+          final compact = screenSize.isMobile;
           final colorSize = compact ? responsive.tinyIconSize * 0.85 : responsive.tinyIconSize;
 
           return Container(
             decoration: BoxDecoration(
-              color: panelColor ?? AppColors.panelColor,
+              color: panelColor ?? ColorScheme.of(context).primary,
               borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
               boxShadow: [
                 BoxShadow(
@@ -99,7 +100,7 @@ class ToolControlPanel extends StatelessWidget {
                         icon: Icon(
                           Icons.arrow_back_ios_new_outlined,
                           size: responsive.tinyIconSize * 1.5,
-                          color: AppColors.surfaceColor,
+                          color: ColorScheme.of(context).onPrimary,
                         ),
                       ),
                       Expanded(
@@ -143,8 +144,8 @@ class ToolControlPanel extends StatelessWidget {
                             child: Slider(
                               value: volume,
                               onChanged: onVolumeChanged,
-                              activeColor: AppColors.surfaceColor,
-                              inactiveColor: AppColors.surfaceColor.withValues(alpha: 0.3),
+                              activeColor: ColorScheme.of(context).onPrimary,
+                              inactiveColor: ColorScheme.of(context).onPrimary.withValues(alpha: 0.3),
                             ),
                           ),
                         IconButton(
@@ -155,7 +156,7 @@ class ToolControlPanel extends StatelessWidget {
                           },
                           icon: Icon(
                             volume == 0.0 ? Icons.volume_off : Icons.volume_up,
-                            color: AppColors.surfaceColor,
+                            color: ColorScheme.of(context).onPrimary,
                             size: colorSize,
                           ),
                         ),
@@ -181,7 +182,7 @@ class ToolControlPanel extends StatelessWidget {
                             child: Text(
                               d.drawPenColor,
                               style: TextStyle(
-                                color: AppColors.surfaceColor,
+                                color: ColorScheme.of(context).onPrimary,
                                 fontWeight: FontWeight.bold,
                                 fontSize: responsive.subtitleFontSize,
                               ),

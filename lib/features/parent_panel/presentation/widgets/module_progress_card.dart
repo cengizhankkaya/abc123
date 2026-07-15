@@ -1,5 +1,6 @@
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:flutter/material.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Tekil Modül İlerleme ve Detay Kartı.
 class ModuleProgressCard extends StatelessWidget {
@@ -12,7 +13,7 @@ class ModuleProgressCard extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
 
-    final moduleInfo = _getModuleInfo(progress.moduleName, isTr);
+    final moduleInfo = _getModuleInfo(context, progress.moduleName, isTr);
 
     final accStr = '%${progress.accuracyRate.round()}';
     final compStr = '%${progress.completionPercentage.round()}';
@@ -28,7 +29,7 @@ class ModuleProgressCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+        color: context.appColorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -38,7 +39,7 @@ class ModuleProgressCard extends StatelessWidget {
           ),
         ],
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.grey.shade100,
+          color: isDark ? Colors.white10 : context.appColorScheme.outline,
         ),
       ),
       child: Column(
@@ -73,7 +74,7 @@ class ModuleProgressCard extends StatelessWidget {
                       '${isTr ? "Son Çalışma:" : "Last Activity:"} $dateStr',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark ? Colors.white60 : Colors.grey.shade600,
+                        color: isDark ? Colors.white60 : context.appColorScheme.outline,
                       ),
                     ),
                   ],
@@ -94,7 +95,7 @@ class ModuleProgressCard extends StatelessWidget {
                     isTr ? 'Doğruluk' : 'Accuracy',
                     style: TextStyle(
                       fontSize: 11,
-                      color: isDark ? Colors.white54 : Colors.grey.shade600,
+                      color: isDark ? Colors.white54 : context.appColorScheme.outline,
                     ),
                   ),
                 ],
@@ -130,7 +131,7 @@ class ModuleProgressCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(6),
             child: LinearProgressIndicator(
               value: progress.completionPercentage / 100.0,
-              backgroundColor: isDark ? Colors.white12 : Colors.grey.shade200,
+              backgroundColor: isDark ? Colors.white12 : context.appColorScheme.surfaceContainer,
               valueColor: AlwaysStoppedAnimation<Color>(moduleInfo.color),
               minHeight: 8,
             ),
@@ -142,15 +143,15 @@ class ModuleProgressCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
               decoration: BoxDecoration(
-                color: Colors.redAccent.withValues(alpha: isDark ? 0.12 : 0.08),
+                color: context.appColorScheme.error.withValues(alpha: isDark ? 0.12 : 0.08),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.redAccent.withValues(alpha: 0.3),
+                  color: context.appColorScheme.error.withValues(alpha: 0.3),
                 ),
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.error_outline_rounded, color: Colors.redAccent, size: 18),
+                  Icon(Icons.error_outline_rounded, color: context.appColorScheme.error, size: 18),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -158,7 +159,7 @@ class ModuleProgressCard extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: isDark ? Colors.red.shade300 : Colors.red.shade800,
+                        color: isDark ? context.appColorScheme.error : context.appColorScheme.error,
                       ),
                     ),
                   ),
@@ -171,13 +172,14 @@ class ModuleProgressCard extends StatelessWidget {
     );
   }
 
-  ({String title, IconData icon, Color color}) _getModuleInfo(String name, bool isTr) {
+  ({String title, IconData icon, Color color}) _getModuleInfo(
+      BuildContext context, String name, bool isTr) {
     switch (name) {
       case 'numbers':
         return (
           title: isTr ? 'Rakamlar Modülü' : 'Numbers Module',
           icon: Icons.numbers_rounded,
-          color: const Color(0xFF6C63FF),
+          color: context.mathColors.purple,
         );
       case 'letters':
         return (
@@ -189,7 +191,7 @@ class ModuleProgressCard extends StatelessWidget {
         return (
           title: isTr ? 'Geometrik Şekiller' : 'Shapes Module',
           icon: Icons.category_rounded,
-          color: const Color(0xFFFF9800),
+          color: context.semanticColors.warning,
         );
       case 'words':
         return (

@@ -4,7 +4,12 @@ import 'package:flutter/widgets.dart';
 ScreenSize _screenSize(BuildContext context) =>
     ScreenSize.fromWidth(MediaQuery.sizeOf(context).width);
 
-class AppRadii {
+/// Ekran boyutuna göre uyarlanmış köşe yarıçapı sabitleri.
+///
+/// Widget'larda magic number kullanımının önüne geçer;
+/// adaptif tasarım için [ScreenSize] breakpoint'lerine göre değer döndürür.
+final class AppRadii {
+  const AppRadii._();
   static double cardRadius(BuildContext context) {
     return switch (_screenSize(context)) {
       ScreenSize.compact => 12,

@@ -37,46 +37,42 @@ class _SettingsView extends StatelessWidget {
     return ColoredBox(
       color: HomeDesignTokens.background,
       child: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 680),
-                child: ListView(
-                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
-                  children: [
-                    _TopHeader(title: h.settingsTitle),
-                    const SizedBox(height: 24),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 680),
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
+              children: [
+                _TopHeader(title: h.settingsTitle),
+                const SizedBox(height: 24),
 
-                    // BÖLÜM 1: BENİM AYARLARIM (Çocuk Odaklı)
-                    SettingsSectionHeader(
-                      title: h.settingsSectionChild ?? 'Benim Ayarlarım',
-                      icon: Icons.child_care_rounded,
-                      iconColor: HomeDesignTokens.headerBlue,
-                    ),
-                    const SizedBox(height: 8),
-                    const _ChildSettingsSection(),
-
-                    // GÖRSEL AYRAÇ & BOŞLUK
-                    const SizedBox(height: 32),
-                    const _VisualSeparator(),
-                    const SizedBox(height: 32),
-
-                    // BÖLÜM 2: EBEVEYN ALANI (Güven Veren, Sade Blok)
-                    SettingsSectionHeader(
-                      title: h.settingsSectionParent ?? 'Ebeveyn Alanı',
-                      subtitle: h.settingsSectionParentWarning ??
-                          'Ebeveynlere özel kontroller ve raporlar',
-                      icon: Icons.security_rounded,
-                      iconColor: HomeDesignTokens.parentPanelAccent,
-                    ),
-                    const SizedBox(height: 8),
-                    const _ParentSettingsSection(),
-                  ],
+                // BÖLÜM 1: BENİM AYARLARIM (Çocuk Odaklı)
+                SettingsSectionHeader(
+                  title: h.settingsSectionChild ?? 'Benim Ayarlarım',
+                  icon: Icons.child_care_rounded,
+                  iconColor: HomeDesignTokens.headerBlue,
                 ),
-              ),
-            );
-          },
+                const SizedBox(height: 8),
+                const _ChildSettingsSection(),
+
+                // GÖRSEL AYRAÇ & BOŞLUK
+                const SizedBox(height: 32),
+                const _VisualSeparator(),
+                const SizedBox(height: 32),
+
+                // BÖLÜM 2: EBEVEYN ALANI (Güven Veren, Sade Blok)
+                SettingsSectionHeader(
+                  title: h.settingsSectionParent ?? 'Ebeveyn Alanı',
+                  subtitle: h.settingsSectionParentWarning ??
+                      'Ebeveynlere özel kontroller ve raporlar',
+                  icon: Icons.security_rounded,
+                  iconColor: HomeDesignTokens.parentPanelAccent,
+                ),
+                const SizedBox(height: 8),
+                const _ParentSettingsSection(),
+              ],
+            ),
+          ),
         ),
       ),
     );

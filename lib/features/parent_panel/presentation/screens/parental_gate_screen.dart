@@ -4,6 +4,7 @@ import 'package:abc123/features/parent_panel/presentation/providers/screen_time_
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Kapısı / Güvenlik Katmanı.
 ///
@@ -136,12 +137,12 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                   width: 76,
                   height: 76,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
+                    color: context.mathColors.purple.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.lock_person_rounded,
-                    color: Color(0xFF6C63FF),
+                    color: context.mathColors.purple,
                     size: 40,
                   ),
                 ),
@@ -174,19 +175,19 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
                   decoration: BoxDecoration(
-                    color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+                    color: context.appColorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
                         color: _hasError
-                            ? Colors.red.withValues(alpha: 0.25)
+                            ? context.appColorScheme.error.withValues(alpha: 0.25)
                             : Colors.black.withValues(alpha: 0.06),
                         blurRadius: 16,
                         offset: const Offset(0, 4),
                       ),
                     ],
                     border: Border.all(
-                      color: _hasError ? Colors.redAccent : Colors.transparent,
+                      color: _hasError ? context.appColorScheme.error : Colors.transparent,
                       width: 2,
                     ),
                   ),
@@ -194,11 +195,11 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                     children: [
                       Text(
                         '$_num1 + $_num2 = ?',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 2,
-                          color: Color(0xFF6C63FF),
+                          color: context.mathColors.purple,
                         ),
                       ),
                       const SizedBox(height: 16),
@@ -216,7 +217,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: _input.isEmpty
-                                ? Colors.grey
+                                ? context.appColorScheme.outline
                                 : (isDark ? Colors.white : Colors.black87),
                           ),
                         ),
@@ -225,8 +226,8 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         const SizedBox(height: 8),
                         Text(
                           isTr ? 'Yanlış cevap, tekrar deneyin!' : 'Incorrect answer, try again!',
-                          style: const TextStyle(
-                              color: Colors.redAccent, fontSize: 13, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              color: context.appColorScheme.error, fontSize: 13, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ],
@@ -254,7 +255,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         _onSubmitPressed,
                         isDark,
                         isSpecial: true,
-                        specialColor: const Color(0xFF6C63FF),
+                        specialColor: context.mathColors.purple,
                       ),
                     ],
                   ),
@@ -264,11 +265,11 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                 // Basılı Tutma Alternatifi
                 Text(
                   isTr ? 'VEYA ALTERNATİF DOĞRULAMA:' : 'OR ALTERNATIVE VERIFICATION:',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 1.1,
-                    color: Colors.grey,
+                    color: context.appColorScheme.outline,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -285,12 +286,12 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         margin: const EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(26),
-                          color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+                          color: context.appColorScheme.surfaceContainer,
                           border: Border.all(
-                              color: const Color(0xFF6C63FF).withValues(alpha: 0.4), width: 1.5),
+                              color: context.mathColors.purple.withValues(alpha: 0.4), width: 1.5),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF6C63FF).withValues(alpha: 0.15),
+                              color: context.mathColors.purple.withValues(alpha: 0.15),
                               blurRadius: 10,
                               offset: const Offset(0, 4),
                             ),
@@ -303,7 +304,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(26),
-                                  color: const Color(0xFF6C63FF).withValues(alpha: 0.25),
+                                  color: context.mathColors.purple.withValues(alpha: 0.25),
                                 ),
                               ),
                             ),
@@ -313,8 +314,8 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.touch_app_rounded,
-                                        color: Color(0xFF6C63FF), size: 20),
+                                    Icon(Icons.touch_app_rounded,
+                                        color: context.mathColors.purple, size: 20),
                                     const SizedBox(width: 8),
                                     Flexible(
                                       child: Text(
@@ -354,7 +355,7 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
       color: specialColor ??
           (isSpecial
               ? (isDark ? const Color(0xFF2C2C38) : const Color(0xFFE2E6EC))
-              : (isDark ? const Color(0xFF1E1E26) : Colors.white)),
+              : (context.appColorScheme.surfaceContainer)),
       borderRadius: BorderRadius.circular(12),
       elevation: isSpecial && specialColor == null ? 0 : 2,
       shadowColor: Colors.black.withValues(alpha: 0.08),

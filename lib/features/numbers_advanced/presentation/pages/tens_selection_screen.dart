@@ -4,6 +4,7 @@ import 'package:abc123/features/numbers_advanced/presentation/providers/math_pro
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class TensSelectionScreen extends StatelessWidget {
   const TensSelectionScreen({super.key});
@@ -20,7 +21,7 @@ class TensSelectionScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Color(0xFF6C63FF)),
+          icon: Icon(Icons.arrow_back_ios_new, color: context.mathColors.purple),
           onPressed: () => context.pop(),
         ),
       ),
@@ -30,7 +31,7 @@ class TensSelectionScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xFF00CEC9).withValues(alpha: 0.1),
+              context.mathColors.teal.withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -83,10 +84,10 @@ class TensSelectionScreen extends StatelessWidget {
                           children: [
                             Text(
                               '$targetNumber',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.w900,
-                                color: Color(0xFF00CEC9),
+                                color: context.mathColors.teal,
                               ),
                             ),
                           ],

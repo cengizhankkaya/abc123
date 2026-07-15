@@ -1,4 +1,4 @@
-import 'package:abc123/core/constants/app_colors.dart';
+
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/services/image_service.dart';
@@ -47,7 +47,7 @@ class TutorialSection extends StatelessWidget {
                     child: Container(
                       height: size.height * 0.2,
                       width: double.infinity,
-                      color: AppColors.backgroundColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       child: ImageManager.getImage(
                         ImageConstants.tutorialImage,
                         width: double.infinity,

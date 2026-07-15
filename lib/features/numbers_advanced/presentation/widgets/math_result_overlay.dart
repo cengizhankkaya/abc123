@@ -1,5 +1,6 @@
 import 'package:abc123/features/numbers_advanced/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 class MathResultOverlay extends StatelessWidget {
   const MathResultOverlay({
@@ -63,7 +64,7 @@ class MathResultOverlay extends StatelessWidget {
                         onPressed: isCorrect ? onNext : onRetry,
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
-                              isCorrect ? const Color(0xFF6C63FF) : const Color(0xFFFF7675),
+                              isCorrect ? context.mathColors.purple : Color(0xFFFF7675),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                           shape: RoundedRectangleBorder(

@@ -20,6 +20,18 @@ final class _Empty extends EmailFailure {
   const _Empty();
 }
 
+/// E-posta adresini doğrulayan ve sargılayan value object.
+///
+/// Geçersiz format veya boş değer durumunda [EmailFailure] döndürür;
+/// güvenilir kaynaktan gelen değerler için [EmailAddress.fromTrustedSource] kullanın.
+///
+/// ```dart
+/// final email = EmailAddress('user@example.com');
+/// email.value.fold(
+///   (failures) => print('Geçersiz: $failures'),
+///   (valid)    => print('E-posta: $valid'),
+/// );
+/// ```
 @immutable
 class EmailAddress extends ValueObject<String> {
   factory EmailAddress(String input) {

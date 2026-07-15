@@ -2,6 +2,7 @@ import 'package:abc123/features/parent_panel/presentation/providers/screen_time_
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli: Günlük Ekran Süresi & Mola Ayarları Ekranı.
 class ScreenTimeSettingsScreen extends StatelessWidget {
@@ -56,15 +57,15 @@ class _ScreenTimeSettingsView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF6C63FF), Color(0xFF4834D4)],
+                  gradient: LinearGradient(
+                    colors: [context.mathColors.purple, Color(0xFF4834D4)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF6C63FF).withValues(alpha: 0.3),
+                      color: context.mathColors.purple.withValues(alpha: 0.3),
                       blurRadius: 18,
                       offset: const Offset(0, 6),
                     ),
@@ -117,7 +118,7 @@ class _ScreenTimeSettingsView extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: isDark ? const Color(0xFF1E1E26) : Colors.white,
+                  color: context.appColorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -126,7 +127,7 @@ class _ScreenTimeSettingsView extends StatelessWidget {
                       offset: const Offset(0, 4),
                     ),
                   ],
-                  border: Border.all(color: isDark ? Colors.white10 : Colors.grey.shade100),
+                  border: Border.all(color: isDark ? Colors.white10 : context.appColorScheme.outline),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +139,7 @@ class _ScreenTimeSettingsView extends StatelessWidget {
                           isTr ? 'Bugünkü Kullanım Süresi' : "Today's Used Time",
                           style: TextStyle(
                             fontSize: 14,
-                            color: isDark ? Colors.white70 : Colors.grey.shade600,
+                            color: isDark ? Colors.white70 : context.appColorScheme.outline,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -161,17 +162,17 @@ class _ScreenTimeSettingsView extends StatelessWidget {
                             isTr ? 'Hedef / Limit' : 'Target / Limit',
                             style: TextStyle(
                               fontSize: 14,
-                              color: isDark ? Colors.white70 : Colors.grey.shade600,
+                              color: isDark ? Colors.white70 : context.appColorScheme.outline,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             '$limitMins ${isTr ? "Dakika" : "Minutes"}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF6C63FF),
+                              color: context.mathColors.purple,
                             ),
                           ),
                         ],
@@ -188,7 +189,7 @@ class _ScreenTimeSettingsView extends StatelessWidget {
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
                   letterSpacing: 1.1,
-                  color: isDark ? Colors.white60 : Colors.grey.shade600,
+                  color: isDark ? Colors.white60 : context.appColorScheme.outline,
                 ),
               ),
               const SizedBox(height: 16),
@@ -279,19 +280,19 @@ class _OptionCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFF6C63FF)
-              : (isDark ? const Color(0xFF1E1E26) : Colors.white),
+              ? context.mathColors.purple
+              : (context.appColorScheme.surfaceContainer),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected
-                ? const Color(0xFF6C63FF)
-                : (isDark ? Colors.white12 : Colors.grey.shade300),
+                ? context.mathColors.purple
+                : (isDark ? Colors.white12 : context.appColorScheme.surfaceContainerHighest),
             width: isSelected ? 2 : 1,
           ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: const Color(0xFF6C63FF).withValues(alpha: 0.3),
+                    color: context.mathColors.purple.withValues(alpha: 0.3),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -324,7 +325,7 @@ class _OptionCard extends StatelessWidget {
                 fontSize: 11,
                 color: isSelected
                     ? Colors.white.withValues(alpha: 0.85)
-                    : (isDark ? Colors.white54 : Colors.grey.shade600),
+                    : (isDark ? Colors.white54 : context.appColorScheme.outline),
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

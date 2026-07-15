@@ -12,6 +12,7 @@ import 'package:abc123/features/parent_panel/presentation/widgets/weekly_activit
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/theme/theme_helper.dart';
 
 /// Ebeveyn Paneli Ana Ekranı (`ParentDashboardScreen`).
 ///
@@ -86,10 +87,10 @@ class _ParentDashboardView extends StatelessWidget {
                 icon: Container(
                   padding: const EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6C63FF).withValues(alpha: 0.12),
+                    color: context.mathColors.purple.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.timer_rounded, color: Color(0xFF6C63FF), size: 22),
+                  child: Icon(Icons.timer_rounded, color: context.mathColors.purple, size: 22),
                 ),
                 onPressed: () => context.push(AppRoutes.parentScreenTime),
               ),
@@ -126,7 +127,7 @@ class _ParentDashboardView extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1.1,
-                            color: isDark ? Colors.white60 : Colors.grey.shade600,
+                            color: isDark ? Colors.white60 : context.appColorScheme.outline,
                           ),
                         ),
                       ),
@@ -150,7 +151,7 @@ class _ParentDashboardView extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1.1,
-                            color: isDark ? Colors.white60 : Colors.grey.shade600,
+                            color: isDark ? Colors.white60 : context.appColorScheme.outline,
                           ),
                         ),
                       ),
@@ -206,12 +207,12 @@ class _PremiumBanner extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: premium.isPremium
               ? [const Color(0xFF00C853), const Color(0xFF009624)]
-              : [const Color(0xFFFF9800), const Color(0xFFE65100)],
+              : [context.semanticColors.warning, Color(0xFFE65100)],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: (premium.isPremium ? const Color(0xFF00C853) : const Color(0xFFFF9800))
+            color: (premium.isPremium ? Color(0xFF00C853) : context.semanticColors.warning)
                 .withValues(alpha: 0.3),
             blurRadius: 14,
             offset: const Offset(0, 5),

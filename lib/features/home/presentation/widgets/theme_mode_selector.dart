@@ -11,7 +11,7 @@ class ThemeModeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final scheme = Theme.of(context).colorScheme;
+    final scheme = ColorScheme.of(context);
     final mode = context.watch<ThemeModeProvider>().appThemeMode;
 
     return PopupMenuButton<AppThemeMode>(
