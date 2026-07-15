@@ -39,30 +39,40 @@ void main() {
         ChangeNotifierProvider<GamificationProvider>.value(
           value: getIt<GamificationProvider>(),
         ),
-        ChangeNotifierProvider(create: (_) => DrawScreenProvider(recognizeNumberUseCase: getIt())),
-        ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => ShapesDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => WordDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => PremiumProvider()),
-        ChangeNotifierProvider(create: (_) => ScreenTimeProvider()),
+        ChangeNotifierProvider<DrawScreenProvider>.value(value: getIt<DrawScreenProvider>()),
+        ChangeNotifierProvider<LetterDrawingProvider>.value(value: getIt<LetterDrawingProvider>()),
+        ChangeNotifierProvider<ShapesDrawingProvider>.value(value: getIt<ShapesDrawingProvider>()),
+        ChangeNotifierProvider<WordDrawingProvider>.value(value: getIt<WordDrawingProvider>()),
+        ChangeNotifierProvider(create: (_) => PremiumProvider(getIt())),
+        ChangeNotifierProvider(create: (_) => ScreenTimeProvider(getIt())),
         ChangeNotifierProxyProvider<GamificationProvider, MathProgressProvider>(
           create: (ctx) => MathProgressProvider(
             gamification: ctx.read<GamificationProvider>(),
             recognizeMultiDigitUseCase: getIt(),
+            repository: getIt(),
+            audioService: getIt(),
           ),
-          update: (ctx, gam, prev) => prev ?? MathProgressProvider(
-            gamification: gam,
-            recognizeMultiDigitUseCase: getIt(),
-          ),
+          update: (ctx, gam, prev) =>
+              prev ??
+              MathProgressProvider(
+                gamification: gam,
+                recognizeMultiDigitUseCase: getIt(),
+                repository: getIt(),
+                audioService: getIt(),
+              ),
         ),
         ProxyProvider0<ProgressAggregatorRepositoryImpl>(
-          update: (context, _) => ProgressAggregatorRepositoryImpl([
-            context.read<DrawScreenProvider>(),
-            context.read<LetterDrawingProvider>(),
-            context.read<ShapesDrawingProvider>(),
-            context.read<WordDrawingProvider>(),
-            context.read<MathProgressProvider>(),
-          ], ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper(),),
+          update: (context, _) => ProgressAggregatorRepositoryImpl(
+            [
+              context.read<DrawScreenProvider>(),
+              context.read<LetterDrawingProvider>(),
+              context.read<ShapesDrawingProvider>(),
+              context.read<WordDrawingProvider>(),
+              context.read<MathProgressProvider>(),
+            ],
+            ExceptionHandlerImpl(ConsoleLogger()),
+            DefaultFailureMapper(),
+          ),
         ),
         ProxyProvider<ProgressAggregatorRepositoryImpl, GetProgressSummary>(
           update: (context, repo, _) => GetProgressSummary(repo),
@@ -94,7 +104,8 @@ void main() {
       expect(find.text('5'), findsWidgets);
     });
 
-    testWidgets('ParentDashboardScreen render olur ve özet, grafik ile modül kartlarını gösterir', (tester) async {
+    testWidgets('ParentDashboardScreen render olur ve özet, grafik ile modül kartlarını gösterir',
+        (tester) async {
       await tester.pumpWidget(createTestApp(const ParentDashboardScreen()));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));
@@ -105,7 +116,8 @@ void main() {
       expect(find.text('MODÜL BAZLI İLERLEME RAPORLARI'), findsOneWidget);
     });
 
-    testWidgets('ScreenTimeSettingsScreen render olur ve günlük süre seçeneklerini listeler', (tester) async {
+    testWidgets('ScreenTimeSettingsScreen render olur ve günlük süre seçeneklerini listeler',
+        (tester) async {
       await tester.pumpWidget(createTestApp(const ScreenTimeSettingsScreen()));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 100));

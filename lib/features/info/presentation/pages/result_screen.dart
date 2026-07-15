@@ -12,9 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ResultScreen extends StatefulWidget {
-
   const ResultScreen({
-    required this.drawingImage, required this.recognizedLetter, required this.targetLetter, required this.isCorrect, required this.onTryAgain, required this.onContinue, required this.correctCount, required this.totalAttempts, super.key,
+    required this.drawingImage,
+    required this.recognizedLetter,
+    required this.targetLetter,
+    required this.isCorrect,
+    required this.onTryAgain,
+    required this.onContinue,
+    required this.correctCount,
+    required this.totalAttempts,
+    super.key,
   });
   final ui.Image? drawingImage;
   final String recognizedLetter;
@@ -71,7 +78,6 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
 }
 
 class _ResultView extends StatelessWidget {
-
   const _ResultView({
     required this.drawingImage,
     required this.recognizedLetter,
@@ -150,7 +156,8 @@ class _ResultView extends StatelessWidget {
                       width: 1,
                       color: Colors.white.withValues(alpha: 0.3),
                       margin: EdgeInsets.symmetric(
-                          horizontal: AppSizes.paddingSmall(context) * 0.003,),
+                        horizontal: AppSizes.paddingSmall(context) * 0.003,
+                      ),
                     ),
 
                     // Sağ bölüm - Sonuç ve butonlar
@@ -177,7 +184,6 @@ class _ResultView extends StatelessWidget {
 }
 
 class _DrawingResultPanel extends StatelessWidget {
-
   const _DrawingResultPanel({
     required this.drawingImage,
     required this.recognizedLetter,
@@ -237,8 +243,9 @@ class _DrawingResultPanel extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: AppSizes.paddingNormal(context) * 0.5,
-                  vertical: AppSizes.paddingSmall(context) * 0.5,),
+                horizontal: AppSizes.paddingNormal(context) * 0.5,
+                vertical: AppSizes.paddingSmall(context) * 0.5,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
@@ -261,7 +268,6 @@ class _DrawingResultPanel extends StatelessWidget {
 }
 
 class _ActionPanel extends StatelessWidget {
-
   const _ActionPanel({
     required this.targetLetter,
     required this.isCorrect,
@@ -486,7 +492,6 @@ class _LanguageFlagPanel extends StatelessWidget {
 
 // Çizim görüntüsünü göstermek için CustomPainter
 class _DrawingImagePainter extends CustomPainter {
-
   _DrawingImagePainter({required this.image});
   final ui.Image image;
 

@@ -62,7 +62,8 @@ class MathResultOverlay extends StatelessWidget {
                       ElevatedButton(
                         onPressed: isCorrect ? onNext : onRetry,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: isCorrect ? const Color(0xFF6C63FF) : const Color(0xFFFF7675),
+                          backgroundColor:
+                              isCorrect ? const Color(0xFF6C63FF) : const Color(0xFFFF7675),
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                           shape: RoundedRectangleBorder(

@@ -8,7 +8,8 @@ import 'package:go_router/go_router.dart';
 
 class TutorialSection extends StatelessWidget {
   const TutorialSection({
-    required this.size, super.key,
+    required this.size,
+    super.key,
   });
   final Size size;
 

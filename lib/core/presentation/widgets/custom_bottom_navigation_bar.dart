@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 /// köprü widget. [MainShellScaffold] bu sınıfı import eder.
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({
-    required this.currentIndex, required this.onTap, super.key,
+    required this.currentIndex,
+    required this.onTap,
+    super.key,
   });
 
   final int currentIndex;

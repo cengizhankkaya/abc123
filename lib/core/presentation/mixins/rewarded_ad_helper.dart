@@ -68,7 +68,7 @@ mixin RewardedAdHelper<T extends StatefulWidget> on State<T> {
               return;
             }
             unawaited(
-              Provider.of<CounterProvider>(context, listen: false).increment().then((_) {
+              context.read<CounterProvider>().increment().then((_) {
                 if (!context.mounted) {
                   return;
                 }

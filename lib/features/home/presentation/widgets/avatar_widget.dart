@@ -23,8 +23,7 @@ class AvatarWidget extends StatefulWidget {
   State<AvatarWidget> createState() => _AvatarWidgetState();
 }
 
-class _AvatarWidgetState extends State<AvatarWidget>
-    with SingleTickerProviderStateMixin {
+class _AvatarWidgetState extends State<AvatarWidget> with SingleTickerProviderStateMixin {
   late final AnimationController _pulseController;
   late final Animation<double> _pulseScale;
 
@@ -37,13 +36,11 @@ class _AvatarWidgetState extends State<AvatarWidget>
     );
     _pulseScale = TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1, end: 1.09)
-            .chain(CurveTween(curve: Curves.easeOutCubic)),
+        tween: Tween<double>(begin: 1, end: 1.09).chain(CurveTween(curve: Curves.easeOutCubic)),
         weight: 42,
       ),
       TweenSequenceItem(
-        tween: Tween<double>(begin: 1.09, end: 1)
-            .chain(CurveTween(curve: Curves.elasticOut)),
+        tween: Tween<double>(begin: 1.09, end: 1).chain(CurveTween(curve: Curves.elasticOut)),
         weight: 58,
       ),
     ]).animate(_pulseController);

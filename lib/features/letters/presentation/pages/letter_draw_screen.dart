@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:abc123/core/constants/audio.dart';
@@ -49,8 +48,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      Provider.of<LetterDrawingProvider>(context, listen: false)
-          .adjustStrokeWidthForScreenSize(20);
+      context.read<LetterDrawingProvider>().adjustStrokeWidthForScreenSize(20);
     });
   }
 
@@ -64,7 +62,7 @@ class _LetterDrawScreenState extends State<LetterDrawScreen> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final drawingProvider = Provider.of<LetterDrawingProvider>(context);
+    final drawingProvider = context.watch<LetterDrawingProvider>();
 
     return _LetterDrawView(
       provider: drawingProvider,
@@ -215,9 +213,9 @@ class _BottomToolbar extends StatelessWidget {
 
       if (context.mounted) {
         if (provider.sequentialManager.isSequentialModeActive) {
-          final isCorrect = provider.sequentialManager
-              .evaluateRecognitionResult(provider.recognitionResult);
-          
+          final isCorrect =
+              provider.sequentialManager.evaluateRecognitionResult(provider.recognitionResult);
+
           await _showResultScreenWithModel(
             context,
             ResultScreenData(
@@ -254,15 +252,19 @@ class _BottomToolbar extends StatelessWidget {
 
   Future<void> _showResultScreenWithModel(BuildContext context, ResultScreenData data) async {
     if (data.isCorrect) {
-      unawaited(Provider.of<GamificationProvider>(context, listen: false)
-          .incrementTotalDrawings(type: DrawingType.letter, label: data.recognizedLetter),);
+      unawaited(
+        Provider.of<GamificationProvider>(context, listen: false)
+            .incrementTotalDrawings(type: DrawingType.letter, label: data.recognizedLetter),
+      );
     }
 
     try {
       if (data.isCorrect) {
-        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids));
+        unawaited(getIt<IAudioService>()
+            .playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids));
       } else {
-        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids));
+        unawaited(getIt<IAudioService>()
+            .playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids));
       }
       await context.push(AppRoutes.result, extra: data);
     } on Object catch (e, st) {

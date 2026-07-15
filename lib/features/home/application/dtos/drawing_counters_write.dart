@@ -1,6 +1,5 @@
 /// Çizim sayaçlarını kalıcılığa yazmak için girdi (değişmez DTO — `11_data_modeling.md`).
 class DrawingCountersWrite {
-
   const DrawingCountersWrite({
     required this.totalDrawings,
     required this.numberDrawings,

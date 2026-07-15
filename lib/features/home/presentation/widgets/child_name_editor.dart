@@ -6,7 +6,13 @@ import 'package:flutter/material.dart';
 /// İsim kaydetme akışı: boş değer kontrolü, inline checkmark geri bildirimi.
 class ChildNameEditor extends StatefulWidget {
   const ChildNameEditor({
-    required this.initialName, required this.onSave, required this.hintText, required this.saveText, required this.savedText, required this.emptyErrorText, super.key,
+    required this.initialName,
+    required this.onSave,
+    required this.hintText,
+    required this.saveText,
+    required this.savedText,
+    required this.emptyErrorText,
+    super.key,
   });
 
   final String initialName;
@@ -36,8 +42,7 @@ class _ChildNameEditorState extends State<ChildNameEditor> {
   @override
   void didUpdateWidget(covariant ChildNameEditor oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialName != widget.initialName &&
-        widget.initialName != _controller.text) {
+    if (oldWidget.initialName != widget.initialName && widget.initialName != _controller.text) {
       _controller.text = widget.initialName;
     }
   }
@@ -129,9 +134,8 @@ class _ChildNameEditorState extends State<ChildNameEditor> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
                       borderSide: BorderSide(
-                        color: _showError
-                            ? HomeDesignTokens.numbersCard
-                            : HomeDesignTokens.headerBlue,
+                        color:
+                            _showError ? HomeDesignTokens.numbersCard : HomeDesignTokens.headerBlue,
                         width: 2,
                       ),
                     ),
@@ -194,7 +198,8 @@ class _ChildNameEditorState extends State<ChildNameEditor> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: HomeDesignTokens.headerBlue,
                           foregroundColor: Colors.white,
-                          disabledBackgroundColor: HomeDesignTokens.navInactive.withValues(alpha: 0.4),
+                          disabledBackgroundColor:
+                              HomeDesignTokens.navInactive.withValues(alpha: 0.4),
                           disabledForegroundColor: Colors.white,
                           elevation: isEmpty ? 0 : 2,
                           minimumSize: const Size(88, 52),

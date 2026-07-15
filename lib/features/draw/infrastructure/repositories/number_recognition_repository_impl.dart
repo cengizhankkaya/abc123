@@ -14,7 +14,8 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 /// `DrawScreenProvider`'daki `_loadModel`, `_preprocessImage`, `_runInference`
 /// mantığı bu infrastructure adapter sınıfına taşındı.
 @LazySingleton(as: INumberRecognitionRepository)
-final class NumberRecognitionRepositoryImpl extends BaseRepository implements INumberRecognitionRepository {
+final class NumberRecognitionRepositoryImpl extends BaseRepository
+    implements INumberRecognitionRepository {
   NumberRecognitionRepositoryImpl(
     super.exceptionHandler,
     super.failureMapper,
@@ -34,24 +35,24 @@ final class NumberRecognitionRepositoryImpl extends BaseRepository implements IN
 
   @override
   FutureResult<int> recognizeNumber(Uint8List imageBytes) => execute(() async {
-    await _ensureLoaded();
+        await _ensureLoaded();
 
-    final decoded = img.decodeImage(imageBytes);
-    if (decoded == null) {
-      throw Exception('Görüntü decode edilemedi');
-    }
+        final decoded = img.decodeImage(imageBytes);
+        if (decoded == null) {
+          throw Exception('Görüntü decode edilemedi');
+        }
 
-    final resized = img.copyResize(
-      decoded,
-      width: 28,
-      height: 28,
-      interpolation: img.Interpolation.average,
-    );
+        final resized = img.copyResize(
+          decoded,
+          width: 28,
+          height: 28,
+          interpolation: img.Interpolation.average,
+        );
 
-    final processedData = _preprocessImage(resized);
-    final result = await _runInference(processedData);
-    return result;
-  });
+        final processedData = _preprocessImage(resized);
+        final result = await _runInference(processedData);
+        return result;
+      });
 
   /// Görüntüyü modele uygun float formatına dönüştürür (28×28, threshold uygulanır).
   Uint8List _preprocessImage(img.Image resizedImage) {

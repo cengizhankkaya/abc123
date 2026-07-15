@@ -71,9 +71,7 @@ class _SparklePainter extends CustomPainter {
       if (p.progress <= 0 || p.progress >= 1) continue;
 
       // Son %30'da solar
-      final opacity = p.progress < 0.7
-          ? 1.0
-          : 1.0 - ((p.progress - 0.7) / 0.3);
+      final opacity = p.progress < 0.7 ? 1.0 : 1.0 - ((p.progress - 0.7) / 0.3);
 
       final paint = Paint()
         ..color = p.color.withValues(alpha: opacity.clamp(0.0, 1.0))
@@ -136,7 +134,10 @@ class _SparklePainter extends CustomPainter {
 /// ```
 class AnimatedBottomNavBar extends StatefulWidget {
   const AnimatedBottomNavBar({
-    required this.currentIndex, required this.onTap, required this.items, super.key,
+    required this.currentIndex,
+    required this.onTap,
+    required this.items,
+    super.key,
   });
 
   final int currentIndex;
@@ -147,8 +148,7 @@ class AnimatedBottomNavBar extends StatefulWidget {
   State<AnimatedBottomNavBar> createState() => _AnimatedBottomNavBarState();
 }
 
-class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
-    with TickerProviderStateMixin {
+class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar> with TickerProviderStateMixin {
   // ── Blob kayma animasyonu ────────────────────────────────────────────────
   late AnimationController _blobController;
   late Animation<double> _blobPosition;
@@ -271,8 +271,7 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
 
   void _triggerSparkle(int index) {
     _sparkleTabIndex = index;
-    final activeColor =
-        _NavColors.tabColors[index % _NavColors.tabColors.length];
+    final activeColor = _NavColors.tabColors[index % _NavColors.tabColors.length];
     _particles
       ..clear()
       ..addAll(
@@ -350,12 +349,12 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
         child: LayoutBuilder(
           builder: (context, constraints) {
             final itemWidth = constraints.maxWidth / tabCount;
-            
+
             return AnimatedBuilder(
               animation: Listenable.merge([_blobController]),
               builder: (context, _) {
                 final blobLeft = _blobPosition.value * itemWidth;
-                
+
                 return Stack(
                   alignment: Alignment.center,
                   children: [
@@ -376,9 +375,8 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
                             width: itemWidth * 0.76,
                             height: 50,
                             decoration: BoxDecoration(
-                              color: _NavColors.tabColors[
-                                      widget.currentIndex %
-                                          _NavColors.tabColors.length]
+                              color: _NavColors
+                                  .tabColors[widget.currentIndex % _NavColors.tabColors.length]
                                   .withValues(alpha: 0.16),
                               borderRadius: BorderRadius.circular(25),
                             ),
@@ -387,29 +385,26 @@ class _AnimatedBottomNavBarState extends State<AnimatedBottomNavBar>
                       ),
                     ),
 
-                // ── Sekme öğeleri ──────────────────────────────────────────
-                Row(
-                  children: List.generate(tabCount, (index) {
-                    return _NavItemTile(
-                      item: widget.items[index],
-                      isSelected: widget.currentIndex == index,
-                      activeColor: _NavColors.tabColors[
-                          index % _NavColors.tabColors.length],
-                      bounceScale: _bounceScales[index],
-                      showSparkle: _sparkleTabIndex == index &&
-                          _sparkleController.isAnimating,
-                      particles:
-                          _sparkleTabIndex == index ? _particles : const [],
-                      onTap: () => widget.onTap(index),
-                    );
-                  }),
-                ),
-              ],
-            );
-          }, // end AnimatedBuilder builder
-        ); // end AnimatedBuilder
-      }, // end LayoutBuilder builder
-    ), // end LayoutBuilder
+                    // ── Sekme öğeleri ──────────────────────────────────────────
+                    Row(
+                      children: List.generate(tabCount, (index) {
+                        return _NavItemTile(
+                          item: widget.items[index],
+                          isSelected: widget.currentIndex == index,
+                          activeColor: _NavColors.tabColors[index % _NavColors.tabColors.length],
+                          bounceScale: _bounceScales[index],
+                          showSparkle: _sparkleTabIndex == index && _sparkleController.isAnimating,
+                          particles: _sparkleTabIndex == index ? _particles : const [],
+                          onTap: () => widget.onTap(index),
+                        );
+                      }),
+                    ),
+                  ],
+                );
+              }, // end AnimatedBuilder builder
+            ); // end AnimatedBuilder
+          }, // end LayoutBuilder builder
+        ), // end LayoutBuilder
       ),
     );
   }
@@ -490,9 +485,7 @@ class _NavItemTile extends StatelessWidget {
                     duration: const Duration(milliseconds: 220),
                     style: GoogleFonts.nunito(
                       fontSize: isSelected ? 10.5 : 9.5,
-                      fontWeight: isSelected
-                          ? FontWeight.w800
-                          : FontWeight.w600,
+                      fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
                       color: isSelected ? activeColor : _NavColors.inactive,
                     ),
                     child: Text(

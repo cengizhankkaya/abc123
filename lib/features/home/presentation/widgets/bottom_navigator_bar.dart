@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigatorBar extends StatefulWidget {
-
   const BottomNavigatorBar({
-    required this.onItemTapped, super.key,
+    required this.onItemTapped,
+    super.key,
   });
   final void Function(int) onItemTapped;
 

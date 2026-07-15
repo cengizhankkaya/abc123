@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 /// Çocukların yanlışlıkla Ebeveyn Paneli'ne veya ödeme alanlarına girmesini önleyen
 /// matematik sorusu ve basılı tutma doğrulaması.
 class ParentalGateScreen extends StatefulWidget {
-
   const ParentalGateScreen({
     super.key,
     this.onSuccess,
@@ -179,7 +178,9 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: _hasError ? Colors.red.withValues(alpha: 0.25) : Colors.black.withValues(alpha: 0.06),
+                        color: _hasError
+                            ? Colors.red.withValues(alpha: 0.25)
+                            : Colors.black.withValues(alpha: 0.06),
                         blurRadius: 16,
                         offset: const Offset(0, 4),
                       ),
@@ -214,7 +215,9 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: _input.isEmpty ? Colors.grey : (isDark ? Colors.white : Colors.black87),
+                            color: _input.isEmpty
+                                ? Colors.grey
+                                : (isDark ? Colors.white : Colors.black87),
                           ),
                         ),
                       ),
@@ -222,7 +225,8 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         const SizedBox(height: 8),
                         Text(
                           isTr ? 'Yanlış cevap, tekrar deneyin!' : 'Incorrect answer, try again!',
-                          style: const TextStyle(color: Colors.redAccent, fontSize: 13, fontWeight: FontWeight.w500),
+                          style: const TextStyle(
+                              color: Colors.redAccent, fontSize: 13, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ],
@@ -282,7 +286,8 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(26),
                           color: isDark ? const Color(0xFF1E1E26) : Colors.white,
-                          border: Border.all(color: const Color(0xFF6C63FF).withValues(alpha: 0.4), width: 1.5),
+                          border: Border.all(
+                              color: const Color(0xFF6C63FF).withValues(alpha: 0.4), width: 1.5),
                           boxShadow: [
                             BoxShadow(
                               color: const Color(0xFF6C63FF).withValues(alpha: 0.15),
@@ -308,11 +313,14 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.touch_app_rounded, color: Color(0xFF6C63FF), size: 20),
+                                    const Icon(Icons.touch_app_rounded,
+                                        color: Color(0xFF6C63FF), size: 20),
                                     const SizedBox(width: 8),
                                     Flexible(
                                       child: Text(
-                                        isTr ? 'Girmek için 3 Saniye Basılı Tut' : 'Hold for 3 Seconds to Enter',
+                                        isTr
+                                            ? 'Girmek için 3 Saniye Basılı Tut'
+                                            : 'Hold for 3 Seconds to Enter',
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -340,11 +348,13 @@ class _ParentalGateScreenState extends State<ParentalGateScreen>
     );
   }
 
-  Widget _buildKeyPadButton(String label, VoidCallback onTap, bool isDark, {bool isSpecial = false, Color? specialColor}) {
+  Widget _buildKeyPadButton(String label, VoidCallback onTap, bool isDark,
+      {bool isSpecial = false, Color? specialColor}) {
     return Material(
-      color: specialColor ?? (isSpecial
-          ? (isDark ? const Color(0xFF2C2C38) : const Color(0xFFE2E6EC))
-          : (isDark ? const Color(0xFF1E1E26) : Colors.white)),
+      color: specialColor ??
+          (isSpecial
+              ? (isDark ? const Color(0xFF2C2C38) : const Color(0xFFE2E6EC))
+              : (isDark ? const Color(0xFF1E1E26) : Colors.white)),
       borderRadius: BorderRadius.circular(12),
       elevation: isSpecial && specialColor == null ? 0 : 2,
       shadowColor: Colors.black.withValues(alpha: 0.08),

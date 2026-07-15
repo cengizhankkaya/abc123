@@ -2,7 +2,6 @@ import 'package:abc123/core/constants/image_constants.dart';
 
 /// Çizim rehberi (saf domain: yalnızca asset yolu).
 class DrawingGuide {
-
   DrawingGuide({
     required this.imagePath,
   });

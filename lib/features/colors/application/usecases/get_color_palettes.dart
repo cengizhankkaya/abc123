@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetColorPalettes {
-
   const GetColorPalettes(this._repository);
   final IColorGameRepository _repository;
 

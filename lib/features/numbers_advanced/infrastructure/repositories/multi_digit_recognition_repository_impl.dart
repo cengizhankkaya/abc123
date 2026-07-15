@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/error/failures/failure.dart';
 import 'package:abc123/core/infrastructure/base/base_repository.dart';
 import 'package:abc123/core/logging/app_logger.dart';
@@ -22,28 +21,29 @@ final class MultiDigitRecognitionFailure extends Failure {
 /// onlar ve birler hanelerini ayrı ayrı tanır; sonuçları birleştirir.
 /// Yeni bir TFLite modeli **eklenmez** — mevcut model yeniden kullanılır.
 @LazySingleton(as: IMultiDigitRecognitionRepository)
-final class MultiDigitRecognitionRepositoryImpl extends BaseRepository implements IMultiDigitRecognitionRepository {
+final class MultiDigitRecognitionRepositoryImpl extends BaseRepository
+    implements IMultiDigitRecognitionRepository {
   MultiDigitRecognitionRepositoryImpl(
     super.exceptionHandler,
     super.failureMapper,
+    this._log,
   );
 
   static const String _modelPath = 'assets/models/rakam_model.tflite';
 
   final Lock _loadLock = Lock();
   Interpreter? _interpreter;
-
-  AppLogger get _log => getIt<AppLogger>();
+  final AppLogger _log;
 
   // ────────────────────────────── Public API ──────────────────────────────
 
   /// Tek basamaklı rakamı PNG bytes'tan tanır (0–9).
   @override
   FutureResult<int> recognizeDigit(Uint8List pngBytes) => execute(() async {
-    await _ensureLoaded();
-    final result = await _infer(pngBytes);
-    return result;
-  });
+        await _ensureLoaded();
+        final result = await _infer(pngBytes);
+        return result;
+      });
 
   /// İki PNG bytes (onlar hanesi + birler hanesi) → tam sayı (0–99 veya 100).
   ///
@@ -52,12 +52,13 @@ final class MultiDigitRecognitionRepositoryImpl extends BaseRepository implement
   FutureResult<int> recognizeMultiDigit({
     required Uint8List tensBytes,
     required Uint8List unitsBytes,
-  }) => execute(() async {
-    await _ensureLoaded();
-    final tens = await _infer(tensBytes);
-    final units = await _infer(unitsBytes);
-    return tens * 10 + units;
-  });
+  }) =>
+      execute(() async {
+        await _ensureLoaded();
+        final tens = await _infer(tensBytes);
+        final units = await _infer(unitsBytes);
+        return tens * 10 + units;
+      });
 
   /// Üç PNG bytes (yüzler + onlar + birler) → tam sayı (örneğin 100).
   @override
@@ -65,13 +66,14 @@ final class MultiDigitRecognitionRepositoryImpl extends BaseRepository implement
     required Uint8List hundredsBytes,
     required Uint8List tensBytes,
     required Uint8List unitsBytes,
-  }) => execute(() async {
-    await _ensureLoaded();
-    final hundreds = await _infer(hundredsBytes);
-    final tens = await _infer(tensBytes);
-    final units = await _infer(unitsBytes);
-    return hundreds * 100 + tens * 10 + units;
-  });
+  }) =>
+      execute(() async {
+        await _ensureLoaded();
+        final hundreds = await _infer(hundredsBytes);
+        final tens = await _infer(tensBytes);
+        final units = await _infer(unitsBytes);
+        return hundreds * 100 + tens * 10 + units;
+      });
 
   // ────────────────────────────── Private ──────────────────────────────
 

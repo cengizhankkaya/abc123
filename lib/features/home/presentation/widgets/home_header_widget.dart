@@ -16,9 +16,8 @@ class HomeHeaderWidget extends StatelessWidget {
       builder: (context, _, __) {
         final provider = context.read<GamificationProvider>();
         final h = context.homeL10n!;
-        final greeting = provider.childName.isEmpty
-            ? h.hello
-            : h.homeGreetingWithName(provider.childName);
+        final greeting =
+            provider.childName.isEmpty ? h.hello : h.homeGreetingWithName(provider.childName);
 
         return ClipRRect(
           borderRadius: const BorderRadius.only(

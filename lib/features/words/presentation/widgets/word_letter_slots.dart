@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class WordLetterSlots extends StatelessWidget {
   const WordLetterSlots({
-    required this.spelling, required this.activeIndex, super.key,
+    required this.spelling,
+    required this.activeIndex,
+    super.key,
     this.alignment = WrapAlignment.center,
     this.maxWidth,
   });

@@ -5,6 +5,7 @@ class AdmobRewardedIds {
   AdmobRewardedIds._();
 
   static const String defaultAndroid = 'ca-app-pub-1254894147284178/7964725662';
+
   /// iOS Abc123 — AdMob `childodul_ios` birimi.
   static const String defaultIos = 'ca-app-pub-1254894147284178/7045870245';
 

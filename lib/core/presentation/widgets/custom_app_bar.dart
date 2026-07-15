@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-
   const CustomAppBar({
-    required this.title, super.key,
+    required this.title,
+    super.key,
     this.showBackButton = false,
     this.actions,
   });

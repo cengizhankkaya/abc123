@@ -78,7 +78,8 @@ class _ScreenTimeSettingsView extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.hourglass_bottom_rounded, color: Colors.white, size: 32),
+                      child:
+                          const Icon(Icons.hourglass_bottom_rounded, color: Colors.white, size: 32),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -309,9 +310,7 @@ class _OptionCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
-                    color: isSelected
-                        ? Colors.white
-                        : (isDark ? Colors.white : Colors.black87),
+                    color: isSelected ? Colors.white : (isDark ? Colors.white : Colors.black87),
                   ),
                 ),
                 if (isSelected)

@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 /// Widget'in çalışması için widget ağacında `FluttermojiController`'ın
 /// `ChangeNotifierProvider` olarak sağlanmış olması gerekir.
 class FluttermojiCircleAvatar extends StatelessWidget {
-
   const FluttermojiCircleAvatar({
     super.key,
     this.radius = 75.0,

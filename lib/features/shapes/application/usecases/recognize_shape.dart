@@ -12,7 +12,6 @@ final class ShapeRecognitionFailed extends Failure {
 
 @injectable
 final class RecognizeShape {
-
   const RecognizeShape(this._repository);
   final IShapeRecognitionRepository _repository;
 

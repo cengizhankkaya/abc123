@@ -8,9 +8,11 @@ import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:flutter/material.dart';
 
 class LetterGuideCard extends StatefulWidget {
-
   const LetterGuideCard({
-    required this.guide, required this.onNext, required this.onPrevious, super.key,
+    required this.guide,
+    required this.onNext,
+    required this.onPrevious,
+    super.key,
   });
   final DrawingGuide guide;
   final VoidCallback onNext;

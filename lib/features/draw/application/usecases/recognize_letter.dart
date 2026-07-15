@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 /// doğrudan infrastructure'a erişmez.
 @injectable
 final class RecognizeLetter {
-
   const RecognizeLetter(this._repository);
   final IRecognitionRepository _repository;
 

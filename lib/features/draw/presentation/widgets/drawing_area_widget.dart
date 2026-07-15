@@ -5,9 +5,21 @@ import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dar
 import 'package:flutter/material.dart';
 
 class DrawingAreaWidget extends StatelessWidget {
-
   const DrawingAreaWidget({
-    required this.points, required this.eraseMode, required this.selectedColor, required this.strokeWidth, required this.showResult, required this.isLoading, required this.recognitionResult, required this.animation, required this.tanima, required this.drawingAreaKey, required this.onClear, required this.onDrawPoint, required this.onEndDrawing, super.key,
+    required this.points,
+    required this.eraseMode,
+    required this.selectedColor,
+    required this.strokeWidth,
+    required this.showResult,
+    required this.isLoading,
+    required this.recognitionResult,
+    required this.animation,
+    required this.tanima,
+    required this.drawingAreaKey,
+    required this.onClear,
+    required this.onDrawPoint,
+    required this.onEndDrawing,
+    super.key,
   });
   final List<DrawingPoint?> points;
   final bool eraseMode;

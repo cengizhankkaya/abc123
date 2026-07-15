@@ -280,8 +280,9 @@ class _BottomToolbar extends StatelessWidget {
 
       // Gamification Integration
       if (context.mounted) {
-        unawaited(Provider.of<GamificationProvider>(context, listen: false)
-            .incrementTotalDrawings(type: DrawingType.shape),);
+        unawaited(
+          context.read<GamificationProvider>().incrementTotalDrawings(type: DrawingType.shape),
+        );
       }
 
       if (context.mounted) {
@@ -302,24 +303,24 @@ class _BottomToolbar extends StatelessWidget {
     final localizedRecognizedShape = shapesLabelForCode(sl, provider.recognitionResult);
 
     await context.push(
-        AppRoutes.result,
-        extra: ResultScreenData(
-          drawingImage: provider.drawingImage,
-          recognizedLetter: localizedRecognizedShape,
-          targetLetter: localizedTargetShape,
-          isCorrect: isCorrect,
-          correctCount: provider.correctlyDrawnCount,
-          totalAttempts: provider.totalAttempts,
-          onTryAgain: () {
-            context.pop();
-            provider.onResultScreenAction(isCorrect, tryAgain: true);
-          },
-          onContinue: () {
-            context.pop();
-            provider.onResultScreenAction(isCorrect, tryAgain: false);
-          },
-        ),
-      );
+      AppRoutes.result,
+      extra: ResultScreenData(
+        drawingImage: provider.drawingImage,
+        recognizedLetter: localizedRecognizedShape,
+        targetLetter: localizedTargetShape,
+        isCorrect: isCorrect,
+        correctCount: provider.correctlyDrawnCount,
+        totalAttempts: provider.totalAttempts,
+        onTryAgain: () {
+          context.pop();
+          provider.onResultScreenAction(isCorrect, tryAgain: true);
+        },
+        onContinue: () {
+          context.pop();
+          provider.onResultScreenAction(isCorrect, tryAgain: false);
+        },
+      ),
+    );
   }
 
   Future<void> _navigateFreeModeResult(BuildContext context) async {
@@ -328,23 +329,23 @@ class _BottomToolbar extends StatelessWidget {
     final localizedShape = shapesLabelForCode(sl, recognizedCode);
 
     await context.push(
-        AppRoutes.result,
-        extra: ResultScreenData(
-          drawingImage: provider.drawingImage,
-          recognizedLetter: localizedShape,
-          targetLetter: localizedShape,
-          isCorrect: true,
-          correctCount: 0,
-          totalAttempts: 0,
-          onTryAgain: () {
-            context.pop();
-            provider.clear();
-          },
-          onContinue: () {
-            context.pop();
-            provider.clear();
-          },
-        ),
-      );
+      AppRoutes.result,
+      extra: ResultScreenData(
+        drawingImage: provider.drawingImage,
+        recognizedLetter: localizedShape,
+        targetLetter: localizedShape,
+        isCorrect: true,
+        correctCount: 0,
+        totalAttempts: 0,
+        onTryAgain: () {
+          context.pop();
+          provider.clear();
+        },
+        onContinue: () {
+          context.pop();
+          provider.clear();
+        },
+      ),
+    );
   }
 }

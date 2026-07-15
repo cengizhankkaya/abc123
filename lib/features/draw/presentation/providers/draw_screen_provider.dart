@@ -1,7 +1,6 @@
 import 'dart:ui' as ui;
 
 import 'package:abc123/core/constants/language_constants.dart';
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -11,26 +10,36 @@ import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 /// Çizim ekranı state yöneticisi.
 ///
 /// Refactor (Hexagonal Architecture): TFLite model yükleme ve inference kodu
 /// `NumberRecognitionRepositoryImpl` (infrastructure) ve `RecognizeNumber`
 /// (application) katmanlarına taşındı. Bu Provider yalnızca UI state yönetir.
+@injectable
 class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
-
   DrawScreenProvider({
     required RecognizeNumber recognizeNumberUseCase,
-    this.context,
-    this.language = AppLanguage.turkish,
-  }) : _recognizeNumberUseCase = recognizeNumberUseCase {
-    volume = getIt<IAudioService>().currentVolume;
+    required IAudioService audioService,
+    required AppLogger appLogger,
+    @factoryParam this.context,
+    @factoryParam AppLanguage? language,
+  })  : _recognizeNumberUseCase = recognizeNumberUseCase,
+        _audioService = audioService,
+        _appLogger = appLogger {
+    if (language != null) {
+      this.language = language;
+    }
+    volume = _audioService.currentVolume;
     sequentialManager.isLetterMode = false;
     sequentialManager.toggleSequentialMode(true);
     activeGuide = DrawingContentProvider.activeGuide;
     strokeWidth = 25.0;
   }
   final RecognizeNumber _recognizeNumberUseCase;
+  final IAudioService _audioService;
+  final AppLogger _appLogger;
   final GlobalKey drawingAreaKey = GlobalKey();
 
   // Çizim kontrolleri
@@ -132,8 +141,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
         notifyListeners();
         return;
       }
-      final byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       if (byteData == null) {
         tanima = 'Görüntü işlenemedi';
         isLoading = false;
@@ -165,8 +173,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       notifyListeners();
 
       if (sequentialManager.isSequentialModeActive) {
-        final isCorrect =
-            sequentialManager.evaluateRecognitionResult(recognitionResult);
+        final isCorrect = sequentialManager.evaluateRecognitionResult(recognitionResult);
         showResultScreen(isCorrect);
         if (!isCorrect) {
           _recordProgressAttempt(false);
@@ -200,7 +207,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
     } catch (e, st) {
-      getIt<AppLogger>().error(
+      _appLogger.error(
         'Image render failed',
         tag: 'DrawScreen',
         error: e,
@@ -225,16 +232,19 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
   }
 
   void toggleEraseMode(bool enabled) {
+    if (eraseMode == enabled) return;
     eraseMode = enabled;
     notifyListeners();
   }
 
   void setStrokeWidth(double width) {
+    if (strokeWidth == width) return;
     strokeWidth = width;
     notifyListeners();
   }
 
   void setColor(Color color) {
+    if (selectedColor == color) return;
     selectedColor = color;
     notifyListeners();
   }
@@ -260,7 +270,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
 
   void setVolume(double value) {
     volume = value;
-    getIt<IAudioService>().setVolume(value);
+    _audioService.setVolume(value);
     notifyListeners();
   }
 
@@ -290,8 +300,7 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       (sequentialManager.correctlyDrawnCount / 10.0 * 100.0).clamp(0.0, 100.0);
 
   @override
-  double get accuracyRate =>
-      sequentialManager.getSuccessRate().clamp(0.0, 100.0);
+  double get accuracyRate => sequentialManager.getSuccessRate().clamp(0.0, 100.0);
 
   @override
   DateTime? get lastActivityDate => _lastActivityDate;

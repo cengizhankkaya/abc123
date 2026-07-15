@@ -100,14 +100,15 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
   }
 
   void _watchAdForPoints(BuildContext context) {
-    AdService().showRewardedAd(
+    getIt<IAdService>().showRewardedAd(
       onReward: (amount) {
         const earned = 5;
         unawaited(context.read<GamificationProvider>().addPoints(earned));
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                '🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)',),
+              '🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)',
+            ),
             backgroundColor: HomeDesignTokens.lettersCard,
           ),
         );
@@ -201,8 +202,11 @@ class _AvatarDashboardCard extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(Icons.play_circle_fill_rounded,
-                                      color: HomeDesignTokens.darkText, size: 16,),
+                                  const Icon(
+                                    Icons.play_circle_fill_rounded,
+                                    color: HomeDesignTokens.darkText,
+                                    size: 16,
+                                  ),
                                   const SizedBox(width: 4),
                                   Flexible(
                                     child: Text(
@@ -210,8 +214,8 @@ class _AvatarDashboardCard extends StatelessWidget {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: HomeDesignTokens.cardTitle(
-                                              color: HomeDesignTokens.darkText,)
-                                          .copyWith(
+                                        color: HomeDesignTokens.darkText,
+                                      ).copyWith(
                                         fontSize: 11,
                                       ),
                                     ),

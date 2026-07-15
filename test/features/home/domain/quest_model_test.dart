@@ -78,8 +78,7 @@ void main() {
         currentCount: 3,
         rewardPoints: 5,
       );
-      final updated =
-          original.copyWith(currentCount: 4, isCompleted: false);
+      final updated = original.copyWith(currentCount: 4, isCompleted: false);
 
       expect(original.currentCount, 3);
       expect(updated.currentCount, 4);

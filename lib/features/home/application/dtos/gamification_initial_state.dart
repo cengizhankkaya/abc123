@@ -1,6 +1,5 @@
 /// Kalıcılıktan okunan oyun durumu özeti (uygulama DTO; değişmez — `11_data_modeling.md`).
 class GamificationInitialState {
-
   const GamificationInitialState({
     required this.points,
     required this.streak,

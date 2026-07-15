@@ -14,7 +14,6 @@ import 'package:abc123/features/home/presentation/avatar/fluttermoji_assets/top/
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FluttermojiFunctions {
-
   FluttermojiFunctions() {
     _decodedList = {
       'topType': 4,
@@ -35,9 +34,7 @@ class FluttermojiFunctions {
   late Map<String, int> _decodedList;
 
   String _getFluttermojiProperty(String type) {
-    return fluttermojiProperties[type]!
-        .property!
-        .elementAt(_decodedList[type]!);
+    return fluttermojiProperties[type]!.property!.elementAt(_decodedList[type]!);
   }
 
   /// SharedPreferences'taki fluttermoji verisini siler.
@@ -58,19 +55,22 @@ class FluttermojiFunctions {
 
     final fmStyle = fluttermojiStyle[_getFluttermojiProperty('style')]!;
     final clothe = Clothes.generateClothes(
-        clotheType: _getFluttermojiProperty('clotheType'),
-        clColor: _getFluttermojiProperty('clotheColor'),)!;
+      clotheType: _getFluttermojiProperty('clotheType'),
+      clColor: _getFluttermojiProperty('clotheColor'),
+    )!;
     final facialHair = FacialHair.generateFacialHair(
-        facialHairType: _getFluttermojiProperty('facialHairType'),
-        fhColor: _getFluttermojiProperty('facialHairColor'),)!;
+      facialHairType: _getFluttermojiProperty('facialHairType'),
+      fhColor: _getFluttermojiProperty('facialHairColor'),
+    )!;
     final mouthSvg = mouth[_getFluttermojiProperty('mouthType')] as String;
     final noseSvg = nose['Default'] as String;
     final eyesSvg = eyes[_getFluttermojiProperty('eyeType')] as String;
     final eyebrowsSvg = eyebrow[_getFluttermojiProperty('eyebrowType')] as String;
     final accessory = accessories[_getFluttermojiProperty('accessoriesType')] as String;
     final hair = HairStyle.generateHairStyle(
-        hairType: _getFluttermojiProperty('topType'),
-        hColor: _getFluttermojiProperty('hairColor'),)!;
+      hairType: _getFluttermojiProperty('topType'),
+      hColor: _getFluttermojiProperty('hairColor'),
+    )!;
     final skinSvg = skin[_getFluttermojiProperty('skinColor')] as String;
 
     return '''<svg width="264px" height="280px" viewBox="0 0 264 280" version="1.1"
@@ -99,7 +99,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
     if (saved == null || saved.isEmpty) {
       final defaults = Map<String, int>.from(defaultFluttermojiOptions);
       await pref.setString(
-          'fluttermojiSelectedOptions', jsonEncode(defaults),);
+        'fluttermojiSelectedOptions',
+        jsonEncode(defaults),
+      );
       return defaults;
     }
     final raw = jsonDecode(saved) as Map;
@@ -112,7 +114,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
     if (saved == null || saved.isEmpty) {
       final defaults = Map<String, int>.from(defaultFluttermojiOptions);
       await pref.setString(
-          'fluttermojiSelectedOptions', jsonEncode(defaults),);
+        'fluttermojiSelectedOptions',
+        jsonEncode(defaults),
+      );
       return jsonEncode(defaults);
     }
     return saved;

@@ -199,7 +199,7 @@ Map<String, dynamic> eyes = {
         />
       </g>
   ''',
-  'Squint': ''' 					
+  'Squint': '''
 
 
 

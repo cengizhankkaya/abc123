@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 final class RecognizeMultiDigit {
-
   const RecognizeMultiDigit(this._repository);
   final IMultiDigitRecognitionRepository _repository;
 

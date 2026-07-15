@@ -9,7 +9,12 @@ import 'package:flutter/material.dart';
 /// Sağ panel: puzzle yerine hedef kelime ve harf ilerlemesi.
 class WordRightPanel extends StatelessWidget {
   const WordRightPanel({
-    required this.emoji, required this.displayText, required this.spelling, required this.activeLetterIndex, required this.isLoading, super.key,
+    required this.emoji,
+    required this.displayText,
+    required this.spelling,
+    required this.activeLetterIndex,
+    required this.isLoading,
+    super.key,
   });
 
   final String emoji;

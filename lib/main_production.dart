@@ -5,7 +5,6 @@ import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/presentation/providers/counter_provider.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
-import 'package:abc123/features/draw/application/usecases/recognize_number.dart';
 import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
 import 'package:abc123/features/home/presentation/avatar/fluttermoji_controller.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
@@ -19,6 +18,7 @@ import 'package:abc123/features/shapes/presentation/providers/shapes_drawing_pro
 import 'package:abc123/features/words/presentation/providers/word_drawing_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Production ortamı giriş noktası (`01_project_structure.md` — Build Flavors).
 ///
@@ -33,43 +33,40 @@ import 'package:provider/provider.dart';
 void main() async {
   await bootstrap();
   AppEnvironment.assertHttpsApiBase();
+  final prefs = getIt<SharedPreferences>();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => DrawScreenProvider(
-            recognizeNumberUseCase: getIt<RecognizeNumber>(),
-          ),
-        ),
-        ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => ShapesDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => WordDrawingProvider()),
-        ChangeNotifierProvider(create: (_) => LanguageProvider()),
-        ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
-        ChangeNotifierProvider(create: (_) => CounterProvider()),
-        ChangeNotifierProvider(create: (_) => PremiumProvider()),
-        ChangeNotifierProvider(create: (_) => ScreenTimeProvider()),
+        ChangeNotifierProvider(create: (_) => getIt<DrawScreenProvider>()),
+        ChangeNotifierProvider(create: (_) => getIt<LetterDrawingProvider>()),
+        ChangeNotifierProvider(create: (_) => getIt<ShapesDrawingProvider>()),
+        ChangeNotifierProvider(create: (_) => getIt<WordDrawingProvider>()),
+        ChangeNotifierProvider(create: (_) => LanguageProvider(prefs)),
+        ChangeNotifierProvider(create: (_) => ThemeModeProvider(prefs)),
+        ChangeNotifierProvider(create: (_) => CounterProvider(prefs)),
+        ChangeNotifierProvider(create: (_) => PremiumProvider(prefs)),
+        ChangeNotifierProvider(create: (_) => ScreenTimeProvider(prefs)),
         ChangeNotifierProvider(
           create: (_) => getIt<GamificationProvider>(),
         ),
         ChangeNotifierProvider(
-          create: (_) => FluttermojiController(),
+          create: (_) => FluttermojiController(prefs),
         ),
-        ChangeNotifierProxyProvider<GamificationProvider, MathProgressProvider>(
-          create: (context) => MathProgressProvider(recognizeMultiDigitUseCase: getIt(), 
-            gamification: context.read<GamificationProvider>(),
+        ChangeNotifierProvider(
+          create: (_) => getIt<MathProgressProvider>(),
+        ),
+        Provider<ProgressAggregatorRepositoryImpl>(
+          create: (context) => ProgressAggregatorRepositoryImpl(
+            [
+              context.read<DrawScreenProvider>(),
+              context.read<LetterDrawingProvider>(),
+              context.read<ShapesDrawingProvider>(),
+              context.read<WordDrawingProvider>(),
+              context.read<MathProgressProvider>(),
+            ],
+            getIt(),
+            getIt(),
           ),
-          update: (context, gamification, previous) =>
-              previous ?? MathProgressProvider(recognizeMultiDigitUseCase: getIt(), gamification: gamification),
-        ),
-        ProxyProvider0<ProgressAggregatorRepositoryImpl>(
-          update: (context, _) => ProgressAggregatorRepositoryImpl([
-            context.read<DrawScreenProvider>(),
-            context.read<LetterDrawingProvider>(),
-            context.read<ShapesDrawingProvider>(),
-            context.read<WordDrawingProvider>(),
-            context.read<MathProgressProvider>(),
-          ], getIt(), getIt(),),
         ),
         ProxyProvider<ProgressAggregatorRepositoryImpl, GetProgressSummary>(
           update: (context, repo, _) => GetProgressSummary(repo),

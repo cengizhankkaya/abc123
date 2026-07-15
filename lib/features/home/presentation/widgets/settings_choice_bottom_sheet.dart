@@ -65,9 +65,7 @@ class _LanguageBottomSheetContent extends StatelessWidget {
                 Expanded(
                   child: Text(
                     h.settingsChooseLanguage ?? h.settingsLanguage,
-                    style: HomeDesignTokens.headingSection(
-                      
-                    ),
+                    style: HomeDesignTokens.headingSection(),
                   ),
                 ),
               ],

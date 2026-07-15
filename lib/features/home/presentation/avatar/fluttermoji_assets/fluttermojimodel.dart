@@ -4,20 +4,17 @@ import 'package:flutter/foundation.dart';
 final Map<String, FluttermojiPropertyItem> fluttermojiProperties = {
   'style': FluttermojiPropertyItem(title: 'Style', property: FluttermojiStyle),
   'topType': FluttermojiPropertyItem(title: 'Hair', property: TopType),
-  'accessoriesType':
-      FluttermojiPropertyItem(title: 'Accessory', property: AccessoriesType),
-  'hairColor':
-      FluttermojiPropertyItem(title: 'Hair\nColor', property: HairColor),
-  'facialHairType':
-      FluttermojiPropertyItem(title: 'Facial\nHair', property: FacialHairType),
+  'accessoriesType': FluttermojiPropertyItem(title: 'Accessory', property: AccessoriesType),
+  'hairColor': FluttermojiPropertyItem(title: 'Hair\nColor', property: HairColor),
+  'facialHairType': FluttermojiPropertyItem(title: 'Facial\nHair', property: FacialHairType),
   'facialHairColor': FluttermojiPropertyItem(
-      title: 'F-Hair\nColor', property: FacialHairColor,),
+    title: 'F-Hair\nColor',
+    property: FacialHairColor,
+  ),
   'clotheType': FluttermojiPropertyItem(title: 'Outfit', property: ClotheType),
-  'clotheColor':
-      FluttermojiPropertyItem(title: 'Outfit\nColor', property: ClotheColor),
+  'clotheColor': FluttermojiPropertyItem(title: 'Outfit\nColor', property: ClotheColor),
   'eyeType': FluttermojiPropertyItem(title: 'Eye', property: EyeType),
-  'eyebrowType':
-      FluttermojiPropertyItem(title: 'Eyebrow', property: EyebrowType),
+  'eyebrowType': FluttermojiPropertyItem(title: 'Eyebrow', property: EyebrowType),
   'mouthType': FluttermojiPropertyItem(title: 'Mouth', property: MouthType),
   'skinColor': FluttermojiPropertyItem(title: 'Skin', property: SkinColor),
 };
@@ -26,8 +23,12 @@ final Map<String, FluttermojiPropertyItem> fluttermojiProperties = {
 ///
 /// 'ExpandedFluttermojiCardItem' has been renamed to Attribute Item
 class AttributeItem {
-  AttributeItem(
-      {this.iconsize, this.title = 'Unnamed', this.key, this.iconAsset,});
+  AttributeItem({
+    this.iconsize,
+    this.title = 'Unnamed',
+    this.key,
+    this.iconAsset,
+  });
   String title;
   String? key;
   String? iconAsset;

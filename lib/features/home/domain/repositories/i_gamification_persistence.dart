@@ -1,5 +1,6 @@
 /// Yerel oyun durumu kalıcılığı için domain portu (`I` öneki — 03_domain_layer).
 library;
+
 import 'package:abc123/core/types/types.dart';
 import 'package:fpdart/fpdart.dart';
 

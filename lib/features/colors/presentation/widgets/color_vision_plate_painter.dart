@@ -94,7 +94,8 @@ class ColorVisionPlatePainter extends CustomPainter {
   static Color _rgBackground(math.Random rng) {
     if (rng.nextBool()) {
       final hue = rng.nextDouble() * 16;
-      return HSVColor.fromAHSV(1, hue, 0.62 + rng.nextDouble() * 0.22, 0.38 + rng.nextDouble() * 0.18)
+      return HSVColor.fromAHSV(
+              1, hue, 0.62 + rng.nextDouble() * 0.22, 0.38 + rng.nextDouble() * 0.18)
           .toColor();
     }
     final hue = 92 + rng.nextDouble() * 42;
@@ -112,7 +113,8 @@ class ColorVisionPlatePainter extends CustomPainter {
   static Color _byBackground(math.Random rng) {
     if (rng.nextBool()) {
       final hue = 200 + rng.nextDouble() * 55;
-      return HSVColor.fromAHSV(1, hue, 0.45 + rng.nextDouble() * 0.35, 0.42 + rng.nextDouble() * 0.28)
+      return HSVColor.fromAHSV(
+              1, hue, 0.45 + rng.nextDouble() * 0.35, 0.42 + rng.nextDouble() * 0.28)
           .toColor();
     }
     final hue = 265 + rng.nextDouble() * 45;
@@ -122,8 +124,6 @@ class ColorVisionPlatePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant ColorVisionPlatePainter oldDelegate) {
-    return oldDelegate.shape != shape ||
-        oldDelegate.seed != seed ||
-        oldDelegate.palette != palette;
+    return oldDelegate.shape != shape || oldDelegate.seed != seed || oldDelegate.palette != palette;
   }
 }

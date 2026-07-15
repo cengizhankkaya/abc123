@@ -46,8 +46,7 @@ class AttributeTile extends StatelessWidget {
                     svgString,
                     height: 38,
                     semanticsLabel: 'Avatar seçeneği',
-                    placeholderBuilder: (_) =>
-                        const Center(child: CupertinoActivityIndicator()),
+                    placeholderBuilder: (_) => const Center(child: CupertinoActivityIndicator()),
                   ),
                 ),
               ),

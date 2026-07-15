@@ -1,6 +1,6 @@
 import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -25,7 +25,7 @@ Future<void> bootstrap() async {
     }
     MobileAdsGate.markReady();
   }
-  await AudioService().init();
+  await getIt<IAudioService>().init();
   try {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

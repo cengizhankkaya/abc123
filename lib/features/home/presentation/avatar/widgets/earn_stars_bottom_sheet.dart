@@ -179,7 +179,7 @@ class _WatchAdButton extends StatelessWidget {
                     backgroundColor: Colors.green,
                   ),
                 );
-            controller.selectedOptions[attributeKey] = index;
+                controller.selectedOptions[attributeKey] = index;
                 controller.updatePreview();
                 if (autosave) unawaited(controller.setFluttermoji());
               }
@@ -283,7 +283,8 @@ class _CompleteTasksButton extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios_rounded, size: 14, color: HomeDesignTokens.continueIconBlue),
+            Icon(Icons.arrow_forward_ios_rounded,
+                size: 14, color: HomeDesignTokens.continueIconBlue),
           ],
         ),
       ),

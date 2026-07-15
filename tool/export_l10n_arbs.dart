@@ -52,9 +52,7 @@ Map<String, dynamic>? _metaForValue(String key, String value) {
         n == 'minutes' ||
         n == 'percent' ||
         (key == 'parentPanelInsightNumberStruggling' && n == 'number');
-    ph[n] = isInt
-        ? {'type': 'int', 'example': '1'}
-        : {'type': 'String', 'example': n};
+    ph[n] = isInt ? {'type': 'int', 'example': '1'} : {'type': 'String', 'example': n};
   }
   return {'description': 'l10n: $key', 'placeholders': ph};
 }
@@ -89,8 +87,7 @@ void _writeArbDir({
 
 Map<String, String> _homeForLang(AppLanguage lang) {
   final out = <String, String>{};
-  String pick(Map<AppLanguage, String> m) =>
-      m[lang] ?? m[AppLanguage.english]!;
+  String pick(Map<AppLanguage, String> m) => m[lang] ?? m[AppLanguage.english]!;
 
   for (final e in localizedTexts.entries) {
     if (_drawOnlyKeys.contains(e.key)) {
@@ -98,41 +95,31 @@ Map<String, String> _homeForLang(AppLanguage lang) {
     }
     out[e.key] = pick(e.value);
   }
-  final tool = localizedToolControlPanelTexts[lang] ??
-      localizedToolControlPanelTexts[AppLanguage.english]!;
+  final tool =
+      localizedToolControlPanelTexts[lang] ?? localizedToolControlPanelTexts[AppLanguage.english]!;
   out['numbersTitle'] = tool['numberTitle']!;
   out['lettersTitle'] = tool['letterTitle']!;
   out['shapesTitle'] = tool['shapeTitle']!;
-  out['colorsTitle'] =
-      lang == AppLanguage.turkish ? 'Renk Öğrenme' : 'Learn Colors';
-  out['wordsTitle'] =
-      lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
+  out['colorsTitle'] = lang == AppLanguage.turkish ? 'Renk Öğrenme' : 'Learn Colors';
+  out['wordsTitle'] = lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
 
-  out['badgeColorMasterName'] =
-      lang == AppLanguage.turkish ? 'Renk Ustası' : 'Color Expert';
-  out['badgeColorMasterDesc'] = lang == AppLanguage.turkish
-      ? '50 renk turunu tamamladın!'
-      : 'You completed 50 color rounds!';
+  out['badgeColorMasterName'] = lang == AppLanguage.turkish ? 'Renk Ustası' : 'Color Expert';
+  out['badgeColorMasterDesc'] =
+      lang == AppLanguage.turkish ? '50 renk turunu tamamladın!' : 'You completed 50 color rounds!';
 
-  out['badgeWordMasterName'] =
-      lang == AppLanguage.turkish ? 'Kelime Ustası' : 'Word Builder';
-  out['badgeWordMasterDesc'] = lang == AppLanguage.turkish
-      ? '50 kelime tamamladın!'
-      : 'You completed 50 words!';
+  out['badgeWordMasterName'] = lang == AppLanguage.turkish ? 'Kelime Ustası' : 'Word Builder';
+  out['badgeWordMasterDesc'] =
+      lang == AppLanguage.turkish ? '50 kelime tamamladın!' : 'You completed 50 words!';
 
-  out['questsRefreshedMessage'] = lang == AppLanguage.turkish
-      ? 'Görevler yenilendi.'
-      : 'Quests have been refreshed.';
-  out['noBadgesFound'] = lang == AppLanguage.turkish
-      ? 'Rozet bulunamadı'
-      : 'No badges found';
+  out['questsRefreshedMessage'] =
+      lang == AppLanguage.turkish ? 'Görevler yenilendi.' : 'Quests have been refreshed.';
+  out['noBadgesFound'] = lang == AppLanguage.turkish ? 'Rozet bulunamadı' : 'No badges found';
 
   final isTr = lang == AppLanguage.turkish;
   String t({required String en, required String tr}) => isTr ? tr : en;
 
   out['homeGreetingWithName'] = t(en: 'Hello, {name}!', tr: 'Merhaba, {name}!');
-  out['homeSloganToday'] =
-      t(en: 'What shall we learn today?', tr: 'Bugün ne öğrenelim?');
+  out['homeSloganToday'] = t(en: 'What shall we learn today?', tr: 'Bugün ne öğrenelim?');
   out['homeStreakDays'] = t(en: '{count}-day streak', tr: '{count} günlük seri');
   out['homeLearningModes'] = t(en: 'Learning Modes', tr: 'Öğrenme Modları');
   out['numbersTitleShort'] = t(en: 'Numbers', tr: 'Rakamlar');
@@ -145,21 +132,17 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   out['shapesSubtitle'] = t(en: 'New!', tr: 'Yeni!');
   out['wordsSubtitle'] = t(en: 'Draw words', tr: 'Kelime çiz');
   out['colorsSubtitle'] = t(en: 'Play & learn', tr: 'Oyna ve öğren');
-  out['homeWhereYouLeft'] =
-      t(en: 'Where you left off: {label}', tr: 'Kaldığın yer: {label}');
-  out['homeStepsRemaining'] =
-      t(en: '{count} steps left', tr: '{count} adım kaldı');
+  out['homeWhereYouLeft'] = t(en: 'Where you left off: {label}', tr: 'Kaldığın yer: {label}');
+  out['homeStepsRemaining'] = t(en: '{count} steps left', tr: '{count} adım kaldı');
   out['homeContinueNumber'] = t(en: 'Number {number}', tr: 'Rakam {number}');
   out['homeContinueLetter'] = t(en: 'Letter {letter}', tr: 'Harf {letter}');
   out['homeContinueShape'] = t(en: 'Shape {number}', tr: 'Şekil {number}');
   out['homeContinueWord'] = t(en: 'Words', tr: 'Kelimeler');
   out['homeContinueColor'] = t(en: 'Colors', tr: 'Renkler');
-  out['homeContinueColorVision'] =
-      t(en: 'Color Vision', tr: 'Renk Görüşü');
+  out['homeContinueColorVision'] = t(en: 'Color Vision', tr: 'Renk Görüşü');
   out['settingsTitle'] = t(en: 'Settings', tr: 'Ayarlar');
   out['settingsChildName'] = t(en: 'Name', tr: 'İsim');
-  out['settingsChildNameHint'] =
-      t(en: 'Enter your name', tr: 'Adını yaz');
+  out['settingsChildNameHint'] = t(en: 'Enter your name', tr: 'Adını yaz');
   out['settingsSaveName'] = t(en: 'Save', tr: 'Kaydet');
   out['settingsNameSaved'] = t(en: 'Name saved', tr: 'İsim kaydedildi');
   out['settingsAppearance'] = t(en: 'Appearance', tr: 'Görünüm');
@@ -171,23 +154,20 @@ Map<String, String> _homeForLang(AppLanguage lang) {
     tr: '{count} / {total} rozet kazanıldı',
   );
   out['badgesStreakDayCount'] = t(en: '{count} days', tr: '{count} gün');
-  out['badgesStreakSubtitle'] =
-      t(en: 'Drawing streak', tr: 'Üst üste çizim serisi');
+  out['badgesStreakSubtitle'] = t(en: 'Drawing streak', tr: 'Üst üste çizim serisi');
 
   out['parentPanelTitle'] = t(en: 'Parent Panel', tr: 'Ebeveyn Paneli');
   out['parentPanelWeeklyProgress'] = t(
     en: "{name}'s weekly progress",
     tr: "{name}'in bu haftaki ilerlemesi",
   );
-  out['parentPanelWeeklyProgressNoName'] =
-      t(en: 'Weekly progress', tr: 'Bu haftaki ilerleme');
+  out['parentPanelWeeklyProgressNoName'] = t(en: 'Weekly progress', tr: 'Bu haftaki ilerleme');
   out['parentPanelStatDuration'] = t(en: 'TIME', tr: 'SÜRE');
   out['parentPanelStatCompleted'] = t(en: 'COMPLETED', tr: 'TAMAMLANAN');
   out['parentPanelStatAccuracy'] = t(en: 'AVG. ACCURACY', tr: 'ORT. DOĞRULUK');
   out['parentPanelDurationMinutes'] = t(en: '{minutes}m', tr: '{minutes}dk');
   out['parentPanelAccuracyPercent'] = t(en: '{percent}%', tr: '%{percent}');
-  out['parentPanelChartTitle'] =
-      t(en: 'Daily drawing time', tr: 'Günlük çizim süresi');
+  out['parentPanelChartTitle'] = t(en: 'Daily drawing time', tr: 'Günlük çizim süresi');
   out['parentPanelInsightLettersLearned'] =
       t(en: 'Letters {range} learned', tr: 'Harf {range} öğrenildi');
   out['parentPanelInsightNumberStruggling'] = t(
@@ -217,8 +197,7 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   out['parentPanelToday'] = t(en: 'Today', tr: 'Bugün');
   out['parentPanelYesterday'] = t(en: 'Yesterday', tr: 'Dün');
   out['settingsParentPanel'] = t(en: 'Parent Panel', tr: 'Ebeveyn Paneli');
-  out['settingsParentPanelSubtitle'] =
-      t(en: 'Progress & insights', tr: 'İlerleme ve içgörüler');
+  out['settingsParentPanelSubtitle'] = t(en: 'Progress & insights', tr: 'İlerleme ve içgörüler');
 
   // New settings redesign l10n keys
   out['settingsSectionChild'] = t(en: 'My Settings', tr: 'Benim Ayarlarım');
@@ -233,12 +212,10 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   out['settingsChooseLanguage'] = t(en: 'Choose Language', tr: 'Dil Seçimi');
   out['settingsChooseTheme'] = t(en: 'Choose Theme', tr: 'Tema Seçimi');
   out['settingsNameSavedShort'] = t(en: 'Saved', tr: 'Kaydedildi');
-  out['settingsEmptyNameError'] =
-      t(en: 'Name cannot be empty', tr: 'İsim boş olamaz');
+  out['settingsEmptyNameError'] = t(en: 'Name cannot be empty', tr: 'İsim boş olamaz');
 
   // Restored shop, quests, and math localization keys
-  out['shopScreenSubtitle'] =
-      t(en: 'Customize your avatar!', tr: 'Avatarını özelleştir!');
+  out['shopScreenSubtitle'] = t(en: 'Customize your avatar!', tr: 'Avatarını özelleştir!');
   out['shopSlotNone'] = t(en: 'Remove', tr: 'Çıkar');
   out['itemEquipped'] = t(en: '{item} equipped!', tr: '{item} giyildi!');
   out['itemUnequipped'] = t(en: '{slot} removed', tr: '{slot} çıkarıldı');
@@ -251,8 +228,7 @@ Map<String, String> _homeForLang(AppLanguage lang) {
   );
   out['questsDailySection'] = t(en: 'Daily Quests', tr: 'Günlük Görevler');
   out['questsWeeklySection'] = t(en: 'Weekly Quests', tr: 'Haftalık Görevler');
-  out['mathAdvancedTitle'] =
-      t(en: 'Advanced Math', tr: 'Gelişmiş Matematik');
+  out['mathAdvancedTitle'] = t(en: 'Advanced Math', tr: 'Gelişmiş Matematik');
   out['mathAdvancedSubtitle'] = t(
     en: 'Practicing complex operations',
     tr: 'Karmaşık işlemleri pratik yap',
@@ -263,31 +239,28 @@ Map<String, String> _homeForLang(AppLanguage lang) {
 
 Map<String, String> _drawForLang(AppLanguage lang) {
   final out = <String, String>{};
-  String pick(Map<AppLanguage, String> m) =>
-      m[lang] ?? m[AppLanguage.english]!;
+  String pick(Map<AppLanguage, String> m) => m[lang] ?? m[AppLanguage.english]!;
 
   for (final k in _drawOnlyKeys) {
     out[k] = pick(localizedTexts[k]!);
   }
 
-  final action = localizedActionToolbarTexts[lang] ??
-      localizedActionToolbarTexts[AppLanguage.english]!;
+  final action =
+      localizedActionToolbarTexts[lang] ?? localizedActionToolbarTexts[AppLanguage.english]!;
   out['drawSequentialMode'] = action['sequentialMode']! as String;
-  out['drawCorrectTotal'] =
-      _templateFromTwoIntFn(action['correctTotal']);
+  out['drawCorrectTotal'] = _templateFromTwoIntFn(action['correctTotal']);
   out['drawClear'] = action['clear']! as String;
   out['drawPen'] = action['pen']! as String;
   out['drawEraser'] = action['eraser']! as String;
   out['drawRecognize'] = action['recognize']! as String;
 
-  final tool = localizedToolControlPanelTexts[lang] ??
-      localizedToolControlPanelTexts[AppLanguage.english]!;
+  final tool =
+      localizedToolControlPanelTexts[lang] ?? localizedToolControlPanelTexts[AppLanguage.english]!;
   out['drawPenColor'] = tool['penColor']!;
   out['drawNumberSectionTitle'] = tool['numberTitle']!;
   out['drawLetterSectionTitle'] = tool['letterTitle']!;
   out['drawShapeSectionTitle'] = tool['shapeTitle']!;
-  out['drawWordSectionTitle'] =
-      lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
+  out['drawWordSectionTitle'] = lang == AppLanguage.turkish ? 'Kelime Oluşturma' : 'Build Words';
 
   // Migrated from core app ARB (balloon + letter puzzle)
   const letterEn = 'Preparing puzzle…';
@@ -301,8 +274,7 @@ Map<String, String> _drawForLang(AppLanguage lang) {
   const pausedTr = 'OYUN DURAKLATILDI';
   out['drawGamePausedTitle'] = lang == AppLanguage.turkish ? pausedTr : pausedEn;
   out['drawContinue'] = lang == AppLanguage.turkish ? 'Devam Et' : 'Continue';
-  out['drawStartGame'] =
-      lang == AppLanguage.turkish ? 'OYUNU BAŞLAT' : 'START GAME';
+  out['drawStartGame'] = lang == AppLanguage.turkish ? 'OYUNU BAŞLAT' : 'START GAME';
   out['drawBalloonReady'] = lang == AppLanguage.turkish
       ? '{count} adet balonla oynamaya hazır mısın?'
       : 'Ready to play with {count} balloons?';
@@ -321,27 +293,19 @@ Map<String, String> _drawForLang(AppLanguage lang) {
   );
   out['drawSemanticPauseGame'] = a11y(en: 'Pause game', tr: 'Oyunu duraklat');
   out['drawSemanticResumeGame'] = a11y(en: 'Resume game', tr: 'Oyuna devam et');
-  out['drawSemanticPenColorBlack'] =
-      a11y(en: 'Black pen color', tr: 'Siyah kalem rengi');
-  out['drawSemanticPenColorRed'] =
-      a11y(en: 'Red pen color', tr: 'Kırmızı kalem rengi');
-  out['drawSemanticPenColorBlue'] =
-      a11y(en: 'Blue pen color', tr: 'Mavi kalem rengi');
-  out['drawSemanticPenColorYellow'] =
-      a11y(en: 'Yellow pen color', tr: 'Sarı kalem rengi');
-  out['drawSemanticPenColorGreen'] =
-      a11y(en: 'Green pen color', tr: 'Yeşil kalem rengi');
-  out['drawSemanticPenColorPurple'] =
-      a11y(en: 'Purple pen color', tr: 'Mor kalem rengi');
-  out['drawSemanticPenColorOrange'] =
-      a11y(en: 'Orange pen color', tr: 'Turuncu kalem rengi');
+  out['drawSemanticPenColorBlack'] = a11y(en: 'Black pen color', tr: 'Siyah kalem rengi');
+  out['drawSemanticPenColorRed'] = a11y(en: 'Red pen color', tr: 'Kırmızı kalem rengi');
+  out['drawSemanticPenColorBlue'] = a11y(en: 'Blue pen color', tr: 'Mavi kalem rengi');
+  out['drawSemanticPenColorYellow'] = a11y(en: 'Yellow pen color', tr: 'Sarı kalem rengi');
+  out['drawSemanticPenColorGreen'] = a11y(en: 'Green pen color', tr: 'Yeşil kalem rengi');
+  out['drawSemanticPenColorPurple'] = a11y(en: 'Purple pen color', tr: 'Mor kalem rengi');
+  out['drawSemanticPenColorOrange'] = a11y(en: 'Orange pen color', tr: 'Turuncu kalem rengi');
 
   return out;
 }
 
 Map<String, String> _shapesForLang(AppLanguage lang) {
-  final m = localizedShapeNames[lang] ??
-      localizedShapeNames[AppLanguage.english]!;
+  final m = localizedShapeNames[lang] ?? localizedShapeNames[AppLanguage.english]!;
   return {
     'shapeDaire': m['DAIRE']!,
     'shapeKare': m['KARE']!,
@@ -351,20 +315,16 @@ Map<String, String> _shapesForLang(AppLanguage lang) {
 
 Map<String, String> _infoMergedForLang(AppLanguage lang) {
   final out = <String, String>{};
-  final info = localizedInfoScreenTexts[lang] ??
-      localizedInfoScreenTexts[AppLanguage.english]!;
+  final info = localizedInfoScreenTexts[lang] ?? localizedInfoScreenTexts[AppLanguage.english]!;
   for (final e in info.entries) {
-    out['info${e.key[0].toUpperCase()}${e.key.substring(1)}'] =
-        e.value;
+    out['info${e.key[0].toUpperCase()}${e.key.substring(1)}'] = e.value;
   }
-  final res = localizedResultScreenTexts[lang] ??
-      localizedResultScreenTexts[AppLanguage.english]!;
+  final res = localizedResultScreenTexts[lang] ?? localizedResultScreenTexts[AppLanguage.english]!;
   for (final e in res.entries) {
     if (e.key == 'progress') {
       out['resultProgress'] = _templateFromTwoIntFn(e.value);
     } else {
-      out['result${e.key[0].toUpperCase()}${e.key.substring(1)}'] =
-          e.value.toString();
+      out['result${e.key[0].toUpperCase()}${e.key.substring(1)}'] = e.value.toString();
     }
   }
   return out;
@@ -445,14 +405,12 @@ void _syncCoreAppArbsFromRoot() {
     return o;
   }
 
-  final en =
-      trim(jsonDecode(sourceEn.readAsStringSync()) as Map<String, dynamic>);
+  final en = trim(jsonDecode(sourceEn.readAsStringSync()) as Map<String, dynamic>);
   File('${outDir.path}/app_en.arb').writeAsStringSync(
     const JsonEncoder.withIndent('  ').convert(en),
   );
   if (sourceTr.existsSync()) {
-    final tr =
-        trim(jsonDecode(sourceTr.readAsStringSync()) as Map<String, dynamic>);
+    final tr = trim(jsonDecode(sourceTr.readAsStringSync()) as Map<String, dynamic>);
     File('${outDir.path}/app_tr.arb').writeAsStringSync(
       const JsonEncoder.withIndent('  ').convert(tr),
     );

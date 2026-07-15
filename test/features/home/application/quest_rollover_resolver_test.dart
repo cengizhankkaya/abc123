@@ -57,10 +57,30 @@ void main() {
             currentCount: 1,
             rewardPoints: 100,
           ),
-          Quest(id: 'daily_color_$dayKey', titleKey: 'daily_color', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'daily_word_$dayKey', titleKey: 'daily_word', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_letters_$weekKey', titleKey: 'weekly_letters', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_shapes_$weekKey', titleKey: 'weekly_shapes', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
+          Quest(
+              id: 'daily_color_$dayKey',
+              titleKey: 'daily_color',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'daily_word_$dayKey',
+              titleKey: 'daily_word',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_letters_$weekKey',
+              titleKey: 'weekly_letters',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_shapes_$weekKey',
+              titleKey: 'weekly_shapes',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
         ],
       );
 
@@ -103,10 +123,30 @@ void main() {
             currentCount: 3,
             rewardPoints: 100,
           ),
-          Quest(id: 'daily_color_$oldDay', titleKey: 'daily_color', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'daily_word_$oldDay', titleKey: 'daily_word', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_letters_$weekKey', titleKey: 'weekly_letters', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_shapes_$weekKey', titleKey: 'weekly_shapes', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
+          Quest(
+              id: 'daily_color_$oldDay',
+              titleKey: 'daily_color',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'daily_word_$oldDay',
+              titleKey: 'daily_word',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_letters_$weekKey',
+              titleKey: 'weekly_letters',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_shapes_$weekKey',
+              titleKey: 'weekly_shapes',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
         ],
       );
 
@@ -149,10 +189,30 @@ void main() {
             targetCount: 20,
             rewardPoints: 100,
           ),
-          Quest(id: 'daily_color_2026-01-01', titleKey: 'daily_color', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'daily_word_2026-01-01', titleKey: 'daily_word', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_letters_2026W01', titleKey: 'weekly_letters', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
-          Quest(id: 'weekly_shapes_2026W01', titleKey: 'weekly_shapes', targetType: DrawingType.any, targetCount: 1, rewardPoints: 10),
+          Quest(
+              id: 'daily_color_2026-01-01',
+              titleKey: 'daily_color',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'daily_word_2026-01-01',
+              titleKey: 'daily_word',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_letters_2026W01',
+              titleKey: 'weekly_letters',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
+          Quest(
+              id: 'weekly_shapes_2026W01',
+              titleKey: 'weekly_shapes',
+              targetType: DrawingType.any,
+              targetCount: 1,
+              rewardPoints: 10),
         ],
       );
 

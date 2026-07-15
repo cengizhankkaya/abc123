@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:abc123/core/constants/language_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,20 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _kAppLanguageEnumName = 'app_language_enum_name';
 
 class LanguageProvider extends ChangeNotifier {
-  LanguageProvider() {
-    unawaited(_restore());
+  LanguageProvider(this._prefs) {
+    _restore();
   }
+
+  final SharedPreferences _prefs;
 
   AppLanguage _language = AppLanguage.turkish;
 
   AppLanguage get language => _language;
 
-  Future<void> _restore() async {
-    final prefs = await SharedPreferences.getInstance();
-    final name = prefs.getString(_kAppLanguageEnumName);
-    if (name == null) {
-      return;
-    }
+  void _restore() {
+    final name = _prefs.getString(_kAppLanguageEnumName);
+    if (name == null) return;
     try {
       _language = AppLanguage.values.byName(name);
       notifyListeners();
@@ -30,9 +27,9 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   Future<void> setLanguage(AppLanguage lang) async {
+    if (_language == lang) return;
     _language = lang;
     notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_kAppLanguageEnumName, lang.name);
+    await _prefs.setString(_kAppLanguageEnumName, lang.name);
   }
 }

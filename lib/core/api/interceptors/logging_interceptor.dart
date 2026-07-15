@@ -85,9 +85,7 @@ final class LoggingInterceptor implements Interceptor {
   Map<String, String> _sanitizeHeaders(Map<String, String> headers) {
     return {
       for (final e in headers.entries)
-        e.key: _sensitiveHeaderKeys.contains(e.key.toLowerCase())
-            ? '***REDACTED***'
-            : e.value,
+        e.key: _sensitiveHeaderKeys.contains(e.key.toLowerCase()) ? '***REDACTED***' : e.value,
     };
   }
 

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 /// Ebeveyn Paneli: Akıllı Öneri Kartı (Smart Recommendation Tile).
 class RecommendationTile extends StatelessWidget {
-
   const RecommendationTile({required this.recommendation, super.key});
   final Recommendation recommendation;
 
@@ -13,7 +12,7 @@ class RecommendationTile extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
-    
+
     final accentColor = Color(recommendation.accentColorArgb);
 
     return Container(
@@ -125,13 +124,20 @@ class RecommendationTile extends StatelessWidget {
 
   IconData _getIcon(String code) {
     switch (code) {
-      case 'numbers_rounded': return Icons.numbers_rounded;
-      case 'abc_rounded': return Icons.abc_rounded;
-      case 'category_rounded': return Icons.category_rounded;
-      case 'calculate_rounded': return Icons.calculate_rounded;
-      case 'spellcheck_rounded': return Icons.spellcheck_rounded;
-      case 'auto_awesome_rounded': return Icons.auto_awesome_rounded;
-      default: return Icons.star_rounded;
+      case 'numbers_rounded':
+        return Icons.numbers_rounded;
+      case 'abc_rounded':
+        return Icons.abc_rounded;
+      case 'category_rounded':
+        return Icons.category_rounded;
+      case 'calculate_rounded':
+        return Icons.calculate_rounded;
+      case 'spellcheck_rounded':
+        return Icons.spellcheck_rounded;
+      case 'auto_awesome_rounded':
+        return Icons.auto_awesome_rounded;
+      default:
+        return Icons.star_rounded;
     }
   }
 }

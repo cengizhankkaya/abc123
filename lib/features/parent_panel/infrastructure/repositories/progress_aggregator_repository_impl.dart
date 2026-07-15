@@ -25,11 +25,11 @@ class ProgressAggregatorRepositoryImpl extends BaseRepository
   @override
   FutureResult<double> getOverallAccuracyRate() => execute(() async {
         if (_sources.isEmpty) return 0.0;
-        var sum = 0;
+        var sum = 0.0;
         var count = 0;
         for (final s in _sources) {
           if (s.completionPercentage > 0 || s.lastActivityDate != null || s.accuracyRate > 0) {
-            sum += s.accuracyRate as int;
+            sum += s.accuracyRate;
             count++;
           }
         }
@@ -44,9 +44,9 @@ class ProgressAggregatorRepositoryImpl extends BaseRepository
   @override
   FutureResult<double> getOverallCompletionPercentage() => execute(() async {
         if (_sources.isEmpty) return 0.0;
-        var sum = 0;
+        var sum = 0.0;
         for (final s in _sources) {
-          sum += s.completionPercentage as int;
+          sum += s.completionPercentage;
         }
         return (sum / _sources.length).clamp(0.0, 100.0);
       });

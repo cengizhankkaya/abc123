@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class StreakWidget extends StatefulWidget {
-
   const StreakWidget({
-    required this.streak, super.key,
+    required this.streak,
+    super.key,
     this.onTap,
   });
   final int streak;

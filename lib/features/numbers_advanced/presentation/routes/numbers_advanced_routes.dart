@@ -20,7 +20,8 @@ final _numbersAdvancedRoutes = [
   ),
   GoRoute(
     path: AppRoutes.mathDrawMultiDigit,
-    builder: (context, state) => const ScreenTimeMiddleware(child: MultiDigitDrawScreen(isFreePractice: false)),
+    builder: (context, state) =>
+        const ScreenTimeMiddleware(child: MultiDigitDrawScreen(isFreePractice: false)),
   ),
   GoRoute(
     path: AppRoutes.mathVisual,

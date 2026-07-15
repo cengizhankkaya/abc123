@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class GameCategoryCard extends StatefulWidget {
-
   const GameCategoryCard({
     required this.title,
     required this.progressLabel,

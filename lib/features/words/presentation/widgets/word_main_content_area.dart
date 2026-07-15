@@ -3,7 +3,8 @@ import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/draw/presentation/widgets/drawing_area_widget.dart';
-import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart' show MainContentArea;
+import 'package:abc123/features/draw/presentation/widgets/main_content_area.dart'
+    show MainContentArea;
 import 'package:abc123/features/words/presentation/widgets/word_guide_card.dart';
 import 'package:abc123/features/words/presentation/widgets/word_right_panel.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,26 @@ import 'package:flutter/material.dart';
 /// Kelime çizim ana alanı — harf ekranındaki [MainContentArea] düzeni.
 class WordMainContentArea extends StatelessWidget {
   const WordMainContentArea({
-    required this.activeGuide, required this.emoji, required this.displayText, required this.spelling, required this.activeLetterIndex, required this.targetLetter, required this.points, required this.eraseMode, required this.selectedColor, required this.strokeWidth, required this.showResult, required this.isLoading, required this.recognitionResult, required this.animation, required this.tanima, required this.drawingAreaKey, required this.onClear, required this.onDrawPoint, required this.onEndDrawing, super.key,
+    required this.activeGuide,
+    required this.emoji,
+    required this.displayText,
+    required this.spelling,
+    required this.activeLetterIndex,
+    required this.targetLetter,
+    required this.points,
+    required this.eraseMode,
+    required this.selectedColor,
+    required this.strokeWidth,
+    required this.showResult,
+    required this.isLoading,
+    required this.recognitionResult,
+    required this.animation,
+    required this.tanima,
+    required this.drawingAreaKey,
+    required this.onClear,
+    required this.onDrawPoint,
+    required this.onEndDrawing,
+    super.key,
   });
 
   final DrawingGuide activeGuide;

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BuildStrokeButton extends StatelessWidget {
-
   const BuildStrokeButton({
-    required this.width, required this.size, required this.currentStrokeWidth, required this.eraseMode, required this.onTap, super.key,
+    required this.width,
+    required this.size,
+    required this.currentStrokeWidth,
+    required this.eraseMode,
+    required this.onTap,
+    super.key,
   });
   final double width;
   final double size;

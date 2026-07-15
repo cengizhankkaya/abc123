@@ -3,7 +3,6 @@ import 'package:abc123/features/parent_panel/domain/entities/module_progress.dar
 import 'package:abc123/features/parent_panel/domain/repositories/i_progress_aggregator_repository.dart';
 
 class GetProgressSummary {
-
   GetProgressSummary(this._repository);
   final IProgressAggregatorRepository _repository;
 

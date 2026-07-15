@@ -64,7 +64,7 @@ class _DrawingPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Expanded(
       flex: 2,
       child: Column(
@@ -148,7 +148,7 @@ class _ResultPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Expanded(
       flex: 2,
       child: SingleChildScrollView(

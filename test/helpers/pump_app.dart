@@ -16,13 +16,13 @@ import 'package:provider/provider.dart';
 /// Widget testlerinde kullanılan varsayılan [Provider] listesi.
 List<SingleChildWidget> defaultTestNotifierProviders() {
   return [
-    ChangeNotifierProvider(create: (_) => DrawScreenProvider(recognizeNumberUseCase: getIt())),
-    ChangeNotifierProvider(create: (_) => LetterDrawingProvider()),
-    ChangeNotifierProvider(create: (_) => LanguageProvider()),
-    ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
-    ChangeNotifierProvider(create: (_) => CounterProvider()),
+    ChangeNotifierProvider<DrawScreenProvider>.value(value: getIt<DrawScreenProvider>()),
+    ChangeNotifierProvider<LetterDrawingProvider>.value(value: getIt<LetterDrawingProvider>()),
+    ChangeNotifierProvider(create: (_) => LanguageProvider(getIt())),
+    ChangeNotifierProvider(create: (_) => ThemeModeProvider(getIt())),
+    ChangeNotifierProvider(create: (_) => CounterProvider(getIt())),
     ChangeNotifierProvider(create: (_) => getIt<GamificationProvider>()),
-    ChangeNotifierProvider(create: (_) => ScreenTimeProvider()),
+    ChangeNotifierProvider(create: (_) => ScreenTimeProvider(getIt())),
   ];
 }
 

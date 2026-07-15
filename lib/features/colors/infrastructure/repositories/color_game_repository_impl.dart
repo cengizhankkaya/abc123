@@ -15,7 +15,7 @@ class ColorGameRepositoryImpl extends BaseRepository implements IColorGameReposi
 
   @override
   FutureResult<List<GamePaletteColor>> getPalette(int poolSize) => execute(() async {
-    final values = GamePaletteColor.values.toList();
-    return values.take(min(poolSize, values.length)).toList();
-  });
+        final values = GamePaletteColor.values.toList();
+        return values.take(min(poolSize, values.length)).toList();
+      });
 }

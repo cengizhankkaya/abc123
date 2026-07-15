@@ -58,5 +58,3 @@ final class WordDrawingSession {
     return (isCorrect: true, wordCompletedNow: true);
   }
 }
-
-

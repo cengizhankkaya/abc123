@@ -9,7 +9,6 @@ enum ShopItemType {
 
 /// Mağaza öğesi domain varlığı (`colorArgb`: 0xAARRGGBB); alanlar değişmez (`11_data_modeling.md`).
 class ShopItem extends Entity {
-
   ShopItem({
     required this.id,
     required this.name,

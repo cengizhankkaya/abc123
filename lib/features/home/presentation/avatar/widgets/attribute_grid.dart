@@ -28,8 +28,7 @@ class AttributeGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final attributeListLength =
-        fluttermojiProperties[attribute.key!]!.property!.length;
+    final attributeListLength = fluttermojiProperties[attribute.key!]!.property!.length;
 
     final int crossAxisCount;
     if (attributeListLength < 6) {
@@ -40,8 +39,7 @@ class AttributeGrid extends StatelessWidget {
       crossAxisCount = 4;
     }
 
-    final currentSelection =
-        controller.selectedOptions[attribute.key] as int?;
+    final currentSelection = controller.selectedOptions[attribute.key] as int?;
 
     return GridView.builder(
       physics: const BouncingScrollPhysics(

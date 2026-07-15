@@ -3,10 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// Ebeveyn Paneli ve Paywall ekranı için Premium/Abonelik durumu yöneticisi.
 class PremiumProvider extends ChangeNotifier {
-
-  PremiumProvider() {
+  PremiumProvider(this._prefs) {
     _loadStatus();
   }
+
+  final SharedPreferences _prefs;
+
   static const String _keyIsPremium = 'is_premium_subscription_active';
   static const String _keyExpiryDate = 'premium_subscription_expiry_date';
 
@@ -19,15 +21,14 @@ class PremiumProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   Future<void> _loadStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    _isPremium = prefs.getBool(_keyIsPremium) ?? false;
-    final expiryStr = prefs.getString(_keyExpiryDate);
+    _isPremium = _prefs.getBool(_keyIsPremium) ?? false;
+    final expiryStr = _prefs.getString(_keyExpiryDate);
     if (expiryStr != null) {
       _expiryDate = DateTime.tryParse(expiryStr);
       if (_expiryDate != null && _expiryDate!.isBefore(DateTime.now())) {
         // Süresi dolmuşsa otomatik kapat
         _isPremium = false;
-        await prefs.setBool(_keyIsPremium, false);
+        await _prefs.setBool(_keyIsPremium, false);
       }
     }
     _isLoading = false;
@@ -38,12 +39,11 @@ class PremiumProvider extends ChangeNotifier {
   Future<void> setPremiumStatus(bool active, {DateTime? expiry}) async {
     _isPremium = active;
     _expiryDate = expiry ?? (active ? DateTime.now().add(const Duration(days: 365)) : null);
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_keyIsPremium, _isPremium);
+    await _prefs.setBool(_keyIsPremium, _isPremium);
     if (_expiryDate != null) {
-      await prefs.setString(_keyExpiryDate, _expiryDate!.toIso8601String());
+      await _prefs.setString(_keyExpiryDate, _expiryDate!.toIso8601String());
     } else {
-      await prefs.remove(_keyExpiryDate);
+      await _prefs.remove(_keyExpiryDate);
     }
     notifyListeners();
   }

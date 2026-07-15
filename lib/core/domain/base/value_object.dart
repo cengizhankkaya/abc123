@@ -8,14 +8,15 @@ class UnexpectedValueError extends Error {
 
   @override
   String toString() {
-    return Error.safeToString('Encountered a ValueFailure at an unrecoverable point. Terminating. Failures: $failures');
+    return Error.safeToString(
+        'Encountered a ValueFailure at an unrecoverable point. Terminating. Failures: $failures');
   }
 }
 
 @immutable
 abstract class ValueObject<T> {
   const ValueObject();
-  
+
   Either<List<ValueFailure<T>>, T> get value;
 
   T getOrCrash() {
@@ -30,9 +31,9 @@ abstract class ValueObject<T> {
   bool get isValid => value.isRight();
 
   List<ValueFailure<T>>? getFailuresOrNull() => value.fold(
-    (failures) => failures,
-    (_) => null,
-  );
+        (failures) => failures,
+        (_) => null,
+      );
 
   @override
   bool operator ==(Object other) {

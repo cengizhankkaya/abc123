@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 /// Çizim kategorisi sayaçlarını kalıcılığa yazar (Command).
 @injectable
 final class PersistDrawingCounters implements Command<DrawingCountersWrite, Unit> {
-
   PersistDrawingCounters(this._persistence);
   final IGamificationPersistence _persistence;
 

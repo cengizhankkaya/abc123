@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 ///
 /// GetX kaldırıldı — context.read<FluttermojiController>() ile erişim sağlanıyor.
 class FluttermojiSaveWidget extends StatelessWidget {
-
   FluttermojiSaveWidget({
     super.key,
     FluttermojiThemeData? theme,

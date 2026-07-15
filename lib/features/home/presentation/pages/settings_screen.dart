@@ -33,7 +33,7 @@ class _SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final h = context.homeL10n!;
-    
+
     return ColoredBox(
       color: HomeDesignTokens.background,
       child: SafeArea(
@@ -159,9 +159,7 @@ class _ChildSettingsSection extends StatelessWidget {
             builder: (context, childName, _) {
               return ChildNameEditor(
                 initialName: childName,
-                onSave: (name) => context
-                    .read<GamificationProvider>()
-                    .setChildName(name),
+                onSave: (name) => context.read<GamificationProvider>().setChildName(name),
                 hintText: h.settingsChildNameHint,
                 saveText: h.settingsSaveName,
                 savedText: h.settingsNameSavedShort ?? h.settingsNameSaved,
@@ -228,9 +226,7 @@ class _ThemeSegmentedControl extends StatelessWidget {
             leading: const Text('☀️', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.light,
             showCheckmark: false,
-            onTap: () => context
-                .read<ThemeModeProvider>()
-                .setAppThemeMode(AppThemeMode.light),
+            onTap: () => context.read<ThemeModeProvider>().setAppThemeMode(AppThemeMode.light),
           ),
         ),
         const SizedBox(width: 8),
@@ -240,9 +236,7 @@ class _ThemeSegmentedControl extends StatelessWidget {
             leading: const Text('🌙', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.dark,
             showCheckmark: false,
-            onTap: () => context
-                .read<ThemeModeProvider>()
-                .setAppThemeMode(AppThemeMode.dark),
+            onTap: () => context.read<ThemeModeProvider>().setAppThemeMode(AppThemeMode.dark),
           ),
         ),
         const SizedBox(width: 8),
@@ -252,9 +246,7 @@ class _ThemeSegmentedControl extends StatelessWidget {
             leading: const Text('⚙️', style: TextStyle(fontSize: 20)),
             isSelected: mode == AppThemeMode.system,
             showCheckmark: false,
-            onTap: () => context
-                .read<ThemeModeProvider>()
-                .setAppThemeMode(AppThemeMode.system),
+            onTap: () => context.read<ThemeModeProvider>().setAppThemeMode(AppThemeMode.system),
           ),
         ),
       ],
@@ -302,8 +294,7 @@ class _ParentSettingsSection extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: HomeDesignTokens.parentPanelAccent
-                .withValues(alpha: 0.04),
+            color: HomeDesignTokens.parentPanelAccent.withValues(alpha: 0.04),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -477,7 +468,8 @@ class _ParentActionTile extends StatefulWidget {
     required this.icon,
     required this.iconColor,
     required this.title,
-    required this.onTap, this.subtitle,
+    required this.onTap,
+    this.subtitle,
   });
 
   final IconData icon;

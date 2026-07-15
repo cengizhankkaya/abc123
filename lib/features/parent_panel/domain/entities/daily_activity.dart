@@ -1,6 +1,5 @@
 /// Ebeveyn Paneli'ndeki haftalık ve günlük çalışma/aktivite grafiği için veri modeli.
 class DailyActivity {
-
   const DailyActivity({
     required this.date,
     required this.durationMinutes,

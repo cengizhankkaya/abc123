@@ -57,7 +57,8 @@ class _ParentDashboardView extends StatelessWidget {
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
         }
 
-        final data = snapshot.data ?? {'progress': <ModuleProgress>[], 'recommendations': <Recommendation>[]};
+        final data = snapshot.data ??
+            {'progress': <ModuleProgress>[], 'recommendations': <Recommendation>[]};
         final allModuleProgress = data['progress'] as List<ModuleProgress>;
         final recommendations = data['recommendations'] as List<Recommendation>;
 
@@ -134,8 +135,7 @@ class _ParentDashboardView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  for (final rec in recommendations)
-                    RecommendationTile(recommendation: rec),
+                  for (final rec in recommendations) RecommendationTile(recommendation: rec),
                   const SizedBox(height: 20),
 
                   // Modül Bazlı İlerleme Raporları
@@ -173,8 +173,7 @@ class _ParentDashboardView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 14),
-                  for (final prog in allModuleProgress)
-                    ModuleProgressCard(progress: prog),
+                  for (final prog in allModuleProgress) ModuleProgressCard(progress: prog),
                   const SizedBox(height: 32),
                 ],
               ),
@@ -212,7 +211,8 @@ class _PremiumBanner extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: (premium.isPremium ? const Color(0xFF00C853) : const Color(0xFFFF9800)).withValues(alpha: 0.3),
+            color: (premium.isPremium ? const Color(0xFF00C853) : const Color(0xFFFF9800))
+                .withValues(alpha: 0.3),
             blurRadius: 14,
             offset: const Offset(0, 5),
           ),
@@ -240,7 +240,9 @@ class _PremiumBanner extends StatelessWidget {
                 Text(
                   premium.isPremium
                       ? (isTr ? 'Aktif Premium Abonelik' : 'Active Premium Subscription')
-                      : (isTr ? 'ABC123 Premium — Detaylı İstatistikler' : 'ABC123 Premium — Advanced Analytics'),
+                      : (isTr
+                          ? 'ABC123 Premium — Detaylı İstatistikler'
+                          : 'ABC123 Premium — Advanced Analytics'),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
@@ -250,8 +252,12 @@ class _PremiumBanner extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   premium.isPremium
-                      ? (isTr ? 'Tüm modül raporları ve sınırsız özellikler açık' : 'Full access to all module reports and limits')
-                      : (isTr ? 'Daha kapsamlı analiz ve sınırsız pratik için yükseltin' : 'Upgrade for deep analytical insights and unlimited practice'),
+                      ? (isTr
+                          ? 'Tüm modül raporları ve sınırsız özellikler açık'
+                          : 'Full access to all module reports and limits')
+                      : (isTr
+                          ? 'Daha kapsamlı analiz ve sınırsız pratik için yükseltin'
+                          : 'Upgrade for deep analytical insights and unlimited practice'),
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.88),
                     fontSize: 12,
@@ -264,7 +270,8 @@ class _PremiumBanner extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
-              foregroundColor: premium.isPremium ? const Color(0xFF009624) : const Color(0xFFE65100),
+              foregroundColor:
+                  premium.isPremium ? const Color(0xFF009624) : const Color(0xFFE65100),
               elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -276,7 +283,9 @@ class _PremiumBanner extends StatelessWidget {
                 SnackBar(
                   content: Text(
                     premium.isPremium
-                        ? (isTr ? 'Premium Abonelik Açıldı! 🎉' : 'Premium Subscription Activated! 🎉')
+                        ? (isTr
+                            ? 'Premium Abonelik Açıldı! 🎉'
+                            : 'Premium Subscription Activated! 🎉')
                         : (isTr ? 'Ücretsiz Plana Geçildi.' : 'Switched to Free Plan.'),
                   ),
                   duration: const Duration(seconds: 2),
@@ -284,9 +293,7 @@ class _PremiumBanner extends StatelessWidget {
               );
             },
             child: Text(
-              premium.isPremium
-                  ? (isTr ? 'Yönet' : 'Manage')
-                  : (isTr ? 'Yükselt' : 'Upgrade'),
+              premium.isPremium ? (isTr ? 'Yönet' : 'Manage') : (isTr ? 'Yükselt' : 'Upgrade'),
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
             ),
           ),

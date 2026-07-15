@@ -5,8 +5,7 @@ import 'package:abc123/core/constants/language_constants.dart';
 final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   AppLanguage.turkish: {
     'sequentialMode': 'Sıralı Çizme Modu:',
-    'correctTotal': (int correct, int total) =>
-        'Doğru: $correct / Toplam: $total',
+    'correctTotal': (int correct, int total) => 'Doğru: $correct / Toplam: $total',
     'clear': 'Temizle',
     'pen': 'Kalem',
     'eraser': 'Silgi',
@@ -14,8 +13,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.english: {
     'sequentialMode': 'Sequential Drawing Mode:',
-    'correctTotal': (int correct, int total) =>
-        'Correct: $correct / Total: $total',
+    'correctTotal': (int correct, int total) => 'Correct: $correct / Total: $total',
     'clear': 'Clear',
     'pen': 'Pen',
     'eraser': 'Eraser',
@@ -31,8 +29,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.spanish: {
     'sequentialMode': 'Modo de dibujo secuencial:',
-    'correctTotal': (int correct, int total) =>
-        'Correcto: $correct / Total: $total',
+    'correctTotal': (int correct, int total) => 'Correcto: $correct / Total: $total',
     'clear': 'Limpiar',
     'pen': 'Bolígrafo',
     'eraser': 'Borrador',
@@ -48,8 +45,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.french: {
     'sequentialMode': 'Mode de dessin séquentiel :',
-    'correctTotal': (int correct, int total) =>
-        'Correct : $correct / Total : $total',
+    'correctTotal': (int correct, int total) => 'Correct : $correct / Total : $total',
     'clear': 'Effacer',
     'pen': 'Stylo',
     'eraser': 'Gomme',
@@ -57,8 +53,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.arabic: {
     'sequentialMode': 'وضع الرسم المتسلسل:',
-    'correctTotal': (int correct, int total) =>
-        'صحيح: $correct / الإجمالي: $total',
+    'correctTotal': (int correct, int total) => 'صحيح: $correct / الإجمالي: $total',
     'clear': 'مسح',
     'pen': 'قلم',
     'eraser': 'ممحاة',
@@ -66,8 +61,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.portuguese: {
     'sequentialMode': 'Modo de desenho sequencial:',
-    'correctTotal': (int correct, int total) =>
-        'Correto: $correct / Total: $total',
+    'correctTotal': (int correct, int total) => 'Correto: $correct / Total: $total',
     'clear': 'Limpar',
     'pen': 'Caneta',
     'eraser': 'Borracha',
@@ -83,8 +77,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.russian: {
     'sequentialMode': 'Режим последовательного рисования:',
-    'correctTotal': (int correct, int total) =>
-        'Правильно: $correct / Всего: $total',
+    'correctTotal': (int correct, int total) => 'Правильно: $correct / Всего: $total',
     'clear': 'Очистить',
     'pen': 'Ручка',
     'eraser': 'Ластик',
@@ -100,8 +93,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.azerbaijani: {
     'sequentialMode': 'Ardıcıl çəkmə rejimi:',
-    'correctTotal': (int correct, int total) =>
-        'Düzgün: $correct / Cəmi: $total',
+    'correctTotal': (int correct, int total) => 'Düzgün: $correct / Cəmi: $total',
     'clear': 'Təmizlə',
     'pen': 'Qələm',
     'eraser': 'Pozan',
@@ -109,8 +101,7 @@ final Map<AppLanguage, Map<String, Object>> localizedActionToolbarTexts = {
   },
   AppLanguage.german: {
     'sequentialMode': 'Sequenzieller Zeichenmodus:',
-    'correctTotal': (int correct, int total) =>
-        'Richtig: $correct / Gesamt: $total',
+    'correctTotal': (int correct, int total) => 'Richtig: $correct / Gesamt: $total',
     'clear': 'Löschen',
     'pen': 'Stift',
     'eraser': 'Radiergummi',
@@ -288,8 +279,7 @@ final Map<AppLanguage, Map<String, String>> localizedInfoScreenTexts = {
     'drawingNotFound': 'Zeichnung nicht gefunden',
     'drawnLetter': 'Dein gezeichneter Buchstabe',
     'congrats': 'Glückwunsch!',
-    'successMessage':
-        'Großartige Arbeit! Ich habe diesen Buchstaben richtig erkannt!',
+    'successMessage': 'Großartige Arbeit! Ich habe diesen Buchstaben richtig erkannt!',
     'back': 'Zurück',
   },
 };
@@ -342,8 +332,7 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
     'targetLetter': 'Objetivo:',
     'successMessage': '¡Buen trabajo! ¡He reconocido correctamente tu dibujo!',
     'failMessage': '¡Inténtalo de nuevo! Tu dibujo parece otra cosa.',
-    'progress': (int correct, int total) =>
-        'Correcto: $correct / Total: $total',
+    'progress': (int correct, int total) => 'Correcto: $correct / Total: $total',
     'tryAgainBtn': 'Intentar de nuevo',
     'nextLetter': 'Siguiente',
     'nextLetterFail': 'Ir al siguiente',
@@ -355,8 +344,7 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
     'tryAgain': 'फिर से प्रयास करें!',
     'targetLetter': 'लक्ष्य:',
     'successMessage': 'शानदार! मैंने आपकी ड्राइंग को सही पहचाना!',
-    'failMessage':
-        'फिर से प्रयास करें! आपकी ड्राइंग किसी और चीज़ जैसी लगती है।',
+    'failMessage': 'फिर से प्रयास करें! आपकी ड्राइंग किसी और चीज़ जैसी लगती है।',
     'progress': (int correct, int total) => 'सही: $correct / कुल: $total',
     'tryAgainBtn': 'फिर से प्रयास करें',
     'nextLetter': 'आगे बढ़ें',
@@ -370,8 +358,7 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
     'targetLetter': 'Cible :',
     'successMessage': "Bravo ! J'ai correctement reconnu votre dessin !",
     'failMessage': 'Réessayez ! Votre dessin ressemble à autre chose.',
-    'progress': (int correct, int total) =>
-        'Correct : $correct / Total : $total',
+    'progress': (int correct, int total) => 'Correct : $correct / Total : $total',
     'tryAgainBtn': 'Réessayer',
     'nextLetter': 'Suivant',
     'nextLetterFail': 'Passer au suivant',
@@ -423,8 +410,7 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
     'targetLetter': 'Цель:',
     'successMessage': 'Отличная работа! Я правильно распознал ваш рисунок!',
     'failMessage': 'Попробуйте еще раз! Ваш рисунок похож на что‑то другое.',
-    'progress': (int correct, int total) =>
-        'Правильно: $correct / Всего: $total',
+    'progress': (int correct, int total) => 'Правильно: $correct / Всего: $total',
     'tryAgainBtn': 'Попробовать снова',
     'nextLetter': 'Далее',
     'nextLetterFail': 'Перейти далее',
@@ -461,12 +447,9 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
     'congrats': 'Glückwunsch!',
     'tryAgain': 'Nochmal versuchen!',
     'targetLetter': 'Ziel:',
-    'successMessage':
-        'Großartige Arbeit! Ich habe deine Zeichnung richtig erkannt!',
-    'failMessage':
-        'Versuche es erneut! Deine Zeichnung sieht nach etwas anderem aus.',
-    'progress': (int correct, int total) =>
-        'Richtig: $correct / Gesamt: $total',
+    'successMessage': 'Großartige Arbeit! Ich habe deine Zeichnung richtig erkannt!',
+    'failMessage': 'Versuche es erneut! Deine Zeichnung sieht nach etwas anderem aus.',
+    'progress': (int correct, int total) => 'Richtig: $correct / Gesamt: $total',
     'tryAgainBtn': 'Nochmal versuchen',
     'nextLetter': 'Weiter',
     'nextLetterFail': 'Zum nächsten',
@@ -568,21 +551,14 @@ final Map<String, Map<AppLanguage, String>> localizedTexts = {
     AppLanguage.turkish: 'Bu Bölümü Açmak için Reklam izle Puan Topla',
     AppLanguage.english: 'Watch ads to earn points and unlock this section',
     AppLanguage.chinese: '观看广告赚取积分以解锁此部分',
-    AppLanguage.spanish:
-        'Mira anuncios para ganar puntos y desbloquear esta sección',
-    AppLanguage.hindi:
-        'इस अनुभाग को अनलॉक करने के लिए विज्ञापन देखें और अंक अर्जित करें',
-    AppLanguage.french:
-        'Regardez des publicités pour gagner des points et débloquer cette section',
+    AppLanguage.spanish: 'Mira anuncios para ganar puntos y desbloquear esta sección',
+    AppLanguage.hindi: 'इस अनुभाग को अनलॉक करने के लिए विज्ञापन देखें और अंक अर्जित करें',
+    AppLanguage.french: 'Regardez des publicités pour gagner des points et débloquer cette section',
     AppLanguage.arabic: 'شاهد الإعلانات لكسب النقاط وفتح هذا القسم',
-    AppLanguage.portuguese:
-        'Assista anúncios para ganhar pontos e desbloquear esta seção',
-    AppLanguage.bengali:
-        'এই অংশটি আনলক করতে বিজ্ঞাপন দেখুন এবং পয়েন্ট অর্জন করুন',
-    AppLanguage.russian:
-        'Смотрите рекламу, чтобы заработать очки и открыть этот раздел',
-    AppLanguage.urdu:
-        'اس سیکشن کو کھولنے کے لیے اشتہارات دیکھیں اور پوائنٹس حاصل کریں',
+    AppLanguage.portuguese: 'Assista anúncios para ganhar pontos e desbloquear esta seção',
+    AppLanguage.bengali: 'এই অংশটি আনলক করতে বিজ্ঞাপন দেখুন এবং পয়েন্ট অর্জন করুন',
+    AppLanguage.russian: 'Смотрите рекламу, чтобы заработать очки и открыть этот раздел',
+    AppLanguage.urdu: 'اس سیکشن کو کھولنے کے لیے اشتہارات دیکھیں اور پوائنٹس حاصل کریں',
     AppLanguage.azerbaijani: 'Bu bölməni açmaq üçün reklam izləyib xal topla',
     AppLanguage.german:
         'Sieh dir Werbung an, um Punkte zu sammeln und diesen Bereich freizuschalten',
@@ -1251,23 +1227,18 @@ final Map<String, Map<AppLanguage, String>> localizedTexts = {
     AppLanguage.german: 'Artikel kaufen?',
   },
   'buyDescription': {
-    AppLanguage.turkish:
-        '{price} yıldız harcayarak bu eşyayı almak istiyor musun?',
+    AppLanguage.turkish: '{price} yıldız harcayarak bu eşyayı almak istiyor musun?',
     AppLanguage.english: 'Do you want to buy this item for {price} stars?',
     AppLanguage.chinese: '你想花 {price} 星星购买这个物品吗？',
-    AppLanguage.spanish:
-        '¿Quieres comprar este artículo por {price} estrellas?',
-    AppLanguage.hindi:
-        'क्या आप {price} सितारों के लिए इस वस्तु को खरीदना चाहते हैं?',
-    AppLanguage.french:
-        'Voulez-vous acheter cet article pour {price} étoiles ?',
+    AppLanguage.spanish: '¿Quieres comprar este artículo por {price} estrellas?',
+    AppLanguage.hindi: 'क्या आप {price} सितारों के लिए इस वस्तु को खरीदना चाहते हैं?',
+    AppLanguage.french: 'Voulez-vous acheter cet article pour {price} étoiles ?',
     AppLanguage.arabic: 'هل تريد شراء هذا العنصر مقابل {price} نجمة؟',
     AppLanguage.portuguese: 'Quer comprar este item por {price} estrelas?',
     AppLanguage.bengali: 'আপনি কি {price} তারা দিয়ে এই আইটেমটি কিনতে চান?',
     AppLanguage.russian: 'Вы хотите купить этот предмет за {price} звезд?',
     AppLanguage.urdu: 'کیا آپ {price} ستاروں کے بدلے یہ آئٹم خریدنا چاہتے ہیں؟',
-    AppLanguage.azerbaijani:
-        'Bu əşyanı {price} ulduz qarşılığında almaq istəyirsən?',
+    AppLanguage.azerbaijani: 'Bu əşyanı {price} ulduz qarşılığında almaq istəyirsən?',
     AppLanguage.german: 'Möchtest du diesen Artikel für {price} Sterne kaufen?',
   },
   'noBtn': {
@@ -1847,9 +1818,7 @@ final Map<String, Map<AppLanguage, String>> localizedTexts = {
 };
 
 String getLocalizedText(String key, AppLanguage lang) {
-  return localizedTexts[key]?[lang] ??
-      localizedTexts[key]?[AppLanguage.english] ??
-      '';
+  return localizedTexts[key]?[lang] ?? localizedTexts[key]?[AppLanguage.english] ?? '';
 }
 
 /// Şekil adları için dil bazlı gösterim (özellikle sonuç ekranında daire/üçgen/kare)

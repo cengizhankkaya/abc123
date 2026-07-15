@@ -52,6 +52,5 @@ abstract class NetworkModule {
   }
 
   @lazySingleton
-  AppApiService appApiService(ChopperClient client) =>
-      client.getService<AppApiService>();
+  AppApiService appApiService(ChopperClient client) => client.getService<AppApiService>();
 }

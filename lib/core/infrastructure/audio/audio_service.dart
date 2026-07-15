@@ -1,4 +1,3 @@
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -7,13 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @LazySingleton(as: IAudioService)
 class AudioService implements IAudioService {
-  factory AudioService() => _instance;
-  AudioService._internal() {
+  AudioService(this._log, this._prefs) {
     // Android/iOS ses bağlamını ayarla (audioplayers ^7.x uyumlu)
     final context = AudioContext(
-      android: const AudioContextAndroid(
-        
-      ),
+      android: const AudioContextAndroid(),
       iOS: AudioContextIOS(
         options: const {AVAudioSessionOptions.duckOthers},
       ),
@@ -21,12 +17,12 @@ class AudioService implements IAudioService {
     _bgPlayer.setAudioContext(context);
     _effectPlayer.setAudioContext(context);
   }
-  static final AudioService _instance = AudioService._internal();
+
+  final AppLogger _log;
+  final SharedPreferences _prefs;
 
   final AudioPlayer _bgPlayer = AudioPlayer();
   final AudioPlayer _effectPlayer = AudioPlayer();
-
-  AppLogger get _log => getIt<AppLogger>();
 
   static const String _volumeKey = 'global_volume';
   double _currentVolume = 1;
@@ -38,8 +34,7 @@ class AudioService implements IAudioService {
   @override
   Future<void> init() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      _currentVolume = prefs.getDouble(_volumeKey) ?? 1.0;
+      _currentVolume = _prefs.getDouble(_volumeKey) ?? 1.0;
       await _bgPlayer.setVolume(_currentVolume);
       await _effectPlayer.setVolume(_currentVolume);
       _log.debug(
@@ -123,8 +118,7 @@ class AudioService implements IAudioService {
     await _bgPlayer.setVolume(_currentVolume);
     await _effectPlayer.setVolume(_currentVolume);
     try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setDouble(_volumeKey, _currentVolume);
+      await _prefs.setDouble(_volumeKey, _currentVolume);
     } catch (e, st) {
       _log.error(
         'Volume persist failed',

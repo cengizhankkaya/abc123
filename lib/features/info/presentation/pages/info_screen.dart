@@ -20,9 +20,10 @@ void enforceInfoScreenOrientation() {
 
 // InfoScreen artık bir sayfa olarak çalışacak ve çizimi gösterecek
 class InfoScreen extends StatefulWidget {
-
   const InfoScreen({
-    required this.drawingImage, required this.recognizedLetter, super.key,
+    required this.drawingImage,
+    required this.recognizedLetter,
+    super.key,
   });
   final ui.Image? drawingImage;
   final String recognizedLetter;
@@ -59,7 +60,6 @@ class _InfoScreenState extends State<InfoScreen> {
 }
 
 class _InfoView extends StatelessWidget {
-
   const _InfoView({
     required this.drawingImage,
     required this.recognizedLetter,
@@ -128,7 +128,6 @@ class _InfoView extends StatelessWidget {
 }
 
 class _DrawingPanel extends StatelessWidget {
-
   const _DrawingPanel({required this.drawingImage});
   final ui.Image? drawingImage;
 
@@ -182,7 +181,6 @@ class _DrawingPanel extends StatelessWidget {
 }
 
 class _ResultPanel extends StatelessWidget {
-
   const _ResultPanel({required this.recognizedLetter});
   final String recognizedLetter;
 
@@ -295,7 +293,6 @@ class _ResultPanel extends StatelessWidget {
 
 // Çizim görüntüsünü göstermek için CustomPainter
 class _DrawingImagePainter extends CustomPainter {
-
   _DrawingImagePainter({required this.image});
   final ui.Image image;
 

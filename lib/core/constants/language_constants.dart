@@ -15,7 +15,6 @@ enum AppLanguage {
 }
 
 class LanguageOption {
-
   const LanguageOption({
     required this.value,
     required this.label,

@@ -17,10 +17,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 /// GetX kaldırıldı — abc123 projesinde ChangeNotifier + provider kullanılıyor.
 class FluttermojiController extends ChangeNotifier {
-
-  FluttermojiController() {
+  FluttermojiController(this._prefs) {
     _init();
   }
+
+  final SharedPreferences _prefs;
+
   String _fluttermoji = '';
 
   String get fluttermoji => _fluttermoji;
@@ -47,8 +49,7 @@ class FluttermojiController extends ChangeNotifier {
 
   /// Kaydedilen son versiyonu geri yükler.
   Future<void> restoreState() async {
-    final pref = await SharedPreferences.getInstance();
-    _fluttermoji = pref.getString('fluttermoji') ??
+    _fluttermoji = _prefs.getString('fluttermoji') ??
         FluttermojiFunctions().decodeFluttermojifromString(
           jsonEncode(defaultFluttermojiOptions),
         );
@@ -57,9 +58,7 @@ class FluttermojiController extends ChangeNotifier {
   }
 
   String _getFluttermojiProperty(String type) {
-    return fluttermojiProperties[type]!
-        .property!
-        .elementAt(selectedOptions[type] as int);
+    return fluttermojiProperties[type]!.property!.elementAt(selectedOptions[type] as int);
   }
 
   /// SVG string olarak fluttermoji'yi kaydeder ve state'i günceller.
@@ -67,32 +66,35 @@ class FluttermojiController extends ChangeNotifier {
     if (fluttermojiNew.isEmpty) {
       fluttermojiNew = getFluttermojiFromOptions();
     }
-    final pref = await SharedPreferences.getInstance();
-    await pref.setString('fluttermoji', fluttermojiNew);
+    await _prefs.setString('fluttermoji', fluttermojiNew);
     _fluttermoji = fluttermojiNew;
-    await pref.setString(
-        'fluttermojiSelectedOptions', jsonEncode(selectedOptions),);
+    await _prefs.setString(
+      'fluttermojiSelectedOptions',
+      jsonEncode(selectedOptions),
+    );
     notifyListeners();
   }
 
   /// selectedOptions'tan SVG üretir.
   String getFluttermojiFromOptions() {
-    final fmStyle =
-        fluttermojiStyle[_getFluttermojiProperty('style')]!;
+    final fmStyle = fluttermojiStyle[_getFluttermojiProperty('style')]!;
     final clothe = Clothes.generateClothes(
-        clotheType: _getFluttermojiProperty('clotheType'),
-        clColor: _getFluttermojiProperty('clotheColor'),)!;
+      clotheType: _getFluttermojiProperty('clotheType'),
+      clColor: _getFluttermojiProperty('clotheColor'),
+    )!;
     final facialHair = FacialHair.generateFacialHair(
-        facialHairType: _getFluttermojiProperty('facialHairType'),
-        fhColor: _getFluttermojiProperty('facialHairColor'),)!;
+      facialHairType: _getFluttermojiProperty('facialHairType'),
+      fhColor: _getFluttermojiProperty('facialHairColor'),
+    )!;
     final mouthSvg = mouth[_getFluttermojiProperty('mouthType')] as String;
     final noseSvg = nose['Default'] as String;
     final eyesSvg = eyes[_getFluttermojiProperty('eyeType')] as String;
     final eyebrowsSvg = eyebrow[_getFluttermojiProperty('eyebrowType')] as String;
     final accessory = accessories[_getFluttermojiProperty('accessoriesType')] as String;
     final hair = HairStyle.generateHairStyle(
-        hairType: _getFluttermojiProperty('topType'),
-        hColor: _getFluttermojiProperty('hairColor'),)!;
+      hairType: _getFluttermojiProperty('topType'),
+      hColor: _getFluttermojiProperty('hairColor'),
+    )!;
     final skinSvg = skin[_getFluttermojiProperty('skinColor')] as String;
 
     return '''<svg width="264px" height="280px" viewBox="0 0 264 280" version="1.1"
@@ -117,28 +119,28 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
   }
 
   Future<Map<String?, int>> getFluttermojiOptions() async {
-    final pref = await SharedPreferences.getInstance();
-    final saved = pref.getString('fluttermojiSelectedOptions');
+    final saved = _prefs.getString('fluttermojiSelectedOptions');
     if (saved == null || saved.isEmpty) {
       final defaults = Map<String?, int>.from(defaultFluttermojiOptions);
-      await pref.setString(
-          'fluttermojiSelectedOptions', jsonEncode(defaults),);
+      await _prefs.setString(
+        'fluttermojiSelectedOptions',
+        jsonEncode(defaults),
+      );
       selectedOptions = defaults;
       notifyListeners();
       return defaults;
     }
     final raw = jsonDecode(saved) as Map;
     final decoded = raw.map<String?, int>(
-        (k, v) => MapEntry(k as String?, v as int),);
+      (k, v) => MapEntry(k as String?, v as int),
+    );
     selectedOptions = decoded;
     notifyListeners();
     return decoded;
   }
 
   String? getComponentTitle(String attributeKey, int attributeValueIndex) {
-    return fluttermojiProperties[attributeKey]!
-        .property
-        ?.elementAt(attributeValueIndex);
+    return fluttermojiProperties[attributeKey]!.property?.elementAt(attributeValueIndex);
   }
 
   /// Önizleme için tek bir bileşenin SVG'sini üretir.
@@ -146,8 +148,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
     switch (attributeKey) {
       case 'clotheType':
         return '''<svg width="100px" height="120px" viewBox="30 100 200 250" >${Clothes.generateClothes(
-                clotheType: ClotheType.elementAt(attributeValueIndex!),
-                clColor: ClotheColor[selectedOptions['clotheColor'] as int],)!}</svg>''';
+          clotheType: ClotheType.elementAt(attributeValueIndex!),
+          clColor: ClotheColor[selectedOptions['clotheColor'] as int],
+        )!}</svg>''';
 
       case 'clotheColor':
         return '''<svg width="120px" height="120px" > 
@@ -156,8 +159,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
       case 'topType':
         if (attributeValueIndex == 0) return emptySVGIcon;
         return '''<svg width="20px" width="100px" height="100px" viewBox="10 0 250 250">${HairStyle.generateHairStyle(
-                hairType: TopType[attributeValueIndex!],
-                hColor: HairColor[selectedOptions['hairColor'] as int],)!}</svg>''';
+          hairType: TopType[attributeValueIndex!],
+          hColor: HairColor[selectedOptions['hairColor'] as int],
+        )!}</svg>''';
 
       case 'hairColor':
         return '''<svg width="120px" height="120px" > 
@@ -166,8 +170,9 @@ xmlns:xlink="http://www.w3.org/1999/xlink">
       case 'facialHairType':
         if (attributeValueIndex == 0) return emptySVGIcon;
         return '''<svg width="20px" height="20px" viewBox="0 -40 112 180" >${FacialHair.generateFacialHair(
-                facialHairType: FacialHairType[attributeValueIndex!],
-                fhColor: FacialHairColor[selectedOptions['facialHairColor'] as int],)!}</svg>''';
+          facialHairType: FacialHairType[attributeValueIndex!],
+          fhColor: FacialHairColor[selectedOptions['facialHairColor'] as int],
+        )!}</svg>''';
 
       case 'facialHairColor':
         return '''<svg width="120px" height="120px" > 

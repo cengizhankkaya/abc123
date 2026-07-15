@@ -52,5 +52,3 @@ final class WordChapterConfig {
   final int length;
   final List<WordEntry> levels;
 }
-
-

@@ -139,7 +139,8 @@ final class _ParentPanelSnapshot {
     required this.strugglingMathCode,
   });
 
-  factory _ParentPanelSnapshot.from(GamificationProvider provider, MathProgressProvider mathProvider) {
+  factory _ParentPanelSnapshot.from(
+      GamificationProvider provider, MathProgressProvider mathProvider) {
     final mathCompleted = mathProvider.additionsCompleted +
         mathProvider.subtractionsCompleted +
         mathProvider.tensCompleted +
@@ -154,9 +155,8 @@ final class _ParentPanelSnapshot {
         mathCompleted;
 
     final durationMinutes = (completed * 2).clamp(0, 999);
-    final accuracyPercent = completed == 0
-        ? 0
-        : (72 + provider.streak * 2 + (completed ~/ 5)).clamp(60, 95);
+    final accuracyPercent =
+        completed == 0 ? 0 : (72 + provider.streak * 2 + (completed ~/ 5)).clamp(60, 95);
 
     var strugglingMathCode = -1;
     final maxWrong = [

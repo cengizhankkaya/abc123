@@ -12,7 +12,6 @@ abstract class IGamificationLocalDataSource {
 
 @LazySingleton(as: IGamificationLocalDataSource)
 class GamificationLocalDataSourceImpl implements IGamificationLocalDataSource {
-
   GamificationLocalDataSourceImpl(this._prefs);
   final SharedPreferences _prefs;
 

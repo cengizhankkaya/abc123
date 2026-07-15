@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:abc123/core/di/injection.dart';
+import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/infrastructure/audio/audio_service.dart';
 import 'package:abc123/core/l10n/app_locale.dart';
@@ -33,6 +35,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
     }
   }
+
 //
   /// ATT, aktif UI penceresi varken gösterilmeli; ardından reklam SDK’sı.
   ///
@@ -70,7 +73,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     if (state == AppLifecycleState.inactive ||
         state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      unawaited(AudioService().stopBackground());
+      unawaited(getIt<IAudioService>().stopBackground());
     }
   }
 

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class BuildColorButton extends StatelessWidget {
-
   const BuildColorButton({
-    required this.color, required this.size, required this.selectedColor, required this.eraseMode, required this.onTap, required this.semanticsLabel, super.key,
+    required this.color,
+    required this.size,
+    required this.selectedColor,
+    required this.eraseMode,
+    required this.onTap,
+    required this.semanticsLabel,
+    super.key,
   });
   final Color color;
   final double size;

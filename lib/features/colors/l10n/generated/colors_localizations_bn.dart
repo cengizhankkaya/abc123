@@ -183,8 +183,7 @@ class ColorsLocalizationsBn extends ColorsLocalizations {
   String get colorVisionResultsGood => 'You spotted most shapes — nice!';
 
   @override
-  String get colorVisionResultsMixed =>
-      'Some plates were tricky. That happens to many kids.';
+  String get colorVisionResultsMixed => 'Some plates were tricky. That happens to many kids.';
 
   @override
   String get colorVisionResultsLow =>

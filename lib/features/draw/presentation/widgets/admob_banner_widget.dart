@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdmobBannerWidget extends StatefulWidget {
-
   const AdmobBannerWidget({
     super.key,
     this.showTitle = true,
@@ -83,9 +82,7 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
       width: double.infinity,
       child: Align(
         alignment: Alignment.topCenter,
-        child: _bannerAd != null && _isLoaded
-            ? _buildVerticalContent()
-            : const SizedBox.shrink(),
+        child: _bannerAd != null && _isLoaded ? _buildVerticalContent() : const SizedBox.shrink(),
       ),
     );
   }

@@ -10,12 +10,14 @@ class FacialHair {
     'Platinum': '#ECDCBF',
     'Red': '#C93305',
   };
-  static String? generateFacialHair(
-      {String facialHairType = 'Nothing', String fhColor = 'Black',}) {
+  static String? generateFacialHair({
+    String facialHairType = 'Nothing',
+    String fhColor = 'Black',
+  }) {
     final colorHex = facialHairColor[fhColor];
 
     final facialHair = <String, String>{
-      'Nothing': '''        
+      'Nothing': '''
 
 
 

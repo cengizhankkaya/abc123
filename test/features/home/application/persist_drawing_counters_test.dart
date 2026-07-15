@@ -20,8 +20,7 @@ void main() {
     setUp(() {
       mockPersistence = MockGamificationPersistence();
       useCase = PersistDrawingCounters(mockPersistence);
-      when(() => mockPersistence.setInt(any(), any()))
-          .thenAnswer((_) async => right(unit));
+      when(() => mockPersistence.setInt(any(), any())).thenAnswer((_) async => right(unit));
     });
 
     test('tüm sayaç anahtarlarına doğru değerleri yazar', () async {
@@ -70,8 +69,7 @@ void main() {
     });
 
     test('kalıcılık hata fırlatırsa Left döner', () async {
-      when(() => mockPersistence.setInt(any(), any()))
-          .thenThrow(Exception('disk dolu'));
+      when(() => mockPersistence.setInt(any(), any())).thenThrow(Exception('disk dolu'));
 
       final result = await useCase.call(GamificationTestData.sampleCountersWrite);
 

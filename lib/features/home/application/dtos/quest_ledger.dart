@@ -4,7 +4,6 @@ import 'package:abc123/features/home/domain/entities/quest.dart';
 
 /// Kalıcı görev defteri (`schemaVersion` ile genişletilebilir).
 class QuestLedger {
-
   const QuestLedger({
     required this.schemaVersion,
     required this.dayKey,

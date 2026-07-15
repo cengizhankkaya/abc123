@@ -71,14 +71,17 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              _buildLevelTab(context, provider, DifficultyLevel.levelA, l10n.mathLevelA),
-                              _buildLevelTab(context, provider, DifficultyLevel.levelB, l10n.mathLevelB),
-                              _buildLevelTab(context, provider, DifficultyLevel.levelC, l10n.mathLevelC),
+                              _buildLevelTab(
+                                  context, provider, DifficultyLevel.levelA, l10n.mathLevelA),
+                              _buildLevelTab(
+                                  context, provider, DifficultyLevel.levelB, l10n.mathLevelB),
+                              _buildLevelTab(
+                                  context, provider, DifficultyLevel.levelC, l10n.mathLevelC),
                             ],
                           ),
                         ),
                       ),
-                      
+
                       const Spacer(),
 
                       // İşlem Metni
@@ -90,9 +93,9 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                           color: Color(0xFF6C5CE7),
                         ),
                       ),
-                      
+
                       const Spacer(),
-                      
+
                       // Çizim Alanı
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -133,7 +136,8 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                                 label: isDoubleDigit ? l10n.mathUnitsBox : 'Sonuç',
                                 isActive: provider.activeBox == 1,
                                 points: provider.unitsPoints,
-                                hintText: provider.hintEnabled ? operation.unitsDigit.toString() : null,
+                                hintText:
+                                    provider.hintEnabled ? operation.unitsDigit.toString() : null,
                                 size: boxSize,
                                 onTap: () => provider.setActiveBox(1),
                               ),
@@ -141,17 +145,21 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 32),
-                      
+
                       // Kontrol Butonu
                       if (isCorrect == null && !isLoading)
                         ElevatedButton(
                           onPressed: () {
-                            final type = operation.operator == '+' ? MathType.addition : MathType.subtraction;
-                            
+                            final type = operation.operator == '+'
+                                ? MathType.addition
+                                : MathType.subtraction;
+
                             if (isTripleDigit) {
-                              if (provider.hundredsPoints.isEmpty && provider.tensPoints.isEmpty && provider.unitsPoints.isEmpty) {
+                              if (provider.hundredsPoints.isEmpty &&
+                                  provider.tensPoints.isEmpty &&
+                                  provider.unitsPoints.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text(l10n.mathEmptyDrawingWarning)),
                                 );
@@ -198,10 +206,9 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                             ),
                           ),
                         ),
-                        
-                      if (isLoading)
-                        const CircularProgressIndicator(color: Color(0xFF6C63FF)),
-                        
+
+                      if (isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+
                       // Alt Araç Çubuğu
                       Padding(
                         padding: const EdgeInsets.only(bottom: 24, top: 16),
@@ -213,7 +220,8 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                               icon: const Icon(Icons.delete_outline, color: Colors.white),
                               label: Text(
                                 l10n.mathClearButton,
-                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.redAccent,
@@ -228,7 +236,7 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
                       ),
                     ],
                   ),
-                  
+
                   // Sonuç Overlay
                   if (isCorrect != null)
                     MathResultOverlay(
@@ -255,7 +263,8 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
     );
   }
 
-  Widget _buildLevelTab(BuildContext context, MathProgressProvider provider, DifficultyLevel level, String label) {
+  Widget _buildLevelTab(
+      BuildContext context, MathProgressProvider provider, DifficultyLevel level, String label) {
     final isSelected = provider.selectedLevel == level;
     final isLocked = !provider.canUnlockLevel(level);
 
@@ -263,7 +272,8 @@ class _SymbolicMathScreenState extends State<SymbolicMathScreen> {
       onTap: () {
         if (!isLocked) {
           provider.selectLevel(level);
-          provider.startSymbolicOperation(isAddition: provider.currentOperation?.operator == '+' ?? true);
+          provider.startSymbolicOperation(
+              isAddition: provider.currentOperation?.operator == '+' ?? true);
         }
       },
       child: Container(

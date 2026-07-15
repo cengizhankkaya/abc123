@@ -89,17 +89,13 @@ class _ArrowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visible = isLeft
-        ? tabController.index > 0
-        : tabController.index < attributesCount - 1;
+    final visible = isLeft ? tabController.index > 0 : tabController.index < attributesCount - 1;
 
     return Visibility(
       visible: visible,
       child: IconButton(
         icon: Icon(
-          isLeft
-              ? Icons.arrow_back_ios_new_rounded
-              : Icons.arrow_forward_ios_rounded,
+          isLeft ? Icons.arrow_back_ios_new_rounded : Icons.arrow_forward_ios_rounded,
           color: theme.iconColor,
         ),
         onPressed: () => onArrowTap(isLeft),
@@ -133,9 +129,7 @@ class _AttributeTabBar extends StatelessWidget {
             attributes[i].iconAsset!,
             height: attributes[i].iconsize ?? 26,
             colorFilter: ColorFilter.mode(
-              i == tabController.index
-                  ? theme.selectedIconColor
-                  : theme.unselectedIconColor,
+              i == tabController.index ? theme.selectedIconColor : theme.unselectedIconColor,
               BlendMode.srcIn,
             ),
             semanticsLabel: attributes[i].title,

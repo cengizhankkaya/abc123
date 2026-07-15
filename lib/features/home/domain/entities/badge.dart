@@ -2,7 +2,6 @@ import 'package:abc123/core/domain/base/entity.dart';
 
 /// Rozet domain varlığı; değişmez, kilit durumu `copyWith` ile güncellenir (`11_data_modeling.md`).
 class Badge extends Entity {
-
   Badge({
     required this.id,
     required this.nameKey,

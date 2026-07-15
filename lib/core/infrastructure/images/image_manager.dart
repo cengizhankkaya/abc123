@@ -4,8 +4,13 @@ import 'package:flutter/services.dart';
 
 class ImageManager {
   // Varsayılan görsel yükleyici - kaliteyi korur
-  static Widget getImage(String path,
-      {double? width, double? height, BoxFit fit = BoxFit.contain, BorderRadius? borderRadius,}) {
+  static Widget getImage(
+    String path, {
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.contain,
+    BorderRadius? borderRadius,
+  }) {
     final Widget image = Image.asset(
       path,
       width: width,

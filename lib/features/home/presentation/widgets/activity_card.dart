@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ActivityCard extends StatelessWidget {
-
   const ActivityCard({
     required this.onTap,
     required this.image,

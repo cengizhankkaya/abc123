@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class FadeInSlide extends StatefulWidget {
-
   const FadeInSlide({
     required this.child,
     this.duration = const Duration(milliseconds: 600),

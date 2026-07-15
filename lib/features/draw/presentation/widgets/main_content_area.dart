@@ -9,9 +9,26 @@ import 'package:abc123/features/letters/presentation/widgets/letter_right_panel_
 import 'package:flutter/material.dart';
 
 class MainContentArea extends StatelessWidget {
-
   const MainContentArea({
-    required this.activeGuide, required this.onNextGuide, required this.onPreviousGuide, required this.points, required this.eraseMode, required this.selectedColor, required this.strokeWidth, required this.showResult, required this.isLoading, required this.recognitionResult, required this.animation, required this.tanima, required this.drawingAreaKey, required this.onClear, required this.onDrawPoint, required this.onEndDrawing, required this.isSequentialModeActive, required this.correctlyDrawnCount, super.key,
+    required this.activeGuide,
+    required this.onNextGuide,
+    required this.onPreviousGuide,
+    required this.points,
+    required this.eraseMode,
+    required this.selectedColor,
+    required this.strokeWidth,
+    required this.showResult,
+    required this.isLoading,
+    required this.recognitionResult,
+    required this.animation,
+    required this.tanima,
+    required this.drawingAreaKey,
+    required this.onClear,
+    required this.onDrawPoint,
+    required this.onEndDrawing,
+    required this.isSequentialModeActive,
+    required this.correctlyDrawnCount,
+    super.key,
   });
   final DrawingGuide activeGuide;
   final VoidCallback onNextGuide;

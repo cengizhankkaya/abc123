@@ -4,5 +4,3 @@ import 'package:flutter/widgets.dart';
 extension WordsLocalizationsX on BuildContext {
   WordsLocalizations? get wordsL10n => WordsLocalizations.of(this);
 }
-
-

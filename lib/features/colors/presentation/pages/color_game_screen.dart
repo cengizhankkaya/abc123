@@ -173,23 +173,20 @@ class _ColorGameScreenState extends State<ColorGameScreen> with TickerProviderSt
     final stage = _stage;
     final getPalettesUseCase = getIt<GetColorPalettes>();
     final result = await getPalettesUseCase(stage.poolSize);
-    
+
     if (!mounted) return;
-    
-    result.fold(
-      (failure) {
-        // Fallback or error state
-        if (mounted) setState(() => _busy = false);
-      },
-      (palette) {
-        final pool = List<GamePaletteColor>.from(palette)..shuffle(_rng);
-        _target = pool.first;
-        final distractors = pool.where((c) => c != _target).take(stage.choices - 1).toList();
-        _options = [_target!, ...distractors]..shuffle(_rng);
-        _restartTimer();
-        if (mounted) setState(() => _busy = false);
-      }
-    );
+
+    result.fold((failure) {
+      // Fallback or error state
+      if (mounted) setState(() => _busy = false);
+    }, (palette) {
+      final pool = List<GamePaletteColor>.from(palette)..shuffle(_rng);
+      _target = pool.first;
+      final distractors = pool.where((c) => c != _target).take(stage.choices - 1).toList();
+      _options = [_target!, ...distractors]..shuffle(_rng);
+      _restartTimer();
+      if (mounted) setState(() => _busy = false);
+    });
   }
 
   Future<void> _runShake() async {
@@ -404,7 +401,11 @@ class _ColorGameView extends StatelessWidget {
   final GamePaletteColor target;
   final List<GamePaletteColor> options;
   final ColorGameStageConfig stage;
-  final ({ColorGameChapterConfig chapter, int levelInChapter, ColorGameStageConfig stage}) levelInfo;
+  final ({
+    ColorGameChapterConfig chapter,
+    int levelInChapter,
+    ColorGameStageConfig stage
+  }) levelInfo;
   final int chapterIndex;
   final int correctInStage;
   final int? secondsLeft;
@@ -502,7 +503,8 @@ class _ColorGameView extends StatelessWidget {
               children: [
                 _ChapterProgressPanel(
                   chapterTitle: _colorChapterTitle(l, levelInfo.chapter.titleKey),
-                  chapterPosition: l.colorGameChapterProgress(chapterIndex + 1, ColorGameStory.totalChapters),
+                  chapterPosition:
+                      l.colorGameChapterProgress(chapterIndex + 1, ColorGameStory.totalChapters),
                   levelPosition: l.colorGameLevelProgress(
                     levelInfo.levelInChapter + 1,
                     levelInfo.chapter.levels.length,

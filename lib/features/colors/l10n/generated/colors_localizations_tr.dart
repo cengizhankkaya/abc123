@@ -183,8 +183,7 @@ class ColorsLocalizationsTr extends ColorsLocalizations {
   String get colorVisionResultsGood => 'Çoğu şekli buldun — harika!';
 
   @override
-  String get colorVisionResultsMixed =>
-      'Bazı levhalar zordu; bu çocuklarda çok yaygındır.';
+  String get colorVisionResultsMixed => 'Bazı levhalar zordu; bu çocuklarda çok yaygındır.';
 
   @override
   String get colorVisionResultsLow =>

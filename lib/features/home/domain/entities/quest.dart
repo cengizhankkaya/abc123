@@ -3,12 +3,13 @@ import 'package:abc123/core/domain/base/entity.dart';
 
 /// Görev tanımı — alanlar değişmez; güncelleme `copyWith` ile (`11_data_modeling.md`).
 class Quest extends Entity {
-
   Quest({
     required this.id,
     required this.titleKey,
     required this.targetType,
-    required this.targetCount, required this.rewardPoints, this.targetLabel,
+    required this.targetCount,
+    required this.rewardPoints,
+    this.targetLabel,
     this.currentCount = 0,
     this.isCompleted = false,
     this.isClaimed = false,

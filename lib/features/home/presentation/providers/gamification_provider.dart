@@ -19,7 +19,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 final class GamificationProvider extends ChangeNotifier {
-
   GamificationProvider({
     required IGamificationPersistence persistence,
     required LoadGamificationInitialState loadInitial,
@@ -398,31 +397,31 @@ final class GamificationProvider extends ChangeNotifier {
       descriptionKey: 'badgeBadgeCollectorDesc',
       iconKey: 'collections_bookmark',
     ),
-      Badge(
-        id: GamificationConstants.badgeBadgeMaster,
-        nameKey: 'badgeBadgeMasterName',
-        descriptionKey: 'badgeBadgeMasterDesc',
-        iconKey: 'workspace_premium',
-      ),
-      Badge(
-        id: GamificationConstants.badgeMathFirstAddition,
-        nameKey: 'badgeMathFirstAdditionName',
-        descriptionKey: 'badgeMathFirstAdditionDesc',
-        iconKey: 'calculate',
-      ),
-      Badge(
-        id: GamificationConstants.badgeTensHero,
-        nameKey: 'badgeTensHeroName',
-        descriptionKey: 'badgeTensHeroDesc',
-        iconKey: 'exposure_plus_1',
-      ),
-      Badge(
-        id: GamificationConstants.badgeSubtractionMaster,
-        nameKey: 'badgeSubtractionMasterName',
-        descriptionKey: 'badgeSubtractionMasterDesc',
-        iconKey: 'remove',
-      ),
-    ];
+    Badge(
+      id: GamificationConstants.badgeBadgeMaster,
+      nameKey: 'badgeBadgeMasterName',
+      descriptionKey: 'badgeBadgeMasterDesc',
+      iconKey: 'workspace_premium',
+    ),
+    Badge(
+      id: GamificationConstants.badgeMathFirstAddition,
+      nameKey: 'badgeMathFirstAdditionName',
+      descriptionKey: 'badgeMathFirstAdditionDesc',
+      iconKey: 'calculate',
+    ),
+    Badge(
+      id: GamificationConstants.badgeTensHero,
+      nameKey: 'badgeTensHeroName',
+      descriptionKey: 'badgeTensHeroDesc',
+      iconKey: 'exposure_plus_1',
+    ),
+    Badge(
+      id: GamificationConstants.badgeSubtractionMaster,
+      nameKey: 'badgeSubtractionMasterName',
+      descriptionKey: 'badgeSubtractionMasterDesc',
+      iconKey: 'remove',
+    ),
+  ];
 
   int get points => _points;
   int get streak => _streak;
@@ -436,8 +435,9 @@ final class GamificationProvider extends ChangeNotifier {
   LastActivityMode? get lastActivityMode => _lastActivityMode;
   int get lastActivityIndex => _lastActivityIndex;
   int get lastActivityTotal => _lastActivityTotal;
-  int get lastActivityRemaining =>
-      _lastActivityTotal > 0 ? (_lastActivityTotal - _lastActivityIndex).clamp(0, _lastActivityTotal) : 0;
+  int get lastActivityRemaining => _lastActivityTotal > 0
+      ? (_lastActivityTotal - _lastActivityIndex).clamp(0, _lastActivityTotal)
+      : 0;
   bool get hasLastActivity => _lastActivityMode != null && _lastActivityTotal > 0;
   List<Badge> get badges {
     return _badges.map((badge) {
@@ -487,7 +487,8 @@ final class GamificationProvider extends ChangeNotifier {
       },
     );
 
-    final loadedAvatarItems = (await _persistence.getStringList('owned_avatar_items')).fold((_) => null, (r) => r);
+    final loadedAvatarItems =
+        (await _persistence.getStringList('owned_avatar_items')).fold((_) => null, (r) => r);
     if (loadedAvatarItems != null) {
       _ownedAvatarItems = List<String>.from(loadedAvatarItems);
     }
@@ -539,10 +540,14 @@ final class GamificationProvider extends ChangeNotifier {
   }
 
   Future<void> _loadProfileAndLastActivity() async {
-    _childName = (await _persistence.getString(GamificationConstants.keyChildName)).fold((_) => '', (r) => r ?? '');
-    final modeName = (await _persistence.getString(GamificationConstants.keyLastActivityMode)).fold((_) => null, (r) => r);
-    _lastActivityIndex = (await _persistence.getInt(GamificationConstants.keyLastActivityIndex)).fold((_) => 0, (r) => r ?? 0);
-    _lastActivityTotal = (await _persistence.getInt(GamificationConstants.keyLastActivityTotal)).fold((_) => 0, (r) => r ?? 0);
+    _childName = (await _persistence.getString(GamificationConstants.keyChildName))
+        .fold((_) => '', (r) => r ?? '');
+    final modeName = (await _persistence.getString(GamificationConstants.keyLastActivityMode))
+        .fold((_) => null, (r) => r);
+    _lastActivityIndex = (await _persistence.getInt(GamificationConstants.keyLastActivityIndex))
+        .fold((_) => 0, (r) => r ?? 0);
+    _lastActivityTotal = (await _persistence.getInt(GamificationConstants.keyLastActivityTotal))
+        .fold((_) => 0, (r) => r ?? 0);
     _lastActivityMode = switch (modeName) {
       'number' => LastActivityMode.number,
       'letter' => LastActivityMode.letter,
@@ -574,7 +579,8 @@ final class GamificationProvider extends ChangeNotifier {
   }
 
   Future<void> _checkStreak() async {
-    final lastLoginString = (await _persistence.getString(GamificationConstants.keyLastLoginDate)).fold((_) => null, (r) => r);
+    final lastLoginString = (await _persistence.getString(GamificationConstants.keyLastLoginDate))
+        .fold((_) => null, (r) => r);
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
@@ -598,7 +604,9 @@ final class GamificationProvider extends ChangeNotifier {
           _streak = 1;
         }
         await _persistence.setString(
-            GamificationConstants.keyLastLoginDate, today.toIso8601String(),);
+          GamificationConstants.keyLastLoginDate,
+          today.toIso8601String(),
+        );
         await _persistence.setInt(GamificationConstants.keyStreak, _streak);
 
         // Check streak badges
@@ -650,8 +658,10 @@ final class GamificationProvider extends ChangeNotifier {
     _totalDrawings++;
     try {
       final now = DateTime.now();
-      final todayStr = '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-      final jsonStr = (await _persistence.getString('parent_daily_activities_count_json')).fold((_) => null, (r) => r);
+      final todayStr =
+          '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+      final jsonStr = (await _persistence.getString('parent_daily_activities_count_json'))
+          .fold((_) => null, (r) => r);
       final countMap = <String, int>{};
       if (jsonStr != null) {
         final decoded = jsonDecode(jsonStr) as Map<String, dynamic>;
@@ -891,8 +901,8 @@ final class GamificationProvider extends ChangeNotifier {
   int getAvatarItemPrice(String attributeKey, int index) {
     if (index == 0) return 0;
     if (index >= 11) return 100; // Efsanevi (Süper Kahramanlar, Gür Sakallar vb.)
-    if (index >= 6) return 50;  // Nadir
-    return 25;                  // Standart
+    if (index >= 6) return 50; // Nadir
+    return 25; // Standart
   }
 
   Future<bool> buyAvatarItem(String attributeKey, int index) async {
@@ -944,7 +954,9 @@ final class GamificationProvider extends ChangeNotifier {
     if (_equippedItems.containsKey(type.toString())) {
       _equippedItems.remove(type.toString());
       await _persistence.setString(
-          GamificationConstants.keyEquippedItems, json.encode(_equippedItems),);
+        GamificationConstants.keyEquippedItems,
+        json.encode(_equippedItems),
+      );
       notifyListeners();
     }
   }

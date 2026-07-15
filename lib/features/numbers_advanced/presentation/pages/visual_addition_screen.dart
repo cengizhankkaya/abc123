@@ -75,7 +75,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      
+
                       // Görsel Toplama Gösterimi
                       Expanded(
                         child: Row(
@@ -110,7 +110,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                           ],
                         ),
                       ),
-                      
+
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: Text(
@@ -122,7 +122,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                           ),
                         ),
                       ),
-                      
+
                       // Çizim Alanı
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -163,7 +163,8 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                                 label: isDoubleDigit ? l10n.mathUnitsBox : 'Sonuç',
                                 isActive: provider.activeBox == 1,
                                 points: provider.unitsPoints,
-                                hintText: provider.hintEnabled ? operation.unitsDigit.toString() : null,
+                                hintText:
+                                    provider.hintEnabled ? operation.unitsDigit.toString() : null,
                                 size: boxSize,
                                 onTap: () => provider.setActiveBox(1),
                               ),
@@ -171,15 +172,17 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                           ),
                         ),
                       ),
-                      
+
                       const SizedBox(height: 16),
-                      
+
                       // Kontrol Butonu
                       if (isCorrect == null && !isLoading)
                         ElevatedButton(
                           onPressed: () {
                             if (isTripleDigit) {
-                              if (provider.hundredsPoints.isEmpty && provider.tensPoints.isEmpty && provider.unitsPoints.isEmpty) {
+                              if (provider.hundredsPoints.isEmpty &&
+                                  provider.tensPoints.isEmpty &&
+                                  provider.unitsPoints.isEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text(l10n.mathEmptyDrawingWarning)),
                                 );
@@ -226,10 +229,9 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                             ),
                           ),
                         ),
-                        
-                      if (isLoading)
-                        const CircularProgressIndicator(color: Color(0xFF6C63FF)),
-                        
+
+                      if (isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+
                       // Alt Araç Çubuğu
                       Padding(
                         padding: const EdgeInsets.only(bottom: 24, top: 16),
@@ -241,7 +243,8 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                               icon: const Icon(Icons.delete_outline, color: Colors.white),
                               label: Text(
                                 l10n.mathClearButton,
-                                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    color: Colors.white, fontWeight: FontWeight.bold),
                               ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.redAccent,
@@ -256,7 +259,7 @@ class _VisualAdditionScreenState extends State<VisualAdditionScreen> {
                       ),
                     ],
                   ),
-                  
+
                   // Sonuç Overlay
                   if (isCorrect != null)
                     MathResultOverlay(

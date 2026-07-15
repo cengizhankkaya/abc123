@@ -56,10 +56,9 @@ class _MultiDigitDrawView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final targetNumber = isFreePractice
-        ? provider.currentFreeNumber
-        : provider.currentLesson?.targetNumber ?? 10;
-        
+    final targetNumber =
+        isFreePractice ? provider.currentFreeNumber : provider.currentLesson?.targetNumber ?? 10;
+
     final isCorrect = provider.lastAnswerCorrect;
 
     return Scaffold(
@@ -78,7 +77,10 @@ class _MultiDigitDrawView extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              if (isFreePractice) const Color(0xFFE17055).withValues(alpha: 0.1) else const Color(0xFF00CEC9).withValues(alpha: 0.1),
+              if (isFreePractice)
+                const Color(0xFFE17055).withValues(alpha: 0.1)
+              else
+                const Color(0xFF00CEC9).withValues(alpha: 0.1),
               Colors.white,
             ],
           ),
@@ -110,8 +112,7 @@ class _MultiDigitDrawView extends StatelessWidget {
                       tensKey: tensKey,
                       unitsKey: unitsKey,
                     ),
-                  if (provider.isLoading)
-                    const CircularProgressIndicator(color: Color(0xFF6C63FF)),
+                  if (provider.isLoading) const CircularProgressIndicator(color: Color(0xFF6C63FF)),
                   const Spacer(),
                   _ClearButton(provider: provider),
                 ],

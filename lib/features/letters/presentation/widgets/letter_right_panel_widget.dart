@@ -9,9 +9,11 @@ import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 
 class LetterRightPanel extends StatefulWidget {
-
   const LetterRightPanel({
-    required this.tanimaText, required this.isLoading, required this.correctlyDrawnCount, super.key,
+    required this.tanimaText,
+    required this.isLoading,
+    required this.correctlyDrawnCount,
+    super.key,
     this.isSequentialMode = false,
   });
   final String tanimaText;

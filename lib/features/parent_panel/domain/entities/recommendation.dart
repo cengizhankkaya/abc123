@@ -1,8 +1,5 @@
-
-
 /// Ebeveyn Paneli'nde gösterilecek akıllı öneri modeli.
 class Recommendation {
-
   const Recommendation({
     required this.title,
     required this.description,

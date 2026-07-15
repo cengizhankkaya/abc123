@@ -8,9 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ActionToolbarWidget extends StatelessWidget {
-
   const ActionToolbarWidget({
-    required this.onClear, required this.onPenMode, required this.onEraseMode, required this.onRecognize, required this.eraseMode, required this.selectedColor, required this.showResult, required this.isLoading, required this.isSequentialModeActive, required this.onSequentialModeChanged, required this.correctlyDrawnCount, required this.totalAttempts, super.key,
+    required this.onClear,
+    required this.onPenMode,
+    required this.onEraseMode,
+    required this.onRecognize,
+    required this.eraseMode,
+    required this.selectedColor,
+    required this.showResult,
+    required this.isLoading,
+    required this.isSequentialModeActive,
+    required this.onSequentialModeChanged,
+    required this.correctlyDrawnCount,
+    required this.totalAttempts,
+    super.key,
     this.showSequentialControls = true,
     this.panelColor,
   });
@@ -68,34 +79,34 @@ class ActionToolbarWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        width: buttonSize,
-        height: buttonSize,
-        padding: EdgeInsets.symmetric(
-          horizontal: buttonHPadding,
-          vertical: buttonVPadding,
-        ),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: [
-            if (isSelected)
-              BoxShadow(
-                color: backgroundColor.withValues(alpha: 0.5),
-                blurRadius: 6,
-                spreadRadius: 0.5,
-                offset: const Offset(0, 2),
-              ),
-          ],
-        ),
-        child: Center(
-          child: Icon(
-            icon,
-            size: iconSize,
-            color: iconColor,
+          duration: const Duration(milliseconds: 200),
+          width: buttonSize,
+          height: buttonSize,
+          padding: EdgeInsets.symmetric(
+            horizontal: buttonHPadding,
+            vertical: buttonVPadding,
+          ),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(borderRadius),
+            boxShadow: [
+              if (isSelected)
+                BoxShadow(
+                  color: backgroundColor.withValues(alpha: 0.5),
+                  blurRadius: 6,
+                  spreadRadius: 0.5,
+                  offset: const Offset(0, 2),
+                ),
+            ],
+          ),
+          child: Center(
+            child: Icon(
+              icon,
+              size: iconSize,
+              color: iconColor,
+            ),
           ),
         ),
-      ),
       ),
     );
   }
@@ -107,8 +118,7 @@ class ActionToolbarWidget extends StatelessWidget {
     final d = context.drawL10n!;
 
     // Responsive yükseklik ve padding
-    final toolbarHeight =
-        (responsive.height * 0.12).clamp(52.0, 64.0);
+    final toolbarHeight = (responsive.height * 0.12).clamp(52.0, 64.0);
     final buttonSpacing = (responsive.width * 0.01).clamp(10.0, 12.0);
 
     return Padding(

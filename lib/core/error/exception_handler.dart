@@ -7,7 +7,6 @@ abstract class ExceptionHandler {
 
 @LazySingleton(as: ExceptionHandler)
 class ExceptionHandlerImpl implements ExceptionHandler {
-
   ExceptionHandlerImpl(this._logger);
   final AppLogger _logger;
 
@@ -19,11 +18,11 @@ class ExceptionHandlerImpl implements ExceptionHandler {
       stackTrace: stackTrace,
       tag: 'ExceptionHandler',
     );
-    
+
     if (error is Exception) {
       return error;
     }
-    
+
     return Exception(error.toString());
   }
 }

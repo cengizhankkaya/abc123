@@ -23,9 +23,18 @@ String _penColorSemanticsLabel(DrawLocalizations d, Color color) {
 }
 
 class ToolControlPanel extends StatelessWidget {
-
   const ToolControlPanel({
-    required this.strokeWidth, required this.eraseMode, required this.selectedColor, required this.colors, required this.onStrokeWidthChanged, required this.onColorChanged, required this.onEraseModeChanged, required this.titleKey, required this.volume, required this.onVolumeChanged, super.key,
+    required this.strokeWidth,
+    required this.eraseMode,
+    required this.selectedColor,
+    required this.colors,
+    required this.onStrokeWidthChanged,
+    required this.onColorChanged,
+    required this.onEraseModeChanged,
+    required this.titleKey,
+    required this.volume,
+    required this.onVolumeChanged,
+    super.key,
     this.panelColor,
   });
   final double strokeWidth;
@@ -101,9 +110,8 @@ class ToolControlPanel extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
-                            fontSize: compact
-                                ? responsive.titleFontSize
-                                : responsive.headerFontSize,
+                            fontSize:
+                                compact ? responsive.titleFontSize : responsive.headerFontSize,
                           ),
                         ),
                       ),

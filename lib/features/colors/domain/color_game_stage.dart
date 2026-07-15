@@ -56,8 +56,7 @@ abstract final class ColorGameStory {
 
   static int get totalChapters => chapters.length;
 
-  static int get totalLevels =>
-      chapters.fold<int>(0, (sum, ch) => sum + ch.levels.length);
+  static int get totalLevels => chapters.fold<int>(0, (sum, ch) => sum + ch.levels.length);
 
   /// Düz seviye indeksi için bölüm + bölüm içi seviye + yapılandırma.
   static ({ColorGameChapterConfig chapter, int levelInChapter, ColorGameStageConfig stage}) levelAt(

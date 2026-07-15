@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetWordList {
-
   const GetWordList(this._repository);
   final IWordRepository _repository;
 

@@ -145,8 +145,7 @@ class MathProblemGenerator {
     final b = result - a;
 
     // Seviyeyi sonuca göre belirle
-    final difficulty =
-        result <= 10 ? DifficultyLevel.levelA : DifficultyLevel.levelB;
+    final difficulty = result <= 10 ? DifficultyLevel.levelA : DifficultyLevel.levelB;
 
     return MathOperation(
       operandA: a,

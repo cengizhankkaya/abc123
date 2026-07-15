@@ -48,7 +48,9 @@ class WeeklyActivityChart extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      isTr ? 'Haftalık Aktivite & Çalışma Süresi' : 'Weekly Activity & Practice Time',
+                      isTr
+                          ? 'Haftalık Aktivite & Çalışma Süresi'
+                          : 'Weekly Activity & Practice Time',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -57,7 +59,9 @@ class WeeklyActivityChart extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      isTr ? 'Son 7 günlük pratik dakikaları' : 'Practice minutes over the last 7 days',
+                      isTr
+                          ? 'Son 7 günlük pratik dakikaları'
+                          : 'Practice minutes over the last 7 days',
                       style: TextStyle(
                         fontSize: 12,
                         color: isDark ? Colors.white60 : Colors.grey.shade600,
@@ -100,7 +104,8 @@ class WeeklyActivityChart extends StatelessWidget {
                 barTouchData: BarTouchData(
                   enabled: true,
                   touchTooltipData: BarTouchTooltipData(
-                    getTooltipColor: (group) => isDark ? const Color(0xFF2C2C38) : const Color(0xFF333333),
+                    getTooltipColor: (group) =>
+                        isDark ? const Color(0xFF2C2C38) : const Color(0xFF333333),
                     tooltipPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     tooltipMargin: 8,
                     getTooltipItem: (group, groupIndex, rod, rodIndex) {
@@ -114,7 +119,8 @@ class WeeklyActivityChart extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: '${item.completedActivitiesCount} ${isTr ? "görev tamamlandı" : "tasks completed"}',
+                            text:
+                                '${item.completedActivitiesCount} ${isTr ? "görev tamamlandı" : "tasks completed"}',
                             style: TextStyle(
                               color: Colors.white.withValues(alpha: 0.8),
                               fontSize: 11,
@@ -174,7 +180,8 @@ class WeeklyActivityChart extends StatelessWidget {
                         backDrawRodData: BackgroundBarChartRodData(
                           show: true,
                           toY: maxY,
-                          color: isDark ? Colors.white.withValues(alpha: 0.04) : Colors.grey.shade100,
+                          color:
+                              isDark ? Colors.white.withValues(alpha: 0.04) : Colors.grey.shade100,
                         ),
                       ),
                     ],

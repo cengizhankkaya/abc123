@@ -8,7 +8,8 @@ import 'package:go_router/go_router.dart' show GoRouter;
 @immutable
 class InfoDrawExtra {
   const InfoDrawExtra({
-    required this.recognizedLetter, this.drawingImage,
+    required this.recognizedLetter,
+    this.drawingImage,
   });
 
   final ui.Image? drawingImage;

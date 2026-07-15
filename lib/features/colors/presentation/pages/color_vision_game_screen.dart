@@ -298,7 +298,8 @@ class _IntroBody extends StatelessWidget {
                           color: cs.primaryContainer,
                           borderRadius: BorderRadius.circular(18),
                         ),
-                        child: Icon(Icons.visibility_rounded, size: 36, color: cs.onPrimaryContainer),
+                        child:
+                            Icon(Icons.visibility_rounded, size: 36, color: cs.onPrimaryContainer),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
@@ -504,7 +505,9 @@ class _RoundBody extends StatelessWidget {
             ),
             Chip(
               avatar: Icon(
-                plate.palette == ColorVisionPalette.redGreen ? Icons.blur_on : Icons.water_drop_outlined,
+                plate.palette == ColorVisionPalette.redGreen
+                    ? Icons.blur_on
+                    : Icons.water_drop_outlined,
                 size: 18,
                 color: cs.primary,
               ),
@@ -597,7 +600,8 @@ class _ChoicePad extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(icon, size: 30, color: busy ? cs.onSurface.withValues(alpha: 0.35) : cs.primary),
+                  Icon(icon,
+                      size: 30, color: busy ? cs.onSurface.withValues(alpha: 0.35) : cs.primary),
                   const SizedBox(height: 6),
                   Text(
                     label,

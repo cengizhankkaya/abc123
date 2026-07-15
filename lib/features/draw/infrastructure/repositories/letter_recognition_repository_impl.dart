@@ -14,15 +14,39 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 /// Eski `LetterRecognitionService` singleton mantığı bu adapter sınıfına taşındı.
 /// DI ile `@LazySingleton` olarak kaydedilir, Singleton pattern korunur.
 @LazySingleton(as: IRecognitionRepository)
-final class LetterRecognitionRepositoryImpl extends BaseRepository implements IRecognitionRepository {
+final class LetterRecognitionRepositoryImpl extends BaseRepository
+    implements IRecognitionRepository {
   LetterRecognitionRepositoryImpl(
     super.exceptionHandler,
     super.failureMapper,
   );
   static const List<String> _labels = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-    'U', 'V', 'W', 'X', 'Y', 'Z',
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
   ];
 
   final Lock _loadLock = Lock();
@@ -40,37 +64,37 @@ final class LetterRecognitionRepositoryImpl extends BaseRepository implements IR
 
   @override
   FutureResult<String> recognizeLetter(Uint8List imageBytes) => execute(() async {
-    await _ensureLoaded();
+        await _ensureLoaded();
 
-    final decoded = img.decodeImage(imageBytes);
-    if (decoded == null) {
-      throw Exception('Görüntü decode edilemedi');
-    }
+        final decoded = img.decodeImage(imageBytes);
+        if (decoded == null) {
+          throw Exception('Görüntü decode edilemedi');
+        }
 
-    final resized = img.copyResize(
-      decoded,
-      width: 28,
-      height: 28,
-      interpolation: img.Interpolation.average,
-    );
+        final resized = img.copyResize(
+          decoded,
+          width: 28,
+          height: 28,
+          interpolation: img.Interpolation.average,
+        );
 
-    final inputData = _toModelInput(resized);
-    final output = [List<double>.filled(26, 0)];
+        final inputData = _toModelInput(resized);
+        final output = [List<double>.filled(26, 0)];
 
-    _interpreter!.run(inputData, output);
+        _interpreter!.run(inputData, output);
 
-    final probs = output[0];
-    var maxIndex = 0;
-    var maxValue = probs[0];
-    for (var i = 1; i < probs.length; i++) {
-      if (probs[i] > maxValue) {
-        maxValue = probs[i];
-        maxIndex = i;
-      }
-    }
+        final probs = output[0];
+        var maxIndex = 0;
+        var maxValue = probs[0];
+        for (var i = 1; i < probs.length; i++) {
+          if (probs[i] > maxValue) {
+            maxValue = probs[i];
+            maxIndex = i;
+          }
+        }
 
-    return _labels[maxIndex];
-  });
+        return _labels[maxIndex];
+      });
 
   /// Model girişi: [1][28][28][1] float.
   List<List<List<List<double>>>> _toModelInput(img.Image resized) {

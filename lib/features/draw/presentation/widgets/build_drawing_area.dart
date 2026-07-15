@@ -40,83 +40,79 @@ Widget buildDrawingArea(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(AppRadii.cardRadius(context)),
             child: Semantics(
-              label: DrawLocalizations.of(context)?.drawSemanticDrawingCanvas ??
-                  'Drawing area',
+              label: DrawLocalizations.of(context)?.drawSemanticDrawingCanvas ?? 'Drawing area',
               child: GestureDetector(
-              onPanStart: (details) {
-                if (showResult) return;
-                final renderBox =
-                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
+                onPanStart: (details) {
+                  if (showResult) return;
+                  final renderBox = drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
-                // Çizim alanı içindeki tam konumu hesapla
-                final localPosition = renderBox.globalToLocal(details.globalPosition);
-                // Pozisyonu normalize et
-                final normalizedPosition = localPosition * (280 / drawingSize);
+                  // Çizim alanı içindeki tam konumu hesapla
+                  final localPosition = renderBox.globalToLocal(details.globalPosition);
+                  // Pozisyonu normalize et
+                  final normalizedPosition = localPosition * (280 / drawingSize);
 
-                onAddPoint(
-                  DrawingPoint(
-                    point: normalizedPosition,
-                    paint: Paint()
-                      ..color = eraseMode ? Colors.white : selectedColor
-                      ..strokeCap = StrokeCap.round
-                      ..strokeWidth = strokeWidth
-                      ..isAntiAlias = true,
-                  ),
-                );
-              },
-              onPanUpdate: (details) {
-                if (showResult) return;
-                final renderBox =
-                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
+                  onAddPoint(
+                    DrawingPoint(
+                      point: normalizedPosition,
+                      paint: Paint()
+                        ..color = eraseMode ? Colors.white : selectedColor
+                        ..strokeCap = StrokeCap.round
+                        ..strokeWidth = strokeWidth
+                        ..isAntiAlias = true,
+                    ),
+                  );
+                },
+                onPanUpdate: (details) {
+                  if (showResult) return;
+                  final renderBox = drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
-                // Çizim alanı içindeki tam konumu hesapla
-                final localPosition = renderBox.globalToLocal(details.globalPosition);
-                // Pozisyonu normalize et
-                final normalizedPosition = localPosition * (280 / drawingSize);
+                  // Çizim alanı içindeki tam konumu hesapla
+                  final localPosition = renderBox.globalToLocal(details.globalPosition);
+                  // Pozisyonu normalize et
+                  final normalizedPosition = localPosition * (280 / drawingSize);
 
-                onAddPoint(
-                  DrawingPoint(
-                    point: normalizedPosition,
-                    paint: Paint()
-                      ..color = eraseMode ? Colors.white : selectedColor
-                      ..strokeCap = StrokeCap.round
-                      ..strokeWidth = strokeWidth
-                      ..isAntiAlias = true,
-                  ),
-                );
-              },
-              onTapDown: (details) {
-                if (showResult) return;
-                final renderBox =
-                    drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
+                  onAddPoint(
+                    DrawingPoint(
+                      point: normalizedPosition,
+                      paint: Paint()
+                        ..color = eraseMode ? Colors.white : selectedColor
+                        ..strokeCap = StrokeCap.round
+                        ..strokeWidth = strokeWidth
+                        ..isAntiAlias = true,
+                    ),
+                  );
+                },
+                onTapDown: (details) {
+                  if (showResult) return;
+                  final renderBox = drawingAreaKey.currentContext!.findRenderObject()! as RenderBox;
 
-                // Çizim alanı içindeki tam konumu hesapla
-                final localPosition = renderBox.globalToLocal(details.globalPosition);
-                // Pozisyonu normalize et
-                final normalizedPosition = localPosition * (280 / drawingSize);
+                  // Çizim alanı içindeki tam konumu hesapla
+                  final localPosition = renderBox.globalToLocal(details.globalPosition);
+                  // Pozisyonu normalize et
+                  final normalizedPosition = localPosition * (280 / drawingSize);
 
-                // Tek noktada çizim için aynı konuma iki nokta ekle
-                onAddPoint(
-                  DrawingPoint(
-                    point: normalizedPosition,
-                    paint: Paint()
-                      ..color = eraseMode ? Colors.white : selectedColor
-                      ..strokeCap = StrokeCap.round
-                      ..strokeWidth = strokeWidth
-                      ..isAntiAlias = true,
-                  ),
-                );
-                onEndLine();
-              },
-              onPanEnd: (details) {
-                if (showResult) return;
-                onEndLine();
-              },
-              child: CustomPaint(
-                painter: DrawingPainter(pointsList: points),
-                size: Size(drawingSize, drawingSize),
+                  // Tek noktada çizim için aynı konuma iki nokta ekle
+                  onAddPoint(
+                    DrawingPoint(
+                      point: normalizedPosition,
+                      paint: Paint()
+                        ..color = eraseMode ? Colors.white : selectedColor
+                        ..strokeCap = StrokeCap.round
+                        ..strokeWidth = strokeWidth
+                        ..isAntiAlias = true,
+                    ),
+                  );
+                  onEndLine();
+                },
+                onPanEnd: (details) {
+                  if (showResult) return;
+                  onEndLine();
+                },
+                child: CustomPaint(
+                  painter: DrawingPainter(pointsList: points),
+                  size: Size(drawingSize, drawingSize),
+                ),
               ),
-            ),
             ),
           ),
         ),
@@ -254,7 +250,6 @@ Widget buildDrawingArea(
 
 /// DrawingPainter sınıfı - çizimi yapan CustomPainter
 class DrawingPainter extends CustomPainter {
-
   DrawingPainter({required this.pointsList});
   final List<DrawingPoint?> pointsList;
 
@@ -298,7 +293,6 @@ class DrawingPainter extends CustomPainter {
 
 /// Çizim noktası sınıfı
 class DrawingPoint {
-
   DrawingPoint({required this.point, required this.paint});
   final Offset point;
   final Paint paint;

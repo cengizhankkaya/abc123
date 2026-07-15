@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 ///
 /// Uygulama gövdesini sarmalayarak, günlük limit dolduğunda çocuk dostu uyarı gösterir.
 class ScreenTimeMiddleware extends StatelessWidget {
-
   const ScreenTimeMiddleware({required this.child, super.key});
   final Widget child;
 
@@ -113,7 +112,9 @@ class ScreenTimeMiddleware extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  isTr ? 'Ebeveyn Girişi ile Süreyi Uzat (+15 dk)' : 'Parent Login to Extend (+15 mins)',
+                  isTr
+                      ? 'Ebeveyn Girişi ile Süreyi Uzat (+15 dk)'
+                      : 'Parent Login to Extend (+15 mins)',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,

@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CounterProvider extends ChangeNotifier {
-
-  CounterProvider() {
+  CounterProvider(this._prefs) {
     _loadCounter();
   }
+
+  final SharedPreferences _prefs;
+  static const _key = 'reward_counter';
+
   int _counter = 0;
   int get counter => _counter;
 
-  Future<void> _loadCounter() async {
-    final prefs = await SharedPreferences.getInstance();
-    _counter = prefs.getInt('reward_counter') ?? 0;
+  void _loadCounter() {
+    _counter = _prefs.getInt(_key) ?? 0;
     notifyListeners();
   }
 
   Future<void> increment([int value = 1]) async {
-    _counter += value;
-    if (_counter > 500) {
-      _counter = 500;
-    }
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('reward_counter', _counter);
+    final next = (_counter + value).clamp(0, 500);
+    if (next == _counter) return;
+    _counter = next;
+    await _prefs.setInt(_key, _counter);
     notifyListeners();
   }
 }

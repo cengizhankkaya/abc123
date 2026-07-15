@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:abc123/core/constants/audio.dart';
@@ -48,7 +47,7 @@ class _WordDrawScreenState extends State<WordDrawScreen> with SingleTickerProvid
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      Provider.of<WordDrawingProvider>(context, listen: false).adjustStrokeWidthForScreenSize(20);
+      context.read<WordDrawingProvider>().adjustStrokeWidthForScreenSize(20);
     });
   }
 
@@ -65,8 +64,7 @@ class _WordDrawScreenState extends State<WordDrawScreen> with SingleTickerProvid
     final lang = context.watch<LanguageProvider>().language;
     final locale = Locale(_languageToLocaleCode(lang));
 
-    final provider = context.watch<WordDrawingProvider>()
-      ..ensureSessionForLocale(locale);
+    final provider = context.watch<WordDrawingProvider>()..ensureSessionForLocale(locale);
 
     return _WordDrawView(
       provider: provider,
@@ -95,7 +93,8 @@ class _WordDrawView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wl = context.wordsL10n;
-    final displayText = wl == null ? provider.hintSpelling : wordDisplayText(wl, provider.hintDisplayKey);
+    final displayText =
+        wl == null ? provider.hintSpelling : wordDisplayText(wl, provider.hintDisplayKey);
 
     return Scaffold(
       body: Container(
@@ -241,7 +240,7 @@ class _BottomToolbar extends StatelessWidget {
   Future<void> _handleRecognize(BuildContext context) async {
     if (provider.isLoading) return;
     await provider.recognize(context);
-    
+
     if (context.mounted) {
       final isCorrect = provider.evaluateRecognitionResult();
       await _showResult(
@@ -278,9 +277,11 @@ class _BottomToolbar extends StatelessWidget {
   Future<void> _showResult(BuildContext context, ResultScreenData data) async {
     try {
       if (data.isCorrect) {
-        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids));
+        unawaited(getIt<IAudioService>()
+            .playEffectAndResumeBackground(AppAudios.success, AppAudios.happyKids));
       } else {
-        unawaited(getIt<IAudioService>().playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids));
+        unawaited(getIt<IAudioService>()
+            .playEffectAndResumeBackground(AppAudios.fail, AppAudios.happyKids));
       }
       await context.push(AppRoutes.result, extra: data);
     } on Object catch (e, st) {

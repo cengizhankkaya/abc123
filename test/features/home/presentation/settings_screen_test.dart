@@ -32,10 +32,10 @@ void main() {
           value: getIt<GamificationProvider>(),
         ),
         ChangeNotifierProvider<ThemeModeProvider>(
-          create: (_) => ThemeModeProvider(),
+          create: (_) => ThemeModeProvider(getIt()),
         ),
         ChangeNotifierProvider<LanguageProvider>(
-          create: (_) => LanguageProvider(),
+          create: (_) => LanguageProvider(getIt()),
         ),
       ],
       child: MaterialApp(
@@ -130,7 +130,8 @@ void main() {
       expect(find.text('Kaydedildi'), findsOneWidget);
     });
 
-    testWidgets('SettingsScreen iki bölümü (Benim Ayarlarım, Ebeveyn Alanı) de listeler', (tester) async {
+    testWidgets('SettingsScreen iki bölümü (Benim Ayarlarım, Ebeveyn Alanı) de listeler',
+        (tester) async {
       await tester.pumpWidget(createTestApp(const Scaffold(body: SettingsScreen())));
       await tester.pumpAndSettle();
 

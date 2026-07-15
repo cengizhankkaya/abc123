@@ -4,7 +4,6 @@ import 'package:abc123/core/types/result.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class BaseRepository {
-
   BaseRepository(this.exceptionHandler, this.failureMapper);
   final ExceptionHandler exceptionHandler;
   final FailureMapper failureMapper;
@@ -15,7 +14,7 @@ abstract class BaseRepository {
       return right(result);
     } catch (e, st) {
       final exception = exceptionHandler.handleException(e, st);
-      final failure = failureMapper.mapExceptionToFailure(exception);
+      final failure = failureMapper.mapExceptionToFailure(exception, st);
       return left(failure);
     }
   }

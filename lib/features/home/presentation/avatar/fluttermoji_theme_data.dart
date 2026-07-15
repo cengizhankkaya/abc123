@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 /// Defines the configuration of the overall visual theme for a FluttermojiCustomizer.
 class FluttermojiThemeData {
-
   FluttermojiThemeData({
     TextStyle? labelTextStyle,
     Color? primaryBgColor,
@@ -29,10 +28,9 @@ class FluttermojiThemeData {
                 width: 3,
               ),
             ),
-        boxDecoration =
-            boxDecoration ?? BoxDecoration(borderRadius: BorderRadius.circular(18)),
-        labelTextStyle = labelTextStyle ??
-            const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+        boxDecoration = boxDecoration ?? BoxDecoration(borderRadius: BorderRadius.circular(18)),
+        labelTextStyle =
+            labelTextStyle ?? const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
         scrollPhysics = scrollPhysics ?? const ClampingScrollPhysics(),
         tileMargin = tileMargin ?? const EdgeInsets.all(2),
         tilePadding = tilePadding ?? const EdgeInsets.all(2);
@@ -66,10 +64,8 @@ class FluttermojiThemeData {
       labelTextStyle: labelTextStyle ?? this.labelTextStyle,
       primaryBgColor: primaryBgColor ?? this.primaryBgColor,
       secondaryBgColor: secondaryBgColor ?? this.secondaryBgColor,
-      selectedTileDecoration:
-          selectedTileDecoration ?? this.selectedTileDecoration,
-      unselectedTileDecoration:
-          unselectedTileDecoration ?? this.unselectedTileDecoration,
+      selectedTileDecoration: selectedTileDecoration ?? this.selectedTileDecoration,
+      unselectedTileDecoration: unselectedTileDecoration ?? this.unselectedTileDecoration,
       iconColor: iconColor ?? this.iconColor,
       selectedIconColor: selectedIconColor ?? this.selectedIconColor,
       boxDecoration: boxDecoration ?? this.boxDecoration,
@@ -92,8 +88,7 @@ class FluttermojiThemeData {
       ),
     ),
     boxDecoration: BoxDecoration(borderRadius: BorderRadius.circular(18)),
-    labelTextStyle:
-        const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
+    labelTextStyle: const TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
     scrollPhysics: const ClampingScrollPhysics(),
     tileMargin: const EdgeInsets.all(2),
     tilePadding: const EdgeInsets.all(2),

@@ -17,8 +17,10 @@ class Clothes {
     'Red': '#FF5C5C',
     'White': '#FFFFFF',
   };
-  static String? generateClothes(
-      {String clotheType = 'Hoodie', String clColor = 'Black',}) {
+  static String? generateClothes({
+    String clotheType = 'Hoodie',
+    String clColor = 'Black',
+  }) {
     final colorHex = clotheColor[clColor];
 
     final clothes = <String, String>{

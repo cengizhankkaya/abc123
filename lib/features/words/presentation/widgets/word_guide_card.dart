@@ -2,13 +2,19 @@ import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
 import 'package:abc123/features/draw/domain/drawing_content.dart';
-import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart' show LetterGuideCard;
+import 'package:abc123/features/letters/presentation/widgets/letter_guide_card.dart'
+    show LetterGuideCard;
 import 'package:flutter/material.dart';
 
 /// Sol panel: harf rehberi + altta hedef kelime bandı (harf [LetterGuideCard] deseni).
 class WordGuideCard extends StatelessWidget {
   const WordGuideCard({
-    required this.guide, required this.emoji, required this.displayText, required this.spelling, required this.targetLetter, super.key,
+    required this.guide,
+    required this.emoji,
+    required this.displayText,
+    required this.spelling,
+    required this.targetLetter,
+    super.key,
   });
 
   final DrawingGuide guide;

@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 /// Hedef kelime gösterimi (emoji + yerelleştirilmiş ad + harf slotları).
 class WordTargetDisplay extends StatelessWidget {
   const WordTargetDisplay({
-    required this.emoji, required this.displayText, required this.spelling, required this.activeLetterIndex, super.key,
+    required this.emoji,
+    required this.displayText,
+    required this.spelling,
+    required this.activeLetterIndex,
+    super.key,
     this.compact = false,
     this.showSlots = true,
     this.slotsAlignment = WrapAlignment.center,

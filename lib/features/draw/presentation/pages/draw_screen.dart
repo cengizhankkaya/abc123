@@ -9,7 +9,6 @@ import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
-import 'package:abc123/features/draw/application/usecases/recognize_number.dart';
 import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:abc123/features/draw/presentation/providers/draw_screen_provider.dart';
 import 'package:abc123/features/draw/presentation/widgets/action_toolbar_widget.dart';
@@ -51,10 +50,9 @@ class _DrawScreenState extends State<DrawScreen> with SingleTickerProviderStateM
     super.didChangeDependencies();
     final lang = context.watch<LanguageProvider>().language;
     if (_provider == null) {
-      _provider = DrawScreenProvider(
-        recognizeNumberUseCase: getIt<RecognizeNumber>(),
-        context: context,
-        language: lang,
+      _provider = getIt.get<DrawScreenProvider>(
+        param1: context,
+        param2: lang,
       );
       _provider!.setAnimationController(_animationController);
       _lastLang = lang;
@@ -221,12 +219,18 @@ class _BottomToolbar extends StatelessWidget {
         (bool isCorrect) {
           if (isCorrect) {
             getIt<IAudioService>().playEffectAndResumeBackground(
-                AppAudios.success, AppAudios.happyKids,);
+              AppAudios.success,
+              AppAudios.happyKids,
+            );
             context.read<GamificationProvider>().incrementTotalDrawings(
-                type: DrawingType.number, label: provider.recognitionResult,);
+                  type: DrawingType.number,
+                  label: provider.recognitionResult,
+                );
           } else {
             getIt<IAudioService>().playEffectAndResumeBackground(
-                AppAudios.fail, AppAudios.happyKids,);
+              AppAudios.fail,
+              AppAudios.happyKids,
+            );
           }
           final resultData = ResultScreenData(
             drawingImage: provider.drawingImage,
@@ -245,19 +249,23 @@ class _BottomToolbar extends StatelessWidget {
               provider.updateAfterContinue(false);
             },
           );
-          unawaited(context.push(
-            AppRoutes.result,
-            extra: resultData,
-          ),);
+          unawaited(
+            context.push(
+              AppRoutes.result,
+              extra: resultData,
+            ),
+          );
         },
         (ui.Image? image, String result) {
-          unawaited(context.push(
-            AppRoutes.infoDraw,
-            extra: InfoDrawExtra(
-              drawingImage: image,
-              recognizedLetter: result,
+          unawaited(
+            context.push(
+              AppRoutes.infoDraw,
+              extra: InfoDrawExtra(
+                drawingImage: image,
+                recognizedLetter: result,
+              ),
             ),
-          ),);
+          );
         },
       );
     } else if (provider.showResult) {

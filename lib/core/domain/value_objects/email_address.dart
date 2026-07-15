@@ -22,7 +22,6 @@ final class _Empty extends EmailFailure {
 
 @immutable
 class EmailAddress extends ValueObject<String> {
-
   factory EmailAddress(String input) {
     return EmailAddress._(_validateEmailAddress(input));
   }

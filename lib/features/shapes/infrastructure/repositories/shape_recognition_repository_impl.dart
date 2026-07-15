@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:abc123/core/error/exception_handler.dart';
-import 'package:abc123/core/error/failures/failure.dart';
 import 'package:abc123/core/infrastructure/base/base_repository.dart';
 import 'package:abc123/core/types/result.dart';
 import 'package:abc123/features/shapes/domain/repositories/i_shape_recognition_repository.dart';
@@ -10,8 +9,8 @@ import 'package:abc123/features/shapes/infrastructure/mappers/shape_failure_mapp
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IShapeRecognitionRepository)
-final class ShapeRecognitionRepositoryImpl extends BaseRepository implements IShapeRecognitionRepository {
-
+final class ShapeRecognitionRepositoryImpl extends BaseRepository
+    implements IShapeRecognitionRepository {
   ShapeRecognitionRepositoryImpl(
     this._dataSource,
     ExceptionHandler exceptionHandler,
@@ -21,11 +20,6 @@ final class ShapeRecognitionRepositoryImpl extends BaseRepository implements ISh
 
   @override
   FutureResult<String> recognizeShape(Uint8List imageBytes) => execute(() async {
-    return _dataSource.recognizeShape(imageBytes);
-  });
-}
-
-final class ShapeRecognitionFailure extends Failure {
-  const ShapeRecognitionFailure(this.message);
-  final String message;
+        return _dataSource.recognizeShape(imageBytes);
+      });
 }

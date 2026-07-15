@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 /// doğrudan infrastructure'a erişmez.
 @injectable
 final class RecognizeNumber {
-
   const RecognizeNumber(this._repository);
   final INumberRecognitionRepository _repository;
 

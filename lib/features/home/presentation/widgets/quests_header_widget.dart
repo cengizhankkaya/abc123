@@ -2,7 +2,8 @@ import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/performance/gamification_layout_signatures.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
-import 'package:abc123/features/home/presentation/widgets/home_header_widget.dart' show HomeHeaderWidget;
+import 'package:abc123/features/home/presentation/widgets/home_header_widget.dart'
+    show HomeHeaderWidget;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

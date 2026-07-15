@@ -28,8 +28,7 @@ class ServerException implements Exception {
   final int? statusCode;
 
   @override
-  String toString() =>
-      'ServerException(statusCode: $statusCode, message: $message)';
+  String toString() => 'ServerException(statusCode: $statusCode, message: $message)';
 }
 
 /// Önbellek / yerel depolama hatası.

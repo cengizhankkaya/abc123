@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class GetRecommendations {
-
   GetRecommendations(this._repository);
   final IRecommendationRepository _repository;
 

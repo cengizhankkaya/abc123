@@ -12,6 +12,9 @@ analyzer:
 
 linter:
   rules:
+    # 12_code_quality.md tarafından zorunlu kılınan kurallar:
+    always_use_package_imports: true
+    prefer_relative_imports: false
     # Uygulama genelinde dartdoc zorunluluğu şimdilik kapalı (kademeli geçiş).
     public_member_api_docs: false
     # Mevcut kod tabanında satır kırılımı aşamalı düzeltilecek.

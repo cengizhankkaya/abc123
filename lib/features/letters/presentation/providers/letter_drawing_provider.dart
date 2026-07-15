@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/logging/app_logger.dart';
 import 'package:abc123/core/presentation/responsive/responsive_size.dart';
@@ -10,16 +9,23 @@ import 'package:abc123/features/draw/domain/sequential_drawing.dart';
 import 'package:abc123/features/draw/presentation/widgets/build_drawing_area.dart';
 import 'package:abc123/features/parent_panel/domain/progress_source.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
-
-  LetterDrawingProvider() :
-    _recognizeLetterUseCase = getIt<RecognizeLetter>() {
+  LetterDrawingProvider(
+    this._recognizeLetterUseCase,
+    this._audioService,
+    this._appLogger,
+  ) {
     // AudioService içindeki kaydedilmiş ses seviyesini başlat
-    volume = getIt<IAudioService>().currentVolume;
+    volume = _audioService.currentVolume;
     sequentialManager.isLetterMode = true;
     activeGuide = DrawingContentProvider.activeLetterGuide;
   }
+  final RecognizeLetter _recognizeLetterUseCase;
+  final IAudioService _audioService;
+  final AppLogger _appLogger;
   final GlobalKey drawingAreaKey = GlobalKey();
   List<DrawingPoint?> points = [];
   bool eraseMode = false;
@@ -36,8 +42,6 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   late DrawingGuide activeGuide;
 
   double volume = 1;
-
-  final RecognizeLetter _recognizeLetterUseCase;
 
   Future<void> tanimlaHarf(BuildContext context) async {
     if (!sequentialManager.isLetterMode) {
@@ -101,7 +105,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
     } on Object catch (e, st) {
-      getIt<AppLogger>().error(
+      _appLogger.error(
         'Image render failed',
         tag: 'LetterDraw',
         error: e,
@@ -128,16 +132,19 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
 
   // ignore: avoid_positional_boolean_parameters
   void setEraseMode(bool value) {
+    if (eraseMode == value) return;
     eraseMode = value;
     notifyListeners();
   }
 
   void setColor(Color color) {
+    if (selectedColor == color) return;
     selectedColor = color;
     notifyListeners();
   }
 
   void setStrokeWidth(double width) {
+    if (strokeWidth == width) return;
     strokeWidth = width;
     notifyListeners();
   }
@@ -225,7 +232,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
   void setVolume(double value) {
     volume = value;
     // ignore: discarded_futures
-    getIt<IAudioService>().setVolume(value);
+    _audioService.setVolume(value);
     notifyListeners();
   }
 

@@ -2,8 +2,7 @@ import 'package:abc123/features/home/domain/repositories/i_gamification_persiste
 import 'package:mocktail/mocktail.dart';
 
 /// Merkezi mock sınıfları (`10_testing_standards.md` — mock_helpers).
-class MockGamificationPersistence extends Mock
-    implements IGamificationPersistence {}
+class MockGamificationPersistence extends Mock implements IGamificationPersistence {}
 
 /// [any] ile kullanılacak temel tipler için mocktail kayıtları.
 void registerMockFallbackValues() {

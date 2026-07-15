@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 /// Ebeveyn Paneli: Tekil Modül İlerleme ve Detay Kartı.
 class ModuleProgressCard extends StatelessWidget {
-
   const ModuleProgressCard({required this.progress, super.key});
   final ModuleProgress progress;
 
@@ -21,7 +20,8 @@ class ModuleProgressCard extends StatelessWidget {
     var dateStr = isTr ? 'Henüz aktivite yok' : 'No activity yet';
     if (progress.lastActivityDate != null) {
       final d = progress.lastActivityDate!;
-      dateStr = '${d.day.toString().padLeft(2, '0')}.${d.month.toString().padLeft(2, '0')}.${d.year}';
+      dateStr =
+          '${d.day.toString().padLeft(2, '0')}.${d.month.toString().padLeft(2, '0')}.${d.year}';
     }
 
     return Container(

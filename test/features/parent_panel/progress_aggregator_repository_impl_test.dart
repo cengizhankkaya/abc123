@@ -8,7 +8,6 @@ import 'package:abc123/features/parent_panel/infrastructure/repositories/recomme
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeProgressSource implements ProgressSource {
-
   _FakeProgressSource({
     required this.moduleName,
     required this.completionPercentage,
@@ -46,7 +45,8 @@ void main() {
         strugglingItems: ['G'],
       );
 
-      final service = ProgressAggregatorRepositoryImpl([s1, s2], ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper());
+      final service = ProgressAggregatorRepositoryImpl(
+          [s1, s2], ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper());
 
       final allResult = await service.getAllModuleProgress();
       final all = allResult.getOrElse((_) => []);
@@ -60,7 +60,9 @@ void main() {
       expect(acc, 85.0);
     });
 
-    test('RecommendationRepositoryImpl zorlanılan öğeler veya düşük doğruluk için akıllı öneri üretir', () async {
+    test(
+        'RecommendationRepositoryImpl zorlanılan öğeler veya düşük doğruluk için akıllı öneri üretir',
+        () async {
       final p1 = ModuleProgress(
         moduleName: 'numbers',
         completionPercentage: 40,
@@ -69,7 +71,9 @@ void main() {
         strugglingItems: ['4', '7', '8'],
       );
 
-      final recsResult = await RecommendationRepositoryImpl(ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper()).generateRecommendations(
+      final recsResult = await RecommendationRepositoryImpl(
+              ExceptionHandlerImpl(ConsoleLogger()), DefaultFailureMapper())
+          .generateRecommendations(
         progressList: [p1],
         isTurkish: true,
       );

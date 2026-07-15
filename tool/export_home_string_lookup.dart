@@ -8,14 +8,10 @@ void main() {
   final j = jsonDecode(
     File('lib/features/home/l10n/home_en.arb').readAsStringSync(),
   ) as Map<String, dynamic>;
-  final keys = j.keys
-      .where((k) => k != '@@locale' && !k.startsWith('@'))
-      .cast<String>()
-      .toList()
+  final keys = j.keys.where((k) => k != '@@locale' && !k.startsWith('@')).cast<String>().toList()
     ..sort();
 
-  final shopKeys =
-      keys.where((k) => k.startsWith(RegExp('(hat_|glasses_|outfit_)')));
+  final shopKeys = keys.where((k) => k.startsWith(RegExp('(hat_|glasses_|outfit_)')));
   final badgeKeys = keys.where(
     (k) => k.startsWith('badge') && (k.endsWith('Name') || k.endsWith('Desc')),
   );
@@ -45,7 +41,6 @@ void main() {
     ..writeln('  }')
     ..writeln('}');
 
-  File('lib/features/home/l10n/home_string_lookup.dart')
-      .writeAsStringSync(buf.toString());
+  File('lib/features/home/l10n/home_string_lookup.dart').writeAsStringSync(buf.toString());
   stdout.writeln('Wrote lib/features/home/l10n/home_string_lookup.dart');
 }

@@ -10,7 +10,6 @@ import 'package:injectable/injectable.dart';
 /// Görev defterini kalıcılığa yazar (Command).
 @injectable
 final class PersistQuestLedger implements Command<QuestLedgerWrite, Unit> {
-
   PersistQuestLedger(this._persistence);
   final IGamificationPersistence _persistence;
 

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:abc123/app/config/admob_rewarded_ids.dart';
-import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_ad_service.dart';
 import 'package:abc123/core/domain/ports/i_feature_flag_service.dart';
 import 'package:abc123/core/domain/types/feature_flag.dart';
@@ -14,15 +13,10 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: IAdService)
 class AdService implements IAdService {
+  AdService(this._log, this._featureFlagService);
 
-  factory AdService() {
-    return _instance;
-  }
-
-  AdService._internal();
-  static final AdService _instance = AdService._internal();
-
-  AppLogger get _log => getIt<AppLogger>();
+  final AppLogger _log;
+  final IFeatureFlagService _featureFlagService;
 
   RewardedAd? _rewardedAd;
   int _numRewardedLoadAttempts = 0;
@@ -33,7 +27,7 @@ class AdService implements IAdService {
 
   @override
   void initialize() {
-    if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
+    if (!_featureFlagService.isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
     if (kIsWeb) {
@@ -51,7 +45,7 @@ class AdService implements IAdService {
 
   @override
   void loadRewardedAd() {
-    if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
+    if (!_featureFlagService.isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
     unawaited(
@@ -88,7 +82,7 @@ class AdService implements IAdService {
     required void Function(int rewardAmount) onReward,
     void Function()? onAdNotReady,
   }) {
-    if (!getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled)) {
+    if (!_featureFlagService.isEnabled(FeatureFlag.rewardedAdsEnabled)) {
       return;
     }
     if (_rewardedAd == null) {

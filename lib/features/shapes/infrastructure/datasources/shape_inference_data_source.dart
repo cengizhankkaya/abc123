@@ -96,7 +96,7 @@ class ShapeInferenceDataSourceImpl implements IShapeInferenceDataSource {
     final output = [List<double>.filled(numClasses, 0)];
     _interpreter!.run(inputData, output);
     final probabilities = output[0];
-    
+
     var maxIndex = 0;
     var maxValue = probabilities[0];
 

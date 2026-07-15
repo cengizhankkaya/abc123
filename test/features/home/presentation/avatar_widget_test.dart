@@ -23,7 +23,7 @@ void main() {
 
   testWidgets('AvatarWidget taşma üretmez; Fluttermoji SVG düzgün render edilir', (tester) async {
     final provider = getIt<GamificationProvider>();
-    final fluttermojiController = FluttermojiController();
+    final fluttermojiController = FluttermojiController(getIt());
 
     await tester.pumpWidget(
       MaterialApp(
@@ -64,7 +64,7 @@ void main() {
 
   testWidgets('buyItem sonrası öğe otomatik giyilir', (tester) async {
     final provider = getIt<GamificationProvider>();
-    final fluttermojiController = FluttermojiController();
+    final fluttermojiController = FluttermojiController(getIt());
 
     await tester.pumpWidget(
       MaterialApp(
@@ -92,7 +92,7 @@ void main() {
 
   testWidgets('equip değişince GamificationProvider durumu ve bildirim tetiklenir', (tester) async {
     final provider = getIt<GamificationProvider>();
-    final fluttermojiController = FluttermojiController();
+    final fluttermojiController = FluttermojiController(getIt());
 
     await tester.pumpWidget(
       MaterialApp(

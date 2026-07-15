@@ -44,9 +44,7 @@ class AppRouterObserver extends NavigatorObserver {
   ) {
     if (!kDebugMode) return;
     final name = route.settings.name ?? route.runtimeType.toString();
-    final prev = previousRoute?.settings.name ??
-        previousRoute?.runtimeType.toString() ??
-        'none';
+    final prev = previousRoute?.settings.name ?? previousRoute?.runtimeType.toString() ?? 'none';
     debugPrint('[Router] $action  $prev → $name');
   }
 }
