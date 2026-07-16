@@ -10,6 +10,8 @@ import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/core/domain/ports/i_app_review_service.dart';
+import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/theme/theme_helper.dart';
 
 class ResultScreen extends StatefulWidget {
@@ -54,6 +56,8 @@ class _ResultScreenState extends State<ResultScreen> with TickerProviderStateMix
 
     if (widget.isCorrect) {
       _confettiController.forward();
+      // Başarılı olduğunda (örneğin tebrik konfetisi atılırken) değerlendirme isteği kontrolü yapılır.
+      unawaited(getIt<IAppReviewService>().requestReviewIfNeeded());
     }
   }
 

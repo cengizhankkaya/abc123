@@ -61,6 +61,7 @@ class FluttermojiCustomizer extends StatefulWidget {
 class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late FluttermojiController _fluttermojiController;
 
   static const int _attributesCount = 11;
   static const double _heightFactor = 0.4;
@@ -72,14 +73,17 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
   @override
   void initState() {
     super.initState();
+    _fluttermojiController = context.read<FluttermojiController>();
     _tabController = TabController(length: _attributesCount, vsync: this);
     _tabController.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
-    // Kaydedilmemiş değişiklikleri geri al
-    context.read<FluttermojiController>().restoreState();
+    // Kaydedilmemiş değişiklikleri geri al.
+    // Dispose esnasında notifyListeners() çağrılırsa widget ağacı locked olduğu için
+    // hata fırlatır. Bunu önlemek için microtask kullanıyoruz.
+    Future.microtask(() => _fluttermojiController.restoreState());
     _tabController.dispose();
     super.dispose();
   }

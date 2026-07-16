@@ -131,7 +131,8 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
         ..drawRect(rect, Paint()..color = Colors.white)
         ..scale(scaleRatio, scaleRatio);
 
-      DrawingPainter(pointsList: points).paint(canvas, const Size(280, 280));
+      DrawingPainter(pointsList: points, pointsLength: points.length)
+          .paint(canvas, const Size(280, 280));
 
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());

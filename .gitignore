@@ -117,3 +117,10 @@ build/debug-info/
 *.wmv
 *.flv
 *.webm 
+
+# Firebase related
+google-services.json
+GoogleService-Info.plist
+firebase_options.dart
+firebase.json
+.firebaserc

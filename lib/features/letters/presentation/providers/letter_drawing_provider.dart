@@ -100,7 +100,7 @@ class LetterDrawingProvider with ChangeNotifier implements ProgressSource {
       canvas
         ..drawRect(rect, Paint()..color = Colors.white)
         ..scale(scaleRatio, scaleRatio);
-      final painter = DrawingPainter(pointsList: points);
+      final painter = DrawingPainter(pointsList: points, pointsLength: points.length);
       painter.paint(canvas, const Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());

@@ -1,6 +1,8 @@
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
+import 'package:abc123/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +14,9 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 /// `MobileAdsGate.markReady` çağrısı `MyApp` ilk kare sonrasında yapılır.
 Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await configureDependencies();
   if (kIsWeb) {
     MobileAdsGate.markReady();

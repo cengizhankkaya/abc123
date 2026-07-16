@@ -6,6 +6,7 @@ import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:abc123/features/home/presentation/theme/island_colors.dart';
+import 'package:abc123/features/home/presentation/widgets/avatar_widget.dart';
 import 'package:abc123/features/home/presentation/widgets/home_learning_mode_card.dart';
 import 'package:abc123/features/home/presentation/widgets/stat_pill.dart';
 import 'package:flutter/material.dart';
@@ -134,8 +135,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
                     // ── Dekor emojileri ──────────────────────────────
                     ..._buildDecorations(scale),
 
-                    // ── Tilki karşılama ──────────────────────────────
-                    _FoxGreeting(scale: scale),
+                    // ── Avatar karşılama ─────────────────────────────
+                    _AvatarGreeting(scale: scale),
 
                     // ── Bölge düğümleri ──────────────────────────────
                     ..._buildRegionNodes(context, scale),
@@ -217,7 +218,7 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         top: top * scale,
         left: left * scale,
         child: Opacity(
-          opacity: locked ? 0.45 : 0.95,
+          opacity: 0.95,
           child: Text(
             emoji,
             style: TextStyle(fontSize: size * scale / 1.0),
@@ -262,7 +263,6 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         icon: Icons.change_history_rounded,
         imagePath: ImageConstants.shapesImage,
         emoji: '⛰️',
-        locked: true,
         route: AppRoutes.shapes,
       ),
       _RegionInfo(
@@ -273,7 +273,6 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         icon: Icons.short_text_rounded,
         imagePath: ImageConstants.wordsImage,
         emoji: '🌾',
-        locked: true,
         route: AppRoutes.words,
       ),
       _RegionInfo(
@@ -284,7 +283,6 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         icon: Icons.water_drop_rounded,
         imagePath: ImageConstants.colorsImage,
         emoji: '🌼',
-        locked: true,
         route: AppRoutes.colorGame,
       ),
       _RegionInfo(
@@ -295,7 +293,6 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         icon: Icons.remove_red_eye_rounded,
         imagePath: ImageConstants.robotImage,
         emoji: '🌫️',
-        locked: true,
         route: AppRoutes.colorVisionGame,
       ),
       _RegionInfo(
@@ -306,7 +303,6 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         icon: Icons.calculate_rounded,
         imagePath: ImageConstants.calculateImage,
         emoji: '👑',
-        locked: true,
         route: AppRoutes.mathAdvanced,
       ),
     ];
@@ -350,6 +346,7 @@ class _RegionInfo {
     required this.route,
     this.imagePath,
     this.suggested = false,
+    // ignore: unused_element_parameter
     this.locked = false,
   });
 
@@ -426,22 +423,28 @@ class _StatusOverlay extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Avatar
-            Container(
-              width: 38,
-              height: 38,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x1F213255),
-                    offset: Offset(0, 4),
-                  ),
-                ],
+            // Avatar (Top Status Bar)
+            GestureDetector(
+              onTap: () => context.push(AppRoutes.shop),
+              child: Container(
+                width: 42,
+                height: 42,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x1F213255),
+                      offset: Offset(0, 4),
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                child: const ClipOval(
+                  child: AvatarWidget(size: 36),
+                ),
               ),
-              alignment: Alignment.center,
-              child: const Text('🦊', style: TextStyle(fontSize: 19)),
             ),
             // Streak & Points
             Row(
@@ -582,20 +585,21 @@ class _SwipeHint extends StatelessWidget {
 // ═══════════════════════════════════════════════════════════════════════════════
 // Tilki karşılama
 // ═══════════════════════════════════════════════════════════════════════════════
+// Avatar karşılama
+// ═══════════════════════════════════════════════════════════════════════════════
 
-class _FoxGreeting extends StatelessWidget {
-  const _FoxGreeting({required this.scale});
+class _AvatarGreeting extends StatelessWidget {
+  const _AvatarGreeting({required this.scale});
   final double scale;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: 64 * scale,
-      left: 20 * scale,
+      top: 145 * scale,
+      left: 40 * scale,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Tilki emojisi — zıplama animasyonlu
+          // Projedeki canlı avatar widget'ı — zıplama/nabız animasyonlu
           TweenAnimationBuilder<double>(
             tween: Tween(begin: 0, end: 6),
             duration: const Duration(milliseconds: 2600),
@@ -604,40 +608,45 @@ class _FoxGreeting extends StatelessWidget {
               offset: Offset(0, -value),
               child: child,
             ),
-            child: Text(
-              '🦊',
-              style: TextStyle(
-                fontSize: 38 * scale.clamp(0.5, 1.2),
+            child: GestureDetector(
+              onTap: () => context.push(AppRoutes.shop),
+              child: AvatarWidget(
+                size: 80 * scale.clamp(0.6, 1.2),
               ),
             ),
           ),
-          SizedBox(width: 10 * scale),
+          SizedBox(width: 14 * scale),
           // Konuşma balonu
           Container(
-            constraints: BoxConstraints(maxWidth: 210 * scale),
-            padding: EdgeInsets.all(10 * scale),
+            constraints: BoxConstraints(maxWidth: 240 * scale),
+            padding: EdgeInsets.symmetric(
+              horizontal: 14 * scale,
+              vertical: 12 * scale,
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16 * scale),
-                topRight: Radius.circular(16 * scale),
-                bottomRight: Radius.circular(16 * scale),
+                topLeft: Radius.circular(18 * scale),
+                topRight: Radius.circular(18 * scale),
+                bottomRight: Radius.circular(18 * scale),
                 bottomLeft: Radius.circular(4 * scale),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: IslandColors.ink.withValues(alpha: .1),
+                  color: IslandColors.ink.withValues(alpha: .14),
                   offset: Offset(0, 6 * scale),
+                  blurRadius: 10,
                 ),
               ],
             ),
             child: Text(
               'Merhaba! Bu bizim büyük adamız — '
-              'canlı duran bölgeyi seç, keşfe başlayalım! 🗺️✨',
+              'istediğin bölgeyi seç, hemen keşfe başlayalım! 🗺️✨',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 13 * scale.clamp(0.5, 1.0),
+                fontSize: 13.5 * scale.clamp(0.5, 1.0),
                 color: IslandColors.ink,
+                height: 1.3,
               ),
             ),
           ),
@@ -819,15 +828,15 @@ class _IslandBlobPainter extends CustomPainter {
     _drawBiomePlateau(canvas, _lettersPath(),
         IslandColors.tintLetters, IslandColors.lettersDk, false);
     _drawBiomePlateau(canvas, _shapesPath(),
-        IslandColors.tintShapes, IslandColors.shapesDk, true);
+        IslandColors.tintShapes, IslandColors.shapesDk, false);
     _drawBiomePlateau(canvas, _wordsPath(),
-        IslandColors.tintWords, IslandColors.wordsDk, true);
+        IslandColors.tintWords, IslandColors.wordsDk, false);
     _drawBiomePlateau(canvas, _colorsPath(),
-        IslandColors.tintColors, IslandColors.colorsDk, true);
+        IslandColors.tintColors, IslandColors.colorsDk, false);
     _drawBiomePlateau(canvas, _visionPath(),
-        IslandColors.tintVision, IslandColors.visionDk, true);
+        IslandColors.tintVision, IslandColors.visionDk, false);
     _drawBiomePlateau(canvas, _bossPath(),
-        IslandColors.tintBoss, IslandColors.bossDk, true);
+        IslandColors.tintBoss, IslandColors.bossDk, false);
 
     // ── 5. Gizem adası (sağ alt) ────────────────────────────────────────
     _drawMysteryIsland(canvas, _mysteryPath2());

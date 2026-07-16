@@ -2,14 +2,17 @@ import 'dart:async';
 
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/domain/ports/i_audio_service.dart';
+import 'package:abc123/core/domain/ports/i_remote_config_service.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
-import 'package:abc123/core/infrastructure/audio/audio_service.dart';
+import 'package:abc123/core/infrastructure/messaging/fcm_service.dart';
 import 'package:abc123/core/l10n/app_locale.dart';
 import 'package:abc123/core/l10n/app_localizations_setup.dart';
 import 'package:abc123/core/l10n/generated/app_localizations.dart';
 import 'package:abc123/core/navigation/app_router.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
 import 'package:abc123/core/presentation/providers/theme_mode_provider.dart';
+import 'package:abc123/core/presentation/widgets/force_update_gate.dart';
+import 'package:abc123/core/presentation/widgets/update_announcement_gate.dart';
 import 'package:abc123/core/theme/app_theme.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
@@ -29,11 +32,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // FCM: bildirim izni UI hazır olduktan sonra istenir.
+      unawaited(FcmService.initialize());
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
         unawaited(_requestAttThenInitializeMobileAds());
-      });
-    }
+      }
+    });
   }
 
 //
@@ -79,33 +84,42 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<LanguageProvider, ThemeModeProvider>(
-      builder: (context, languageProvider, themeProvider, _) {
-        return MaterialApp.router(
-          onGenerateTitle: (ctx) => AppLocalizations.of(ctx)?.appTitle ?? 'Abc123',
-          debugShowCheckedModeBanner: false,
-          locale: materialLocaleForAppLanguage(languageProvider.language),
-          localizationsDelegates: kAppLocalizationDelegates,
-          supportedLocales: kAppSupportedLocales,
-          localeListResolutionCallback: (locales, supported) {
-            if (locales == null || locales.isEmpty) {
-              return supported.first;
-            }
-            for (final deviceLocale in locales) {
-              for (final supportedLocale in supported) {
-                if (supportedLocale.languageCode == deviceLocale.languageCode) {
-                  return supportedLocale;
+    return ForceUpdateGate(
+      remoteConfigService: getIt<IRemoteConfigService>(),
+      child: Consumer2<LanguageProvider, ThemeModeProvider>(
+        builder: (context, languageProvider, themeProvider, _) {
+          return MaterialApp.router(
+            onGenerateTitle: (ctx) => AppLocalizations.of(ctx)?.appTitle ?? 'Abc123',
+            debugShowCheckedModeBanner: false,
+            locale: materialLocaleForAppLanguage(languageProvider.language),
+            localizationsDelegates: kAppLocalizationDelegates,
+            supportedLocales: kAppSupportedLocales,
+            localeListResolutionCallback: (locales, supported) {
+              if (locales == null || locales.isEmpty) {
+                return supported.first;
+              }
+              for (final deviceLocale in locales) {
+                for (final supportedLocale in supported) {
+                  if (supportedLocale.languageCode == deviceLocale.languageCode) {
+                    return supportedLocale;
+                  }
                 }
               }
-            }
-            return const Locale('en');
-          },
-          routerConfig: appRouter,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: themeProvider.materialThemeMode,
-        );
-      },
+              return const Locale('en');
+            },
+            routerConfig: appRouter,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.materialThemeMode,
+            builder: (context, child) {
+              return UpdateAnnouncementGate(
+                remoteConfigService: getIt<IRemoteConfigService>(),
+                child: child ?? const SizedBox.shrink(),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

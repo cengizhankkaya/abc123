@@ -23,6 +23,9 @@ abstract final class OrientationHelper {
   /// Ekranı dikey (portrait) moda geri döndürür.
   static Future<void> setPortrait() async {
     try {
+      // iOS 16+'da geçiş animasyonu sırasında oryantasyon değiştirilirse Code=101 hatası fırlatılır.
+      // Animasyonun bitmesine izin vermek için çok kısa bir gecikme ekliyoruz.
+      await Future<void>.delayed(const Duration(milliseconds: 200));
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,

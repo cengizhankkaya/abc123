@@ -133,7 +133,10 @@ class DrawingArea extends StatelessWidget {
                   // (16_performance.md §"Widget Performance Rules")
                   child: RepaintBoundary(
                     child: CustomPaint(
-                      painter: DrawingPainter(pointsList: points),
+                      painter: DrawingPainter(
+                        pointsList: points,
+                        pointsLength: points.length,
+                      ),
                       size: Size(drawingSize, drawingSize),
                     ),
                   ),
@@ -284,9 +287,10 @@ class DrawingArea extends StatelessWidget {
 /// `shouldRepaint`: nokta listesi değiştiğinde repaint yapılır;
 /// aynı referans veya eşit liste olduğunda gereksiz repaint önlenir.
 class DrawingPainter extends CustomPainter {
-  const DrawingPainter({required this.pointsList});
+  const DrawingPainter({required this.pointsList, required this.pointsLength});
 
   final List<DrawingPoint?> pointsList;
+  final int pointsLength;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -327,8 +331,7 @@ class DrawingPainter extends CustomPainter {
   /// (16_performance.md §"Widget Performance Rules")
   @override
   bool shouldRepaint(covariant DrawingPainter oldDelegate) =>
-      !identical(oldDelegate.pointsList, pointsList) ||
-      oldDelegate.pointsList.length != pointsList.length;
+      oldDelegate.pointsLength != pointsLength;
 }
 
 /// Çizim noktası veri sınıfı.

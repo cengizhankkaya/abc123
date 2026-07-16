@@ -202,7 +202,10 @@ class DrawScreenProvider extends ChangeNotifier implements ProgressSource {
       final rect = Rect.fromLTWH(0, 0, drawingSize, drawingSize);
       canvas.drawRect(rect, Paint()..color = Colors.white);
       canvas.scale(scaleRatio, scaleRatio);
-      final painter = DrawingPainter(pointsList: points);
+      final painter = DrawingPainter(
+        pointsList: points,
+        pointsLength: points.length,
+      );
       painter.paint(canvas, const Size(280, 280));
       final picture = recorder.endRecording();
       return await picture.toImage(drawingSize.toInt(), drawingSize.toInt());
