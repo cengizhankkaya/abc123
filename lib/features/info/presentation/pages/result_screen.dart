@@ -5,10 +5,13 @@ import 'package:abc123/core/constants/app_font_sizes.dart';
 import 'package:abc123/core/constants/app_radii.dart';
 import 'package:abc123/core/constants/app_sizes.dart';
 import 'package:abc123/core/constants/language_constants.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/core/presentation/orientation_helper.dart';
 import 'package:abc123/core/presentation/providers/language_provider.dart';
+import 'package:abc123/features/ar/domain/ar_model_mapper.dart';
 import 'package:abc123/features/info/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:abc123/core/domain/ports/i_app_review_service.dart';
 import 'package:abc123/core/di/injection.dart';
@@ -450,6 +453,9 @@ class _ActionPanel extends StatelessWidget {
                 ),
               ),
             ),
+            // AR Butonu — sadece doğru cevapta ve model varsa göster
+            if (isCorrect && ArModelMapper.hasModel(targetLetter.toString()))
+              _ArButton(letter: targetLetter.toString()),
           ],
         ),
       ],
@@ -516,4 +522,52 @@ class _DrawingImagePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+// AR Butonu
+class _ArButton extends StatelessWidget {
+  const _ArButton({required this.letter});
+
+  final String letter;
+
+  @override
+  Widget build(BuildContext context) {
+    final modelInfo = ArModelMapper.forLetter(letter);
+    if (modelInfo == null) return const SizedBox.shrink();
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: 120,
+        maxWidth: MediaQuery.of(context).size.width * 0.3,
+      ),
+      child: ElevatedButton.icon(
+        onPressed: () {
+          context.push(
+            '${AppRoutes.arViewer}?letter=${Uri.encodeComponent(letter)}',
+          );
+        },
+        icon: const Text('🔭', style: TextStyle(fontSize: 20)),
+        label: Text(
+          'Odanda Gör!',
+          style: TextStyle(
+            fontSize: AppFontSizes.subtitle(context) * 0.4,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xFF6C5CE7),
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.015,
+            horizontal: 16,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          elevation: 8,
+          shadowColor: const Color(0xFF6C5CE7).withValues(alpha: 0.5),
+        ),
+      ),
+    );
+  }
 }

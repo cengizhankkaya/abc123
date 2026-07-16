@@ -43,6 +43,7 @@ final class WordDrawingProvider with ChangeNotifier implements ProgressSource {
   WordDrawingSession? _session;
   late DrawingGuide _activeGuide;
   Locale? _locale;
+  final GlobalKey drawingAreaKey = GlobalKey();
 
   bool get hasSession => _session != null;
   WordDrawingSession get session => _session!;

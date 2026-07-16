@@ -190,7 +190,7 @@ class _MainContent extends StatelessWidget {
         recognitionResult: provider.recognitionResult,
         animation: animation,
         tanima: '${provider.targetLetter} harfini çizin',
-        drawingAreaKey: GlobalKey(),
+        drawingAreaKey: provider.drawingAreaKey,
         onClear: provider.clear,
         onDrawPoint: provider.addPoint,
         onEndDrawing: provider.endLine,

@@ -49,6 +49,7 @@ dependencies:
   tflite_flutter: ^0.12.1
   url_launcher: ^6.3.2
   in_app_review: ^2.0.12
+  model_viewer_plus: ^1.7.2
 
 # google_mobile_ads → webview; Xcode yeni Swift sürümlerinde 3.22.0 Swift hatası veriyor (#9810 düzeltmesi).
 dependency_overrides:
@@ -78,6 +79,7 @@ flutter:
     - assets/images/figures/
     - assets/images/letters/
     - assets/models/
+    - assets/models/ar/
     - assets/models/final_combined_model-2.tflite
     - assets/models/rakam_model.tflite
     - assets/models/harf_emnist_letters_model.tflite

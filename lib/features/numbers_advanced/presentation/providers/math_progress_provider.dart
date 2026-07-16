@@ -280,7 +280,9 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
         }
         final result = await _recognizeMultiDigitUseCase.recognizeDigit(pngBytes);
         result.fold(
-          (failure) {},
+          (failure) async {
+            await _handleResult(isCorrect: false, type: type, level: _selectedLevel);
+          },
           (recognized) async {
             final isCorrect = recognized == expectedResult;
             await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
@@ -301,7 +303,9 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
           unitsBytes: unitsBytes,
         );
         result.fold(
-          (failure) {},
+          (failure) async {
+            await _handleResult(isCorrect: false, type: type, level: _selectedLevel);
+          },
           (recognized) async {
             final isCorrect = recognized == expectedResult;
             await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
@@ -318,14 +322,17 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
         final result = await _recognizeMultiDigitUseCase.recognizeMultiDigit(
             tensBytes: tensBytes, unitsBytes: unitsBytes);
         result.fold(
-          (failure) {},
+          (failure) async {
+            await _handleResult(isCorrect: false, type: type, level: _selectedLevel);
+          },
           (recognized) async {
             final isCorrect = recognized == expectedResult;
             await _handleResult(isCorrect: isCorrect, type: type, level: _selectedLevel);
           },
         );
       }
-    } catch (_) {
+    } catch (e, st) {
+      print('EVALUATE MULTIDIGIT ERROR: $e\n$st');
       _isLoading = false;
       notifyListeners();
     }
@@ -405,14 +412,15 @@ class MathProgressProvider extends ChangeNotifier implements ProgressSource {
       const size = 280;
       final recorder = ui.PictureRecorder();
       final canvas = Canvas(recorder);
-      final rect = Rect.fromLTWH(0, 0, size as double, size as double);
+      final rect = Rect.fromLTWH(0, 0, size.toDouble(), size.toDouble());
       canvas.drawRect(rect, Paint()..color = Colors.white);
       _paintPoints(canvas, points);
       final picture = recorder.endRecording();
       final image = await picture.toImage(size, size);
       final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
       return byteData?.buffer.asUint8List();
-    } catch (_) {
+    } catch (e, st) {
+      print('RENDER BOX TO BYTES ERROR: $e\n$st');
       return null;
     }
   }

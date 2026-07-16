@@ -40,4 +40,11 @@ final _infoRoutes = [
       );
     },
   ),
+  GoRoute(
+    path: AppRoutes.arViewer,
+    builder: (context, state) {
+      final letter = state.uri.queryParameters['letter'] ?? '';
+      return ArViewerScreen(letter: letter);
+    },
+  ),
 ];

@@ -4,6 +4,10 @@
 <dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Artırılmış gerçeklik (AR) özelliği için kameraya erişim gereklidir. Çocuğunuzun öğrendiği harflerin 3D modellerini gerçek dünyada görmesini sağlar.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Uygulama mikrofona erişim gerektirmez.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

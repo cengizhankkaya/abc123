@@ -43,32 +43,18 @@ android {
 
     signingConfigs {
         release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
-
-    // 15_security.md: iOS/Android için ayrıca `flutter build ... --obfuscate --split-debug-info=build/debug-info`
-    // (TensorFlow Lite / native strip kısıtları nedeniyle Android R8 şu an kapalı.)
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            // Native kütüphanelerden debug sembollerini kaldırma işlemini tamamen devre dışı bırak
-            // Bazı native kütüphaneler (özellikle TensorFlow Lite) strip edilemez
-            // Bu ayar 16 KB sayfa boyutu desteği için de önemli
-
-            // Strip işlemini tamamen devre dışı bırak
-            debuggable false
-            minifyEnabled false
-            shrinkResources false
+            if (keystorePropertiesFile.exists()) {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
             debuggable false
             minifyEnabled false
             shrinkResources false

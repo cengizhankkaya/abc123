@@ -39,22 +39,21 @@ class ShopHeaderWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 16,
-                  top: MediaQuery.paddingOf(context).top + 8,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.close_rounded,
-                      color: HomeDesignTokens.darkText,
-                      size: 32,
-                    ),
-                    onPressed: () {
-                      if (Navigator.of(context).canPop()) {
+                if (Navigator.of(context).canPop())
+                  Positioned(
+                    right: 16,
+                    top: MediaQuery.paddingOf(context).top + 8,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close_rounded,
+                        color: HomeDesignTokens.darkText,
+                        size: 32,
+                      ),
+                      onPressed: () {
                         Navigator.of(context).pop();
-                      }
-                    },
+                      },
+                    ),
                   ),
-                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                     24,
