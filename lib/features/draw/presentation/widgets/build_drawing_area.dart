@@ -167,7 +167,7 @@ class DrawingArea extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Tahmin Sonucu:',
+                          DrawLocalizations.of(context)?.drawPredictionResult ?? 'Prediction Result:',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: drawingSize * 0.14,
@@ -227,7 +227,7 @@ class DrawingArea extends StatelessWidget {
                               Icon(Icons.refresh, size: drawingSize * 0.06),
                               const SizedBox(width: 8),
                               Text(
-                                'Tekrar Çiz',
+                                DrawLocalizations.of(context)?.drawRedraw ?? 'Redraw',
                                 style: TextStyle(
                                   fontSize: drawingSize * 0.06,
                                   fontWeight: FontWeight.bold,
@@ -264,7 +264,7 @@ class DrawingArea extends StatelessWidget {
                       ),
                       SizedBox(height: drawingSize * 0.07),
                       Text(
-                        'Tanımlanıyor...',
+                        DrawLocalizations.of(context)?.drawIdentifying ?? 'Identifying...',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: drawingSize * 0.06,

@@ -1,16 +1,16 @@
 /// Her harf veya kelime için AR'da gösterilecek 3D modelin bilgileri.
 class ArModelInfo {
   const ArModelInfo({
+    required this.id,
     required this.assetPath,
-    required this.displayName,
     required this.emoji,
   });
 
   /// `assets/models/ar/` altındaki .glb dosyasının tam yolu.
   final String assetPath;
 
-  /// Kullanıcıya gösterilen Türkçe ad (örn. "At").
-  final String displayName;
+  /// Modelin ID'si (çeviri için kullanılacak, örn. "at").
+  final String id;
 
   /// Modeli temsil eden emoji (yükleme sırasında gösterilir).
   final String emoji;
@@ -25,35 +25,35 @@ class ArModelMapper {
   static const _basePath = 'assets/models/ar/';
 
   static const Map<String, ArModelInfo> _map = {
-    'A': ArModelInfo(assetPath: '${_basePath}at.glb', displayName: 'At', emoji: '🐴'),
-    'B': ArModelInfo(assetPath: '${_basePath}balik.glb', displayName: 'Balık', emoji: '🐟'),
-    'C': ArModelInfo(assetPath: '${_basePath}civciv.glb', displayName: 'Civciv', emoji: '🐥'),
-    'Ç': ArModelInfo(assetPath: '${_basePath}cicek.glb', displayName: 'Çiçek', emoji: '🌸'),
-    'D': ArModelInfo(assetPath: '${_basePath}domuz.glb', displayName: 'Domuz', emoji: '🐷'),
-    'E': ArModelInfo(assetPath: '${_basePath}elma.glb', displayName: 'Elma', emoji: '🍎'),
-    'F': ArModelInfo(assetPath: '${_basePath}fil.glb', displayName: 'Fil', emoji: '🐘'),
-    'G': ArModelInfo(assetPath: '${_basePath}gemi.glb', displayName: 'Gemi', emoji: '🚢'),
-    'Ğ': ArModelInfo(assetPath: '${_basePath}gunes.glb', displayName: 'Güneş', emoji: '☀️'),
-    'H': ArModelInfo(assetPath: '${_basePath}horoz.glb', displayName: 'Horoz', emoji: '🐓'),
-    'I': ArModelInfo(assetPath: '${_basePath}inek.glb', displayName: 'Irgatçı', emoji: '🐄'),
-    'İ': ArModelInfo(assetPath: '${_basePath}inek.glb', displayName: 'İnek', emoji: '🐄'),
-    'J': ArModelInfo(assetPath: '${_basePath}jaguar.glb', displayName: 'Jaguar', emoji: '🐆'),
-    'K': ArModelInfo(assetPath: '${_basePath}kedi.glb', displayName: 'Kedi', emoji: '🐱'),
-    'L': ArModelInfo(assetPath: '${_basePath}limon.glb', displayName: 'Limon', emoji: '🍋'),
-    'M': ArModelInfo(assetPath: '${_basePath}muz.glb', displayName: 'Muz', emoji: '🍌'),
-    'N': ArModelInfo(assetPath: '${_basePath}nar.glb', displayName: 'Nar', emoji: '🍎'),
-    'O': ArModelInfo(assetPath: '${_basePath}ordek.glb', displayName: 'Ördek', emoji: '🦆'),
-    'Ö': ArModelInfo(assetPath: '${_basePath}ordek.glb', displayName: 'Ördek', emoji: '🦆'),
-    'P': ArModelInfo(assetPath: '${_basePath}panda.glb', displayName: 'Panda', emoji: '🐼'),
-    'R': ArModelInfo(assetPath: '${_basePath}robot.glb', displayName: 'Robot', emoji: '🤖'),
-    'S': ArModelInfo(assetPath: '${_basePath}sincap.glb', displayName: 'Sincap', emoji: '🐿️'),
-    'Ş': ArModelInfo(assetPath: '${_basePath}sampinyon.glb', displayName: 'Şampinyon', emoji: '🍄'),
-    'T': ArModelInfo(assetPath: '${_basePath}tavuk.glb', displayName: 'Tavuk', emoji: '🐔'),
-    'U': ArModelInfo(assetPath: '${_basePath}uzayli.glb', displayName: 'Uzaylı', emoji: '👽'),
-    'Ü': ArModelInfo(assetPath: '${_basePath}uzum.glb', displayName: 'Üzüm', emoji: '🍇'),
-    'V': ArModelInfo(assetPath: '${_basePath}vagon.glb', displayName: 'Vagon', emoji: '🚃'),
-    'Y': ArModelInfo(assetPath: '${_basePath}yildiz.glb', displayName: 'Yıldız', emoji: '⭐'),
-    'Z': ArModelInfo(assetPath: '${_basePath}zurafa.glb', displayName: 'Zürafa', emoji: '🦒'),
+    'A': ArModelInfo(assetPath: '${_basePath}at.glb', id: 'at', emoji: '🐴'),
+    'B': ArModelInfo(assetPath: '${_basePath}balik.glb', id: 'balik', emoji: '🐟'),
+    'C': ArModelInfo(assetPath: '${_basePath}civciv.glb', id: 'civciv', emoji: '🐥'),
+    'Ç': ArModelInfo(assetPath: '${_basePath}cicek.glb', id: 'cicek', emoji: '🌸'),
+    'D': ArModelInfo(assetPath: '${_basePath}domuz.glb', id: 'domuz', emoji: '🐷'),
+    'E': ArModelInfo(assetPath: '${_basePath}elma.glb', id: 'elma', emoji: '🍎'),
+    'F': ArModelInfo(assetPath: '${_basePath}fil.glb', id: 'fil', emoji: '🐘'),
+    'G': ArModelInfo(assetPath: '${_basePath}gemi.glb', id: 'gemi', emoji: '🚢'),
+    'Ğ': ArModelInfo(assetPath: '${_basePath}gunes.glb', id: 'gunes', emoji: '☀️'),
+    'H': ArModelInfo(assetPath: '${_basePath}horoz.glb', id: 'horoz', emoji: '🐓'),
+    'I': ArModelInfo(assetPath: '${_basePath}inek.glb', id: 'irgatci', emoji: '🐄'),
+    'İ': ArModelInfo(assetPath: '${_basePath}inek.glb', id: 'inek', emoji: '🐄'),
+    'J': ArModelInfo(assetPath: '${_basePath}jaguar.glb', id: 'jaguar', emoji: '🐆'),
+    'K': ArModelInfo(assetPath: '${_basePath}kedi.glb', id: 'kedi', emoji: '🐱'),
+    'L': ArModelInfo(assetPath: '${_basePath}limon.glb', id: 'limon', emoji: '🍋'),
+    'M': ArModelInfo(assetPath: '${_basePath}muz.glb', id: 'muz', emoji: '🍌'),
+    'N': ArModelInfo(assetPath: '${_basePath}nar.glb', id: 'nar', emoji: '🍎'),
+    'O': ArModelInfo(assetPath: '${_basePath}ordek.glb', id: 'ordek', emoji: '🦆'),
+    'Ö': ArModelInfo(assetPath: '${_basePath}ordek.glb', id: 'ordek', emoji: '🦆'),
+    'P': ArModelInfo(assetPath: '${_basePath}panda.glb', id: 'panda', emoji: '🐼'),
+    'R': ArModelInfo(assetPath: '${_basePath}robot.glb', id: 'robot', emoji: '🤖'),
+    'S': ArModelInfo(assetPath: '${_basePath}sincap.glb', id: 'sincap', emoji: '🐿️'),
+    'Ş': ArModelInfo(assetPath: '${_basePath}sampinyon.glb', id: 'sampinyon', emoji: '🍄'),
+    'T': ArModelInfo(assetPath: '${_basePath}tavuk.glb', id: 'tavuk', emoji: '🐔'),
+    'U': ArModelInfo(assetPath: '${_basePath}uzayli.glb', id: 'uzayli', emoji: '👽'),
+    'Ü': ArModelInfo(assetPath: '${_basePath}uzum.glb', id: 'uzum', emoji: '🍇'),
+    'V': ArModelInfo(assetPath: '${_basePath}vagon.glb', id: 'vagon', emoji: '🚃'),
+    'Y': ArModelInfo(assetPath: '${_basePath}yildiz.glb', id: 'yildiz', emoji: '⭐'),
+    'Z': ArModelInfo(assetPath: '${_basePath}zurafa.glb', id: 'zurafa', emoji: '🦒'),
   };
 
   /// Harfe karşılık gelen AR modelini döner.

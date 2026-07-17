@@ -78,8 +78,8 @@ abstract class ColorsLocalizations {
 
   final String localeName;
 
-  static ColorsLocalizations of(BuildContext context) {
-    return Localizations.of<ColorsLocalizations>(context, ColorsLocalizations)!;
+  static ColorsLocalizations? of(BuildContext context) {
+    return Localizations.of<ColorsLocalizations>(context, ColorsLocalizations);
   }
 
   static const LocalizationsDelegate<ColorsLocalizations> delegate = _ColorsLocalizationsDelegate();
@@ -360,91 +360,196 @@ abstract class ColorsLocalizations {
   String get colorFeedbackWrong;
 
   /// l10n: colorVisionHomeTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Color shapes'**
   String get colorVisionHomeTitle;
 
   /// l10n: colorVisionHomeSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Playful screening'**
   String get colorVisionHomeSubtitle;
 
   /// l10n: colorVisionIntroDisclaimer
+  ///
+  /// In en, this message translates to:
+  /// **'Dotted pictures like gentle puzzles help explore how you see colors. This is not a medical test. Ask an eye doctor if you have concerns.'**
   String get colorVisionIntroDisclaimer;
 
   /// l10n: colorVisionStart
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s play'**
   String get colorVisionStart;
 
   /// l10n: colorVisionQuestion
+  ///
+  /// In en, this message translates to:
+  /// **'Which shape do you see in the dots?'**
   String get colorVisionQuestion;
 
   /// l10n: colorVisionOptionCircle
+  ///
+  /// In en, this message translates to:
+  /// **'Circle'**
   String get colorVisionOptionCircle;
 
   /// l10n: colorVisionOptionSquare
+  ///
+  /// In en, this message translates to:
+  /// **'Square'**
   String get colorVisionOptionSquare;
 
   /// l10n: colorVisionOptionTriangle
+  ///
+  /// In en, this message translates to:
+  /// **'Triangle'**
   String get colorVisionOptionTriangle;
 
   /// l10n: colorVisionOptionNothing
+  ///
+  /// In en, this message translates to:
+  /// **'No shape'**
   String get colorVisionOptionNothing;
 
   /// l10n: colorVisionProgress
+  ///
+  /// In en, this message translates to:
+  /// **'Plate {current} of {total}'**
   String colorVisionProgress(int current, int total);
 
   /// l10n: colorVisionScoreLine
+  ///
+  /// In en, this message translates to:
+  /// **'{correct} of {total} matched'**
   String colorVisionScoreLine(int correct, int total);
 
   /// l10n: colorVisionResultsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Round complete!'**
   String get colorVisionResultsTitle;
 
   /// l10n: colorVisionResultsGood
+  ///
+  /// In en, this message translates to:
+  /// **'You spotted most shapes — nice!'**
   String get colorVisionResultsGood;
 
   /// l10n: colorVisionResultsMixed
+  ///
+  /// In en, this message translates to:
+  /// **'Some plates were tricky. That happens to many kids.'**
   String get colorVisionResultsMixed;
 
   /// l10n: colorVisionResultsLow
+  ///
+  /// In en, this message translates to:
+  /// **'Many shapes were hard to see. This game cannot diagnose color vision. A specialist can help if you are worried.'**
   String get colorVisionResultsLow;
 
   /// l10n: colorVisionResultsMedicalNote
+  ///
+  /// In en, this message translates to:
+  /// **'For learning and curiosity only. It does not replace professional eye care.'**
   String get colorVisionResultsMedicalNote;
 
   /// l10n: colorVisionPlayAgain
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
   String get colorVisionPlayAgain;
 
   /// l10n: colorVisionIntroTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden shapes'**
   String get colorVisionIntroTitle;
 
   /// l10n: colorVisionPlateBadgeRg
+  ///
+  /// In en, this message translates to:
+  /// **'Red · green mix'**
   String get colorVisionPlateBadgeRg;
 
   /// l10n: colorVisionPlateBadgeBy
+  ///
+  /// In en, this message translates to:
+  /// **'Blue · yellow mix'**
   String get colorVisionPlateBadgeBy;
 
   /// l10n: colorVisionOptionDiamond
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond'**
   String get colorVisionOptionDiamond;
 
   /// l10n: colorVisionResultHintTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Playful summary'**
   String get colorVisionResultHintTitle;
 
   /// l10n: colorVisionProfileTypical
+  ///
+  /// In en, this message translates to:
+  /// **'On these plates your answers look similar to typical color vision for kids.'**
   String get colorVisionProfileTypical;
 
   /// l10n: colorVisionProfileRedGreenAxis
+  ///
+  /// In en, this message translates to:
+  /// **'You missed more red–green style plates. That pattern is often discussed with red–green color blindness (protanopia or deuteranopia family). This app cannot separate those types.'**
   String get colorVisionProfileRedGreenAxis;
 
   /// l10n: colorVisionProfileBlueYellowAxis
+  ///
+  /// In en, this message translates to:
+  /// **'You missed more blue–yellow style plates. That can sometimes relate to blue–yellow (tritan-type) difficulty — only an eye specialist can say for sure.'**
   String get colorVisionProfileBlueYellowAxis;
 
   /// l10n: colorVisionProfileMixed
+  ///
+  /// In en, this message translates to:
+  /// **'Both plate styles were difficult. Screen brightness, night mode, or tired eyes can change scores. Try again in good light.'**
   String get colorVisionProfileMixed;
 
   /// l10n: colorVisionProfileInconclusive
+  ///
+  /// In en, this message translates to:
+  /// **'No clear pattern — try again on a bright screen at arm’s length.'**
   String get colorVisionProfileInconclusive;
 
   /// l10n: colorVisionScoreRgLine
+  ///
+  /// In en, this message translates to:
+  /// **'Red–green style: {correct} / {total}'**
   String colorVisionScoreRgLine(int correct, int total);
 
   /// l10n: colorVisionScoreByLine
+  ///
+  /// In en, this message translates to:
+  /// **'Blue–yellow style: {correct} / {total}'**
   String colorVisionScoreByLine(int correct, int total);
+
+  /// No description provided for @colorFailureLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Game could not be loaded. Please try again.'**
+  String get colorFailureLoad;
+
+  /// No description provided for @colorFailurePalette.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not fetch color palette.'**
+  String get colorFailurePalette;
+
+  /// No description provided for @colorFailureUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred.'**
+  String get colorFailureUnknown;
 }
 
 class _ColorsLocalizationsDelegate extends LocalizationsDelegate<ColorsLocalizations> {

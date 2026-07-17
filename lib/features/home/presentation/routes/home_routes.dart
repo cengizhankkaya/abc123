@@ -9,6 +9,10 @@ final _homeRoutes = [
     path: AppRoutes.badgesFull,
     builder: (context, state) => const BadgesScreen(),
   ),
+  GoRoute(
+    path: AppRoutes.animals3D,
+    builder: (context, state) => const Animals3DGameScreen(),
+  ),
 ];
 
 final _homeShellBranches = [

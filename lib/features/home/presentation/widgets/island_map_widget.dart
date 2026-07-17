@@ -1,4 +1,3 @@
-
 import 'package:abc123/core/constants/image_constants.dart';
 import 'package:abc123/core/navigation/route_paths.dart';
 import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
@@ -18,7 +17,7 @@ import 'package:provider/provider.dart';
 // ═══════════════════════════════════════════════════════════════════════════════
 
 /// SVG viewBox ile aynı referans boyutları.
-const double _kRefWidth = 1740;
+const double _kRefWidth = 2060;
 const double _kRefHeight = 800;
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -35,8 +34,7 @@ class IslandMapWidget extends StatefulWidget {
   State<IslandMapWidget> createState() => _IslandMapWidgetState();
 }
 
-class _IslandMapWidgetState extends State<IslandMapWidget>
-    with TickerProviderStateMixin {
+class _IslandMapWidgetState extends State<IslandMapWidget> with TickerProviderStateMixin {
   late final ScrollController _scrollController;
   late final AnimationController _driftController;
   late final AnimationController _pulseController;
@@ -45,7 +43,7 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
   double _scrollRatio = 0;
   bool _hintVisible = true;
 
-  static const int _dotCount = 7;
+  static const int _dotCount = 8;
 
   @override
   void initState() {
@@ -147,17 +145,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
 
             // ── 3. Durum çubuğu — üstte şeffaf overlay ─────────────
             _StatusOverlay(topPad: topPad),
-
-            // ── 4. Kaydırma noktaları ────────────────────────────────
-            _ScrollDots(
-              topPad: topPad,
-              ratio: _scrollRatio,
-              dotCount: _dotCount,
-            ),
-
             // ── 5. "Kaydır" ipucu ────────────────────────────────────
-            if (_hintVisible)
-              const _SwipeHint(),
+            if (_hintVisible) const _SwipeHint(),
           ],
         );
       },
@@ -211,6 +200,14 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
       (400.0, 1390.0, '🐬', 18.0, true),
       (400.0, 1500.0, '🌴', 20.0, true),
       (560.0, 1680.0, '🌴', 20.0, true),
+      // 3D Hayvanlar adası çevresi
+      (50.0, 430.0, '🌿', 18.0, true),
+      (140.0, 470.0, '🦁', 20.0, true),
+      (80.0, 620.0, '🌴', 20.0, true),
+      (230.0, 500.0, '🐾', 16.0, true),
+      (350.0, 600.0, '🌿', 18.0, true),
+      (290.0, 450.0, '🦋', 15.0, true),
+      (300.0, 670.0, '🌴', 18.0, true),
     ];
     return decorations.map((d) {
       final (top, left, emoji, size, locked) = d;
@@ -235,7 +232,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
 
     final regions = [
       _RegionInfo(
-        x: 150, y: 455,
+        x: 150,
+        y: 455,
         title: h.numbersTitleShort,
         subtitle: h.numbersSubtitle,
         color: HomeDesignTokens.numbersCard,
@@ -246,7 +244,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.draw,
       ),
       _RegionInfo(
-        x: 374, y: 565,
+        x: 374,
+        y: 565,
         title: h.lettersTitleShort,
         subtitle: h.lettersSubtitle,
         color: HomeDesignTokens.lettersCard,
@@ -256,7 +255,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.letters,
       ),
       _RegionInfo(
-        x: 604, y: 425,
+        x: 604,
+        y: 425,
         title: h.shapesTitleShort,
         subtitle: h.shapesSubtitle,
         color: HomeDesignTokens.shapesCard,
@@ -266,7 +266,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.shapes,
       ),
       _RegionInfo(
-        x: 840, y: 565,
+        x: 840,
+        y: 565,
         title: h.wordsTitleShort,
         subtitle: h.wordsSubtitle,
         color: HomeDesignTokens.wordsCard,
@@ -276,7 +277,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.words,
       ),
       _RegionInfo(
-        x: 1076, y: 425,
+        x: 1076,
+        y: 425,
         title: h.colorsTitleShort,
         subtitle: h.colorsSubtitle,
         color: HomeDesignTokens.colorsCard,
@@ -286,7 +288,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.colorGame,
       ),
       _RegionInfo(
-        x: 1318, y: 565,
+        x: 1318,
+        y: 565,
         title: cv.colorVisionHomeTitle,
         subtitle: cv.colorVisionHomeSubtitle,
         color: HomeDesignTokens.colorVisionCard,
@@ -296,7 +299,8 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         route: AppRoutes.colorVisionGame,
       ),
       _RegionInfo(
-        x: 1600, y: 470,
+        x: 1600,
+        y: 470,
         title: h.mathAdvancedTitle,
         subtitle: h.mathAdvancedSubtitle,
         color: HomeDesignTokens.mathCard,
@@ -304,6 +308,19 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
         imagePath: ImageConstants.calculateImage,
         emoji: '👑',
         route: AppRoutes.mathAdvanced,
+      ),
+      _RegionInfo(
+        x: 550,
+        y: 220,
+        title: h.animals3dTitle,
+        subtitle: h.animals3dSubtitle,
+        color: IslandColors.animals,
+        icon: Icons.pets_rounded,
+        imagePath: null,
+        modelPath: 'assets/models/ar/kedi.glb',
+        emoji: '🦁',
+        suggested: false,
+        route: AppRoutes.animals3D,
       ),
     ];
 
@@ -319,6 +336,7 @@ class _IslandMapWidgetState extends State<IslandMapWidget>
             baseColor: r.color,
             icon: r.icon,
             imagePath: r.imagePath,
+            modelPath: r.modelPath,
             emoji: r.emoji,
             suggested: r.suggested,
             locked: r.locked,
@@ -345,6 +363,7 @@ class _RegionInfo {
     required this.emoji,
     required this.route,
     this.imagePath,
+    this.modelPath,
     this.suggested = false,
     // ignore: unused_element_parameter
     this.locked = false,
@@ -357,6 +376,7 @@ class _RegionInfo {
   final Color color;
   final IconData icon;
   final String? imagePath;
+  final String? modelPath;
   final String emoji;
   final String route;
   final bool suggested;
@@ -484,8 +504,7 @@ class _ScrollDots extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final activeIdx =
-        (ratio * (dotCount - 1)).round().clamp(0, dotCount - 1);
+    final activeIdx = (ratio * (dotCount - 1)).round().clamp(0, dotCount - 1);
 
     return Positioned(
       top: topPad + 8,
@@ -508,9 +527,7 @@ class _ScrollDots extends StatelessWidget {
                 height: 6,
                 margin: const EdgeInsets.symmetric(horizontal: 2.5),
                 decoration: BoxDecoration(
-                  color: isActive
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: .55),
+                  color: isActive ? Colors.white : Colors.white.withValues(alpha: .55),
                   borderRadius: BorderRadius.circular(4),
                 ),
               );
@@ -767,6 +784,7 @@ class _IslandBlobPainter extends CustomPainter {
     base = Path.combine(PathOperation.union, base, _colorsPath());
     base = Path.combine(PathOperation.union, base, _visionPath());
     base = Path.combine(PathOperation.union, base, _bossPath());
+    // 3D Hayvanlar adası — ana kıtadan ayrı, bağımsız ada
     return base;
   }
 
@@ -777,6 +795,7 @@ class _IslandBlobPainter extends CustomPainter {
 
     // ── 1. Birleşik Kıta Sığ Su Mercan Halesi ve Derin Gölgesi ──────────────
     final continent = _buildConnectedContinent();
+    final animalsIsland = _animalsIslandPath();
 
     // Derin deniz gölgesi
     canvas.save();
@@ -797,6 +816,16 @@ class _IslandBlobPainter extends CustomPainter {
         ..strokeWidth = 26
         ..strokeJoin = StrokeJoin.round
         ..color = const Color(0x665FD3DC),
+    );
+
+    // ── Hayvanlar adası sığ su çemberi ───────────────────────────────────
+    canvas.drawPath(
+      animalsIsland,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 22
+        ..strokeJoin = StrokeJoin.round
+        ..color = const Color(0x6659D4A0),
     );
 
     // ── 2. Birleşik Altın Kumsal / Sahil Katmanı ────────────────────────────
@@ -823,29 +852,90 @@ class _IslandBlobPainter extends CustomPainter {
     _drawMysteryIsland(canvas, _mysteryPath1());
 
     // ── 4. Tematik Bölge Platoları (Kıta üzerindeki renkli tepeler) ──────────
-    _drawBiomePlateau(canvas, _numbersPath(),
-        IslandColors.tintNumbers, IslandColors.numbersDk, false);
-    _drawBiomePlateau(canvas, _lettersPath(),
-        IslandColors.tintLetters, IslandColors.lettersDk, false);
-    _drawBiomePlateau(canvas, _shapesPath(),
-        IslandColors.tintShapes, IslandColors.shapesDk, false);
-    _drawBiomePlateau(canvas, _wordsPath(),
-        IslandColors.tintWords, IslandColors.wordsDk, false);
-    _drawBiomePlateau(canvas, _colorsPath(),
-        IslandColors.tintColors, IslandColors.colorsDk, false);
-    _drawBiomePlateau(canvas, _visionPath(),
-        IslandColors.tintVision, IslandColors.visionDk, false);
-    _drawBiomePlateau(canvas, _bossPath(),
-        IslandColors.tintBoss, IslandColors.bossDk, false);
+    _drawBiomePlateau(
+        canvas, _numbersPath(), IslandColors.tintNumbers, IslandColors.numbersDk, false);
+    _drawBiomePlateau(
+        canvas, _lettersPath(), IslandColors.tintLetters, IslandColors.lettersDk, false);
+    _drawBiomePlateau(canvas, _shapesPath(), IslandColors.tintShapes, IslandColors.shapesDk, false);
+    _drawBiomePlateau(canvas, _wordsPath(), IslandColors.tintWords, IslandColors.wordsDk, false);
+    _drawBiomePlateau(canvas, _colorsPath(), IslandColors.tintColors, IslandColors.colorsDk, false);
+    _drawBiomePlateau(canvas, _visionPath(), IslandColors.tintVision, IslandColors.visionDk, false);
+    _drawBiomePlateau(canvas, _bossPath(), IslandColors.tintBoss, IslandColors.bossDk, false);
 
     // ── 5. Gizem adası (sağ alt) ────────────────────────────────────────
     _drawMysteryIsland(canvas, _mysteryPath2());
 
+    // ── 6. 3D Hayvanlar adası ─────────────────────────────────────────────
+    _drawAnimalsIsland(canvas, animalsIsland);
+
     canvas.restore();
   }
 
-  void _drawBiomePlateau(Canvas canvas, Path path,
-      Color topColor, Color bottomColor, bool locked) {
+  void _drawAnimalsIsland(Canvas canvas, Path path) {
+    final bounds = path.getBounds();
+
+    // Gölge
+    canvas.save();
+    canvas.translate(0, 10);
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = IslandColors.ink.withValues(alpha: .30)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12),
+    );
+    canvas.restore();
+
+    // Sığ su halkası (yeşil mercan)
+    canvas.drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 22
+        ..color = IslandColors.animals.withValues(alpha: .25),
+    );
+
+    // Kum tabanı
+    canvas.drawPath(
+      path,
+      Paint()
+        ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [IslandColors.sand, IslandColors.sandDk],
+        ).createShader(bounds),
+    );
+    canvas.drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 5
+        ..color = const Color(0xFFCBAA6A),
+    );
+
+    // Yeşil yayla tabakası
+    _drawBiomePlateau(canvas, path, IslandColors.tintAnimals, IslandColors.animals, false);
+
+    // Ada ismi
+    final center = bounds.center;
+    final tp = TextPainter(
+      text: TextSpan(
+        text: '🦁 3D Hayvanlar',
+        style: const TextStyle(
+          fontWeight: FontWeight.w800,
+          fontSize: 14,
+          color: Color(0xFF1A4731),
+          shadows: [Shadow(color: Colors.white54, blurRadius: 3)],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    tp.paint(
+      canvas,
+      Offset(center.dx - tp.width / 2, center.dy - tp.height / 2),
+    );
+  }
+
+  void _drawBiomePlateau(Canvas canvas, Path path, Color topColor, Color bottomColor, bool locked) {
     final bounds = path.getBounds();
 
     // Plato gölgesi — kum katmanının üstünde 3D yükseltilmiş hissi verir
@@ -864,9 +954,7 @@ class _IslandBlobPainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
-        colors: locked
-            ? [_greyed(topColor), _greyed(bottomColor)]
-            : [topColor, bottomColor],
+        colors: locked ? [_greyed(topColor), _greyed(bottomColor)] : [topColor, bottomColor],
       ).createShader(bounds);
     if (locked) {
       fillPaint.color = fillPaint.color.withValues(alpha: .72);
@@ -879,9 +967,8 @@ class _IslandBlobPainter extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3.5
-        ..color = locked
-            ? Colors.white.withValues(alpha: .22)
-            : Colors.white.withValues(alpha: .45),
+        ..color =
+            locked ? Colors.white.withValues(alpha: .22) : Colors.white.withValues(alpha: .45),
     );
   }
 
@@ -978,18 +1065,14 @@ class _TrailPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final path = Path()
       ..moveTo(150 * scale, 455 * scale)
-      ..cubicTo(187.3 * scale, 473.3 * scale,
-          298.3 * scale, 570 * scale, 374 * scale, 565 * scale)
-      ..cubicTo(449.7 * scale, 560 * scale,
-          526.3 * scale, 425 * scale, 604 * scale, 425 * scale)
-      ..cubicTo(681.7 * scale, 425 * scale,
-          761.3 * scale, 565 * scale, 840 * scale, 565 * scale)
-      ..cubicTo(918.7 * scale, 565 * scale,
-          996.3 * scale, 425 * scale, 1076 * scale, 425 * scale)
-      ..cubicTo(1155.7 * scale, 425 * scale,
-          1230.7 * scale, 557.5 * scale, 1318 * scale, 565 * scale)
-      ..cubicTo(1405.3 * scale, 572.5 * scale,
-          1553 * scale, 485.8 * scale, 1600 * scale, 470 * scale);
+      ..cubicTo(187.3 * scale, 473.3 * scale, 298.3 * scale, 570 * scale, 374 * scale, 565 * scale)
+      ..cubicTo(449.7 * scale, 560 * scale, 526.3 * scale, 425 * scale, 604 * scale, 425 * scale)
+      ..cubicTo(681.7 * scale, 425 * scale, 761.3 * scale, 565 * scale, 840 * scale, 565 * scale)
+      ..cubicTo(918.7 * scale, 565 * scale, 996.3 * scale, 425 * scale, 1076 * scale, 425 * scale)
+      ..cubicTo(
+          1155.7 * scale, 425 * scale, 1230.7 * scale, 557.5 * scale, 1318 * scale, 565 * scale)
+      ..cubicTo(
+          1405.3 * scale, 572.5 * scale, 1553 * scale, 485.8 * scale, 1600 * scale, 470 * scale);
 
     // 1. Patika Alt Gölgesi
     canvas.save();
@@ -1170,4 +1253,19 @@ Path _mysteryPath2() => Path()
   ..cubicTo(1783.7, 722, 1765.1, 753.2, 1749.3, 764.7)
   ..cubicTo(1733.5, 776.2, 1705.7, 775.7, 1686.8, 773.2)
   ..cubicTo(1667.9, 770.7, 1648.8, 762.3, 1636, 749.5)
+  ..close();
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 3D Hayvanlar Adası — bağımsız küçük ada (sağ üst)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+Path _animalsIslandPath() => Path()
+  ..moveTo(550, 90)
+  ..cubicTo(590, 60, 650, 65, 680, 100)
+  ..cubicTo(710, 135, 710, 185, 700, 220)
+  ..cubicTo(690, 255, 670, 285, 645, 310)
+  ..cubicTo(620, 335, 585, 365, 550, 360)
+  ..cubicTo(515, 355, 480, 320, 460, 285)
+  ..cubicTo(440, 250, 430, 200, 440, 165)
+  ..cubicTo(450, 130, 510, 120, 550, 90)
   ..close();

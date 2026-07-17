@@ -149,5 +149,57 @@
   "drawSemanticPenColorOrange": "Orange pen color",
   "@drawSemanticPenColorOrange": {
     "description": "l10n: drawSemanticPenColorOrange"
+  },
+  "drawAdLabel": "Ad",
+  "@drawAdLabel": {
+    "description": "l10n: drawAdLabel"
+  },
+  "drawPredictionResult": "Prediction Result:",
+  "@drawPredictionResult": {
+    "description": "l10n: drawPredictionResult"
+  },
+  "drawRedraw": "Redraw",
+  "@drawRedraw": {
+    "description": "l10n: drawRedraw"
+  },
+  "drawIdentifying": "Identifying...",
+  "@drawIdentifying": {
+    "description": "l10n: drawIdentifying"
+  },
+  "drawCongratulations": "Congratulations!",
+  "@drawCongratulations": {
+    "description": "l10n: drawCongratulations"
+  },
+  "drawAllBalloonsPopped": "You popped all the balloons!",
+  "@drawAllBalloonsPopped": {
+    "description": "l10n: drawAllBalloonsPopped"
+  },
+  "drawBalloonsPreparing": "Balloons preparing...",
+  "@drawBalloonsPreparing": {
+    "description": "l10n: drawBalloonsPreparing"
+  },
+  "drawNoBalloonsYet": "No balloons yet. Start drawing!",
+  "@drawNoBalloonsYet": {
+    "description": "l10n: drawNoBalloonsYet"
+  },
+  "drawStartBalloonGameByDrawing": "Draw to start!",
+  "@drawStartBalloonGameByDrawing": {
+    "description": "l10n: drawStartBalloonGameByDrawing"
+  },
+  "drawScore": "Score:",
+  "@drawScore": {
+    "description": "l10n: drawScore"
+  },
+  "drawBalloonCount": "Balloons:",
+  "@drawBalloonCount": {
+    "description": "l10n: drawBalloonCount"
+  },
+  "drawLevel": "Level:",
+  "@drawLevel": {
+    "description": "l10n: drawLevel"
+  },
+  "drawTimeLeft": "Time Left:",
+  "@drawTimeLeft": {
+    "description": "l10n: drawTimeLeft"
   }
 }

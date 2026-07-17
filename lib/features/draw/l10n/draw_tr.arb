@@ -149,5 +149,57 @@
   "drawSemanticPenColorOrange": "Turuncu kalem rengi",
   "@drawSemanticPenColorOrange": {
     "description": "l10n: drawSemanticPenColorOrange"
+  },
+  "drawAdLabel": "Reklam",
+  "@drawAdLabel": {
+    "description": "l10n: drawAdLabel"
+  },
+  "drawPredictionResult": "Tahmin Sonucu:",
+  "@drawPredictionResult": {
+    "description": "l10n: drawPredictionResult"
+  },
+  "drawRedraw": "Yeniden Çiz",
+  "@drawRedraw": {
+    "description": "l10n: drawRedraw"
+  },
+  "drawIdentifying": "Tanımlanıyor...",
+  "@drawIdentifying": {
+    "description": "l10n: drawIdentifying"
+  },
+  "drawCongratulations": "Tebrikler!",
+  "@drawCongratulations": {
+    "description": "l10n: drawCongratulations"
+  },
+  "drawAllBalloonsPopped": "Tüm balonları patlattın!",
+  "@drawAllBalloonsPopped": {
+    "description": "l10n: drawAllBalloonsPopped"
+  },
+  "drawBalloonsPreparing": "Balonlar hazırlanıyor...",
+  "@drawBalloonsPreparing": {
+    "description": "l10n: drawBalloonsPreparing"
+  },
+  "drawNoBalloonsYet": "Henüz balon yok. Çizmeye başla!",
+  "@drawNoBalloonsYet": {
+    "description": "l10n: drawNoBalloonsYet"
+  },
+  "drawStartBalloonGameByDrawing": "Başlamak için çiz!",
+  "@drawStartBalloonGameByDrawing": {
+    "description": "l10n: drawStartBalloonGameByDrawing"
+  },
+  "drawScore": "Puan:",
+  "@drawScore": {
+    "description": "l10n: drawScore"
+  },
+  "drawBalloonCount": "Balon:",
+  "@drawBalloonCount": {
+    "description": "l10n: drawBalloonCount"
+  },
+  "drawLevel": "Seviye:",
+  "@drawLevel": {
+    "description": "l10n: drawLevel"
+  },
+  "drawTimeLeft": "Kalan Süre:",
+  "@drawTimeLeft": {
+    "description": "l10n: drawTimeLeft"
   }
 }

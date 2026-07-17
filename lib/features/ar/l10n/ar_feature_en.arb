@@ -1,0 +1,57 @@
+{
+  "@@locale": "en",
+
+  "arAnimalsExplore": "Explore Animals",
+  "arAnimalsQuizMode": "Switch to Quiz Mode",
+  "arAnimals3dDesc": "Explore animals in 3D\nand play a fun quiz!",
+  "arAnimalsView3d": "View 3D →",
+  "arAnimalsInstruction": "👆 Drag to rotate  •  📦 Tap bottom right button for AR",
+
+  "arViewerDragInstruction": "👆 Drag to rotate!\n📦 Tap the bottom right button to view in your room.",
+  "arViewerNoModelTitle": "No 3D model yet\nfor the letter \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "Coming soon! 🎉",
+
+  "arModelNameAt": "Horse",
+  "arModelNameBalik": "Fish",
+  "arModelNameCivciv": "Chick",
+  "arModelNameCicek": "Flower",
+  "arModelNameDomuz": "Pig",
+  "arModelNameElma": "Apple",
+  "arModelNameFil": "Elephant",
+  "arModelNameGemi": "Ship",
+  "arModelNameGunes": "Sun",
+  "arModelNameHoroz": "Rooster",
+  "arModelNameIrgatci": "Farmer",
+  "arModelNameInek": "Cow",
+  "arModelNameJaguar": "Jaguar",
+  "arModelNameKedi": "Cat",
+  "arModelNameLimon": "Lemon",
+  "arModelNameMuz": "Banana",
+  "arModelNameNar": "Pomegranate",
+  "arModelNameOrdek": "Duck",
+  "arModelNamePanda": "Panda",
+  "arModelNameRobot": "Robot",
+  "arModelNameSincap": "Squirrel",
+  "arModelNameSampinyon": "Mushroom",
+  "arModelNameTavuk": "Chicken",
+  "arModelNameUzayli": "Alien",
+  "arModelNameUzum": "Grapes",
+  "arModelNameVagon": "Wagon",
+  "arModelNameYildiz": "Star",
+  "arModelNameZurafa": "Giraffe",
+
+  "arFactAt": "Horses can run up to 70 km/h!",
+  "arFactBalik": "Fish can breathe underwater!",
+  "arFactCivciv": "Chicks can walk immediately after hatching!",
+  "arFactDomuz": "Pigs are very intelligent animals!",
+  "arFactKedi": "Cats can sleep for 16 hours a day!",
+  "arFactElma": "Apple trees can live for 100 years!"
+}

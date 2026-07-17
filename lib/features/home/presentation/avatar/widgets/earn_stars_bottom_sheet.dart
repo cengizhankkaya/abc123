@@ -7,6 +7,7 @@ import 'package:abc123/features/home/presentation/providers/gamification_provide
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 /// Kullanıcının yeterli yıldızı olmadığında gösterilen bottom sheet.
 ///
@@ -171,10 +172,8 @@ class _WatchAdButton extends StatelessWidget {
               final success = await gam.buyAvatarItem(attributeKey, index);
               if (success && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      '✨ Harika! Yeterli yıldıza ulaşıldı ve seçenek otomatik satın alındı!',
-                    ),
+                  SnackBar(
+                    content: Text(context.homeL10n!.avatarAutoBought),
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.green,
                   ),
@@ -188,8 +187,8 @@ class _WatchAdButton extends StatelessWidget {
           onAdNotReady: () {
             if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('⏳ Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.'),
+              SnackBar(
+                content: Text(context.homeL10n!.avatarAdLoadingWait),
                 behavior: SnackBarBehavior.floating,
               ),
             );

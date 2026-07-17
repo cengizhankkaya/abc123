@@ -110,4 +110,43 @@ class DrawLocalizationsTr extends DrawLocalizations {
 
   @override
   String get drawSemanticPenColorOrange => 'Turuncu kalem rengi';
+
+  @override
+  String get drawAdLabel => 'Reklam';
+
+  @override
+  String get drawPredictionResult => 'Tahmin Sonucu:';
+
+  @override
+  String get drawRedraw => 'Yeniden Çiz';
+
+  @override
+  String get drawIdentifying => 'Tanımlanıyor...';
+
+  @override
+  String get drawCongratulations => 'Tebrikler!';
+
+  @override
+  String get drawAllBalloonsPopped => 'Tüm balonları patlattın!';
+
+  @override
+  String get drawBalloonsPreparing => 'Balonlar hazırlanıyor...';
+
+  @override
+  String get drawNoBalloonsYet => 'Henüz balon yok. Çizmeye başla!';
+
+  @override
+  String get drawStartBalloonGameByDrawing => 'Başlamak için çiz!';
+
+  @override
+  String get drawScore => 'Puan:';
+
+  @override
+  String get drawBalloonCount => 'Balon:';
+
+  @override
+  String get drawLevel => 'Seviye:';
+
+  @override
+  String get drawTimeLeft => 'Kalan Süre:';
 }

@@ -68,5 +68,8 @@
   "colorVisionProfileMixed": "Her iki levha türü de zordu. Parlaklık, gece modu veya yorgunluk sonucu etkileyebilir. İyi ışıkta yeniden dene.",
   "colorVisionProfileInconclusive": "Net bir desen çıkmadı — parlak ekranda, kol mesafesinde yeniden dene.",
   "colorVisionScoreRgLine": "Kırmızı–yeşil tarzı: {correct} / {total}",
-  "colorVisionScoreByLine": "Mavi–sarı tarzı: {correct} / {total}"
+  "colorVisionScoreByLine": "Mavi–sarı tarzı: {correct} / {total}",
+  "colorFailureLoad": "Oyun yüklenemedi. Lütfen tekrar deneyin.",
+  "colorFailurePalette": "Renk paleti alınamadı.",
+  "colorFailureUnknown": "Beklenmeyen bir hata oluştu."
 }

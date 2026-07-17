@@ -240,4 +240,14 @@ class ColorsLocalizationsDe extends ColorsLocalizations {
   String colorVisionScoreByLine(int correct, int total) {
     return 'Blue–yellow style: $correct / $total';
   }
+
+  @override
+  String get colorFailureLoad =>
+      'Spiel konnte nicht geladen werden. Bitte versuchen Sie es erneut.';
+
+  @override
+  String get colorFailurePalette => 'Farbpalette konnte nicht abgerufen werden.';
+
+  @override
+  String get colorFailureUnknown => 'Ein unerwarteter Fehler ist aufgetreten.';
 }

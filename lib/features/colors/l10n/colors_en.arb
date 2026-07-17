@@ -361,5 +361,8 @@
         "example": "4"
       }
     }
-  }
+  },
+  "colorFailureLoad": "Game could not be loaded. Please try again.",
+  "colorFailurePalette": "Could not fetch color palette.",
+  "colorFailureUnknown": "An unexpected error occurred."
 }

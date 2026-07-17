@@ -1191,6 +1191,78 @@ abstract class HomeLocalizations {
   /// In en, this message translates to:
   /// **'Practicing complex operations'**
   String get mathAdvancedSubtitle;
+
+  /// l10n: animals3dTitle
+  ///
+  /// In en, this message translates to:
+  /// **'3D Animals'**
+  String get animals3dTitle;
+
+  /// l10n: animals3dSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'AR Animal Experience'**
+  String get animals3dSubtitle;
+
+  /// l10n: avatarSavedSuccessfully
+  ///
+  /// In en, this message translates to:
+  /// **'Avatar saved successfully!'**
+  String get avatarSavedSuccessfully;
+
+  /// l10n: avatarAdLoadingWait
+  ///
+  /// In en, this message translates to:
+  /// **'⏳ Ad is loading; please try again in a few seconds.'**
+  String get avatarAdLoadingWait;
+
+  /// l10n: avatarSaveBtn
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get avatarSaveBtn;
+
+  /// l10n: avatarItemBought
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Great! The option was successfully purchased and unlocked!'**
+  String get avatarItemBought;
+
+  /// l10n: avatarBuyConfirmation
+  ///
+  /// In en, this message translates to:
+  /// **'Use {price} Stars ⭐️ to permanently unlock this great option?\\n'**
+  String avatarBuyConfirmation(int price);
+
+  /// l10n: avatarBuyWithStars
+  ///
+  /// In en, this message translates to:
+  /// **'{price} ⭐️ Buy'**
+  String avatarBuyWithStars(int price);
+
+  /// l10n: avatarAutoBought
+  ///
+  /// In en, this message translates to:
+  /// **'✨ Great! Reached enough stars and the option was automatically purchased!'**
+  String get avatarAutoBought;
+
+  /// l10n: avatarDesignTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Design Your Avatar'**
+  String get avatarDesignTitle;
+
+  /// l10n: avatarDesignSubtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Selected item is applied instantly.'**
+  String get avatarDesignSubtitle;
+
+  /// l10n: avatarEarnedStars
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 +{earned} Stars earned! (Total: {total} ⭐️)'**
+  String avatarEarnedStars(String earned, int total);
 }
 
 class _HomeLocalizationsDelegate extends LocalizationsDelegate<HomeLocalizations> {

@@ -36,6 +36,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final h = context.homeL10n!;
     final rewardedAdsEnabled =
         getIt<IFeatureFlagService>().isEnabled(FeatureFlag.rewardedAdsEnabled);
 
@@ -52,8 +53,8 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
               onWatchAd: () => _watchAdForPoints(context),
               onSave: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Avatarınız başarıyla kaydedildi!'),
+                  SnackBar(
+                    content: Text(h.avatarSavedSuccessfully),
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: HomeDesignTokens.lettersCard,
                   ),
@@ -104,10 +105,11 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
       onReward: (amount) {
         const earned = 5;
         unawaited(context.read<GamificationProvider>().addPoints(earned));
+        final total = context.read<GamificationProvider>().points;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '🎉 +$earned Yıldız kazandın! (Toplam: ${context.read<GamificationProvider>().points} ⭐️)',
+              context.homeL10n!.avatarEarnedStars(earned.toString(), total),
             ),
             backgroundColor: HomeDesignTokens.lettersCard,
           ),
@@ -115,7 +117,7 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
       },
       onAdNotReady: () {
         final msg = AppLocalizations.of(context)?.adLoadFailedRetry ??
-            'Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.';
+            context.homeL10n!.avatarAdLoadingWait;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(msg)),
         );
@@ -173,7 +175,7 @@ class _AvatarDashboardCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Avatarını Tasarla',
+                  h.avatarDesignTitle,
                   style: HomeDesignTokens.cardTitle(color: HomeDesignTokens.darkText).copyWith(
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
@@ -181,7 +183,7 @@ class _AvatarDashboardCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 3),
                 Text(
-                  'Seçtiğin parça anında uygulanır.',
+                  h.avatarDesignSubtitle,
                   style: HomeDesignTokens.cardSubtitle(color: HomeDesignTokens.mutedText).copyWith(
                     fontSize: 11,
                   ),
@@ -243,14 +245,14 @@ class _AvatarDashboardCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.save_rounded, color: HomeDesignTokens.darkText, size: 16),
-                            SizedBox(width: 5),
+                            const Icon(Icons.save_rounded, color: HomeDesignTokens.darkText, size: 16),
+                            const SizedBox(width: 5),
                             Text(
-                              'Kaydet',
-                              style: TextStyle(
+                              h.avatarSaveBtn,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w800,
                                 color: HomeDesignTokens.darkText,
                                 fontSize: 13,

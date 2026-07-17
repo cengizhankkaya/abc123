@@ -17,6 +17,7 @@ import 'package:abc123/features/info/presentation/models/result_screen_data.dart
 import 'package:abc123/features/info/presentation/pages/info_screen.dart';
 import 'package:abc123/features/info/presentation/pages/result_screen.dart';
 import 'package:abc123/features/ar/presentation/pages/ar_viewer_screen.dart';
+import 'package:abc123/features/ar/presentation/pages/animals_3d_game_screen.dart';
 import 'package:abc123/features/letters/presentation/pages/letter_draw_screen.dart';
 import 'package:abc123/features/numbers_advanced/presentation/pages/math_hub_screen.dart';
 import 'package:abc123/features/numbers_advanced/presentation/pages/multi_digit_draw_screen.dart';

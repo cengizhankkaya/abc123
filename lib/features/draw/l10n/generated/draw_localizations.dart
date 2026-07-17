@@ -309,6 +309,84 @@ abstract class DrawLocalizations {
   /// In en, this message translates to:
   /// **'Orange pen color'**
   String get drawSemanticPenColorOrange;
+
+  /// l10n: drawAdLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Ad'**
+  String get drawAdLabel;
+
+  /// l10n: drawPredictionResult
+  ///
+  /// In en, this message translates to:
+  /// **'Prediction Result:'**
+  String get drawPredictionResult;
+
+  /// l10n: drawRedraw
+  ///
+  /// In en, this message translates to:
+  /// **'Redraw'**
+  String get drawRedraw;
+
+  /// l10n: drawIdentifying
+  ///
+  /// In en, this message translates to:
+  /// **'Identifying...'**
+  String get drawIdentifying;
+
+  /// l10n: drawCongratulations
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations!'**
+  String get drawCongratulations;
+
+  /// l10n: drawAllBalloonsPopped
+  ///
+  /// In en, this message translates to:
+  /// **'You popped all the balloons!'**
+  String get drawAllBalloonsPopped;
+
+  /// l10n: drawBalloonsPreparing
+  ///
+  /// In en, this message translates to:
+  /// **'Balloons preparing...'**
+  String get drawBalloonsPreparing;
+
+  /// l10n: drawNoBalloonsYet
+  ///
+  /// In en, this message translates to:
+  /// **'No balloons yet. Start drawing!'**
+  String get drawNoBalloonsYet;
+
+  /// l10n: drawStartBalloonGameByDrawing
+  ///
+  /// In en, this message translates to:
+  /// **'Draw to start!'**
+  String get drawStartBalloonGameByDrawing;
+
+  /// l10n: drawScore
+  ///
+  /// In en, this message translates to:
+  /// **'Score:'**
+  String get drawScore;
+
+  /// l10n: drawBalloonCount
+  ///
+  /// In en, this message translates to:
+  /// **'Balloons:'**
+  String get drawBalloonCount;
+
+  /// l10n: drawLevel
+  ///
+  /// In en, this message translates to:
+  /// **'Level:'**
+  String get drawLevel;
+
+  /// l10n: drawTimeLeft
+  ///
+  /// In en, this message translates to:
+  /// **'Time Left:'**
+  String get drawTimeLeft;
 }
 
 class _DrawLocalizationsDelegate extends LocalizationsDelegate<DrawLocalizations> {

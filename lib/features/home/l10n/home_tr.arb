@@ -833,5 +833,75 @@
   "mathAdvancedSubtitle": "Karmaşık işlemleri pratik yap",
   "@mathAdvancedSubtitle": {
     "description": "l10n: mathAdvancedSubtitle"
+  },
+  "animals3dTitle": "3B Hayvanlar",
+  "@animals3dTitle": {
+    "description": "l10n: animals3dTitle"
+  },
+  "animals3dSubtitle": "AR Hayvan Deneyimi",
+  "@animals3dSubtitle": {
+    "description": "l10n: animals3dSubtitle"
+  },
+  "avatarSavedSuccessfully": "Avatarınız başarıyla kaydedildi!",
+  "@avatarSavedSuccessfully": {
+    "description": "l10n: avatarSavedSuccessfully"
+  },
+  "avatarAdLoadingWait": "⏳ Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.",
+  "@avatarAdLoadingWait": {
+    "description": "l10n: avatarAdLoadingWait"
+  },
+  "avatarSaveBtn": "Kaydet",
+  "@avatarSaveBtn": {
+    "description": "l10n: avatarSaveBtn"
+  },
+  "avatarItemBought": "🎉 Harika! Seçenek başarıyla satın alındı ve açıldı!",
+  "@avatarItemBought": {
+    "description": "l10n: avatarItemBought"
+  },
+  "avatarBuyConfirmation": "Bu harika seçeneği kalıcı olarak açmak için {price} Yıldız ⭐️ kullanılsın mı?\\n",
+  "@avatarBuyConfirmation": {
+    "description": "l10n: avatarBuyConfirmation",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "avatarBuyWithStars": "{price} ⭐️ Satın Al",
+  "@avatarBuyWithStars": {
+    "description": "l10n: avatarBuyWithStars",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "avatarAutoBought": "✨ Harika! Yeterli yıldıza ulaşıldı ve seçenek otomatik satın alındı!",
+  "@avatarAutoBought": {
+    "description": "l10n: avatarAutoBought"
+  },
+  "avatarDesignTitle": "Avatarını Tasarla",
+  "@avatarDesignTitle": {
+    "description": "l10n: avatarDesignTitle"
+  },
+  "avatarDesignSubtitle": "Seçtiğin parça anında uygulanır.",
+  "@avatarDesignSubtitle": {
+    "description": "l10n: avatarDesignSubtitle"
+  },
+  "avatarEarnedStars": "🎉 +{earned} Yıldız kazandın! (Toplam: {total} ⭐️)",
+  "@avatarEarnedStars": {
+    "description": "l10n: avatarEarnedStars",
+    "placeholders": {
+      "earned": {
+        "type": "String",
+        "example": "earned"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
   }
 }

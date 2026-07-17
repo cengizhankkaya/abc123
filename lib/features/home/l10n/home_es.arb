@@ -833,5 +833,75 @@
   "mathAdvancedSubtitle": "Practicing complex operations",
   "@mathAdvancedSubtitle": {
     "description": "l10n: mathAdvancedSubtitle"
+  },
+  "animals3dTitle": "3D Animals",
+  "@animals3dTitle": {
+    "description": "l10n: animals3dTitle"
+  },
+  "animals3dSubtitle": "AR Animal Experience",
+  "@animals3dSubtitle": {
+    "description": "l10n: animals3dSubtitle"
+  },
+  "avatarSavedSuccessfully": "Avatar saved successfully!",
+  "@avatarSavedSuccessfully": {
+    "description": "l10n: avatarSavedSuccessfully"
+  },
+  "avatarAdLoadingWait": "⏳ Ad is loading; please try again in a few seconds.",
+  "@avatarAdLoadingWait": {
+    "description": "l10n: avatarAdLoadingWait"
+  },
+  "avatarSaveBtn": "Save",
+  "@avatarSaveBtn": {
+    "description": "l10n: avatarSaveBtn"
+  },
+  "avatarItemBought": "🎉 Great! The option was successfully purchased and unlocked!",
+  "@avatarItemBought": {
+    "description": "l10n: avatarItemBought"
+  },
+  "avatarBuyConfirmation": "Use {price} Stars ⭐️ to permanently unlock this great option?\\n",
+  "@avatarBuyConfirmation": {
+    "description": "l10n: avatarBuyConfirmation",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "avatarBuyWithStars": "{price} ⭐️ Buy",
+  "@avatarBuyWithStars": {
+    "description": "l10n: avatarBuyWithStars",
+    "placeholders": {
+      "price": {
+        "type": "int",
+        "example": "1"
+      }
+    }
+  },
+  "avatarAutoBought": "✨ Great! Reached enough stars and the option was automatically purchased!",
+  "@avatarAutoBought": {
+    "description": "l10n: avatarAutoBought"
+  },
+  "avatarDesignTitle": "Design Your Avatar",
+  "@avatarDesignTitle": {
+    "description": "l10n: avatarDesignTitle"
+  },
+  "avatarDesignSubtitle": "Selected item is applied instantly.",
+  "@avatarDesignSubtitle": {
+    "description": "l10n: avatarDesignSubtitle"
+  },
+  "avatarEarnedStars": "🎉 +{earned} Stars earned! (Total: {total} ⭐️)",
+  "@avatarEarnedStars": {
+    "description": "l10n: avatarEarnedStars",
+    "placeholders": {
+      "earned": {
+        "type": "String",
+        "example": "earned"
+      },
+      "total": {
+        "type": "int",
+        "example": "1"
+      }
+    }
   }
 }

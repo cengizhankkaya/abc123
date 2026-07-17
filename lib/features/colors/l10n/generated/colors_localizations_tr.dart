@@ -240,4 +240,13 @@ class ColorsLocalizationsTr extends ColorsLocalizations {
   String colorVisionScoreByLine(int correct, int total) {
     return 'Mavi–sarı tarzı: $correct / $total';
   }
+
+  @override
+  String get colorFailureLoad => 'Oyun yüklenemedi. Lütfen tekrar deneyin.';
+
+  @override
+  String get colorFailurePalette => 'Renk paleti alınamadı.';
+
+  @override
+  String get colorFailureUnknown => 'Beklenmeyen bir hata oluştu.';
 }

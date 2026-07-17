@@ -233,6 +233,23 @@ Map<String, String> _homeForLang(AppLanguage lang) {
     en: 'Practicing complex operations',
     tr: 'Karmaşık işlemleri pratik yap',
   );
+  out['animals3dTitle'] = t(en: '3D Animals', tr: '3B Hayvanlar');
+  out['animals3dSubtitle'] = t(
+    en: 'AR Animal Experience',
+    tr: 'AR Hayvan Deneyimi',
+  );
+
+  out['avatarSavedSuccessfully'] = t(en: 'Avatar saved successfully!', tr: 'Avatarınız başarıyla kaydedildi!');
+  out['avatarAdLoadingWait'] = t(en: '⏳ Ad is loading; please try again in a few seconds.', tr: '⏳ Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.');
+  out['avatarSaveBtn'] = t(en: 'Save', tr: 'Kaydet');
+  out['avatarItemBought'] = t(en: '🎉 Great! The option was successfully purchased and unlocked!', tr: '🎉 Harika! Seçenek başarıyla satın alındı ve açıldı!');
+  out['avatarBuyConfirmation'] = t(en: 'Use {price} Stars ⭐️ to permanently unlock this great option?\\n', tr: 'Bu harika seçeneği kalıcı olarak açmak için {price} Yıldız ⭐️ kullanılsın mı?\\n');
+  out['avatarBuyWithStars'] = t(en: '{price} ⭐️ Buy', tr: '{price} ⭐️ Satın Al');
+  out['avatarAutoBought'] = t(en: '✨ Great! Reached enough stars and the option was automatically purchased!', tr: '✨ Harika! Yeterli yıldıza ulaşıldı ve seçenek otomatik satın alındı!');
+
+  out['avatarDesignTitle'] = t(en: 'Design Your Avatar', tr: 'Avatarını Tasarla');
+  out['avatarDesignSubtitle'] = t(en: 'Selected item is applied instantly.', tr: 'Seçtiğin parça anında uygulanır.');
+  out['avatarEarnedStars'] = t(en: '🎉 +{earned} Stars earned! (Total: {total} ⭐️)', tr: '🎉 +{earned} Yıldız kazandın! (Toplam: {total} ⭐️)');
 
   return out;
 }
@@ -300,6 +317,19 @@ Map<String, String> _drawForLang(AppLanguage lang) {
   out['drawSemanticPenColorGreen'] = a11y(en: 'Green pen color', tr: 'Yeşil kalem rengi');
   out['drawSemanticPenColorPurple'] = a11y(en: 'Purple pen color', tr: 'Mor kalem rengi');
   out['drawSemanticPenColorOrange'] = a11y(en: 'Orange pen color', tr: 'Turuncu kalem rengi');
+  out['drawAdLabel'] = a11y(en: 'Ad', tr: 'Reklam');
+  out['drawPredictionResult'] = a11y(en: 'Prediction Result:', tr: 'Tahmin Sonucu:');
+  out['drawRedraw'] = a11y(en: 'Redraw', tr: 'Yeniden Çiz');
+  out['drawIdentifying'] = a11y(en: 'Identifying...', tr: 'Tanımlanıyor...');
+  out['drawCongratulations'] = a11y(en: 'Congratulations!', tr: 'Tebrikler!');
+  out['drawAllBalloonsPopped'] = a11y(en: 'You popped all the balloons!', tr: 'Tüm balonları patlattın!');
+  out['drawBalloonsPreparing'] = a11y(en: 'Balloons preparing...', tr: 'Balonlar hazırlanıyor...');
+  out['drawNoBalloonsYet'] = a11y(en: 'No balloons yet. Start drawing!', tr: 'Henüz balon yok. Çizmeye başla!');
+  out['drawStartBalloonGameByDrawing'] = a11y(en: 'Draw to start!', tr: 'Başlamak için çiz!');
+  out['drawScore'] = a11y(en: 'Score:', tr: 'Puan:');
+  out['drawBalloonCount'] = a11y(en: 'Balloons:', tr: 'Balon:');
+  out['drawLevel'] = a11y(en: 'Level:', tr: 'Seviye:');
+  out['drawTimeLeft'] = a11y(en: 'Time Left:', tr: 'Kalan Süre:');
 
   return out;
 }

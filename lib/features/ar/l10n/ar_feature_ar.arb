@@ -1,0 +1,53 @@
+{
+  "@@locale": "ar",
+  "arAnimalsExplore": "اكتشف الحيوانات",
+  "arAnimalsQuizMode": "الانتقال إلى وضع الاختبار",
+  "arAnimals3dDesc": "اكتشف الحيوانات ثلاثية الأبعاد\nوالعب اختبارًا ممتعًا!",
+  "arAnimalsView3d": "عرض ثلاثي الأبعاد →",
+  "arAnimalsInstruction": "👆 اسحب للتدوير  •  📦 اضغط على الزر الأيمن السفلي للواقع المعزز",
+  "arViewerDragInstruction": "👆 اسحب للتدوير!\n📦 اضغط على الزر الأيمن السفلي لرؤيته في غرفتك.",
+  "arViewerNoModelTitle": "لا يوجد نموذج ثلاثي الأبعاد بعد\nللحرف \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "قريبًا! 🎉",
+  "arModelNameAt": "حصان",
+  "arModelNameBalik": "سمكة",
+  "arModelNameCivciv": "كتكوت",
+  "arModelNameCicek": "زهرة",
+  "arModelNameDomuz": "خنزير",
+  "arModelNameElma": "تفاحة",
+  "arModelNameFil": "فيل",
+  "arModelNameGemi": "سفينة",
+  "arModelNameGunes": "شمس",
+  "arModelNameHoroz": "ديك",
+  "arModelNameIrgatci": "مزارع",
+  "arModelNameInek": "بقرة",
+  "arModelNameJaguar": "جاكوار",
+  "arModelNameKedi": "قطة",
+  "arModelNameLimon": "ليمون",
+  "arModelNameMuz": "موز",
+  "arModelNameNar": "رمان",
+  "arModelNameOrdek": "بطة",
+  "arModelNamePanda": "باندا",
+  "arModelNameRobot": "روبوت",
+  "arModelNameSincap": "سنجاب",
+  "arModelNameSampinyon": "فطر",
+  "arModelNameTavuk": "دجاجة",
+  "arModelNameUzayli": "كائن فضائي",
+  "arModelNameUzum": "عنب",
+  "arModelNameVagon": "عربة",
+  "arModelNameYildiz": "نجمة",
+  "arModelNameZurafa": "زرافة",
+  "arFactAt": "يمكن للخيول الركض بسرعة تصل إلى 70 كم/ساعة!",
+  "arFactBalik": "يمكن للأسماك التنفس تحت الماء!",
+  "arFactCivciv": "يمكن للكتاكيت المشي فور الفقس!",
+  "arFactDomuz": "الخنازير حيوانات ذكية جدًا!",
+  "arFactKedi": "يمكن للقطط أن تنام لمدة 16 ساعة في اليوم!",
+  "arFactElma": "يمكن أن تعيش أشجار التفاح لمدة 100 عام!"
+}

@@ -111,4 +111,43 @@ class DrawLocalizationsFr extends DrawLocalizations {
 
   @override
   String get drawSemanticPenColorOrange => 'Orange pen color';
+
+  @override
+  String get drawAdLabel => 'Ad';
+
+  @override
+  String get drawPredictionResult => 'Prediction Result:';
+
+  @override
+  String get drawRedraw => 'Redraw';
+
+  @override
+  String get drawIdentifying => 'Identifying...';
+
+  @override
+  String get drawCongratulations => 'Congratulations!';
+
+  @override
+  String get drawAllBalloonsPopped => 'You popped all the balloons!';
+
+  @override
+  String get drawBalloonsPreparing => 'Balloons preparing...';
+
+  @override
+  String get drawNoBalloonsYet => 'No balloons yet. Start drawing!';
+
+  @override
+  String get drawStartBalloonGameByDrawing => 'Draw to start!';
+
+  @override
+  String get drawScore => 'Score:';
+
+  @override
+  String get drawBalloonCount => 'Balloons:';
+
+  @override
+  String get drawLevel => 'Level:';
+
+  @override
+  String get drawTimeLeft => 'Time Left:';
 }

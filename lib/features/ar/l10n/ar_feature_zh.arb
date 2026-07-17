@@ -1,0 +1,53 @@
+{
+  "@@locale": "zh",
+  "arAnimalsExplore": "探索动物",
+  "arAnimalsQuizMode": "切换到问答模式",
+  "arAnimals3dDesc": "在3D中探索动物\n并玩有趣的问答游戏！",
+  "arAnimalsView3d": "查看 3D →",
+  "arAnimalsInstruction": "👆 拖动以旋转  •  📦 点击右下角按钮以使用 AR",
+  "arViewerDragInstruction": "👆 拖动以旋转！\n📦 点击右下角按钮在您的房间里查看它。",
+  "arViewerNoModelTitle": "还没有字母 \"{letter}\" 的\n3D 模型",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "敬请期待！ 🎉",
+  "arModelNameAt": "马",
+  "arModelNameBalik": "鱼",
+  "arModelNameCivciv": "小鸡",
+  "arModelNameCicek": "花",
+  "arModelNameDomuz": "猪",
+  "arModelNameElma": "苹果",
+  "arModelNameFil": "大象",
+  "arModelNameGemi": "船",
+  "arModelNameGunes": "太阳",
+  "arModelNameHoroz": "公鸡",
+  "arModelNameIrgatci": "农民",
+  "arModelNameInek": "牛",
+  "arModelNameJaguar": "美洲豹",
+  "arModelNameKedi": "猫",
+  "arModelNameLimon": "柠檬",
+  "arModelNameMuz": "香蕉",
+  "arModelNameNar": "石榴",
+  "arModelNameOrdek": "鸭子",
+  "arModelNamePanda": "熊猫",
+  "arModelNameRobot": "机器人",
+  "arModelNameSincap": "松鼠",
+  "arModelNameSampinyon": "蘑菇",
+  "arModelNameTavuk": "鸡",
+  "arModelNameUzayli": "外星人",
+  "arModelNameUzum": "葡萄",
+  "arModelNameVagon": "车厢",
+  "arModelNameYildiz": "星星",
+  "arModelNameZurafa": "长颈鹿",
+  "arFactAt": "马的奔跑速度可达 70 公里/小时！",
+  "arFactBalik": "鱼可以在水下呼吸！",
+  "arFactCivciv": "小鸡孵化后可以立即行走！",
+  "arFactDomuz": "猪是非常聪明的动物！",
+  "arFactKedi": "猫一天可以睡 16 个小时！",
+  "arFactElma": "苹果树可以活 100 年！"
+}

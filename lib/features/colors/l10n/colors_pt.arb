@@ -68,5 +68,8 @@
   "colorVisionProfileMixed": "Both plate styles were difficult. Screen brightness, night mode, or tired eyes can change scores. Try again in good light.",
   "colorVisionProfileInconclusive": "No clear pattern — try again on a bright screen at arm’s length.",
   "colorVisionScoreRgLine": "Red–green style: {correct} / {total}",
-  "colorVisionScoreByLine": "Blue–yellow style: {correct} / {total}"
+  "colorVisionScoreByLine": "Blue–yellow style: {correct} / {total}",
+  "colorFailureLoad": "O jogo não pôde ser carregado. Por favor, tente novamente.",
+  "colorFailurePalette": "Não foi possível obter a paleta de cores.",
+  "colorFailureUnknown": "Ocorreu um erro inesperado."
 }

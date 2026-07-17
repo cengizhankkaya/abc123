@@ -1,0 +1,53 @@
+{
+  "@@locale": "ur",
+  "arAnimalsExplore": "جانور دریافت کریں",
+  "arAnimalsQuizMode": "کوئز موڈ میں جائیں",
+  "arAnimals3dDesc": "جانوروں کو 3D میں دریافت کریں\nاور ایک تفریحی کوئز کھیلیں!",
+  "arAnimalsView3d": "3D دیکھیں →",
+  "arAnimalsInstruction": "👆 گھمانے کے لیے کھینچیں  •  📦 AR کے لیے نیچے دائیں جانب تھپتھپائیں",
+  "arViewerDragInstruction": "👆 گھمانے کے لیے کھینچیں!\n📦 اسے اپنے کمرے میں دیکھنے کے لیے نیچے دائیں جانب کا بٹن دبائیں۔",
+  "arViewerNoModelTitle": "ابھی تک حرف \"{letter}\" کے لیے\nکوئی 3D ماڈل نہیں ہے",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "جلد آرہا ہے! 🎉",
+  "arModelNameAt": "گھوڑا",
+  "arModelNameBalik": "مچھلی",
+  "arModelNameCivciv": "چوزہ",
+  "arModelNameCicek": "پھول",
+  "arModelNameDomuz": "سور",
+  "arModelNameElma": "سیب",
+  "arModelNameFil": "ہاتھی",
+  "arModelNameGemi": "جہاز",
+  "arModelNameGunes": "سورج",
+  "arModelNameHoroz": "مرغا",
+  "arModelNameIrgatci": "کسان",
+  "arModelNameInek": "گائے",
+  "arModelNameJaguar": "جیگوار",
+  "arModelNameKedi": "بلی",
+  "arModelNameLimon": "لیمو",
+  "arModelNameMuz": "کیلا",
+  "arModelNameNar": "انار",
+  "arModelNameOrdek": "بطخ",
+  "arModelNamePanda": "پانڈا",
+  "arModelNameRobot": "روبوٹ",
+  "arModelNameSincap": "گلہری",
+  "arModelNameSampinyon": "کھمبی",
+  "arModelNameTavuk": "مرغی",
+  "arModelNameUzayli": "خلائی مخلوق",
+  "arModelNameUzum": "انگور",
+  "arModelNameVagon": "ویگن",
+  "arModelNameYildiz": "ستارہ",
+  "arModelNameZurafa": "زرافہ",
+  "arFactAt": "گھوڑے 70 کلومیٹر فی گھنٹہ کی رفتار سے دوڑ سکتے ہیں!",
+  "arFactBalik": "مچھلیاں پانی کے اندر سانس لے سکتی ہیں!",
+  "arFactCivciv": "چوزے انڈے سے نکلتے ہی چل سکتے ہیں!",
+  "arFactDomuz": "سور بہت ذہین جانور ہیں!",
+  "arFactKedi": "بلیاں دن میں 16 گھنٹے سو سکتی ہیں!",
+  "arFactElma": "سیب کے درخت 100 سال تک زندہ رہ سکتے ہیں!"
+}

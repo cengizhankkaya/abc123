@@ -1,6 +1,7 @@
 import 'package:abc123/core/error/failures/failure.dart';
 import 'package:abc123/core/presentation/services/failure_message_mapper.dart';
 import 'package:abc123/features/colors/domain/failure/color_failure.dart';
+import 'package:abc123/features/colors/l10n/l10n_extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,14 +13,14 @@ class ColorFailureMessageMapper implements FailureMessageMapper {
 
   @override
   String map(BuildContext context, Failure failure) {
-    return toMessage(failure as ColorFailure);
+    return toMessage(context, failure as ColorFailure);
   }
 
-  static String toMessage(ColorFailure failure) {
+  static String toMessage(BuildContext context, ColorFailure failure) {
+    final l10n = context.colorsL10n;
     return switch (failure) {
-      ColorGameLoadFailed() => 'Oyun yüklenemedi. Lütfen tekrar deneyin.',
-      ColorPaletteFetchFailed() => 'Renk paleti alınamadı.',
-      _ => 'Beklenmeyen bir hata oluştu.',
+      ColorGameLoadFailed() => l10n.colorFailureLoad,
+      ColorPaletteFetchFailed() => l10n.colorFailurePalette,
     };
   }
 }

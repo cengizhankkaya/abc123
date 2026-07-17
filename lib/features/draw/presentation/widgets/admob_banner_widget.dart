@@ -4,6 +4,7 @@ import 'package:abc123/app/config/admob_banner_ids.dart';
 import 'package:abc123/core/di/injection.dart';
 import 'package:abc123/core/infrastructure/ads/mobile_ads_gate.dart';
 import 'package:abc123/core/logging/app_logger.dart';
+import 'package:abc123/features/draw/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -123,9 +124,9 @@ class _AdmobBannerWidgetState extends State<AdmobBannerWidget> {
           color: Colors.amber,
           borderRadius: BorderRadius.circular(4),
         ),
-        child: const Text(
-          'Reklam',
-          style: TextStyle(
+        child: Text(
+          context.drawL10n!.drawAdLabel,
+          style: const TextStyle(
             fontSize: 10,
             fontWeight: FontWeight.bold,
             color: Colors.black,

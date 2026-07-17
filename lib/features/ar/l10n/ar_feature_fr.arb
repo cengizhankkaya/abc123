@@ -1,0 +1,53 @@
+{
+  "@@locale": "fr",
+  "arAnimalsExplore": "Explorer les Animaux",
+  "arAnimalsQuizMode": "Passer au Quiz",
+  "arAnimals3dDesc": "Explore les animaux en 3D\net joue à un quiz amusant!",
+  "arAnimalsView3d": "Voir en 3D →",
+  "arAnimalsInstruction": "👆 Glisse pour tourner  •  📦 Touche en bas à droite pour la RA",
+  "arViewerDragInstruction": "👆 Glisse pour tourner!\n📦 Touche en bas à droite pour le voir dans ta chambre.",
+  "arViewerNoModelTitle": "Pas encore de modèle 3D\npour la lettre \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "Bientôt! 🎉",
+  "arModelNameAt": "Cheval",
+  "arModelNameBalik": "Poisson",
+  "arModelNameCivciv": "Poussin",
+  "arModelNameCicek": "Fleur",
+  "arModelNameDomuz": "Cochon",
+  "arModelNameElma": "Pomme",
+  "arModelNameFil": "Éléphant",
+  "arModelNameGemi": "Navire",
+  "arModelNameGunes": "Soleil",
+  "arModelNameHoroz": "Coq",
+  "arModelNameIrgatci": "Fermier",
+  "arModelNameInek": "Vache",
+  "arModelNameJaguar": "Jaguar",
+  "arModelNameKedi": "Chat",
+  "arModelNameLimon": "Citron",
+  "arModelNameMuz": "Banane",
+  "arModelNameNar": "Grenade",
+  "arModelNameOrdek": "Canard",
+  "arModelNamePanda": "Panda",
+  "arModelNameRobot": "Robot",
+  "arModelNameSincap": "Écureuil",
+  "arModelNameSampinyon": "Champignon",
+  "arModelNameTavuk": "Poule",
+  "arModelNameUzayli": "Extraterrestre",
+  "arModelNameUzum": "Raisin",
+  "arModelNameVagon": "Wagon",
+  "arModelNameYildiz": "Étoile",
+  "arModelNameZurafa": "Girafe",
+  "arFactAt": "Les chevaux peuvent courir jusqu'à 70 km/h !",
+  "arFactBalik": "Les poissons peuvent respirer sous l'eau !",
+  "arFactCivciv": "Les poussins peuvent marcher juste après l'éclosion !",
+  "arFactDomuz": "Les cochons sont très intelligents !",
+  "arFactKedi": "Les chats peuvent dormir 16 heures par jour !",
+  "arFactElma": "Les pommiers peuvent vivre 100 ans !"
+}

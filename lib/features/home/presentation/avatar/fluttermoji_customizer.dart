@@ -13,6 +13,7 @@ import 'package:abc123/features/home/presentation/avatar/widgets/earn_stars_bott
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 /// Kullanıcıya avatar özelleştirme arayüzü sunar.
 ///
@@ -132,8 +133,8 @@ class _FluttermojiCustomizerState extends State<FluttermojiCustomizer>
         if (!mounted) return;
         if (success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('🎉 Harika! Seçenek başarıyla satın alındı ve açıldı!'),
+            SnackBar(
+              content: Text(context.homeL10n!.avatarItemBought),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.green,
             ),

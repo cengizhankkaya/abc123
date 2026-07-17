@@ -1,0 +1,53 @@
+{
+  "@@locale": "ru",
+  "arAnimalsExplore": "Исследуй Животных",
+  "arAnimalsQuizMode": "Режим Викторины",
+  "arAnimals3dDesc": "Исследуй животных в 3D\nи играй в веселую викторину!",
+  "arAnimalsView3d": "Смотреть 3D →",
+  "arAnimalsInstruction": "👆 Вращай пальцем  •  📦 Жми кнопку внизу для AR",
+  "arViewerDragInstruction": "👆 Вращай пальцем!\n📦 Нажми кнопку внизу справа, чтобы увидеть в своей комнате.",
+  "arViewerNoModelTitle": "Пока нет 3D модели\nдля буквы \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "Скоро! 🎉",
+  "arModelNameAt": "Лошадь",
+  "arModelNameBalik": "Рыба",
+  "arModelNameCivciv": "Цыпленок",
+  "arModelNameCicek": "Цветок",
+  "arModelNameDomuz": "Свинья",
+  "arModelNameElma": "Яблоко",
+  "arModelNameFil": "Слон",
+  "arModelNameGemi": "Корабль",
+  "arModelNameGunes": "Солнце",
+  "arModelNameHoroz": "Петух",
+  "arModelNameIrgatci": "Фермер",
+  "arModelNameInek": "Корова",
+  "arModelNameJaguar": "Ягуар",
+  "arModelNameKedi": "Кот",
+  "arModelNameLimon": "Лимон",
+  "arModelNameMuz": "Банан",
+  "arModelNameNar": "Гранат",
+  "arModelNameOrdek": "Утка",
+  "arModelNamePanda": "Панда",
+  "arModelNameRobot": "Робот",
+  "arModelNameSincap": "Белка",
+  "arModelNameSampinyon": "Гриб",
+  "arModelNameTavuk": "Курица",
+  "arModelNameUzayli": "Пришелец",
+  "arModelNameUzum": "Виноград",
+  "arModelNameVagon": "Вагон",
+  "arModelNameYildiz": "Звезда",
+  "arModelNameZurafa": "Жираф",
+  "arFactAt": "Лошади могут бегать со скоростью до 70 км/ч!",
+  "arFactBalik": "Рыбы могут дышать под водой!",
+  "arFactCivciv": "Цыплята могут ходить сразу после вылупления!",
+  "arFactDomuz": "Свиньи очень умные животные!",
+  "arFactKedi": "Кошки могут спать 16 часов в день!",
+  "arFactElma": "Яблони могут жить 100 лет!"
+}

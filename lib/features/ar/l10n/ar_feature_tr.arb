@@ -1,0 +1,57 @@
+{
+  "@@locale": "tr",
+
+  "arAnimalsExplore": "🐾 Hayvanları Keşfet",
+  "arAnimalsQuizMode": "🎮 Quiz Moduna Geç",
+  "arAnimals3dDesc": "Hayvanları 3D olarak keşfet\nve eğlenceli bir quiz oyna!",
+  "arAnimalsView3d": "3D Görüntüle →",
+  "arAnimalsInstruction": "👆 Döndürmek için sürükle  •  📦 AR için sağ alt butona bas",
+
+  "arViewerDragInstruction": "👆 Döndürmek için sürükle!\n📦 Odanda görmek için sağ alttaki AR butonuna bas.",
+  "arViewerNoModelTitle": "\"{letter}\" harfi için\nhenüz 3D model yok",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "Yakında eklenecek! 🎉",
+
+  "arModelNameAt": "At",
+  "arModelNameBalik": "Balık",
+  "arModelNameCivciv": "Civciv",
+  "arModelNameCicek": "Çiçek",
+  "arModelNameDomuz": "Domuz",
+  "arModelNameElma": "Elma",
+  "arModelNameFil": "Fil",
+  "arModelNameGemi": "Gemi",
+  "arModelNameGunes": "Güneş",
+  "arModelNameHoroz": "Horoz",
+  "arModelNameIrgatci": "Irgatçı",
+  "arModelNameInek": "İnek",
+  "arModelNameJaguar": "Jaguar",
+  "arModelNameKedi": "Kedi",
+  "arModelNameLimon": "Limon",
+  "arModelNameMuz": "Muz",
+  "arModelNameNar": "Nar",
+  "arModelNameOrdek": "Ördek",
+  "arModelNamePanda": "Panda",
+  "arModelNameRobot": "Robot",
+  "arModelNameSincap": "Sincap",
+  "arModelNameSampinyon": "Şampinyon",
+  "arModelNameTavuk": "Tavuk",
+  "arModelNameUzayli": "Uzaylı",
+  "arModelNameUzum": "Üzüm",
+  "arModelNameVagon": "Vagon",
+  "arModelNameYildiz": "Yıldız",
+  "arModelNameZurafa": "Zürafa",
+
+  "arFactAt": "Atlar saatte 70 km hıza ulaşabilir!",
+  "arFactBalik": "Balıklar su altında nefes alabilir!",
+  "arFactCivciv": "Civcivler yumurtadan çıktıktan sonra hemen yürüyebilir!",
+  "arFactDomuz": "Domuzlar çok zeki hayvanlardır!",
+  "arFactKedi": "Kediler günde 16 saat uyuyabilir!",
+  "arFactElma": "Elma ağaçları 100 yıl yaşayabilir!"
+}

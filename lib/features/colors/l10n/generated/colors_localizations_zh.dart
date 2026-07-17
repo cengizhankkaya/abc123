@@ -240,4 +240,13 @@ class ColorsLocalizationsZh extends ColorsLocalizations {
   String colorVisionScoreByLine(int correct, int total) {
     return 'Blue–yellow style: $correct / $total';
   }
+
+  @override
+  String get colorFailureLoad => '无法加载游戏。请重试。';
+
+  @override
+  String get colorFailurePalette => '无法获取调色板。';
+
+  @override
+  String get colorFailureUnknown => '发生意外错误。';
 }

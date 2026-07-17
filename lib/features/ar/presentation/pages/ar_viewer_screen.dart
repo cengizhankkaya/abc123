@@ -1,4 +1,5 @@
 import 'package:abc123/features/ar/domain/ar_model_mapper.dart';
+import 'package:abc123/features/ar/l10n/l10n_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
@@ -57,7 +58,7 @@ class _ArModelView extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              modelInfo.displayName,
+              context.getArModelName(modelInfo.id),
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -96,7 +97,7 @@ class _ArModelView extends StatelessWidget {
           // 3D Model Görüntüleyici
           ModelViewer(
             src: modelInfo.assetPath,
-            alt: '${modelInfo.displayName} 3D modeli',
+            alt: '${context.getArModelName(modelInfo.id)} 3D modeli',
             ar: true,
             arModes: const ['scene-viewer', 'webxr', 'quick-look'],
             autoRotate: true,
@@ -186,7 +187,7 @@ class _BottomInfoPanel extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '${modelInfo.emoji}  ${modelInfo.displayName}',
+                  '${modelInfo.emoji}  ${context.getArModelName(modelInfo.id)}',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -194,9 +195,9 @@ class _BottomInfoPanel extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  '👆 Döndürmek için sürükle!\n📦 Odanda görmek için sağ alttaki AR butonuna bas.',
-                  style: TextStyle(
+                Text(
+                  context.arL10n.arViewerDragInstruction,
+                  style: const TextStyle(
                     fontSize: 12,
                     color: Colors.white70,
                     height: 1.3,
@@ -237,7 +238,7 @@ class _ArNotAvailableScreen extends StatelessWidget {
             const Text('🔭', style: TextStyle(fontSize: 64)),
             const SizedBox(height: 24),
             Text(
-              '"$letter" harfi için\nhenüz 3D model yok',
+              context.arL10n.arViewerNoModelTitle(letter),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 22,
@@ -246,9 +247,9 @@ class _ArNotAvailableScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'Yakında eklenecek! 🎉',
-              style: TextStyle(
+            Text(
+              context.arL10n.arViewerComingSoon,
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white60,
               ),

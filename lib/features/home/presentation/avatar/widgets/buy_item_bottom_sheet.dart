@@ -1,6 +1,7 @@
 import 'package:abc123/features/home/presentation/providers/gamification_provider.dart';
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
+import 'package:abc123/features/home/l10n/l10n_extensions.dart';
 
 /// Bir avatar öğesi satın almak istediğinde gösterilen onay bottom sheet'i.
 ///
@@ -84,7 +85,7 @@ class BuyItemBottomSheet extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Bu harika seçeneği kalıcı olarak açmak için $price Yıldız ⭐️ kullanılsın mı?\n'
+              '${context.homeL10n!.avatarBuyConfirmation(price)}'
               '(Mevcut Yıldızın: ${gamification.points} ⭐️)',
               textAlign: TextAlign.center,
               style: const TextStyle(
@@ -126,7 +127,7 @@ class BuyItemBottomSheet extends StatelessWidget {
                       elevation: 3,
                     ),
                     child: Text(
-                      '$price ⭐️ Satın Al',
+                      context.homeL10n!.avatarBuyWithStars(price),
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

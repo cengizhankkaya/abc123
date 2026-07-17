@@ -1,5 +1,6 @@
 import 'package:abc123/features/home/presentation/theme/home_design_tokens.dart';
 import 'package:flutter/material.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 /// Gri-tonlama matrix'i — kilitli kart ikonunu soluklaştırmak için.
 const List<double> _greyscale = [
@@ -25,6 +26,7 @@ class HomeLearningModeCard extends StatefulWidget {
     required this.emoji,
     required this.onTap,
     this.imagePath,
+    this.modelPath,
     this.progress,
     this.suggested = false,
     this.locked = false,
@@ -45,6 +47,9 @@ class HomeLearningModeCard extends StatefulWidget {
 
   /// Düğüm içinde daire şeklinde gösterilecek resim yolu (ör. assets/images/number.png).
   final String? imagePath;
+
+  /// Düğüm içinde gösterilecek 3D model yolu (ör. assets/models/ar/kedi.glb).
+  final String? modelPath;
 
   /// Banner'ın solundaki emoji (ör. "🔢").
   final String emoji;
@@ -161,6 +166,7 @@ class _HomeLearningModeCardState extends State<HomeLearningModeCard>
                   darkColor: _darkColor,
                   icon: widget.icon,
                   imagePath: widget.imagePath,
+                  modelPath: widget.modelPath,
                   pulse: _pulse.value,
                   progress: widget.progress,
                   suggested: widget.suggested,
@@ -193,6 +199,7 @@ class _CircleNode extends StatelessWidget {
     required this.suggested,
     required this.locked,
     this.imagePath,
+    this.modelPath,
   });
 
   final double nodeSize;
@@ -201,6 +208,7 @@ class _CircleNode extends StatelessWidget {
   final Color darkColor;
   final IconData icon;
   final String? imagePath;
+  final String? modelPath;
   final double pulse; // 0..1
   final double? progress;
   final bool suggested;
@@ -286,7 +294,18 @@ class _CircleNode extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (imagePath != null)
+                  if (modelPath != null)
+                    IgnorePointer(
+                      child: ModelViewer(
+                        src: modelPath!,
+                        autoRotate: true,
+                        autoRotateDelay: 0,
+                        rotationPerSecond: '30deg',
+                        cameraControls: false,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    )
+                  else if (imagePath != null)
                     (locked
                         ? ColorFiltered(
                             colorFilter: const ColorFilter.matrix(_greyscale),
@@ -309,7 +328,7 @@ class _CircleNode extends StatelessWidget {
                             ? const ColorFilter.matrix(_greyscale)
                             : const ColorFilter.mode(
                                 Colors.transparent,
-                                BlendMode.multiply,
+                                BlendMode.dst,
                               ),
                         child: Opacity(
                           opacity: locked ? .65 : 1,

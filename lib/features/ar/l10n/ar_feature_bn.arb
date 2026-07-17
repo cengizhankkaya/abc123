@@ -1,0 +1,53 @@
+{
+  "@@locale": "bn",
+  "arAnimalsExplore": "প্রাণী অন্বেষণ করুন",
+  "arAnimalsQuizMode": "কুইজ মোডে যান",
+  "arAnimals3dDesc": "3D তে প্রাণী অন্বেষণ করুন\nএবং একটি মজাদার কুইজ খেলুন!",
+  "arAnimalsView3d": "3D দেখুন →",
+  "arAnimalsInstruction": "👆 ঘোরাতে টেনে আনুন  •  📦 AR-এর জন্য নিচে ডানদিকে বোতাম টিপুন",
+  "arViewerDragInstruction": "👆 ঘোরাতে টেনে আনুন!\n📦 আপনার রুমে দেখতে নিচে ডানদিকের বোতাম টিপুন।",
+  "arViewerNoModelTitle": "\"{letter}\" অক্ষরের জন্য\nএখনো কোনো 3D মডেল নেই",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "শীঘ্রই আসছে! 🎉",
+  "arModelNameAt": "ঘোড়া",
+  "arModelNameBalik": "মাছ",
+  "arModelNameCivciv": "মুরগির বাচ্চা",
+  "arModelNameCicek": "ফুল",
+  "arModelNameDomuz": "শূকর",
+  "arModelNameElma": "আপেল",
+  "arModelNameFil": "হাতি",
+  "arModelNameGemi": "জাহাজ",
+  "arModelNameGunes": "সূর্য",
+  "arModelNameHoroz": "মোরগ",
+  "arModelNameIrgatci": "কৃষক",
+  "arModelNameInek": "গরু",
+  "arModelNameJaguar": "জাগুয়ার",
+  "arModelNameKedi": "বিড়াল",
+  "arModelNameLimon": "লেবু",
+  "arModelNameMuz": "কলা",
+  "arModelNameNar": "ডালিম",
+  "arModelNameOrdek": "হাঁস",
+  "arModelNamePanda": "পান্ডা",
+  "arModelNameRobot": "রোবট",
+  "arModelNameSincap": "কাঠবিড়ালি",
+  "arModelNameSampinyon": "মাশরুম",
+  "arModelNameTavuk": "মুরগি",
+  "arModelNameUzayli": "এলিয়েন",
+  "arModelNameUzum": "আঙ্গুর",
+  "arModelNameVagon": "ওয়াগন",
+  "arModelNameYildiz": "তারা",
+  "arModelNameZurafa": "জিরাফ",
+  "arFactAt": "ঘোড়া 70 কিমি/ঘন্টা বেগে দৌড়াতে পারে!",
+  "arFactBalik": "মাছ পানির নিচে শ্বাস নিতে পারে!",
+  "arFactCivciv": "মুরগির বাচ্চারা ডিম ফোটার সাথে সাথেই হাঁটতে পারে!",
+  "arFactDomuz": "শূকর খুব বুদ্ধিমান প্রাণী!",
+  "arFactKedi": "বিড়াল দিনে 16 ঘন্টা ঘুমাতে পারে!",
+  "arFactElma": "আপেল গাছ 100 বছর বাঁচতে পারে!"
+}

@@ -585,4 +585,47 @@ class HomeLocalizationsTr extends HomeLocalizations {
 
   @override
   String get mathAdvancedSubtitle => 'Karmaşık işlemleri pratik yap';
+
+  @override
+  String get animals3dTitle => '3B Hayvanlar';
+
+  @override
+  String get animals3dSubtitle => 'AR Hayvan Deneyimi';
+
+  @override
+  String get avatarSavedSuccessfully => 'Avatarınız başarıyla kaydedildi!';
+
+  @override
+  String get avatarAdLoadingWait => '⏳ Reklam yükleniyor; birkaç saniye sonra tekrar deneyin.';
+
+  @override
+  String get avatarSaveBtn => 'Kaydet';
+
+  @override
+  String get avatarItemBought => '🎉 Harika! Seçenek başarıyla satın alındı ve açıldı!';
+
+  @override
+  String avatarBuyConfirmation(int price) {
+    return 'Bu harika seçeneği kalıcı olarak açmak için $price Yıldız ⭐️ kullanılsın mı?\\n';
+  }
+
+  @override
+  String avatarBuyWithStars(int price) {
+    return '$price ⭐️ Satın Al';
+  }
+
+  @override
+  String get avatarAutoBought =>
+      '✨ Harika! Yeterli yıldıza ulaşıldı ve seçenek otomatik satın alındı!';
+
+  @override
+  String get avatarDesignTitle => 'Avatarını Tasarla';
+
+  @override
+  String get avatarDesignSubtitle => 'Seçtiğin parça anında uygulanır.';
+
+  @override
+  String avatarEarnedStars(String earned, int total) {
+    return '🎉 +$earned Yıldız kazandın! (Toplam: $total ⭐️)';
+  }
 }

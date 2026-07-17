@@ -31,4 +31,5 @@ abstract final class AppRoutes {
   static const result = '/result';
   static const infoDraw = '/info-draw';
   static const arViewer = '/ar-viewer';
+  static const animals3D = '/animals-3d';
 }

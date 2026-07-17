@@ -37,6 +37,10 @@ abstract final class IslandColors {
   static const Color boss = Color(0xFF2FBFC4);
   static const Color bossDk = Color(0xFF1C9297);
 
+  // ── 3D Hayvanlar adası ─────────────────────────────────────────────────
+  static const Color animals = Color(0xFF43C87A);
+  static const Color animalsDk = Color(0xFF27944F);
+
   // ── Bölge tint (açık ton — ada gradyan üstü) ───────────────────────────
   static const Color tintNumbers = Color(0xFFFFE29B);
   static const Color tintLetters = Color(0xFF8FDBA0);
@@ -45,4 +49,5 @@ abstract final class IslandColors {
   static const Color tintColors = Color(0xFFFFC98C);
   static const Color tintVision = Color(0xFFC9BFFF);
   static const Color tintBoss = Color(0xFFFFDD8A);
+  static const Color tintAnimals = Color(0xFF9FEFBE);
 }

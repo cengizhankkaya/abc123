@@ -1,0 +1,53 @@
+{
+  "@@locale": "hi",
+  "arAnimalsExplore": "जानवरों को खोजें",
+  "arAnimalsQuizMode": "प्रश्नोत्तरी मोड",
+  "arAnimals3dDesc": "3D में जानवरों को खोजें\nऔर एक मजेदार प्रश्नोत्तरी खेलें!",
+  "arAnimalsView3d": "3D देखें →",
+  "arAnimalsInstruction": "👆 घुमाने के लिए खींचें  •  📦 AR के लिए नीचे दाईं ओर टैप करें",
+  "arViewerDragInstruction": "👆 घुमाने के लिए खींचें!\n📦 इसे अपने कमरे में देखने के लिए नीचे दाईं ओर टैप करें।",
+  "arViewerNoModelTitle": "\"{letter}\" अक्षर के लिए\nअभी तक कोई 3D मॉडल नहीं है",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "जल्द आ रहा है! 🎉",
+  "arModelNameAt": "घोड़ा",
+  "arModelNameBalik": "मछली",
+  "arModelNameCivciv": "चूजा",
+  "arModelNameCicek": "फूल",
+  "arModelNameDomuz": "सुअर",
+  "arModelNameElma": "सेब",
+  "arModelNameFil": "हाथी",
+  "arModelNameGemi": "जहाज",
+  "arModelNameGunes": "सूरज",
+  "arModelNameHoroz": "मुर्गा",
+  "arModelNameIrgatci": "किसान",
+  "arModelNameInek": "गाय",
+  "arModelNameJaguar": "जगुआर",
+  "arModelNameKedi": "बिल्ली",
+  "arModelNameLimon": "नींबू",
+  "arModelNameMuz": "केला",
+  "arModelNameNar": "अनार",
+  "arModelNameOrdek": "बत्तख",
+  "arModelNamePanda": "पांडा",
+  "arModelNameRobot": "रोबोट",
+  "arModelNameSincap": "गिलहरी",
+  "arModelNameSampinyon": "मशरूम",
+  "arModelNameTavuk": "मुर्गी",
+  "arModelNameUzayli": "एलियन",
+  "arModelNameUzum": "अंगूर",
+  "arModelNameVagon": "वैगन",
+  "arModelNameYildiz": "तारा",
+  "arModelNameZurafa": "जिराफ",
+  "arFactAt": "घोड़े 70 किमी/घंटा की रफ्तार से दौड़ सकते हैं!",
+  "arFactBalik": "मछलियां पानी के भीतर सांस ले सकती हैं!",
+  "arFactCivciv": "चूजे अंडे से निकलते ही चल सकते हैं!",
+  "arFactDomuz": "सुअर बहुत बुद्धिमान जानवर हैं!",
+  "arFactKedi": "बिल्लियाँ दिन में 16 घंटे सो सकती हैं!",
+  "arFactElma": "सेब के पेड़ 100 साल तक जीवित रह सकते हैं!"
+}

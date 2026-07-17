@@ -1,0 +1,53 @@
+{
+  "@@locale": "de",
+  "arAnimalsExplore": "Tiere entdecken",
+  "arAnimalsQuizMode": "Zum Quizmodus",
+  "arAnimals3dDesc": "Entdecke Tiere in 3D\nund spiele ein lustiges Quiz!",
+  "arAnimalsView3d": "3D ansehen →",
+  "arAnimalsInstruction": "👆 Zum Drehen ziehen  •  📦 Für AR unten rechts tippen",
+  "arViewerDragInstruction": "👆 Zum Drehen ziehen!\n📦 Tippe unten rechts, um es in deinem Raum zu sehen.",
+  "arViewerNoModelTitle": "Noch kein 3D-Modell\nfür den Buchstaben \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "Kommt bald! 🎉",
+  "arModelNameAt": "Pferd",
+  "arModelNameBalik": "Fisch",
+  "arModelNameCivciv": "Küken",
+  "arModelNameCicek": "Blume",
+  "arModelNameDomuz": "Schwein",
+  "arModelNameElma": "Apfel",
+  "arModelNameFil": "Elefant",
+  "arModelNameGemi": "Schiff",
+  "arModelNameGunes": "Sonne",
+  "arModelNameHoroz": "Hahn",
+  "arModelNameIrgatci": "Bauer",
+  "arModelNameInek": "Kuh",
+  "arModelNameJaguar": "Jaguar",
+  "arModelNameKedi": "Katze",
+  "arModelNameLimon": "Zitrone",
+  "arModelNameMuz": "Banane",
+  "arModelNameNar": "Granatapfel",
+  "arModelNameOrdek": "Ente",
+  "arModelNamePanda": "Panda",
+  "arModelNameRobot": "Roboter",
+  "arModelNameSincap": "Eichhörnchen",
+  "arModelNameSampinyon": "Pilz",
+  "arModelNameTavuk": "Huhn",
+  "arModelNameUzayli": "Alien",
+  "arModelNameUzum": "Trauben",
+  "arModelNameVagon": "Waggon",
+  "arModelNameYildiz": "Stern",
+  "arModelNameZurafa": "Giraffe",
+  "arFactAt": "Pferde können bis zu 70 km/h schnell laufen!",
+  "arFactBalik": "Fische können unter Wasser atmen!",
+  "arFactCivciv": "Küken können sofort nach dem Schlüpfen laufen!",
+  "arFactDomuz": "Schweine sind sehr intelligente Tiere!",
+  "arFactKedi": "Katzen können 16 Stunden am Tag schlafen!",
+  "arFactElma": "Apfelbäume können 100 Jahre alt werden!"
+}

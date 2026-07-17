@@ -235,7 +235,7 @@ class _GameContent extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Tebrikler!',
+                                  context.drawL10n!.drawCongratulations,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: responsive.subtitleFontSize * 1.5,
@@ -244,7 +244,7 @@ class _GameContent extends StatelessWidget {
                                 ),
                                 SizedBox(height: responsive.height * 0.01),
                                 Text(
-                                  'Tüm balonları patlattın!',
+                                  context.drawL10n!.drawAllBalloonsPopped,
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: responsive.bodyFontSize * 1.2,
@@ -418,7 +418,7 @@ class _LoadingContent extends StatelessWidget {
         ),
         SizedBox(height: responsive.height * 0.015),
         Text(
-          'Balonlar hazırlanıyor...',
+          context.drawL10n!.drawBalloonsPreparing,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: responsive.subtitleFontSize * 1.1,
@@ -460,7 +460,7 @@ class _EmptyContent extends StatelessWidget {
                 ),
                 SizedBox(height: responsive.height * 0.01),
                 Text(
-                  'Henüz balon yok!',
+                  context.drawL10n!.drawNoBalloonsYet,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.bodyFontSize * 1.2,
@@ -470,7 +470,7 @@ class _EmptyContent extends StatelessWidget {
                 ),
                 SizedBox(height: responsive.height * 0.008),
                 Text(
-                  'Bir sayı çizerek balon oyununu başlat!',
+                  context.drawL10n!.drawStartBalloonGameByDrawing,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: responsive.bodyFontSize * 1.1,
@@ -514,28 +514,28 @@ class _ScorePanel extends StatelessWidget {
           icon: Icons.stars,
           color: Colors.amber,
           value: score.toString(),
-          tooltip: 'Puan',
+          tooltip: context.drawL10n!.drawScore,
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.bubble_chart,
           color: Colors.blue,
           value: '$remainingBalloons/$totalBalloons',
-          tooltip: 'Balon Sayısı',
+          tooltip: context.drawL10n!.drawBalloonCount,
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.trending_up,
           color: Colors.purple,
           value: level.toString(),
-          tooltip: 'Seviye',
+          tooltip: context.drawL10n!.drawLevel,
         ),
         _buildGameStatusIcon(
           responsive: responsive,
           icon: Icons.timer,
           color: Colors.red,
           value: timeLeft.toString(),
-          tooltip: 'Kalan Süre',
+          tooltip: context.drawL10n!.drawTimeLeft,
         ),
       ],
     );

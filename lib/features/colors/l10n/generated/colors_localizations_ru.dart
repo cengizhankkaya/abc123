@@ -240,4 +240,13 @@ class ColorsLocalizationsRu extends ColorsLocalizations {
   String colorVisionScoreByLine(int correct, int total) {
     return 'Blue–yellow style: $correct / $total';
   }
+
+  @override
+  String get colorFailureLoad => 'Не удалось загрузить игру. Пожалуйста, попробуйте еще раз.';
+
+  @override
+  String get colorFailurePalette => 'Не удалось получить цветовую палитру.';
+
+  @override
+  String get colorFailureUnknown => 'Произошла непредвиденная ошибка.';
 }

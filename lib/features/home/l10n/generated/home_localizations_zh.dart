@@ -585,4 +585,47 @@ class HomeLocalizationsZh extends HomeLocalizations {
 
   @override
   String get mathAdvancedSubtitle => 'Practicing complex operations';
+
+  @override
+  String get animals3dTitle => '3D Animals';
+
+  @override
+  String get animals3dSubtitle => 'AR Animal Experience';
+
+  @override
+  String get avatarSavedSuccessfully => 'Avatar saved successfully!';
+
+  @override
+  String get avatarAdLoadingWait => '⏳ Ad is loading; please try again in a few seconds.';
+
+  @override
+  String get avatarSaveBtn => 'Save';
+
+  @override
+  String get avatarItemBought => '🎉 Great! The option was successfully purchased and unlocked!';
+
+  @override
+  String avatarBuyConfirmation(int price) {
+    return 'Use $price Stars ⭐️ to permanently unlock this great option?\\n';
+  }
+
+  @override
+  String avatarBuyWithStars(int price) {
+    return '$price ⭐️ Buy';
+  }
+
+  @override
+  String get avatarAutoBought =>
+      '✨ Great! Reached enough stars and the option was automatically purchased!';
+
+  @override
+  String get avatarDesignTitle => 'Design Your Avatar';
+
+  @override
+  String get avatarDesignSubtitle => 'Selected item is applied instantly.';
+
+  @override
+  String avatarEarnedStars(String earned, int total) {
+    return '🎉 +$earned Stars earned! (Total: $total ⭐️)';
+  }
 }

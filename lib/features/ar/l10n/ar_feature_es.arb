@@ -1,0 +1,53 @@
+{
+  "@@locale": "es",
+  "arAnimalsExplore": "Explorar Animales",
+  "arAnimalsQuizMode": "Modo Prueba",
+  "arAnimals3dDesc": "¡Explora animales en 3D\ny juega una prueba divertida!",
+  "arAnimalsView3d": "Ver 3D →",
+  "arAnimalsInstruction": "👆 Arrastra para rotar  •  📦 Toca abajo a la derecha para AR",
+  "arViewerDragInstruction": "👆 ¡Arrastra para rotar!\n📦 Toca abajo a la derecha para verlo en tu cuarto.",
+  "arViewerNoModelTitle": "Aún no hay modelo 3D\npara la letra \"{letter}\"",
+  "@arViewerNoModelTitle": {
+    "placeholders": {
+      "letter": {
+        "type": "String",
+        "example": "A"
+      }
+    }
+  },
+  "arViewerComingSoon": "¡Próximamente! 🎉",
+  "arModelNameAt": "Caballo",
+  "arModelNameBalik": "Pez",
+  "arModelNameCivciv": "Pollito",
+  "arModelNameCicek": "Flor",
+  "arModelNameDomuz": "Cerdo",
+  "arModelNameElma": "Manzana",
+  "arModelNameFil": "Elefante",
+  "arModelNameGemi": "Barco",
+  "arModelNameGunes": "Sol",
+  "arModelNameHoroz": "Gallo",
+  "arModelNameIrgatci": "Granjero",
+  "arModelNameInek": "Vaca",
+  "arModelNameJaguar": "Jaguar",
+  "arModelNameKedi": "Gato",
+  "arModelNameLimon": "Limón",
+  "arModelNameMuz": "Banana",
+  "arModelNameNar": "Granada",
+  "arModelNameOrdek": "Pato",
+  "arModelNamePanda": "Panda",
+  "arModelNameRobot": "Robot",
+  "arModelNameSincap": "Ardilla",
+  "arModelNameSampinyon": "Hongo",
+  "arModelNameTavuk": "Gallina",
+  "arModelNameUzayli": "Alienígena",
+  "arModelNameUzum": "Uvas",
+  "arModelNameVagon": "Vagón",
+  "arModelNameYildiz": "Estrella",
+  "arModelNameZurafa": "Jirafa",
+  "arFactAt": "¡Los caballos pueden correr a 70 km/h!",
+  "arFactBalik": "¡Los peces respiran bajo el agua!",
+  "arFactCivciv": "¡Los pollitos caminan nada más nacer!",
+  "arFactDomuz": "¡Los cerdos son muy inteligentes!",
+  "arFactKedi": "¡Los gatos pueden dormir 16 horas al día!",
+  "arFactElma": "¡Los manzanos pueden vivir 100 años!"
+}
