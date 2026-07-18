@@ -9,6 +9,43 @@ class HomeLocalizationsRu extends HomeLocalizations {
   HomeLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Hair Style';
+
+  @override
+  String get avatarAttrHairColor => 'Hair Color';
+
+  @override
+  String get avatarAttrBeard => 'Beard';
+
+  @override
+  String get avatarAttrBeardColor => 'Beard Color';
+
+  @override
+  String get avatarAttrOutfit => 'Outfit';
+
+  @override
+  String get avatarAttrOutfitColor => 'Outfit Color';
+
+  @override
+  String get avatarAttrEyes => 'Eyes';
+
+  @override
+  String get avatarAttrEyebrow => 'Eyebrows';
+
+  @override
+  String get avatarAttrMouth => 'Mouth';
+
+  @override
+  String get avatarAttrSkin => 'Skin Color';
+
+  @override
+  String get avatarAttrAccessory => 'Accessories';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'Здравствуйте! Это наш большой остров — выберите желаемый регион и давайте начнем исследовать прямо сейчас! 🗺️✨';
+
+  @override
   String get hello => 'Здравствуйте';
 
   @override

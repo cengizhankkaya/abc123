@@ -1,0 +1,213 @@
+{
+  "@@locale": "hi",
+  "mathHubTitle": "Math Adventure",
+  "@mathHubTitle": {
+    "description": "l10n: mathHubTitle"
+  },
+  "mathHubSubtitle": "Choose a topic to practice",
+  "@mathHubSubtitle": {
+    "description": "l10n: mathHubSubtitle"
+  },
+  "mathHubTensTitle": "Tens Numbers",
+  "@mathHubTensTitle": {
+    "description": "l10n: mathHubTensTitle"
+  },
+  "mathHubTensSubtitle": "10, 20, 30 … 100",
+  "@mathHubTensSubtitle": {
+    "description": "l10n: mathHubTensSubtitle"
+  },
+  "mathHubFreeTitle": "Free Practice",
+  "@mathHubFreeTitle": {
+    "description": "l10n: mathHubFreeTitle"
+  },
+  "mathHubFreeSubtitle": "2-digit numbers",
+  "@mathHubFreeSubtitle": {
+    "description": "l10n: mathHubFreeSubtitle"
+  },
+  "mathHubVisualTitle": "Visual Addition",
+  "@mathHubVisualTitle": {
+    "description": "l10n: mathHubVisualTitle"
+  },
+  "mathHubVisualSubtitle": "Count & write",
+  "@mathHubVisualSubtitle": {
+    "description": "l10n: mathHubVisualSubtitle"
+  },
+  "mathHubSymbolicTitle": "Addition & Subtraction",
+  "@mathHubSymbolicTitle": {
+    "description": "l10n: mathHubSymbolicTitle"
+  },
+  "mathHubSymbolicSubtitle": "A, B, C levels",
+  "@mathHubSymbolicSubtitle": {
+    "description": "l10n: mathHubSymbolicSubtitle"
+  },
+  "mathSelectTensTitle": "Pick a Tens Number",
+  "@mathSelectTensTitle": {
+    "description": "l10n: mathSelectTensTitle"
+  },
+  "mathDrawTensInstruction": "Draw {number} in the boxes",
+  "@mathDrawTensInstruction": {
+    "description": "l10n: mathDrawTensInstruction",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+  "mathFreePracticeInstruction": "Draw the number {number}",
+  "@mathFreePracticeInstruction": {
+    "description": "l10n: mathFreePracticeInstruction",
+    "placeholders": {
+      "number": {
+        "type": "int",
+        "example": "47"
+      }
+    }
+  },
+  "mathVisualInstruction": "Count the objects and write the total",
+  "@mathVisualInstruction": {
+    "description": "l10n: mathVisualInstruction"
+  },
+  "mathSymbolicInstruction": "Solve and write the answer",
+  "@mathSymbolicInstruction": {
+    "description": "l10n: mathSymbolicInstruction"
+  },
+  "mathTensBox": "Tens",
+  "@mathTensBox": {
+    "description": "l10n: mathTensBox"
+  },
+  "mathUnitsBox": "Units",
+  "@mathUnitsBox": {
+    "description": "l10n: mathUnitsBox"
+  },
+  "mathCheckButton": "Check",
+  "@mathCheckButton": {
+    "description": "l10n: mathCheckButton"
+  },
+  "mathNextButton": "Next",
+  "@mathNextButton": {
+    "description": "l10n: mathNextButton"
+  },
+  "mathCorrect": "Correct! 🎉",
+  "@mathCorrect": {
+    "description": "l10n: mathCorrect"
+  },
+  "mathWrong": "Try again!",
+  "@mathWrong": {
+    "description": "l10n: mathWrong"
+  },
+  "mathHintVisible": "Hint mode ON",
+  "@mathHintVisible": {
+    "description": "l10n: mathHintVisible"
+  },
+  "mathHintHidden": "Hint mode OFF",
+  "@mathHintHidden": {
+    "description": "l10n: mathHintHidden"
+  },
+  "mathLevelLocked": "Complete previous level at 80%",
+  "@mathLevelLocked": {
+    "description": "l10n: mathLevelLocked"
+  },
+  "mathLevelProgress": "{correct}/{total} correct ({percent}%)",
+  "@mathLevelProgress": {
+    "description": "l10n: mathLevelProgress",
+    "placeholders": {
+      "correct": {
+        "type": "int",
+        "example": "8"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      },
+      "percent": {
+        "type": "int",
+        "example": "80"
+      }
+    }
+  },
+  "mathLevelA": "Level A",
+  "@mathLevelA": {
+    "description": "l10n: mathLevelA"
+  },
+  "mathLevelB": "Level B",
+  "@mathLevelB": {
+    "description": "l10n: mathLevelB"
+  },
+  "mathLevelC": "Level C",
+  "@mathLevelC": {
+    "description": "l10n: mathLevelC"
+  },
+  "mathLevelADesc": "Result ≤ 10",
+  "@mathLevelADesc": {
+    "description": "l10n: mathLevelADesc"
+  },
+  "mathLevelBDesc": "Result ≤ 20",
+  "@mathLevelBDesc": {
+    "description": "l10n: mathLevelBDesc"
+  },
+  "mathLevelCDesc": "Two-digit, no carry",
+  "@mathLevelCDesc": {
+    "description": "l10n: mathLevelCDesc"
+  },
+  "mathClearButton": "Clear",
+  "@mathClearButton": {
+    "description": "l10n: mathClearButton"
+  },
+  "mathEmptyDrawingWarning": "Please draw in the box first",
+  "@mathEmptyDrawingWarning": {
+    "description": "l10n: mathEmptyDrawingWarning"
+  },
+  "mathParentSectionTitle": "Math Progress",
+  "@mathParentSectionTitle": {
+    "description": "l10n: mathParentSectionTitle"
+  },
+  "mathParentAdditions": "Additions solved",
+  "@mathParentAdditions": {
+    "description": "l10n: mathParentAdditions"
+  },
+  "mathParentSubtractions": "Subtractions solved",
+  "@mathParentSubtractions": {
+    "description": "l10n: mathParentSubtractions"
+  },
+  "mathParentTens": "Tens practiced",
+  "@mathParentTens": {
+    "description": "l10n: mathParentTens"
+  },
+  "mathParentSuggest": "Keep practicing subtraction!",
+  "@mathParentSuggest": {
+    "description": "l10n: mathParentSuggest"
+  },
+  "badgeMathFirstAdditionName": "First Addition!",
+  "@badgeMathFirstAdditionName": {
+    "description": "l10n: badgeMathFirstAdditionName"
+  },
+  "badgeMathFirstAdditionDesc": "You solved your first addition!",
+  "@badgeMathFirstAdditionDesc": {
+    "description": "l10n: badgeMathFirstAdditionDesc"
+  },
+  "badgeTensHeroName": "Tens Hero",
+  "@badgeTensHeroName": {
+    "description": "l10n: badgeTensHeroName"
+  },
+  "badgeTensHeroDesc": "You practiced all tens numbers!",
+  "@badgeTensHeroDesc": {
+    "description": "l10n: badgeTensHeroDesc"
+  },
+  "badgeSubtractionMasterName": "Subtraction Master",
+  "@badgeSubtractionMasterName": {
+    "description": "l10n: badgeSubtractionMasterName"
+  },
+  "badgeSubtractionMasterDesc": "You solved 20 subtractions!",
+  "@badgeSubtractionMasterDesc": {
+    "description": "l10n: badgeSubtractionMasterDesc"
+  },
+  "mathAdvancedHomeTitle": "Addition & Subtraction",
+  "@mathAdvancedHomeTitle": {
+    "description": "l10n: mathAdvancedHomeTitle"
+  },
+  "mathAdvancedHomeSubtitle": "Math adventure",
+  "@mathAdvancedHomeSubtitle": {
+    "description": "l10n: mathAdvancedHomeSubtitle"
+  }
+}

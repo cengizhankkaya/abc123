@@ -9,6 +9,43 @@ class HomeLocalizationsAz extends HomeLocalizations {
   HomeLocalizationsAz([String locale = 'az']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Hair Style';
+
+  @override
+  String get avatarAttrHairColor => 'Hair Color';
+
+  @override
+  String get avatarAttrBeard => 'Beard';
+
+  @override
+  String get avatarAttrBeardColor => 'Beard Color';
+
+  @override
+  String get avatarAttrOutfit => 'Outfit';
+
+  @override
+  String get avatarAttrOutfitColor => 'Outfit Color';
+
+  @override
+  String get avatarAttrEyes => 'Eyes';
+
+  @override
+  String get avatarAttrEyebrow => 'Eyebrows';
+
+  @override
+  String get avatarAttrMouth => 'Mouth';
+
+  @override
+  String get avatarAttrSkin => 'Skin Color';
+
+  @override
+  String get avatarAttrAccessory => 'Accessories';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'Salam! Bu bizim böyük adamızdır — istədiyiniz bölgəni seçin və dərhal kəşf etməyə başlayaq! 🗺️✨';
+
+  @override
   String get hello => 'Salam';
 
   @override

@@ -35,6 +35,8 @@ Future<void> bootstrap() async {
     await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
     ]);
   } on Object catch (_) {
     // iPadOS Split View / Slide Over: orientation lock desteklenmiyor.

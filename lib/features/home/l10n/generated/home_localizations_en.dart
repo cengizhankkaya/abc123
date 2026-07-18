@@ -9,6 +9,43 @@ class HomeLocalizationsEn extends HomeLocalizations {
   HomeLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Hair Style';
+
+  @override
+  String get avatarAttrHairColor => 'Hair Color';
+
+  @override
+  String get avatarAttrBeard => 'Beard';
+
+  @override
+  String get avatarAttrBeardColor => 'Beard Color';
+
+  @override
+  String get avatarAttrOutfit => 'Outfit';
+
+  @override
+  String get avatarAttrOutfitColor => 'Outfit Color';
+
+  @override
+  String get avatarAttrEyes => 'Eyes';
+
+  @override
+  String get avatarAttrEyebrow => 'Eyebrows';
+
+  @override
+  String get avatarAttrMouth => 'Mouth';
+
+  @override
+  String get avatarAttrSkin => 'Skin Color';
+
+  @override
+  String get avatarAttrAccessory => 'Accessories';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'Hello! This is our big island — choose the region you want and let\'s start exploring right away! 🗺️✨';
+
+  @override
   String get hello => 'Hello';
 
   @override

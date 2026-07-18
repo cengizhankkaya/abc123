@@ -457,6 +457,65 @@ final Map<AppLanguage, Map<String, Object>> localizedResultScreenTexts = {
 };
 
 final Map<String, Map<AppLanguage, String>> localizedTexts = {
+  'avatarAttrHair': {
+    AppLanguage.turkish: 'Saç Stili',
+    AppLanguage.english: 'Hair Style',
+  },
+  'avatarAttrHairColor': {
+    AppLanguage.turkish: 'Saç Rengi',
+    AppLanguage.english: 'Hair Color',
+  },
+  'avatarAttrBeard': {
+    AppLanguage.turkish: 'Sakal',
+    AppLanguage.english: 'Beard',
+  },
+  'avatarAttrBeardColor': {
+    AppLanguage.turkish: 'Sakal Rengi',
+    AppLanguage.english: 'Beard Color',
+  },
+  'avatarAttrOutfit': {
+    AppLanguage.turkish: 'Kıyafet',
+    AppLanguage.english: 'Outfit',
+  },
+  'avatarAttrOutfitColor': {
+    AppLanguage.turkish: 'Kıyafet Rengi',
+    AppLanguage.english: 'Outfit Color',
+  },
+  'avatarAttrEyes': {
+    AppLanguage.turkish: 'Göz',
+    AppLanguage.english: 'Eyes',
+  },
+  'avatarAttrEyebrow': {
+    AppLanguage.turkish: 'Kaş',
+    AppLanguage.english: 'Eyebrows',
+  },
+  'avatarAttrMouth': {
+    AppLanguage.turkish: 'Ağız',
+    AppLanguage.english: 'Mouth',
+  },
+  'avatarAttrSkin': {
+    AppLanguage.turkish: 'Ten Rengi',
+    AppLanguage.english: 'Skin Color',
+  },
+  'avatarAttrAccessory': {
+    AppLanguage.turkish: 'Aksesuar',
+    AppLanguage.english: 'Accessories',
+  },
+  'islandMapWelcomeMessage': {
+    AppLanguage.turkish: 'Merhaba! Bu bizim büyük adamız — istediğin bölgeyi seç, hemen keşfe başlayalım! 🗺️✨',
+    AppLanguage.english: 'Hello! This is our big island — choose the region you want and let\'s start exploring right away! 🗺️✨',
+    AppLanguage.chinese: '你好！这是我们的大岛 — 选择你想要的区域，让我们马上开始探索吧！🗺️✨',
+    AppLanguage.spanish: '¡Hola! Esta es nuestra gran isla — elige la región que quieras y ¡empecemos a explorar de inmediato! 🗺️✨',
+    AppLanguage.hindi: 'नमस्ते! यह हमारा बड़ा द्वीप है — अपना मनचाहा क्षेत्र चुनें और चलिए तुरंत खोजना शुरू करते हैं! 🗺️✨',
+    AppLanguage.french: 'Bonjour ! Voici notre grande île — choisis la région que tu veux et commençons à explorer tout de suite ! 🗺️✨',
+    AppLanguage.arabic: 'مرحباً! هذه جزيرتنا الكبيرة — اختر المنطقة التي تريدها ودعنا نبدأ الاستكشاف على الفور! 🗺️✨',
+    AppLanguage.portuguese: 'Olá! Esta é a nossa grande ilha — escolha a região que você deseja e vamos começar a explorar agora mesmo! 🗺️✨',
+    AppLanguage.bengali: 'হ্যালো! এটি আমাদের বড় দ্বীপ — আপনি যে অঞ্চলটি চান তা চয়ন করুন এবং চলুন এখনই অন্বেষণ শুরু করি! 🗺️✨',
+    AppLanguage.russian: 'Здравствуйте! Это наш большой остров — выберите желаемый регион и давайте начнем исследовать прямо сейчас! 🗺️✨',
+    AppLanguage.urdu: 'ہیلو! یہ ہمارا بڑا جزیرہ ہے — اپنی پسند کا علاقہ منتخب کریں اور آئیے فوراً دریافت کرنا شروع کریں! 🗺️✨',
+    AppLanguage.azerbaijani: 'Salam! Bu bizim böyük adamızdır — istədiyiniz bölgəni seçin və dərhal kəşf etməyə başlayaq! 🗺️✨',
+    AppLanguage.german: 'Hallo! Das ist unsere große Insel — wähle die gewünschte Region und lass uns sofort mit dem Erkunden beginnen! 🗺️✨',
+  },
   'hello': {
     AppLanguage.turkish: 'Merhaba',
     AppLanguage.english: 'Hello',

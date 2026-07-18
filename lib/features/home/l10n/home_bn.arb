@@ -1,5 +1,53 @@
 {
   "@@locale": "bn",
+  "avatarAttrHair": "Hair Style",
+  "@avatarAttrHair": {
+    "description": "l10n: avatarAttrHair"
+  },
+  "avatarAttrHairColor": "Hair Color",
+  "@avatarAttrHairColor": {
+    "description": "l10n: avatarAttrHairColor"
+  },
+  "avatarAttrBeard": "Beard",
+  "@avatarAttrBeard": {
+    "description": "l10n: avatarAttrBeard"
+  },
+  "avatarAttrBeardColor": "Beard Color",
+  "@avatarAttrBeardColor": {
+    "description": "l10n: avatarAttrBeardColor"
+  },
+  "avatarAttrOutfit": "Outfit",
+  "@avatarAttrOutfit": {
+    "description": "l10n: avatarAttrOutfit"
+  },
+  "avatarAttrOutfitColor": "Outfit Color",
+  "@avatarAttrOutfitColor": {
+    "description": "l10n: avatarAttrOutfitColor"
+  },
+  "avatarAttrEyes": "Eyes",
+  "@avatarAttrEyes": {
+    "description": "l10n: avatarAttrEyes"
+  },
+  "avatarAttrEyebrow": "Eyebrows",
+  "@avatarAttrEyebrow": {
+    "description": "l10n: avatarAttrEyebrow"
+  },
+  "avatarAttrMouth": "Mouth",
+  "@avatarAttrMouth": {
+    "description": "l10n: avatarAttrMouth"
+  },
+  "avatarAttrSkin": "Skin Color",
+  "@avatarAttrSkin": {
+    "description": "l10n: avatarAttrSkin"
+  },
+  "avatarAttrAccessory": "Accessories",
+  "@avatarAttrAccessory": {
+    "description": "l10n: avatarAttrAccessory"
+  },
+  "islandMapWelcomeMessage": "হ্যালো! এটি আমাদের বড় দ্বীপ — আপনি যে অঞ্চলটি চান তা চয়ন করুন এবং চলুন এখনই অন্বেষণ শুরু করি! 🗺️✨",
+  "@islandMapWelcomeMessage": {
+    "description": "l10n: islandMapWelcomeMessage"
+  },
   "hello": "হ্যালো",
   "@hello": {
     "description": "l10n: hello"

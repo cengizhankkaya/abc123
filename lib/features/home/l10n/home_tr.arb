@@ -1,5 +1,53 @@
 {
   "@@locale": "tr",
+  "avatarAttrHair": "Saç Stili",
+  "@avatarAttrHair": {
+    "description": "l10n: avatarAttrHair"
+  },
+  "avatarAttrHairColor": "Saç Rengi",
+  "@avatarAttrHairColor": {
+    "description": "l10n: avatarAttrHairColor"
+  },
+  "avatarAttrBeard": "Sakal",
+  "@avatarAttrBeard": {
+    "description": "l10n: avatarAttrBeard"
+  },
+  "avatarAttrBeardColor": "Sakal Rengi",
+  "@avatarAttrBeardColor": {
+    "description": "l10n: avatarAttrBeardColor"
+  },
+  "avatarAttrOutfit": "Kıyafet",
+  "@avatarAttrOutfit": {
+    "description": "l10n: avatarAttrOutfit"
+  },
+  "avatarAttrOutfitColor": "Kıyafet Rengi",
+  "@avatarAttrOutfitColor": {
+    "description": "l10n: avatarAttrOutfitColor"
+  },
+  "avatarAttrEyes": "Göz",
+  "@avatarAttrEyes": {
+    "description": "l10n: avatarAttrEyes"
+  },
+  "avatarAttrEyebrow": "Kaş",
+  "@avatarAttrEyebrow": {
+    "description": "l10n: avatarAttrEyebrow"
+  },
+  "avatarAttrMouth": "Ağız",
+  "@avatarAttrMouth": {
+    "description": "l10n: avatarAttrMouth"
+  },
+  "avatarAttrSkin": "Ten Rengi",
+  "@avatarAttrSkin": {
+    "description": "l10n: avatarAttrSkin"
+  },
+  "avatarAttrAccessory": "Aksesuar",
+  "@avatarAttrAccessory": {
+    "description": "l10n: avatarAttrAccessory"
+  },
+  "islandMapWelcomeMessage": "Merhaba! Bu bizim büyük adamız — istediğin bölgeyi seç, hemen keşfe başlayalım! 🗺️✨",
+  "@islandMapWelcomeMessage": {
+    "description": "l10n: islandMapWelcomeMessage"
+  },
   "hello": "Merhaba",
   "@hello": {
     "description": "l10n: hello"

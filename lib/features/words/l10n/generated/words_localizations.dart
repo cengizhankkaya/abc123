@@ -5,8 +5,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'words_localizations_ar.dart';
+import 'words_localizations_az.dart';
+import 'words_localizations_bn.dart';
+import 'words_localizations_de.dart';
 import 'words_localizations_en.dart';
+import 'words_localizations_es.dart';
+import 'words_localizations_fr.dart';
+import 'words_localizations_hi.dart';
+import 'words_localizations_pt.dart';
+import 'words_localizations_ru.dart';
 import 'words_localizations_tr.dart';
+import 'words_localizations_ur.dart';
+import 'words_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -91,7 +102,21 @@ abstract class WordsLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('tr')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('az'),
+    Locale('bn'),
+    Locale('de'),
+    Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('hi'),
+    Locale('pt'),
+    Locale('ru'),
+    Locale('tr'),
+    Locale('ur'),
+    Locale('zh')
+  ];
 
   /// l10n: wordsTitle
   ///
@@ -727,7 +752,21 @@ class _WordsLocalizationsDelegate extends LocalizationsDelegate<WordsLocalizatio
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'tr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'az',
+        'bn',
+        'de',
+        'en',
+        'es',
+        'fr',
+        'hi',
+        'pt',
+        'ru',
+        'tr',
+        'ur',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_WordsLocalizationsDelegate old) => false;
@@ -736,10 +775,32 @@ class _WordsLocalizationsDelegate extends LocalizationsDelegate<WordsLocalizatio
 WordsLocalizations lookupWordsLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return WordsLocalizationsAr();
+    case 'az':
+      return WordsLocalizationsAz();
+    case 'bn':
+      return WordsLocalizationsBn();
+    case 'de':
+      return WordsLocalizationsDe();
     case 'en':
       return WordsLocalizationsEn();
+    case 'es':
+      return WordsLocalizationsEs();
+    case 'fr':
+      return WordsLocalizationsFr();
+    case 'hi':
+      return WordsLocalizationsHi();
+    case 'pt':
+      return WordsLocalizationsPt();
+    case 'ru':
+      return WordsLocalizationsRu();
     case 'tr':
       return WordsLocalizationsTr();
+    case 'ur':
+      return WordsLocalizationsUr();
+    case 'zh':
+      return WordsLocalizationsZh();
   }
 
   throw FlutterError(

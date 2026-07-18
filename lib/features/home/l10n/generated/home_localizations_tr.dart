@@ -9,6 +9,43 @@ class HomeLocalizationsTr extends HomeLocalizations {
   HomeLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Saç Stili';
+
+  @override
+  String get avatarAttrHairColor => 'Saç Rengi';
+
+  @override
+  String get avatarAttrBeard => 'Sakal';
+
+  @override
+  String get avatarAttrBeardColor => 'Sakal Rengi';
+
+  @override
+  String get avatarAttrOutfit => 'Kıyafet';
+
+  @override
+  String get avatarAttrOutfitColor => 'Kıyafet Rengi';
+
+  @override
+  String get avatarAttrEyes => 'Göz';
+
+  @override
+  String get avatarAttrEyebrow => 'Kaş';
+
+  @override
+  String get avatarAttrMouth => 'Ağız';
+
+  @override
+  String get avatarAttrSkin => 'Ten Rengi';
+
+  @override
+  String get avatarAttrAccessory => 'Aksesuar';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'Merhaba! Bu bizim büyük adamız — istediğin bölgeyi seç, hemen keşfe başlayalım! 🗺️✨';
+
+  @override
   String get hello => 'Merhaba';
 
   @override

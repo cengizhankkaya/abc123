@@ -17,7 +17,7 @@ android {
     namespace "com.cengizhan.abc123"
     compileSdk = 36
     // NDK versiyonunu sabitle - strip hatasını önlemek için
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         // Java 11 kullanılıyor - modern Android için önerilen

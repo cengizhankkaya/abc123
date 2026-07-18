@@ -4,7 +4,6 @@ import 'package:abc123/features/parent_panel/application/usecases/get_progress_s
 import 'package:abc123/features/parent_panel/application/usecases/get_recommendations.dart';
 import 'package:abc123/features/parent_panel/domain/entities/module_progress.dart';
 import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart';
-import 'package:abc123/features/parent_panel/presentation/providers/premium_provider.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/module_progress_card.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/recommendation_tile.dart';
 import 'package:abc123/features/parent_panel/presentation/widgets/summary_overview_card.dart';
@@ -32,8 +31,6 @@ class _ParentDashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final getProgressSummary = context.watch<GetProgressSummary>();
-    final premium = context.watch<PremiumProvider>();
-
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final isTr = Localizations.localeOf(context).languageCode == 'tr';
@@ -103,11 +100,7 @@ class _ParentDashboardView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Premium Yönetim ve Durum Banner'ı
-                  _PremiumBanner(premium: premium, isDark: isDark, isTr: isTr),
-                  const SizedBox(height: 20),
-
-                  // Genel Özet Kartı
+                  // Genel Özet Kartı�zet Kartı
                   const SummaryOverviewCard(),
                   const SizedBox(height: 24),
 
@@ -186,120 +179,3 @@ class _ParentDashboardView extends StatelessWidget {
   }
 }
 
-class _PremiumBanner extends StatelessWidget {
-  const _PremiumBanner({
-    required this.premium,
-    required this.isDark,
-    required this.isTr,
-  });
-
-  final PremiumProvider premium;
-  final bool isDark;
-  final bool isTr;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: premium.isPremium
-              ? [const Color(0xFF00C853), const Color(0xFF009624)]
-              : [context.semanticColors.warning, Color(0xFFE65100)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: (premium.isPremium ? Color(0xFF00C853) : context.semanticColors.warning)
-                .withValues(alpha: 0.3),
-            blurRadius: 14,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.2),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              premium.isPremium ? Icons.workspace_premium_rounded : Icons.star_rounded,
-              color: Colors.white,
-              size: 28,
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  premium.isPremium
-                      ? (isTr ? 'Aktif Premium Abonelik' : 'Active Premium Subscription')
-                      : (isTr
-                          ? 'ABC123 Premium — Detaylı İstatistikler'
-                          : 'ABC123 Premium — Advanced Analytics'),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  premium.isPremium
-                      ? (isTr
-                          ? 'Tüm modül raporları ve sınırsız özellikler açık'
-                          : 'Full access to all module reports and limits')
-                      : (isTr
-                          ? 'Daha kapsamlı analiz ve sınırsız pratik için yükseltin'
-                          : 'Upgrade for deep analytical insights and unlimited practice'),
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.88),
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor:
-                  premium.isPremium ? const Color(0xFF009624) : const Color(0xFFE65100),
-              elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            ),
-            onPressed: () {
-              // Abonelik değiştir / Simülasyon tetikle
-              premium.togglePremium();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    premium.isPremium
-                        ? (isTr
-                            ? 'Premium Abonelik Açıldı! 🎉'
-                            : 'Premium Subscription Activated! 🎉')
-                        : (isTr ? 'Ücretsiz Plana Geçildi.' : 'Switched to Free Plan.'),
-                  ),
-                  duration: const Duration(seconds: 2),
-                ),
-              );
-            },
-            child: Text(
-              premium.isPremium ? (isTr ? 'Yönet' : 'Manage') : (isTr ? 'Yükselt' : 'Upgrade'),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

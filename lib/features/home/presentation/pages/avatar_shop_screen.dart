@@ -70,6 +70,19 @@ class _AvatarShopScreenState extends State<AvatarShopScreen> {
                 builder: (context, constraints) => FluttermojiCustomizer(
                   scaffoldHeight: constraints.maxHeight,
                   scaffoldWidth: constraints.maxWidth,
+                  attributeTitles: [
+                    h.avatarAttrHair,
+                    h.avatarAttrHairColor,
+                    h.avatarAttrBeard,
+                    h.avatarAttrBeardColor,
+                    h.avatarAttrOutfit,
+                    h.avatarAttrOutfitColor,
+                    h.avatarAttrEyes,
+                    h.avatarAttrEyebrow,
+                    h.avatarAttrMouth,
+                    h.avatarAttrSkin,
+                    h.avatarAttrAccessory,
+                  ],
                   theme: FluttermojiThemeData(
                     boxDecoration: const BoxDecoration(
                       color: Colors.white,

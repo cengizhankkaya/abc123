@@ -139,114 +139,111 @@ class ColorsLocalizationsPt extends ColorsLocalizations {
   String get colorFeedbackWrong => 'Tenta outra vez';
 
   @override
-  String get colorVisionHomeTitle => 'Color shapes';
+  String get colorVisionHomeTitle => 'Formas de cor';
 
   @override
-  String get colorVisionHomeSubtitle => 'Playful screening';
+  String get colorVisionHomeSubtitle => 'Scan divertido';
 
   @override
   String get colorVisionIntroDisclaimer =>
-      'Dotted pictures like gentle puzzles help explore how you see colors. This is not a medical test. Ask an eye doctor if you have concerns.';
+      'As imagens de pontos ajudam a descobrir como você vê as cores. Este não é um teste médico.';
 
   @override
-  String get colorVisionStart => 'Let\'s play';
+  String get colorVisionStart => 'Vamos jogar';
 
   @override
-  String get colorVisionQuestion => 'Which shape do you see in the dots?';
+  String get colorVisionQuestion => 'Qual forma você vê entre os pontos?';
 
   @override
-  String get colorVisionOptionCircle => 'Circle';
+  String get colorVisionOptionCircle => 'Círculo';
 
   @override
-  String get colorVisionOptionSquare => 'Square';
+  String get colorVisionOptionSquare => 'Quadrado';
 
   @override
-  String get colorVisionOptionTriangle => 'Triangle';
+  String get colorVisionOptionTriangle => 'Triângulo';
 
   @override
-  String get colorVisionOptionNothing => 'No shape';
+  String get colorVisionOptionNothing => 'Nenhuma forma';
 
   @override
   String colorVisionProgress(int current, int total) {
-    return 'Plate $current of $total';
+    return 'Placa $current / $total';
   }
 
   @override
   String colorVisionScoreLine(int correct, int total) {
-    return '$correct of $total matched';
+    return '$correct / $total corretas';
   }
 
   @override
-  String get colorVisionResultsTitle => 'Round complete!';
+  String get colorVisionResultsTitle => 'Rodada terminada!';
 
   @override
-  String get colorVisionResultsGood => 'You spotted most shapes — nice!';
+  String get colorVisionResultsGood => 'Você encontrou a maioria das formas — ótimo!';
 
   @override
-  String get colorVisionResultsMixed => 'Some plates were tricky. That happens to many kids.';
+  String get colorVisionResultsMixed => 'Algumas placas foram difíceis; isso é comum.';
 
   @override
   String get colorVisionResultsLow =>
-      'Many shapes were hard to see. This game cannot diagnose color vision. A specialist can help if you are worried.';
+      'Muitas formas foram difíceis de ver. Este jogo não diagnostica daltonismo.';
 
   @override
-  String get colorVisionResultsMedicalNote =>
-      'For learning and curiosity only. It does not replace professional eye care.';
+  String get colorVisionResultsMedicalNote => 'Apenas para aprendizado e curiosidade.';
 
   @override
-  String get colorVisionPlayAgain => 'Play again';
+  String get colorVisionPlayAgain => 'Jogar novamente';
 
   @override
-  String get colorVisionIntroTitle => 'Hidden shapes';
+  String get colorVisionIntroTitle => 'Formas ocultas';
 
   @override
-  String get colorVisionPlateBadgeRg => 'Red · green mix';
+  String get colorVisionPlateBadgeRg => 'Vermelho · Verde';
 
   @override
-  String get colorVisionPlateBadgeBy => 'Blue · yellow mix';
+  String get colorVisionPlateBadgeBy => 'Azul · Amarelo';
 
   @override
-  String get colorVisionOptionDiamond => 'Diamond';
+  String get colorVisionOptionDiamond => 'Diamante';
 
   @override
-  String get colorVisionResultHintTitle => 'Playful summary';
+  String get colorVisionResultHintTitle => 'Resumo divertido';
 
   @override
-  String get colorVisionProfileTypical =>
-      'On these plates your answers look similar to typical color vision for kids.';
+  String get colorVisionProfileTypical => 'Suas respostas parecem se alinhar com a visão típica.';
 
   @override
   String get colorVisionProfileRedGreenAxis =>
-      'You missed more red–green style plates. That pattern is often discussed with red–green color blindness (protanopia or deuteranopia family). This app cannot separate those types.';
+      'Você errou mais as placas de estilo vermelho-verde.';
 
   @override
   String get colorVisionProfileBlueYellowAxis =>
-      'You missed more blue–yellow style plates. That can sometimes relate to blue–yellow (tritan-type) difficulty — only an eye specialist can say for sure.';
+      'Você errou mais as placas de estilo azul-amarelo.';
 
   @override
   String get colorVisionProfileMixed =>
-      'Both plate styles were difficult. Screen brightness, night mode, or tired eyes can change scores. Try again in good light.';
+      'Ambos os tipos foram difíceis. Tente novamente com boa luz.';
 
   @override
-  String get colorVisionProfileInconclusive =>
-      'No clear pattern — try again on a bright screen at arm’s length.';
+  String get colorVisionProfileInconclusive => 'Nenhum padrão claro.';
 
   @override
   String colorVisionScoreRgLine(int correct, int total) {
-    return 'Red–green style: $correct / $total';
+    return 'Vermelho-verde: $correct / $total';
   }
 
   @override
   String colorVisionScoreByLine(int correct, int total) {
-    return 'Blue–yellow style: $correct / $total';
+    return 'Azul-amarelo: $correct / $total';
   }
 
   @override
-  String get colorFailureLoad => 'O jogo não pôde ser carregado. Por favor, tente novamente.';
+  String get colorFailureLoad => 'Falha ao carregar o jogo.';
 
   @override
-  String get colorFailurePalette => 'Não foi possível obter a paleta de cores.';
+  String get colorFailurePalette => 'Não foi possível obter a paleta.';
 
   @override
-  String get colorFailureUnknown => 'Ocorreu um erro inesperado.';
+  String get colorFailureUnknown => 'Ocorreu um erro.';
 }

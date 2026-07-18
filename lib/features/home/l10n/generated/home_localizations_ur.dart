@@ -9,6 +9,43 @@ class HomeLocalizationsUr extends HomeLocalizations {
   HomeLocalizationsUr([String locale = 'ur']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Hair Style';
+
+  @override
+  String get avatarAttrHairColor => 'Hair Color';
+
+  @override
+  String get avatarAttrBeard => 'Beard';
+
+  @override
+  String get avatarAttrBeardColor => 'Beard Color';
+
+  @override
+  String get avatarAttrOutfit => 'Outfit';
+
+  @override
+  String get avatarAttrOutfitColor => 'Outfit Color';
+
+  @override
+  String get avatarAttrEyes => 'Eyes';
+
+  @override
+  String get avatarAttrEyebrow => 'Eyebrows';
+
+  @override
+  String get avatarAttrMouth => 'Mouth';
+
+  @override
+  String get avatarAttrSkin => 'Skin Color';
+
+  @override
+  String get avatarAttrAccessory => 'Accessories';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'ہیلو! یہ ہمارا بڑا جزیرہ ہے — اپنی پسند کا علاقہ منتخب کریں اور آئیے فوراً دریافت کرنا شروع کریں! 🗺️✨';
+
+  @override
   String get hello => 'سلام';
 
   @override

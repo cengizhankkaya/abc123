@@ -9,6 +9,43 @@ class HomeLocalizationsBn extends HomeLocalizations {
   HomeLocalizationsBn([String locale = 'bn']) : super(locale);
 
   @override
+  String get avatarAttrHair => 'Hair Style';
+
+  @override
+  String get avatarAttrHairColor => 'Hair Color';
+
+  @override
+  String get avatarAttrBeard => 'Beard';
+
+  @override
+  String get avatarAttrBeardColor => 'Beard Color';
+
+  @override
+  String get avatarAttrOutfit => 'Outfit';
+
+  @override
+  String get avatarAttrOutfitColor => 'Outfit Color';
+
+  @override
+  String get avatarAttrEyes => 'Eyes';
+
+  @override
+  String get avatarAttrEyebrow => 'Eyebrows';
+
+  @override
+  String get avatarAttrMouth => 'Mouth';
+
+  @override
+  String get avatarAttrSkin => 'Skin Color';
+
+  @override
+  String get avatarAttrAccessory => 'Accessories';
+
+  @override
+  String get islandMapWelcomeMessage =>
+      'হ্যালো! এটি আমাদের বড় দ্বীপ — আপনি যে অঞ্চলটি চান তা চয়ন করুন এবং চলুন এখনই অন্বেষণ শুরু করি! 🗺️✨';
+
+  @override
   String get hello => 'হ্যালো';
 
   @override

@@ -2,6 +2,7 @@ import 'package:abc123/features/parent_panel/domain/entities/recommendation.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:abc123/core/theme/theme_helper.dart';
+import 'package:abc123/core/navigation/route_paths.dart';
 
 /// Ebeveyn Paneli: Akıllı Öneri Kartı (Smart Recommendation Tile).
 class RecommendationTile extends StatelessWidget {
@@ -90,7 +91,13 @@ class RecommendationTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 InkWell(
-                  onTap: () => context.push(recommendation.routePath),
+                  onTap: () {
+                    if (recommendation.routePath == AppRoutes.quests) {
+                      context.go(recommendation.routePath);
+                    } else {
+                      context.push(recommendation.routePath);
+                    }
+                  },
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),

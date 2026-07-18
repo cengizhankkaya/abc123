@@ -118,6 +118,78 @@ abstract class HomeLocalizations {
     Locale('zh')
   ];
 
+  /// l10n: avatarAttrHair
+  ///
+  /// In en, this message translates to:
+  /// **'Hair Style'**
+  String get avatarAttrHair;
+
+  /// l10n: avatarAttrHairColor
+  ///
+  /// In en, this message translates to:
+  /// **'Hair Color'**
+  String get avatarAttrHairColor;
+
+  /// l10n: avatarAttrBeard
+  ///
+  /// In en, this message translates to:
+  /// **'Beard'**
+  String get avatarAttrBeard;
+
+  /// l10n: avatarAttrBeardColor
+  ///
+  /// In en, this message translates to:
+  /// **'Beard Color'**
+  String get avatarAttrBeardColor;
+
+  /// l10n: avatarAttrOutfit
+  ///
+  /// In en, this message translates to:
+  /// **'Outfit'**
+  String get avatarAttrOutfit;
+
+  /// l10n: avatarAttrOutfitColor
+  ///
+  /// In en, this message translates to:
+  /// **'Outfit Color'**
+  String get avatarAttrOutfitColor;
+
+  /// l10n: avatarAttrEyes
+  ///
+  /// In en, this message translates to:
+  /// **'Eyes'**
+  String get avatarAttrEyes;
+
+  /// l10n: avatarAttrEyebrow
+  ///
+  /// In en, this message translates to:
+  /// **'Eyebrows'**
+  String get avatarAttrEyebrow;
+
+  /// l10n: avatarAttrMouth
+  ///
+  /// In en, this message translates to:
+  /// **'Mouth'**
+  String get avatarAttrMouth;
+
+  /// l10n: avatarAttrSkin
+  ///
+  /// In en, this message translates to:
+  /// **'Skin Color'**
+  String get avatarAttrSkin;
+
+  /// l10n: avatarAttrAccessory
+  ///
+  /// In en, this message translates to:
+  /// **'Accessories'**
+  String get avatarAttrAccessory;
+
+  /// l10n: islandMapWelcomeMessage
+  ///
+  /// In en, this message translates to:
+  /// **'Hello! This is our big island — choose the region you want and let\'s start exploring right away! 🗺️✨'**
+  String get islandMapWelcomeMessage;
+
   /// l10n: hello
   ///
   /// In en, this message translates to:

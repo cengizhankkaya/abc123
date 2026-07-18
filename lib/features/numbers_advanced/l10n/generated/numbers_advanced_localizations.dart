@@ -5,8 +5,19 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'numbers_advanced_localizations_ar.dart';
+import 'numbers_advanced_localizations_az.dart';
+import 'numbers_advanced_localizations_bn.dart';
+import 'numbers_advanced_localizations_de.dart';
 import 'numbers_advanced_localizations_en.dart';
+import 'numbers_advanced_localizations_es.dart';
+import 'numbers_advanced_localizations_fr.dart';
+import 'numbers_advanced_localizations_hi.dart';
+import 'numbers_advanced_localizations_pt.dart';
+import 'numbers_advanced_localizations_ru.dart';
 import 'numbers_advanced_localizations_tr.dart';
+import 'numbers_advanced_localizations_ur.dart';
+import 'numbers_advanced_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -67,8 +78,8 @@ abstract class NumbersAdvancedLocalizations {
 
   final String localeName;
 
-  static NumbersAdvancedLocalizations of(BuildContext context) {
-    return Localizations.of<NumbersAdvancedLocalizations>(context, NumbersAdvancedLocalizations)!;
+  static NumbersAdvancedLocalizations? of(BuildContext context) {
+    return Localizations.of<NumbersAdvancedLocalizations>(context, NumbersAdvancedLocalizations);
   }
 
   static const LocalizationsDelegate<NumbersAdvancedLocalizations> delegate =
@@ -93,7 +104,21 @@ abstract class NumbersAdvancedLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('tr')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('az'),
+    Locale('bn'),
+    Locale('de'),
+    Locale('en'),
+    Locale('es'),
+    Locale('fr'),
+    Locale('hi'),
+    Locale('pt'),
+    Locale('ru'),
+    Locale('tr'),
+    Locale('ur'),
+    Locale('zh')
+  ];
 
   /// l10n: mathHubTitle
   ///
@@ -383,7 +408,21 @@ class _NumbersAdvancedLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'tr'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'az',
+        'bn',
+        'de',
+        'en',
+        'es',
+        'fr',
+        'hi',
+        'pt',
+        'ru',
+        'tr',
+        'ur',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_NumbersAdvancedLocalizationsDelegate old) => false;
@@ -392,10 +431,32 @@ class _NumbersAdvancedLocalizationsDelegate
 NumbersAdvancedLocalizations lookupNumbersAdvancedLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'ar':
+      return NumbersAdvancedLocalizationsAr();
+    case 'az':
+      return NumbersAdvancedLocalizationsAz();
+    case 'bn':
+      return NumbersAdvancedLocalizationsBn();
+    case 'de':
+      return NumbersAdvancedLocalizationsDe();
     case 'en':
       return NumbersAdvancedLocalizationsEn();
+    case 'es':
+      return NumbersAdvancedLocalizationsEs();
+    case 'fr':
+      return NumbersAdvancedLocalizationsFr();
+    case 'hi':
+      return NumbersAdvancedLocalizationsHi();
+    case 'pt':
+      return NumbersAdvancedLocalizationsPt();
+    case 'ru':
+      return NumbersAdvancedLocalizationsRu();
     case 'tr':
       return NumbersAdvancedLocalizationsTr();
+    case 'ur':
+      return NumbersAdvancedLocalizationsUr();
+    case 'zh':
+      return NumbersAdvancedLocalizationsZh();
   }
 
   throw FlutterError(

@@ -657,8 +657,7 @@ class _AvatarGreeting extends StatelessWidget {
               ],
             ),
             child: Text(
-              'Merhaba! Bu bizim büyük adamız — '
-              'istediğin bölgeyi seç, hemen keşfe başlayalım! 🗺️✨',
+              context.homeL10n!.islandMapWelcomeMessage,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 13.5 * scale.clamp(0.5, 1.0),

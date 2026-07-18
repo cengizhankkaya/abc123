@@ -45,9 +45,12 @@ gen_one lib/features/ar/l10n ar_feature_en.arb ar_localizations.dart ArLocalizat
 echo "==> Colors"
 gen_one lib/features/colors/l10n colors_en.arb colors_localizations.dart ColorsLocalizations lib/features/colors/l10n/generated
 
+echo "==> Numbers Advanced"
+gen_one lib/features/numbers_advanced/l10n numbers_advanced_en.arb numbers_advanced_localizations.dart NumbersAdvancedLocalizations lib/features/numbers_advanced/l10n/generated
+
 echo "==> home_string_lookup.dart"
 dart run tool/export_home_string_lookup.dart
 
-dart format lib/core/l10n/generated lib/features/home/l10n/generated lib/features/draw/l10n/generated lib/features/shapes/l10n/generated lib/features/info/l10n/generated lib/features/words/l10n/generated lib/features/ar/l10n/generated lib/features/colors/l10n/generated lib/features/home/l10n/home_string_lookup.dart
+dart format lib/core/l10n/generated lib/features/home/l10n/generated lib/features/draw/l10n/generated lib/features/shapes/l10n/generated lib/features/info/l10n/generated lib/features/words/l10n/generated lib/features/ar/l10n/generated lib/features/colors/l10n/generated lib/features/numbers_advanced/l10n/generated lib/features/home/l10n/home_string_lookup.dart
 
 echo "Tamam."
